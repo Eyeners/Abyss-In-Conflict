@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Factions>
+  <Faction identifier="aic_wardens_pmc" initialreputation="0" minreputation="-100" maxreputation="100" menuorder="4">
+    <Icon name="AICWardensPMCIcon" texture="%ModDir%/卫戍者/贴图/卫戍者PMC白.png" sourcerect="0,0,1254,1254" color="255,255,255,255" />
+  </Faction>
+  <Faction identifier="aic_gdf_contribution" initialreputation="0" minreputation="0" maxreputation="10000" menuorder="5" controlledoutpostpercentage="0" startoutpost="false">
+    <Icon name="AICGDFContributionIcon" texture="%ModDir%/卫戍者/贴图/卫戍者PMC白.png" sourcerect="0,0,1254,1254" color="255,255,255,255" />
+  </Faction>
+</Factions>

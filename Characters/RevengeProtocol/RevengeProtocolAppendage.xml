@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<huskappendage>
+  <!-- The blades are appendage sprites so armor can hide the hands without hiding them.
+       Damage is handled by the real hand limbs in the custom ragdoll. -->
+  <limb id="15" name="Revenge protocol right blade" type="None" width="20" height="30" density="1" healthindex="3" attackpriority="0" ignorecollisions="True" flip="True" scale="0.5" spriteorientation="90" hide="False" canbeseveredalive="False">
+    <sprite texture="%ModDir%/践行者/贴图/复仇协议近战武器.png" sourcerect="0,0,389,82" origin="0.39,0.5" depth="0.005" ignoretint="true" />
+  </limb>
+  <joint name="Right hand to revenge protocol right blade" limb1="3" limb2="15" limb1anchor="0,0" limb2anchor="0,0" upperlimit="0" lowerlimit="0" canbesevered="False" limitenabled="False" weldjoint="True" />
+
+  <limb id="16" name="Revenge protocol left blade" type="None" width="20" height="30" density="1" healthindex="2" attackpriority="0" ignorecollisions="True" flip="True" scale="0.5" spriteorientation="90" hide="False" canbeseveredalive="False">
+    <sprite texture="%ModDir%/践行者/贴图/复仇协议近战武器.png" sourcerect="0,0,389,82" origin="0.39,0.5" depth="0.175" ignoretint="true" />
+  </limb>
+  <joint name="Left hand to revenge protocol left blade" limb1="5" limb2="16" limb1anchor="0,0" limb2anchor="0,0" upperlimit="0" lowerlimit="0" canbesevered="False" limitenabled="False" weldjoint="True" />
+</huskappendage>

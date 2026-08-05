@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item
+    name="军团突击步枪[AI]"
+    identifier="aic_wardens_legion_raider_ai"
+    hideinmenus="true"
+    category="Weapon"
+    cargocontaineridentifier="metalcrate"
+    tags="mediumitem,weapon,gun,mountableweapon,provocativetohumanai"
+    scale="0.075"
+    impactsoundtag="impact_metal_light"
+    description="供突袭者怪物使用的简化武器。">
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/军团突击步枪本体.png"
+      sourcerect="0,0,1413,465"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="144" height="49" density="30" />
+
+    <Holdable
+      slots="RightHand+LeftHand"
+      controlpose="true"
+      holdpos="62,-12"
+      holdangle="-33"
+      aimpos="60,-2"
+      handle1="-260,-120"
+      handle2="62,18">
+      <Conditional recoilstabilized="lte 0" />
+      <StatusEffect type="Always" target="Character" SpeedMultiplier="0.92" setvalue="true" />
+    </Holdable>
+
+    <RangedWeapon
+      reload="0.15"
+      holdtrigger="true"
+      barrelpos="708,40"
+      spread="2.8"
+      unskilledspread="4.6"
+      combatpriority="80"
+      drawhudwhenequipped="true"
+      crosshairscale="0.22">
+
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <ParticleEmitter particle="muzzleflash" scalemultiplier="1.2,1.2" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="229,221,215,255" />
+
+      <StatusEffect type="OnUse" target="This" forceplaysounds="true">
+        <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" copyentityangle="true" />
+        <Sound file="%ModDir%\卫戍者\音效\军团1.ogg" volume="0.9" type="OnUse" range="3000" selectionmode="Random" />
+        <Sound file="%ModDir%\卫戍者\音效\军团2.ogg" volume="0.9" type="OnUse" range="3000" selectionmode="Random" />
+        <Sound file="%ModDir%\卫戍者\音效\军团3.ogg" volume="0.9" type="OnUse" range="3000" selectionmode="Random" />
+        <Sound file="%ModDir%\卫戍者\音效\军团4.ogg" volume="0.9" type="OnUse" range="3000" selectionmode="Random" />
+      </StatusEffect>
+
+      <StatusEffect type="OnUse" target="This">
+        <Explosion range="180.0" force="0.56" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="7.0" />
+      </StatusEffect>
+
+      <StatusEffect type="OnUse" target="Contained">
+        <Use />
+      </StatusEffect>
+
+      <RequiredItems items="aic_wardens_legion_raider_ai_mag" type="Contained" msg="ItemMsgAmmoRequired" />
+
+      <StatusEffect type="OnSpawn" target="This" targetitemcomponent="ItemContainer">
+        <SpawnItem identifier="aic_wardens_legion_raider_ai_mag" spawnposition="ThisInventory" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </RangedWeapon>
+
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorslot="0" containedstateindicatorstyle="bullet">
+      <Containable items="aic_wardens_legion_raider_ai_mag" hide="true" itempos="6,-11" />
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+    </ItemContainer>
+
+    <AITarget sightrange="3000" soundrange="2250" fadeouttime="7" />
+  </Item>
+
+  <Item
+    name="军团突击步枪弹匣[AI]"
+    identifier="aic_wardens_legion_raider_ai_mag"
+    hideinmenus="true"
+    maxstacksize="1"
+    category="Weapon"
+    scale="0.075"
+    tags="smallitem,handheldammo"
+    impactsoundtag="impact_metal_light">
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/军团突击步枪弹匣.png"
+      sourcerect="0,0,223,284"
+      depth="0.56"
+      origin="0.5,0.5" />
+
+    <Body width="34" height="46" density="25" />
+
+    <ItemContainer
+      hideitems="true"
+      capacity="1"
+      drawinventory="false"
+      canbeselected="false"
+      showconditionincontainedstateindicator="true"
+      spawnwithid="aic_wardens_legion_raider_ai_round"
+      removecontaineditemsondeconstruct="true"
+      removecontaineditemsonremove="true"
+      containedstateindicatorstyle="bullet">
+
+      <Containable items="aic_wardens_legion_raider_ai_round" />
+
+      <StatusEffect type="OnUse" target="This" condition="-0" disabledeltatime="true">
+        <SpawnItem identifiers="aic_wardens_legion_raider_ai_round" spawnposition="ThisInventory" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </ItemContainer>
+  </Item>
+
+  <Item
+    name="军团步枪弹[AI]"
+    identifier="aic_wardens_legion_raider_ai_round"
+    hideinmenus="true"
+    category="Weapon"
+    interactthroughwalls="true"
+    tags="smallitem"
+    impactsoundtag="impact_metal_light"
+    scale="0.5">
+
+    <InventoryIcon texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.7,0.6" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+    <Body width="17" height="6" density="30" />
+
+    <Projectile characterusable="true" hitscan="true" removeonhit="true">
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="200,255,80,175" scalemultiplier="1,0.8" />
+      <Attack structuredamage="1" targetforce="5" itemdamage="10" severlimbsprobability="0.5" penetration="0.12">
+        <Affliction identifier="gunshotwound" strength="11" />
+        <Affliction identifier="explosiondamage" strength="5" />
+        <Affliction identifier="bleeding" strength="3" />
+        <Affliction identifier="stun" strength="0.02" probability="0.1" />
+        <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+          <Affliction identifier="radiationsickness" strength="14" />
+        </StatusEffect>
+      </Attack>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="2,2" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+      </StatusEffect>
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+
+  <Item
+    name="锤砧型战斗步枪[AI]"
+    identifier="aic_wardens_hammeranvil_raider_ai"
+    hideinmenus="true"
+    category="Weapon"
+    cargocontaineridentifier="metalcrate"
+    tags="mediumitem,weapon,gun,mountableweapon,provocativetohumanai"
+    scale="0.075"
+    impactsoundtag="impact_metal_light"
+    description="供突袭者怪物使用的简化武器。">
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/锤砧型战斗步枪（基础贴图）.png"
+      sourcerect="0,0,1594,363"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="162" height="38" density="30" />
+
+    <Holdable
+      slots="RightHand+LeftHand"
+      controlpose="true"
+      holdpos="65,-10"
+      holdangle="-35"
+      aimpos="63,0"
+      handle1="-300,-112"
+      handle2="70,27">
+      <Conditional recoilstabilized="lte 0" />
+      <StatusEffect type="Always" target="Character" SpeedMultiplier="0.92" setvalue="true" />
+    </Holdable>
+
+    <RangedWeapon
+      reload="0.24"
+      holdtrigger="true"
+      barrelpos="800,103"
+      spread="2.9"
+      unskilledspread="4.7"
+      combatpriority="80"
+      drawhudwhenequipped="true"
+      crosshairscale="0.22">
+
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <ParticleEmitter particle="muzzleflash" scalemultiplier="1.2,1.2" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="229,221,215,255" />
+
+      <StatusEffect type="OnUse" target="This" forceplaysounds="true">
+        <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" copyentityangle="true" />
+        <Sound file="%ModDir%\卫戍者\音效\锤砧.ogg" volume="0.9" type="OnUse" range="3000" selectionmode="Random" />
+        <Sound file="%ModDir%\卫戍者\音效\锤砧2.ogg" volume="0.9" type="OnUse" range="3000" selectionmode="Random" />
+        <Sound file="%ModDir%\卫戍者\音效\锤砧3.ogg" volume="0.9" type="OnUse" range="3000" selectionmode="Random" />
+      </StatusEffect>
+
+      <StatusEffect type="OnUse" target="This">
+        <Explosion range="180.0" force="0.56" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="7.0" />
+      </StatusEffect>
+
+      <StatusEffect type="OnUse" target="Contained">
+        <Use />
+      </StatusEffect>
+
+      <RequiredItems items="aic_wardens_hammeranvil_raider_ai_mag" type="Contained" msg="ItemMsgAmmoRequired" />
+
+      <StatusEffect type="OnSpawn" target="This" targetitemcomponent="ItemContainer">
+        <SpawnItem identifier="aic_wardens_hammeranvil_raider_ai_mag" spawnposition="ThisInventory" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </RangedWeapon>
+
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorslot="0" containedstateindicatorstyle="bullet">
+      <Containable items="aic_wardens_hammeranvil_raider_ai_mag" hide="true" itempos="-7,-9" />
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+    </ItemContainer>
+
+    <AITarget sightrange="3000" soundrange="2250" fadeouttime="7" />
+  </Item>
+
+  <Item
+    name="锤砧弹匣[AI]"
+    identifier="aic_wardens_hammeranvil_raider_ai_mag"
+    hideinmenus="true"
+    maxstacksize="1"
+    category="Weapon"
+    scale="0.075"
+    tags="smallitem,handheldammo"
+    impactsoundtag="impact_metal_light">
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/锤砧弹匣.png"
+      sourcerect="0,0,148,235"
+      depth="0.56"
+      origin="0.5,0.5" />
+
+    <Body width="28" height="42" density="25" />
+
+    <ItemContainer
+      hideitems="true"
+      capacity="1"
+      drawinventory="false"
+      canbeselected="false"
+      showconditionincontainedstateindicator="true"
+      spawnwithid="aic_wardens_hammeranvil_raider_ai_round"
+      removecontaineditemsondeconstruct="true"
+      removecontaineditemsonremove="true"
+      containedstateindicatorstyle="bullet">
+
+      <Containable items="aic_wardens_hammeranvil_raider_ai_round" />
+
+      <StatusEffect type="OnUse" target="This" condition="-0" disabledeltatime="true">
+        <SpawnItem identifiers="aic_wardens_hammeranvil_raider_ai_round" spawnposition="ThisInventory" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </ItemContainer>
+  </Item>
+
+  <Item
+    name="锤砧步枪弹[AI]"
+    identifier="aic_wardens_hammeranvil_raider_ai_round"
+    hideinmenus="true"
+    category="Weapon"
+    interactthroughwalls="true"
+    tags="smallitem"
+    impactsoundtag="impact_metal_light"
+    scale="0.5">
+
+    <InventoryIcon texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.7,0.6" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+    <Body width="17" height="6" density="30" />
+
+    <Projectile characterusable="true" hitscan="true" removeonhit="true">
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="200,255,80,175" scalemultiplier="1,0.8" />
+      <Attack structuredamage="1" targetforce="10" itemdamage="20" severlimbsprobability="0.8" penetration="0.21">
+        <Affliction identifier="gunshotwound" strength="23" />
+        <Affliction identifier="explosiondamage" strength="12" />
+        <Affliction identifier="bleeding" strength="5" />
+        <Affliction identifier="stun" strength="0.05" probability="0.2" />
+        <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+          <Affliction identifier="radiationsickness" strength="18" />
+        </StatusEffect>
+      </Attack>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="2,2" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+      </StatusEffect>
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+
+  <Item
+    name="投矛器加速步枪[AI]"
+    identifier="aic_wardens_spearlauncher_raider_ai"
+    hideinmenus="true"
+    category="Weapon"
+    cargocontaineridentifier="metalcrate"
+    tags="mediumitem,weapon,gun,mountableweapon,provocativetohumanai"
+    scale="0.060"
+    impactsoundtag="impact_metal_light"
+    description="供突袭者怪物使用的简化武器。">
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/投矛器加速步枪本体.png"
+      sourcerect="0,0,1905,670"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="182" height="44" density="32" />
+
+    <Holdable
+      slots="RightHand+LeftHand"
+      controlpose="true"
+      holdpos="70,-14"
+      holdangle="-35"
+      aimpos="68,-4"
+      handle1="-410,-150"
+      handle2="380,-41">
+      <Conditional recoilstabilized="lte 0" />
+      <StatusEffect type="Always" target="Character" SpeedMultiplier="0.9" setvalue="true" />
+    </Holdable>
+
+    <RangedWeapon
+      reload="0.26"
+      holdtrigger="true"
+      barrelpos="946,145"
+      spread="1.9"
+      unskilledspread="3.2"
+      combatpriority="90"
+      drawhudwhenequipped="true"
+      crosshairscale="0.22">
+
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <ParticleEmitter particle="muzzleflash" scalemultiplier="1.3,1.3" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="229,221,215,255" />
+
+      <StatusEffect type="OnUse" target="This" forceplaysounds="true">
+        <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" copyentityangle="true" />
+        <Sound file="%ModDir%\卫戍者\音效\Gauss Rifle 1.ogg" volume="0.95" type="OnUse" range="3200" selectionmode="Random" />
+        <Sound file="%ModDir%\卫戍者\音效\Gauss Rifle 2.ogg" volume="0.95" type="OnUse" range="3200" selectionmode="Random" />
+      </StatusEffect>
+
+      <StatusEffect type="OnUse" target="This">
+        <Explosion range="190.0" force="0.7" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="8.0" />
+      </StatusEffect>
+
+      <StatusEffect type="OnUse" target="Contained">
+        <Use />
+      </StatusEffect>
+
+      <RequiredItems items="aic_wardens_spearlauncher_raider_ai_mag" type="Contained" msg="ItemMsgAmmoRequired" />
+
+      <StatusEffect type="OnSpawn" target="This" targetitemcomponent="ItemContainer">
+        <SpawnItem identifier="aic_wardens_spearlauncher_raider_ai_mag" spawnposition="ThisInventory" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </RangedWeapon>
+
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorslot="0" containedstateindicatorstyle="bullet">
+      <Containable items="aic_wardens_spearlauncher_raider_ai_mag" hide="true" itempos="5.8,-5.5" />
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+    </ItemContainer>
+
+    <AITarget sightrange="3200" soundrange="2400" fadeouttime="7" />
+  </Item>
+
+  <Item
+    name="投矛器穿杆弹匣[AI]"
+    identifier="aic_wardens_spearlauncher_raider_ai_mag"
+    hideinmenus="true"
+    maxstacksize="1"
+    category="Weapon"
+    scale="0.060"
+    tags="smallitem,handheldammo"
+    impactsoundtag="impact_metal_light">
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/投矛器加速步枪钨钢弹匣实物.png"
+      sourcerect="0,0,298,313"
+      depth="0.56"
+      origin="0.5,0.5" />
+
+    <Body width="32" height="46" density="25" />
+
+    <ItemContainer
+      hideitems="true"
+      capacity="1"
+      drawinventory="false"
+      canbeselected="false"
+      showconditionincontainedstateindicator="true"
+      spawnwithid="aic_wardens_spearlauncher_raider_ai_round"
+      removecontaineditemsondeconstruct="true"
+      removecontaineditemsonremove="true"
+      containedstateindicatorstyle="bullet">
+
+      <Containable items="aic_wardens_spearlauncher_raider_ai_round" />
+
+      <StatusEffect type="OnUse" target="This" condition="-0" disabledeltatime="true">
+        <SpawnItem identifiers="aic_wardens_spearlauncher_raider_ai_round" spawnposition="ThisInventory" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </ItemContainer>
+  </Item>
+
+  <Item
+    name="投矛器穿杆[AI]"
+    identifier="aic_wardens_spearlauncher_raider_ai_round"
+    hideinmenus="true"
+    category="Weapon"
+    interactthroughwalls="true"
+    tags="smallitem"
+    impactsoundtag="impact_metal_light"
+    scale="0.5">
+
+    <InventoryIcon texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.7,0.6" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+    <Body width="17" height="6" density="30" />
+
+    <Projectile characterusable="true" hitscan="true" removeonhit="true">
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,220,190,175" scalemultiplier="1.1,0.9" />
+      <Attack structuredamage="4" targetforce="24" itemdamage="34" severlimbsprobability="1.2" penetration="0.4">
+        <Affliction identifier="gunshotwound" strength="41" />
+        <Affliction identifier="explosiondamage" strength="21" />
+        <Affliction identifier="bleeding" strength="7" />
+        <Affliction identifier="stun" strength="0.4" probability="0.3" />
+      </Attack>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="2,2" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+      </StatusEffect>
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+</Items>

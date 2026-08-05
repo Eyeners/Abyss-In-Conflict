@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Character SpeciesName="human_aic_revenge_protocol" SpeciesTranslationOverride="复仇协议机械体" DisplayName="" Tags="aic_machine,aic_revenge_protocol_unit" Group="human" Humanoid="True" HasInfo="True" CanInteract="True" CanClimb="True" ForceSlowClimbing="False" Husk="False" NonHuskedSpecies="human" UseHuskAppendage="False" NeedsAir="False" NeedsWater="False" UseHumanAI="False" IsMachine="True" Genders="True" SpecifierTags="True" CanSpeak="False" ShowHealthBar="True" UseBossHealthBar="False" Noise="100" Visibility="100" BloodDecal="" BleedParticleAir="spark" BleedParticleWater="spark" BleedParticleMultiplier="1" CanEat="False" EatingSpeed="10" UsePathFinding="True" PathFinderPriority="1" HideInSonar="False" HideInThermalGoggles="False" SonarDisruption="0" DistantSonarRange="0" DisableDistance="25000" SoundInterval="10" DrawLast="False" AITurretPriority="1" AISlowTurretPriority="1" DespawnContainer="despawncontainer" MusicType="monster" MusicCommonness="1" MusicRangeMultiplier="1">
+  <ragdoll path="%ModDir%/Characters/RevengeProtocol/Ragdolls/AicRevengeProtocolDefaultRagdoll.xml" />
+  <animations folder="default" />
+
+  <StatusEffect type="OnActive" target="This" interval="1" disabledeltatime="true">
+    <Affliction identifier="aic_revenge_protocol_incapacitation_device" strength="1" />
+  </StatusEffect>
+
+  <damageemitter particle="spark" particleamount="5" anglemin="0" anglemax="360" scalemin="0.4" scalemax="0.8" velocitymin="20" velocitymax="120" emitinterval="0" particlespersecond="0" highqualitycollisiondetection="False" copyentityangle="False" />
+  <bloodemitter particle="spark" particleamount="4" anglemin="0" anglemax="360" scalemin="0.3" scalemax="0.7" velocitymin="10" velocitymax="80" emitinterval="0" particlespersecond="0" highqualitycollisiondetection="False" copyentityangle="False" />
+  <gibemitter particle="spark" particleamount="12" anglemin="0" anglemax="360" scalemin="0.5" scalemax="1" velocitymin="50" velocitymax="300" emitinterval="0" particlespersecond="0" highqualitycollisiondetection="False" copyentityangle="False" />
+
+  <health Vitality="100" DoesBleed="False" CrushDepth="Infinity" UseHealthWindow="True" BleedingReduction="10" BurnReduction="0" ConstantHealthRegeneration="0" HealthRegenerationWhenEating="0" StunImmunity="False" PoisonImmunity="True" PoisonVulnerability="0" EmpVulnerability="2" ApplyMovementPenalties="True" DieFromBeheading="False" AllowSeveringLegs="False" ApplyAfflictionColors="False">
+    <MedUISilhouette texture="Content/UI/Health/MedUI_Silhouette.png" columns="8" rows="2" sourcerect="0,0,1008,748" />
+    <MedUIExtra texture="Content/UI/Health/MedUIExtra.png" columns="4" rows="4" sourcerect="0,0,1024,1024" />
+    <Limb name="Head">
+      <Sprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="1,0,126,374" highlightarea="41,0,45,54" />
+      <Highlightsprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="1,515,126,374" />
+      <VitalityMultiplier type="damage" multiplier="2.0" />
+    </Limb>
+    <Limb name="Torso">
+      <Sprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="631,0,126,374" highlightarea="29,56,70,134" />
+      <Highlightsprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="631,515,126,374" />
+    </Limb>
+    <Limb name="LeftArm">
+      <Sprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="379,0,126,374" highlightarea="1,69,27,140" />
+      <Highlightsprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="379,515,126,374" />
+      <VitalityMultiplier type="damage" multiplier="0.5" />
+    </Limb>
+    <Limb name="RightArm">
+      <Sprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="127,0,126,374" highlightarea="100,69,27,140" />
+      <Highlightsprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="127,515,126,374" />
+      <VitalityMultiplier type="damage" multiplier="0.5" />
+    </Limb>
+    <Limb name="LeftLeg">
+      <Sprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="505,0,126,374" highlightarea="3,180,57,194" />
+      <Highlightsprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="505,515,126,374" />
+      <VitalityMultiplier type="damage" multiplier="0.5" />
+    </Limb>
+    <Limb name="RightLeg">
+      <Sprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="253,0,126,374" highlightarea="68,180,57,194" />
+      <Highlightsprite texture="Content/UI/Health/MedUIAtlas.png" sourcerect="253,515,126,374" />
+      <VitalityMultiplier type="damage" multiplier="0.5" />
+    </Limb>
+  </health>
+
+  <ai CombatStrength="120" Sight="2.5" Hearing="3" AggressionHurt="150" AggressionGreed="5" FleeHealthThreshold="0" AttackWhenProvoked="True" AvoidGunfire="False" DamageThreshold="0" AvoidTime="3" MinFleeTime="20" AggressiveBoarding="True" EnforceAggressiveBehaviorForMissions="True" TargetOuterWalls="False" RandomAttack="False" CanOpenDoors="True" UsePathFindingToGetInside="True" KeepDoorsClosed="False" AvoidAbyss="True" StayInAbyss="True" StartAggression="100" MaxAggression="400" AggressionCumulation="100">
+    <target tag="provocative" state="Attack" priority="150" ignoreifnotinsamesub="True" attackpattern="Straight" />
+    <target tag="crawler" state="Attack" priority="120" ignoreincapacitated="True" attackpattern="Straight" />
+    <target tag="mudraptor" state="Attack" priority="120" ignoreincapacitated="True" attackpattern="Straight" />
+    <target tag="husk" state="Attack" priority="120" ignoreincapacitated="True" attackpattern="Straight" />
+    <target tag="human" state="Attack" priority="100" ignoreincapacitated="True" attackpattern="Straight" />
+    <target tag="stronger" state="Attack" priority="90" ignoreincapacitated="True" attackpattern="Straight" />
+    <target tag="equal" state="Attack" priority="85" ignoreincapacitated="True" attackpattern="Straight" />
+    <target tag="weaker" state="Attack" priority="80" ignoreincapacitated="True" attackpattern="Straight" />
+    <target tag="door" state="Attack" priority="15" ignoreinside="True" />
+    <target tag="wall" state="Attack" priority="10" ignoreinside="True" />
+  </ai>
+
+  <!-- The original hand-slot indices stay generic for inherited items. Dedicated hand
+       slots at the end keep the protocol blades equipped without replacing those items. -->
+  <inventory arrowslot="9" Slots="Card, Headset, Head, InnerClothes, OuterClothes, Any, Any, Bag, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, HealthInterface, LeftHand, RightHand" AccessibleWhenAlive="False" Commonness="1">
+    <Item slot="LeftHand" equip="true" Identifier="aic_revenge_protocol_blade_ai" />
+    <Item slot="RightHand" equip="true" Identifier="aic_revenge_protocol_blade_ai" />
+  </inventory>
+  <names path="Content/Characters/Human/names.xml" />
+  <!-- Direct editor spawns have no human CharacterInfo to inherit. These presets
+       provide the GENDER tag needed by the vanilla human sprite paths. -->
+  <Heads>
+    <Head tags="head1,male" sheetindex="0,0" />
+    <Head tags="head1,female" sheetindex="0,0" />
+  </Heads>
+  <Vars>
+    <Var var="GENDER" tags="female,male" />
+  </Vars>
+  <MenuCategory var="GENDER" />
+  <Pronouns var="GENDER" />
+  <!-- Forces CharacterInfo to create the four valid empty attachment choices. -->
+  <HeadAttachments />
+</Character>

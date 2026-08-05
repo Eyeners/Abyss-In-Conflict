@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item
+    name="固定式医疗装置"
+    identifier="aic_ship_medical_decontamination_sprayer"
+    description="喷洒纳米治疗喷雾，可治愈大部分损伤。"
+    category="Electrical"
+    tags="signal,aic_shipitem"
+    requireaimtouse="false"
+    characterusable="false"
+    scale="0.32"
+    impactsoundtag="impact_metal_light"
+    maxstacksize="1">
+    <Sprite
+      texture="%ModDir%/Items/ShipItems/贴图/固定喷头设备图集.png"
+      sourcerect="480,0,96,128"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <RepairTool
+      firedamage="0"
+      structurefixamount="0"
+      range="350"
+      powerconsumption="100"
+      barrelpos="0,0"
+      barrelrotation="270"
+      fireprobability="0"
+      spread="35"
+      unskilledspread="35"
+      repairmultiple="true"
+      repairmultiplewalls="false"
+      repairthroughwalls="false"
+      repairthroughholes="true"
+      targetstructures="false"
+      hititems="false"
+      ignorecharacters="false"
+      characterusable="false"
+      requireaimtouse="false"
+      usablein="Both">
+      <ParticleEmitter
+        particle="aic_medical_fixfoam"
+        particlespersecond="35"
+        copyentityangle="true"
+        anglemin="-18"
+        anglemax="18"
+        velocitymin="450"
+        velocitymax="750"
+        distancemin="10"
+        distancemax="20" />
+      <sound file="Content/Items/Tools/Sprayer.ogg" type="OnUse" range="750" volume="0.65" loop="true" />
+      <StatusEffect type="OnUse" target="UseTarget">
+        <ReduceAffliction identifier="burning" amount="12.5" />
+        <ReduceAffliction identifier="bleeding" amount="20" />
+        <ReduceAffliction identifier="gunshotwound" amount="7" />
+        <ReduceAffliction identifier="blunttrauma" amount="7" />
+        <ReduceAffliction identifier="bitewounds" amount="7" />
+        <ReduceAffliction identifier="lacerations" amount="7" />
+        <ReduceAffliction identifier="burn" amount="10" />
+        <ReduceAffliction identifier="acidburn" amount="5" />
+        <ReduceAffliction identifier="explosiondamage" amount="8" />
+        <ReduceAffliction identifier="organdamage" amount="6" />
+        <ReduceAffliction identifier="infection" amount="1500" />
+        <ReduceAffliction type="damage" amount="1" />
+        <ReduceAffliction type="burn" amount="3" />
+        <ReduceAffliction type="alieninfection" amount="5" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="Character">
+        <ReduceAffliction identifier="burning" amount="12.5" />
+        <ReduceAffliction identifier="bleeding" amount="20" />
+        <ReduceAffliction identifier="gunshotwound" amount="7" />
+        <ReduceAffliction identifier="blunttrauma" amount="7" />
+        <ReduceAffliction identifier="bitewounds" amount="7" />
+        <ReduceAffliction identifier="lacerations" amount="7" />
+        <ReduceAffliction identifier="burn" amount="10" />
+        <ReduceAffliction identifier="acidburn" amount="5" />
+        <ReduceAffliction identifier="explosiondamage" amount="8" />
+        <ReduceAffliction identifier="organdamage" amount="6" />
+        <ReduceAffliction identifier="infection" amount="1500" />
+        <ReduceAffliction type="damage" amount="1" />
+        <ReduceAffliction type="burn" amount="3" />
+        <ReduceAffliction type="alieninfection" amount="5" />
+      </StatusEffect>
+    </RepairTool>
+
+    <!-- The invisible light component turns circuit signals into continuous UseItem calls. -->
+    <LightComponent
+      lightcolor="255,255,255,0"
+      range="10"
+      powerconsumption="0"
+      IsOn="false"
+      castshadows="false"
+      allowingameediting="false">
+      <StatusEffect type="OnActive" target="This">
+        <UseItem />
+      </StatusEffect>
+    </LightComponent>
+
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <RequiredItem items="screwdriver" type="Equipped" />
+      <input name="power" displayname="connection.power" />
+      <input name="toggle" displayname="connection.togglestate" />
+      <input name="set_state" displayname="connection.setstate" />
+    </ConnectionPanel>
+  </Item>
+</Items>

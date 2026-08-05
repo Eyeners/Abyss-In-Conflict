@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="自爆背包" identifier="aic_self_destruct_backpack" category="Equipment" tags="mediumitem,mobilecontainer,largemobilecontainer,tool,aic,aic_active_backpack,aic_self_destruct_backpack" showcontentsintooltip="true" scale="0.5" fireproof="true" description="穿戴后按Q启动不可逆的3秒倒计时，随后引发一次核爆。" impactsoundtag="impact_soft">
+    <InventoryIcon texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" depth="0.6" />
+    <Body width="60" height="100" density="15" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <StatusEffect type="OnWearing" target="Character" setvalue="true" disabledeltatime="true" />
+      <sprite name="AIC Self-destruct Backpack" canbehiddenbyotherwearables="false" canbehiddenbyitem="deepdivinglarge" texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" limb="Torso" depthlimb="Waist" inherittexturescale="true" origin="1.1,0.5" />
+      <StatValue stattype="MovementSpeed" value="-0.3" />
+      <StatValue stattype="PropulsionSpeed" value="-0.3" />
+    </Wearable>
+    <Holdable slots="RightHand+LeftHand" holdpos="0,-70" handle1="-5,50" handle2="10,50" holdangle="0" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" allowswappingwhenpicked="false">
+      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.7" setvalue="true" disabledeltatime="true" />
+      <StatValue stattype="PropulsionSpeed" value="-0.3" />
+    </Holdable>
+    <PowerContainer capacity="3" charge="3" canbeselected="false" />
+    <LightComponent characterusable="false" lightcolor="255,32,16,160" range="90" powerconsumption="0" ison="false" blinkfrequency="6" castshadows="false" allowingameediting="false">
+      <StatusEffect type="OnActive" target="This" targetitemcomponent="PowerContainer" charge="-0.01" disabledeltatime="true" checkconditionalalways="true" forceplaysounds="true">
+        <Conditional charge="gte 2.999" targetitemcomponentname="PowerContainer" />
+        <Sound file="%ModDir%/Sounds/爆炸按钮.ogg" range="750" volume="1.0" />
+      </StatusEffect>
+      <StatusEffect type="OnActive" target="This" targetitemcomponent="PowerContainer" charge="-0.01" delay="0.3516" stackable="false" disabledeltatime="true" checkconditionalalways="true" forceplaysounds="true">
+        <Conditional charge="gt 2.985" targetitemcomponentname="PowerContainer" />
+        <Sound file="%ModDir%/Sounds/爆炸计时.ogg" range="750" volume="0.8" />
+      </StatusEffect>
+      <StatusEffect type="OnActive" target="This" delay="2.5887" stackable="false" disabledeltatime="true" allowwhenbroken="true">
+        <Sound file="Content/Items/Weapons/ExplosionLarge1.ogg" range="50000" />
+        <Sound file="Content/Items/Weapons/ExplosionLarge2.ogg" range="50000" />
+        <SteamTimeLineEvent title="Nuke detonated" description="A self-destruct backpack detonated!" icon="steam_explosion" />
+        <Explosion range="1500.0" structuredamage="600" itemdamage="1000" ballastfloradamage="1000" force="50.0" severlimbsprobability="2" debris="true" decal="explosion" decalsize="1.0" camerashake="1000" camerashakerange="50000" flashrange="10000" flashduration="5.0" screencolor="255,255,255,255" screencolorrange="5000" screencolorduration="5.0" penetration="0.6">
+          <Affliction identifier="explosiondamage" strength="1000" />
+          <Affliction identifier="burn" strength="1000" />
+          <Affliction identifier="radiationsickness" strength="100" />
+          <Affliction identifier="bleeding" strength="40" probability="0.05" dividebylimbcount="false" />
+          <Affliction identifier="stun" strength="30" />
+        </Explosion>
+        <Explosion range="2000" force="0.0" smoke="false" sparks="false" empstrength="2.5" applyfireeffects="false" ignorecover="true">
+          <Affliction identifier="emp" strength="50" multiplybymaxvitality="true" />
+        </Explosion>
+        <ParticleEmitter particle="underwaterexplosion" anglemin="0" anglemax="360" particleamount="3" velocitymin="0" velocitymax="0" scalemin="15" scalemax="15" />
+        <SpawnItem identifier="nuclearaftereffectemitter" spawnposition="This" />
+        <Remove />
+      </StatusEffect>
+    </LightComponent>
+    <CustomInterface canbeselected="false" drawhudwhenequipped="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.09,0.07" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.30" style="ItemUI" />
+      <TickBox text="启动自爆" targetitemcomponent="LightComponent" propertyname="IsOn" continuoussignal="false" getvalueinterval="0.1" />
+    </CustomInterface>
+    <ItemContainer capacity="12" maxstacksize="32" depth="0.5">
+      <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier" />
+    </ItemContainer>
+  </Item>
+</Items>

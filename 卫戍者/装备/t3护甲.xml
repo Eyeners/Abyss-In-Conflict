@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="壁垒实验型动力装甲" identifier="aic_wardens_bastion_experimental_powerarmor" category="Equipment,Diving" subcategory="卫戍者护甲" tags="mobilecontainer,armor,clothing,diving,deepdiving,divinggear_wearableindoors,human,aic_wardens_armor" scale="0.167" fireproof="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate" description="地球防卫部队在后感染时期研发的实验型动力装甲，表层由超导物质层和护盾电容串联成迈斯纳护盾发生器，可防护金属实弹、荷电粒子、等离子团等各种带电攻击，其自身的材质和装甲则保障了对于激光等武器的防护能力。">
+    <PreferredContainer primary="divingsuitcontainer,divingsuitlocker,steelcabinet" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="60">
+      <RequiredSkill identifier="mechanical" level="70" />
+      <RequiredSkill identifier="weapons" level="60" />
+      <RequiredSkill identifier="electrical" level="60" />
+      <RequiredItem identifier="aic_material_high_entropy_alloy" amount="8" />
+      <RequiredItem identifier="aic_material_superconductive_material" amount="8" />
+      <RequiredItem identifier="aic_material_shield_capacitor" amount="4" />
+      <RequiredItem identifier="aic_material_superconductive_bearing" amount="4" />
+    </Fabricate>
+    <InventoryIcon texture="%ModDir%/卫戍者/贴图/壁垒总图.png" sourcerect="1741,100,318,260" scale="0.2" origin="0.5,0.5" />
+    <Sprite name="Bastion Experimental Power Armor Item" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" sourcerect="1439,400,498,368" depth="0.55" origin="0.5,0.5" />
+    <ContainedSprite name="Bastion Experimental Power Armor In Diving Locker" allowedcontainertags="divingsuitcontainervertical,divingsuitcontainerwindow" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" sourcerect="1958,424,238,652" depth="0.55" origin="-0.12,-0.117" />
+    <Body radius="45" width="34" density="20" />
+    <Wearable slots="OuterClothes+Head" msg="ItemMsgEquipSelect" displaycontainedstatus="true" canbepicked="true" pickkey="Select">
+      <sprite name="Bastion Experimental Helmet" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="Head" inheritlimbdepth="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hidelimb="true" alphaclipotherwearables="true" sourcerect="1508,121,173,167" origin="0.44,0.86" depthlimb="LeftHand" canbehiddenbyotherwearables="false" hideotherwearables="true">
+        <LightComponent LightColor="220,220,220,120" range="5000" castshadows="false" powerconsumption="infinity" IsOn="true" flicker="0.1" flickerspeed="0.5" pulsefrequency="0.1" pulseamount="0.1" />
+      </sprite>
+      <sprite name="Bastion Experimental Torso" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="Torso" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="628,338,326,577" origin="0.56,0.5" inheritlimbdepth="true" />
+      <sprite name="Bastion Experimental Right Hand" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftHand" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="1310,791,82,105" origin="0.4,0.25" />
+      <sprite name="Bastion Experimental Left Hand" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightHand" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="1006,791,82,105" origin="0.4,0.25" />
+      <sprite name="Bastion Experimental Right Arm" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightArm" depthlimb="RightForearm" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="1264,91,144,255" origin="0.5,0.5" />
+      <sprite name="Bastion Experimental Left Arm" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftArm" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="977,91,144,255" origin="0.5,0.5" />
+      <sprite name="Bastion Experimental Right Forearm" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftForearm" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="1288,500,97,169" origin="0.5,0.4" />
+      <sprite name="Bastion Experimental Left Forearm" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightForearm" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="1002,500,97,169" origin="0.5,0.4" depthlimb="RightArm" />
+      <sprite name="Bastion Experimental Waist" texture="%ModDir%/卫戍者/贴图/阵线外层空间作战护甲原型.png" limb="Waist" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.5,0.5" sourcerect="192,186,51,49" depthlimb="LeftFoot" />
+      <sprite name="Bastion Experimental Right Thigh" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftThigh" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="441,178,163,325" origin="0.45,0.6" />
+      <sprite name="Bastion Experimental Left Thigh" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightThigh" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="149,178,163,325" origin="0.45,0.6" inheritlimbdepth="true" />
+      <sprite name="Bastion Experimental Right Leg" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftLeg" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="451,702,143,320" origin="0.5,0.5" />
+      <sprite name="Bastion Experimental Left Leg" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightLeg" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="165,702,143,320" origin="0.5,0.5" depthlimb="Torso" />
+      <sprite name="Bastion Experimental Left Foot" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="960,957,161,97" origin="0.5,0.5" depthlimb="RightArm" />
+      <sprite name="Bastion Experimental Right Foot" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftFoot" inheritlimbdepth="true" sound="footstep_armor_heavy" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="1264,955,161,97" origin="0.5,0.5" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound" damagemultiplier="0.08" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.08" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="explosiondamage" damagemultiplier="0.4" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bleeding" damagemultiplier="0.10" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.2" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_heat_buildup" damagemultiplier="0.4" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="acidburn" damagemultiplier="0.2" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="radiationsickness" damagemultiplier="0.08" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="electricshock" damagemultiplier="0.2" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="stun" damagemultiplier="0.3" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="concussion" damagemultiplier="0.1" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="huskinfection,aic_nanite_infection" probabilitymultiplier="0.05" damagesound="LimbArmor" />
+      <StatusEffect type="OnWearing" target="Character" UseHullOxygen="true" PressureProtection="9500.0" setvalue="true" disabledeltatime="true" />
+      <StatusEffect type="OnContained" target="Contained" Condition="1.0" targetslot="0" interval="1" disabledeltatime="true">
+        <Conditional Voltage="gt 0.01" targetcontainer="true" targetgrandparent="true" targetitemcomponent="Powered" />
+        <RequiredItem items="refillableoxygensource" type="Contained" excludebroken="false" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained,Character" UseHullOxygen="false" OxygenAvailable="1000.0" comparison="And" targetslot="0">
+        <RequiredItem items="oxygensource" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained" Condition="1.0" comparison="And" targetslot="0" interval="1" disabledeltatime="true">
+        <Conditional IsDead="false" />
+        <Conditional InWater="false" />
+        <Conditional HullOxygenPercentage="gt 50" />
+        <RequiredItem items="refillableoxygensource" type="Contained" excludebroken="false" excludefullcondition="true" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained" UseHullOxygen="false" Condition="-0.3" comparison="And" targetslot="0">
+        <Conditional targetcontainer="true" targetgrandparent="true" IsDead="false" />
+        <Conditional targetcontainer="true" targetgrandparent="true" DecreasedOxygenConsumption="lt 99" />
+        <Conditional targetcontainer="true" targetgrandparent="true" HullOxygenPercentage="lt 50" />
+        <Conditional targetcontainer="true" targetgrandparent="true" NeedsAir="true" />
+        <Conditional InWater="false" />
+        <RequiredItem items="oxygensource" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained" UseHullOxygen="false" Condition="-0.3" comparison="And" targetslot="0">
+        <Conditional targetcontainer="true" targetgrandparent="true" IsDead="false" />
+        <Conditional targetcontainer="true" targetgrandparent="true" DecreasedOxygenConsumption="lt 99" />
+        <Conditional targetcontainer="true" targetgrandparent="true" NeedsAir="true" />
+        <Conditional InWater="true" />
+        <RequiredItem items="oxygensource" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Character" interval="1.5" disabledeltatime="true">
+        <Affliction identifier="aic_wardens_assisted_exoskeleton" amount="1" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Character" interval="1.5" disabledeltatime="true">
+        <Affliction identifier="aic_wardens_experimental_protection" amount="1" />
+        <Affliction identifier="aic_wardens_experimental_protection_gunshot" amount="1" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Character,this" SpeedMultiplier="1.35" setvalue="true" comparison="And">
+        <Conditional HasTag="eq aic_bastion_booster_on" />
+        <Conditional InWater="true" />
+        <sound file="Content/Items/Diving/ScooterLoop.ogg" range="500.0" loop="true" />
+        <ParticleEmitter particle="bubbles" ScaleMultiplier="0.3,0.3" EmitInterval="0.05" ParticleAmount="1" ColorMultiplier="255,255,255,255" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="This" interval="0.25" disabledeltatime="true">
+        <LuaHook name="aic_bastion_shield_sprite_update" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Character,This" disabledeltatime="true">
+        <Affliction identifier="aic_nightvision" amount="60" />
+        <Conditional targetself="true" targetitemcomponent="LightComponent" IsOn="true" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="This,Character" voltage="1.0" interval="0.1" setvalue="true" comparison="And">
+        <Conditional IsLocalPlayer="true" aic_nightvision="gt 0" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Character" stunresistance="15" setvalue="true" disabledeltatime="true" />
+      <StatValue stattype="MaximumHealthMultiplier" value="0.18" />
+      <StatValue stattype="WalkingSpeed" value="0.12" />
+      <StatValue stattype="SwimmingSpeed" value="0.08" />
+      <StatValue stattype="PropulsionSpeed" value="0.08" />
+      <StatValue stattype="FlowResistance" value="0.90" />
+      <SkillModifier skillidentifier="weapons" skillvalue="25" />
+      <CustomInterface canbeselected="true" drawhudwhenequipped="true" allowuioverlap="true">
+        <GuiFrame relativesize="0.09,0.07" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.09" style="ItemUI" />
+        <TickBox text="夜视/热成像">
+          <StatusEffect type="OnUse" targettype="This" IsOn="true" HudTint="50,255,50,30" interval="0.1" />
+          <StatusEffect type="OnUse" target="This" targetitemcomponent="StatusHUD" thermalgoggles="true" range="5000" overlaycolor="255,0,0,255" showdeadcharacters="true" showtexts="true" setvalue="true" />
+          <StatusEffect type="OnSecondaryUse" targettype="This" IsOn="false" HudTint="0,0,0,0" interval="0.1" />
+          <StatusEffect type="OnSecondaryUse" target="This" targetitemcomponent="StatusHUD" thermalgoggles="false" range="500" overlaycolor="72,119,72,120" showdeadcharacters="true" showtexts="true" setvalue="true" />
+        </TickBox>
+      </CustomInterface>
+      <CustomInterface canbeselected="true" drawhudwhenequipped="true" allowuioverlap="true" elementstates="true">
+        <GuiFrame relativesize="0.09,0.07" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.16" style="ItemUI" />
+        <TickBox text="迈斯纳护盾">
+          <StatusEffect type="OnUse" target="This" playsoundonrequireditemfailure="true">
+            <RequiredItem items="mobilebattery" type="Contained" targetslot="2" excludebroken="true" />
+            <LuaHook name="aic_bastion_shield_enable" />
+          </StatusEffect>
+          <StatusEffect type="OnUse" target="This" delay="0.05" disabledeltatime="true">
+            <LuaHook name="aic_bastion_shield_sprite_update" />
+          </StatusEffect>
+          <StatusEffect type="OnSecondaryUse" target="This">
+            <LuaHook name="aic_bastion_shield_disable" />
+          </StatusEffect>
+          <StatusEffect type="OnSecondaryUse" target="This" delay="0.05" disabledeltatime="true">
+            <LuaHook name="aic_bastion_shield_sprite_update" />
+          </StatusEffect>
+        </TickBox>
+      </CustomInterface>
+      <CustomInterface canbeselected="true" drawhudwhenequipped="true" allowuioverlap="true">
+        <GuiFrame relativesize="0.09,0.07" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.23" style="ItemUI" />
+        <TickBox text="水下推进">
+          <StatusEffect type="OnUse" target="This">
+            <LuaHook name="aic_bastion_booster_enable" />
+          </StatusEffect>
+          <StatusEffect type="OnSecondaryUse" target="This">
+            <LuaHook name="aic_bastion_booster_disable" />
+          </StatusEffect>
+        </TickBox>
+      </CustomInterface>
+    </Wearable>
+    <ItemComponent>
+      <StatusEffect type="OnSpawn" target="This">
+        <LuaHook name="aic_bastion_shield_enable" />
+      </StatusEffect>
+    </ItemComponent>
+    <StatusHUD drawhudwhenequipped="true" overlaycolor="72,119,72,120" range="500" thermalgoggles="false" showdeadcharacters="true" showtexts="true" />
+    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="0,-50" handle1="-10,-20" handle2="10,-20" holdangle="45" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" />
+    <ItemContainer capacity="0" maxstacksize="0" hideitems="true" containedstateindicatorstyle="tank" containedstateindicatorslot="0" autoinject="true">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="384,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="2" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="oxygensource" excludeditems="oxygenitetank" />
+        <Containable items="oxygensource">
+          <StatusEffect type="OnWearing" target="Character" OxygenAvailable="1000.0" UseHullOxygen="false" />
+        </Containable>
+        <Containable items="oxygenitetank">
+          <StatusEffect type="OnWearing" target="Character" SpeedMultiplier="1.2" setvalue="true" targetslot="0" comparison="And">
+            <Conditional IsDead="false" />
+            <Conditional HullOxygenPercentage="lt 50" />
+            <Conditional DecreasedOxygenConsumption="lt 99" />
+            <Conditional NeedsAir="true" />
+          </StatusEffect>
+        </Containable>
+      </SubContainer>
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="chem,syringe" />
+      </SubContainer>
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="mobilebattery" />
+      </SubContainer>
+      <SubContainer capacity="6" maxstacksize="8" slotsperrow="3">
+        <Containable items="smallitem,toolbelt,toolbox,bandolier" excludeditems="largemobilecontainer" />
+      </SubContainer>
+    </ItemContainer>
+  </Item>
+</Items>

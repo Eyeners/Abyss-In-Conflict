@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item
+    name="投矛器加速步枪"
+    identifier="aic_wardens_spearlauncher_rifle"
+    category="Weapon"
+    subcategory="卫戍者军备"
+    cargocontaineridentifier="metalcrate"
+    tags="mediumitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_wardens_weapon,aic_rifle,aic_scope_zoom2x"
+    scale="0.060"
+    impactsoundtag="impact_metal_light"
+    description="发射高速穿杆的电磁加速步枪，电磁加速机构能为弹体提供更高的初速，拥有强劲的穿透力和杀伤力。">
+
+    <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
+
+    <Price baseprice="920" sold="true">
+      <Price storeidentifier="merchantmilitary" multiplier="0.95" sold="true" minavailable="1" maxavailable="2" />
+      <Price storeidentifier="merchantarmory" multiplier="0.95" sold="true" minavailable="1" maxavailable="2" />
+      <Price storeidentifier="merchantoutpost" multiplier="1.35" sold="true" minavailable="1" maxavailable="2" />
+      <Price storeidentifier="merchantcity" multiplier="1.15" sold="true" minavailable="1" maxavailable="2" />
+    </Price>
+
+    <Fabricate suitablefabricators="fabricator" requiredtime="28">
+      <RequiredSkill identifier="weapons" level="55" />
+      <RequiredSkill identifier="mechanical" level="45" />
+      <RequiredItem identifier="copper" amount="3" />
+      <RequiredItem identifier="fpgacircuit" amount="1" />
+      <RequiredItem identifier="aic_material_tritium_fuelrod" amount="1" />
+      <RequiredItem identifier="aic_material_chromenickel_alloy" amount="2" />
+      <RequiredItem identifier="plastic" amount="4" />
+    </Fabricate>
+
+    <Deconstruct time="12">
+      <Item identifier="plastic" amount="1" />
+      <Item identifier="steel" amount="2" />
+      <Item identifier="aic_material_tungsten_steel" amount="1" />
+    </Deconstruct>
+
+    <InventoryIcon
+      texture="%ModDir%/卫戍者/贴图/投矛器加速步枪本体.png"
+      sourcerect="0,0,1905,670"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/投矛器加速步枪本体.png"
+      sourcerect="0,0,1905,670"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="182" height="44" density="32" />
+
+    <Holdable
+      slots="RightHand+LeftHand,Any"
+      controlpose="true"
+      holdpos="70,-14"
+      holdangle="-35"
+      aimpos="68,-4"
+      handle1="-410,-150"
+      handle2="380,-41">
+
+      <Conditional recoilstabilized="lte 0" />
+
+      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.84" setvalue="true" />
+      <StatusEffect type="OnSecondaryUse" target="Character" SpeedMultiplier="0.72" setvalue="true" />
+      <StatusEffect type="OnUse" target="Character" SpeedMultiplier="0.46" setvalue="true" />
+
+    </Holdable>
+
+    <RangedWeapon
+      reload="0.26"
+      holdtrigger="true"
+      barrelpos="946,145"
+      spread="2.2"
+      unskilledspread="4.0"
+      combatpriority="90"
+      drawhudwhenequipped="true"
+      crosshairscale="0.22">
+
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+
+      <ParticleEmitter particle="muzzleflash" scalemultiplier="1.3,1.3" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="229,221,215,255" />
+
+      <StatusEffect type="OnUse" target="This" forceplaysounds="true">
+        <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" copyentityangle="true" />
+        <Sound file="%ModDir%\卫戍者\音效\Gauss Rifle 1.ogg" volume="0.95" type="OnUse" range="3200" selectionmode="Random" />
+        <Sound file="%ModDir%\卫戍者\音效\Gauss Rifle 2.ogg" volume="0.95" type="OnUse" range="3200" selectionmode="Random" />
+      </StatusEffect>
+
+      <StatusEffect type="OnUse" target="This">
+        <Explosion range="190.0" force="0.7" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="8.0" />
+      </StatusEffect>
+
+      <StatusEffect type="OnUse" target="Contained">
+        <Use />
+      </StatusEffect>
+
+      <RequiredItems items="aic_wardens_spearlauncher_tungsten_mag" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="55" />
+
+    </RangedWeapon>
+
+    <ItemContainer
+      capacity="1"
+      maxstacksize="1"
+      hideitems="false"
+      containedstateindicatorslot="0"
+      containedstateindicatorstyle="bullet">
+
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+
+      <Containable items="aic_wardens_spearlauncher_tungsten_mag" hide="false" itempos="5.8,-5.5" setactive="true">
+
+        <StatusEffect type="OnInserted" target="This" holdpos="6,-24" holdangle="58" maxchargetime="999" setvalue="true" />
+
+        <StatusEffect type="OnInserted" target="This" setvalue="true">
+          <Conditional isactive="eq true" />
+          <Sound file="%ModDir%\卫戍者\音效\ReloadStart1.ogg" type="OnInserted" range="200.0" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%\卫戍者\音效\ReloadStart2.ogg" type="OnInserted" range="200.0" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%\卫戍者\音效\ReloadStart3.ogg" type="OnInserted" range="200.0" loop="false" volume="0.8" selectionmode="Random" />
+        </StatusEffect>
+
+        <StatusEffect type="OnInserted" target="This" holdpos="70,-14" holdangle="-35" disabledeltatime="true" checkconditionalalways="true" delay="0.8" maxchargetime="0" setvalue="true">
+          <Conditional maxchargetime="eq 999" />
+          <Sound file="%ModDir%\卫戍者\音效\ReloadEnd1.ogg" type="OnInserted" range="200.0" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%\卫戍者\音效\ReloadEnd2.ogg" type="OnInserted" range="200.0" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%\卫戍者\音效\ReloadEnd3.ogg" type="OnInserted" range="200.0" loop="false" volume="0.8" selectionmode="Random" />
+        </StatusEffect>
+
+      </Containable>
+
+    </ItemContainer>
+
+    <AITarget sightrange="3200" soundrange="2400" fadeouttime="7" />
+
+    <Quality>
+      <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+    </Quality>
+
+    <SkillRequirementHint identifier="weapons" level="55" />
+
+  </Item>
+
+  <Item
+    name="投矛器加速步枪钨钢弹匣"
+    identifier="aic_wardens_spearlauncher_tungsten_mag"
+    maxstacksize="24"
+    maxstacksizecharacterinventory="8"
+    subcategory="卫戍者军备"
+    scale="0.060"
+    category="Weapon"
+    cargocontaineridentifier="metalcrate"
+    linkable="true"
+    tags="smallitem,aic_wardens_spearlauncher_tungsten_mag,handheldammo,aic_wardens_weaponmag"
+    impactsoundtag="impact_metal_light"
+    description="为投矛器加速步枪设计的高密度钨钢穿杆弹匣，高穿透力。">
+
+    <PreferredContainer primary="aic_wardens_spearlauncher_rifle" minamount="1" maxamount="1" spawnprobability="1" />
+    <PreferredContainer primary="armcab" secondary="secarmcab" />
+
+    <Price baseprice="140" sold="true" displaynonempty="true">
+      <Price storeidentifier="merchantmilitary" sold="true" multiplier="0.95" minavailable="6" maxavailable="7" />
+      <Price storeidentifier="merchantarmory" sold="true" multiplier="0.95" minavailable="6" maxavailable="7" />
+      <Price storeidentifier="merchantoutpost" sold="true" multiplier="1.3" minavailable="6" maxavailable="7" />
+    </Price>
+
+    <Fabricate suitablefabricators="fabricator" requiredtime="8" amount="4">
+      <RequiredSkill identifier="weapons" level="45" />
+      <RequiredItem identifier="aic_material_tungsten_steel" amount="2" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="8" displayname="recycleitem" amount="4">
+      <RequiredSkill identifier="weapons" level="45" />
+      <RequiredItem identifier="aic_wardens_spearlauncher_tungsten_mag" mincondition="0.0" maxcondition="0.2" usecondition="false" amount="4" />
+      <RequiredItem identifier="aic_material_tungsten_steel" amount="1" />
+    </Fabricate>
+
+    <InventoryIcon
+      texture="%ModDir%/卫戍者/贴图/投矛器加速步枪钨钢弹匣物品栏.png"
+      sourcerect="0,0,206,251"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/投矛器加速步枪钨钢弹匣实物.png"
+      sourcerect="0,0,298,313"
+      depth="0.56"
+      origin="0.5,0.5" />
+
+    <Body width="32" height="46" density="25" />
+
+    <ItemContainer
+      hideitems="true"
+      capacity="1"
+      drawinventory="false"
+      canbeselected="false"
+      showconditionincontainedstateindicator="true"
+      spawnwithid="aic_wardens_spearlauncher_tungsten_round"
+      removecontaineditemsondeconstruct="true"
+      containedstateindicatorstyle="bullet">
+
+      <Containable items="aic_wardens_spearlauncher_tungsten_round" />
+
+      <StatusEffect type="OnUse" target="This" condition="-5" disabledeltatime="true">
+        <SpawnItem identifiers="aic_wardens_spearlauncher_tungsten_round" spawnposition="ThisInventory" />
+      </StatusEffect>
+
+    </ItemContainer>
+
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="投矛器钨钢穿杆"
+    identifier="aic_wardens_spearlauncher_tungsten_round"
+    category="Weapon"
+    interactthroughwalls="true"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,aic_wardens_round"
+    impactsoundtag="impact_metal_light"
+    hideinmenus="true"
+    scale="0.5">
+
+    <InventoryIcon texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.7,0.6" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+    <Body width="17" height="6" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+
+    <Projectile characterusable="true" hitscan="true" removeonhit="true">
+
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,220,190,175" scalemultiplier="1.1,0.9" />
+
+      <Attack structuredamage="4" targetforce="24" itemdamage="34" severlimbsprobability="1.2" penetration="0.35">
+
+        <Affliction identifier="gunshotwound" strength="24" />
+        <Affliction identifier="explosiondamage" strength="9" />
+        <Affliction identifier="bleeding" strength="4" />
+        <Affliction identifier="stun" strength="0.2" probability="0.3" />
+
+      </Attack>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="2,2" />
+      </StatusEffect>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+
+    </Projectile>
+  </Item>
+</Items>

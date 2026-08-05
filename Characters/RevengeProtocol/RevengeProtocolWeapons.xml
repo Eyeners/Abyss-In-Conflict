@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item
+    name="复仇协议近战武器[AI]"
+    identifier="aic_revenge_protocol_blade_ai"
+    hideinmenus="true"
+    category="Weapon"
+    tags="smallitem,weapon,meleeweapon,sharptool,provocativetohumanai"
+    scale="0.25"
+    impactsoundtag="impact_metal_light"
+    requireaimtouse="true">
+
+    <InventoryIcon
+      texture="%ModDir%/践行者/贴图/复仇协议近战武器.png"
+      sourcerect="0,0,389,82"
+      origin="0.5,0.5" />
+    <Sprite
+      texture="%ModDir%/践行者/贴图/复仇协议近战武器.png"
+      sourcerect="0,0,389,82"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="380" height="55" density="25" />
+
+    <!-- The limb attack only tells EnemyAI when to aim; this component owns the visible swing and hit. -->
+    <MeleeWeapon slots="Any,RightHand,LeftHand" aimpos="50,0" handle1="0,10" holdangle="20" reload="0.8" aimangle="-10" range="100" swing="true" combatPriority="25" msg="ItemMsgPickUpSelect">
+      <Attack targetimpulse="5" severlimbsprobability="0.1" itemdamage="20" penetration="0.5" structuredamage="2" damagedoors="true">
+        <Affliction identifier="lacerations" strength="25" />
+        <Affliction identifier="bleeding" strength="20" />
+        <Affliction identifier="burn" strength="5" />
+        <Affliction identifier="stun" strength="0.2" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character" />
+          <Sound file="Content/Sounds/Damage/LimbSlash1.ogg" selectionmode="random" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash2.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash3.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash4.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash5.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash6.ogg" range="500" />
+        </StatusEffect>
+      </Attack>
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </MeleeWeapon>
+
+    <AITarget sightrange="500" soundrange="250" fadeouttime="1" />
+  </Item>
+</Items>

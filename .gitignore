@@ -1,0 +1,16 @@
+# Keep local documentation and editor artifacts out of the published mod.
+Docs/
+docs/
+.vs/
+.vscode/
+.idea/
+
+# Operating system and temporary files.
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+*.tmp
+*.bak
+*.orig
+*~

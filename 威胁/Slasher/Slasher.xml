@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<override>
+  <Character SpeciesName="aic_threat_cutter" SpeciesTranslationOverride="切割者" DisplayName="" Group="Threat" Humanoid="False" HasInfo="False" CanInteract="True" Husk="False" UseHuskAppendage="False" NeedsAir="False" NeedsWater="False" IsMachine="True" CanSpeak="False" UseBossHealthBar="False" Noise="300" Visibility="300" BloodDecal="" BleedParticleAir="spark" BleedParticleWater="spark" BleedParticleMultiplier="1" CanEat="False" EatingSpeed="10" UsePathFinding="True" PathFinderPriority="1" HideInSonar="False" HideInThermalGoggles="True" SonarDisruption="0" DistantSonarRange="0" DisableDistance="25000" SoundInterval="10" DrawLast="False">
+    <ragdolls folder="%ModDir%/威胁/Slasher/Ragdolls/" />
+    <animations folder="%ModDir%/威胁/Slasher/Animations/" />
+    <bloodemitter Particle="spark" AngleMin="0" AngleMax="360" ScaleMin="0.6" ScaleMax="1" VelocityMin="20" VelocityMax="120" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="6" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
+    <bloodemitter Particle="spark" AngleMin="0" AngleMax="360" ScaleMin="0.4" ScaleMax="0.8" VelocityMin="10" VelocityMax="60" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="3" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
+    <gibemitter Particle="heavygib" AngleMin="0" AngleMax="360" ScaleMin="1" ScaleMax="1" VelocityMin="50" VelocityMax="500" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="10" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
+    <sound gender="None" File="%ModDir%/威胁/Slasher/idle1.ogg" State="Idle" Range="1000" Volume="0.5" Tags="" />
+    <sound gender="None" File="%ModDir%/威胁/Slasher/idle2.ogg" State="Idle" Range="1000" Volume="0.5" Tags="" />
+    <sound gender="None" File="%ModDir%/威胁/Slasher/idle3.ogg" State="Idle" Range="1000" Volume="0.5" Tags="" />
+    <sound gender="None" File="%ModDir%/威胁/Slasher/idle4.ogg" State="Idle" Range="1000" Volume="0.5" Tags="" />
+    <sound gender="None" File="%ModDir%/威胁/Slasher/hurt1.ogg" State="Damage" Range="1000" Volume="0.5" Tags="" />
+    <sound gender="None" File="%ModDir%/威胁/Slasher/hurt2.ogg" State="Damage" Range="1000" Volume="0.5" Tags="" />
+    <sound gender="None" File="%ModDir%/威胁/Slasher/die1.ogg" State="Die" Range="1000" Volume="0.5" Tags="" />
+    <sound gender="None" File="%ModDir%/威胁/Slasher/die2.ogg" State="Die" Range="1000" Volume="0.5" Tags="" />
+    <health Vitality="400" DoesBleed="False" CrushDepth="Infinity" UseHealthWindow="True" BleedingReduction="10" BurnReduction="5" ConstantHealthRegeneration="1" HealthRegenerationWhenEating="0" StunImmunity="True" PoisonImmunity="True" PoisonVulnerability="0" EmpVulnerability="3" ApplyMovementPenalties="False" DieFromBeheading="False" AllowSeveringLegs="False" ApplyAfflictionColors="False">
+      <Limb name="Head">
+        <VitalityMultiplier type="damage" multiplier="1" />
+      </Limb>
+      <Limb name="Torso" />
+      <Limb name="LeftArm">
+        <VitalityMultiplier type="damage" multiplier="1" />
+      </Limb>
+      <Limb name="RightArm">
+        <VitalityMultiplier type="damage" multiplier="1" />
+      </Limb>
+      <Limb name="LeftLeg">
+        <VitalityMultiplier type="damage" multiplier="1" />
+      </Limb>
+      <Limb name="RightLeg">
+        <VitalityMultiplier type="damage" multiplier="1" />
+      </Limb>
+    </health>
+    <StatusEffect type="OnDeath" target="Character" delay="0.1">
+      <SpawnItem identifier="aic_material_tungsten_steel" spawnposition="ThisInventory" count="2" />
+      <SpawnItem identifier="aic_material_tungsten_steel" spawnposition="ThisInventory" count="1" probablity="0.5" />
+      <SpawnItem identifier="aic_material_cerametal_composite" spawnposition="ThisInventory" count="2" />
+      <SpawnItem identifier="aic_material_cerametal_composite" spawnposition="ThisInventory" count="1" probablity="0.5" />
+    </StatusEffect>
+    <ai combatstrength="90" sight="3" hearing="3" aggressiveboarding="True" attackwhenprovoked="True" aggressiongreed="5" aggressionhurt="150" canopendoors="False" usepathfindingtogetinside="True" targetouterwalls="True" fleehealththreshold="0" avoidgunfire="False" avoidtime="3" minfleetime="20" enforceaggressivebehaviorformissions="True" randomattack="False" avoidabyss="False" stayinabyss="False" startaggression="0" maxaggression="100" aggressioncumulation="50">
+      <latchonto attachtowalls="true" attachtosub="false" attachlimb="HeadArmor" />
+      <target Tag="human" State="Attack" Priority="200" damagethreshold="0" ReactDistance="1000" AttackDistance="0" Timer="0" IgnoreContained="False" IgnoreInside="False" IgnoreOutside="False" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="False" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" IgnoreTargetSize="False" CircleRotationSpeed="1" DynamicCircleRotationSpeed="False" CircleRandomRotationFactor="0" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+      <target Tag="provocative" State="Attack" Priority="150" damagethreshold="0" ReactDistance="0" AttackDistance="0" Timer="0" IgnoreContained="False" IgnoreInside="False" IgnoreOutside="False" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="False" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" IgnoreTargetSize="False" CircleRotationSpeed="1" DynamicCircleRotationSpeed="False" CircleRandomRotationFactor="0" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+      <target Tag="door" State="Attack" Priority="100" damagethreshold="0" ReactDistance="0" AttackDistance="0" Timer="0" IgnoreContained="False" IgnoreInside="False" IgnoreOutside="False" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="False" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" IgnoreTargetSize="False" CircleRotationSpeed="1" DynamicCircleRotationSpeed="False" CircleRandomRotationFactor="0" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+      <target damagethreshold="0" Tag="wall" State="Attack" Priority="10" ReactDistance="0" AttackDistance="0" Timer="0" IgnoreContained="False" IgnoreInside="False" IgnoreOutside="False" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="False" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" CircleRotationSpeed="1" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+      <target Tag="sonar" State="Attack" Priority="30" damagethreshold="0" ReactDistance="0" AttackDistance="0" Timer="0" IgnoreContained="False" IgnoreInside="True" IgnoreOutside="False" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="False" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" IgnoreTargetSize="False" CircleRotationSpeed="1" DynamicCircleRotationSpeed="False" CircleRandomRotationFactor="0" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+      <target Tag="nasonov" State="Attack" Priority="30" damagethreshold="0" ReactDistance="0" AttackDistance="0" Timer="0" IgnoreContained="False" IgnoreInside="False" IgnoreOutside="False" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="False" Threshold="0" ThresholdMin="-1" ThresholdMax="-1" Offset="0,0" AttackPattern="Straight" PrioritizeSubCenter="False" SweepDistance="0" SweepStrength="10" SweepSpeed="1" CircleStartDistance="5000" IgnoreTargetSize="False" CircleRotationSpeed="1" DynamicCircleRotationSpeed="False" CircleRandomRotationFactor="0" CircleStrikeDistanceMultiplier="5" CircleMaxRandomOffset="0" />
+    </ai>
+    <inventory Slots="RightHand, LeftHand, Head, Any, Any, Any, Any, Any" AccessibleWhenAlive="False" Commonness="1" />
+  </Character>
+</override>

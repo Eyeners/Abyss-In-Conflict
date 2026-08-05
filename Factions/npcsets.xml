@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<npcsets>
+  <npcset identifier="aic_wardens_combatants">
+    <npc identifier="aic_wardens_assaulter" faction="coalition" job="securityofficer" moduleflags="none" behavior="Patrol" healthmultiplier="1.15" aimspeed="15" aimaccuracy="1">
+      <Character speciesname="human" tags="male,head11" hairindex="5" beardindex="1" moustacheindex="0" faceattachmentindex="0" skincolor="200,165,131,255" haircolor="58,58,60,255" facialhaircolor="58,58,60,255" personality="professional">
+        <job identifier="securityofficer">
+          <skill identifier="weapons" level="75" />
+          <skill identifier="mechanical" level="45" />
+          <skill identifier="electrical" level="25" />
+          <skill identifier="medical" level="45" />
+          <skill identifier="helm" level="15" />
+        </job>
+      </Character>
+      <ItemSet commonness="1">
+        <Item identifier="idcard" equip="true" />
+        <Item identifier="headset" equip="true" showpreview="false" />
+        <Item identifier="aic_wardens_chariot_exoarmor" equip="true" />
+        <Item identifier="aic_wardens_chariot_exohelmet" equip="true" />
+        <Item identifier="aic_wardens_legion_rifle" equip="true">
+          <Item identifier="aic_wardens_legion_depleted_mag" />
+        </Item>
+        <Item identifier="aic_wardens_legion_depleted_mag" amount="8" />
+        <Item identifier="aic_wardens_legion_mag" amount="8" />
+        <Item identifier="antibleeding1" amount="4" />
+        <Item identifier="opium" amount="2" />
+      </ItemSet>
+    </npc>
+
+    <npc identifier="aic_wardens_marksman" faction="coalition" job="securityofficer" moduleflags="none" behavior="Patrol" healthmultiplier="1.1" aimspeed="15" aimaccuracy="1">
+      <Character speciesname="human" tags="female,head8" hairindex="2" beardindex="0" moustacheindex="0" faceattachmentindex="0" skincolor="214,154,112,255" haircolor="89,67,73,255" facialhaircolor="89,67,73,255" personality="professional">
+        <job identifier="securityofficer">
+          <skill identifier="weapons" level="85" />
+          <skill identifier="mechanical" level="40" />
+          <skill identifier="electrical" level="20" />
+          <skill identifier="medical" level="45" />
+          <skill identifier="helm" level="10" />
+        </job>
+      </Character>
+      <ItemSet commonness="1">
+        <Item identifier="idcard" equip="true" />
+        <Item identifier="headset" equip="true" showpreview="false" />
+        <Item identifier="aic_wardens_chariot_exoarmor" equip="true" />
+        <Item identifier="aic_wardens_chariot_exohelmet" equip="true" />
+        <Item identifier="aic_wardens_hammeranvil_rifle" equip="true">
+          <Item identifier="aic_wardens_hammeranvil_depleted_mag" />
+          <Item identifier="flashlight">
+            <Item identifier="fulguriumbatterycell" />
+          </Item>
+          <Item identifier="aic_wardens_general_scope" />
+        </Item>
+        <Item identifier="aic_wardens_hammeranvil_depleted_mag" amount="8" />
+        <Item identifier="aic_wardens_hammeranvil_mag" amount="8" />
+        <Item identifier="antibleeding1" amount="3" />
+        <Item identifier="opium" amount="1" />
+      </ItemSet>
+    </npc>
+
+    <npc identifier="aic_wardens_lancer" faction="coalition" job="securityofficer" moduleflags="none" behavior="Patrol" healthmultiplier="1.2" aimspeed="15" aimaccuracy="1">
+      <Character speciesname="human" tags="male,head14" hairindex="3" beardindex="0" moustacheindex="0" faceattachmentindex="0" skincolor="210,168,130,255" haircolor="62,60,58,255" facialhaircolor="62,60,58,255" personality="professional">
+        <job identifier="securityofficer">
+          <skill identifier="weapons" level="80" />
+          <skill identifier="mechanical" level="50" />
+          <skill identifier="electrical" level="35" />
+          <skill identifier="medical" level="45" />
+          <skill identifier="helm" level="15" />
+        </job>
+      </Character>
+      <ItemSet commonness="1">
+        <Item identifier="idcard" equip="true" />
+        <Item identifier="headset" equip="true" showpreview="false" />
+        <Item identifier="aic_wardens_frontline_spacesuit_prototype" equip="true">
+          <Item identifier="oxygenitetank" />
+          <Item identifier="deusizine" />
+        </Item>
+        <Item identifier="aic_wardens_spearlauncher_rifle" equip="true">
+          <Item identifier="aic_wardens_spearlauncher_tungsten_mag" />
+        </Item>
+        <Item identifier="aic_wardens_spearlauncher_tungsten_mag" amount="8" />
+        <Item identifier="antibleeding2" amount="8" />
+        <Item identifier="antidama1" amount="8" />
+      </ItemSet>
+    </npc>
+
+    <npc identifier="aic_wardens_elite_guard" tags="securitynpc,aic_wardens_elite_guard" faction="coalition" job="securityofficer" moduleflags="none" behavior="Patrol" healthmultiplier="1.2" aimspeed="15" aimaccuracy="1">
+      <Character speciesname="human" tags="male,head14" hairindex="3" beardindex="0" moustacheindex="0" faceattachmentindex="0" skincolor="210,168,130,255" haircolor="62,60,58,255" facialhaircolor="62,60,58,255" personality="professional">
+        <job identifier="securityofficer">
+          <skill identifier="weapons" level="90" />
+          <skill identifier="mechanical" level="60" />
+          <skill identifier="electrical" level="50" />
+          <skill identifier="medical" level="55" />
+          <skill identifier="helm" level="25" />
+        </job>
+      </Character>
+      <ItemSet commonness="1">
+        <Item identifier="idcard" equip="true" />
+        <Item identifier="headset" equip="true" showpreview="false" />
+        <Item identifier="aic_wardens_bastion_experimental_powerarmor" equip="true">
+          <Item identifier="oxygenitetank" />
+          <Item identifier="deusizine" />
+          <Item identifier="fulguriumbatterycell" />
+        </Item>
+        <Item identifier="aic_wardens_spearlauncher_rifle" equip="true">
+          <Item identifier="aic_wardens_spearlauncher_tungsten_mag" />
+        </Item>
+        <Item identifier="aic_wardens_spearlauncher_tungsten_mag" amount="8" />
+        <Item identifier="antibleeding2" amount="8" />
+        <Item identifier="deusizine" amount="8" />
+      </ItemSet>
+    </npc>
+  </npcset>
+
+  <npcset identifier="aic_practitioner_combatants">
+    <npc identifier="aic_practitioner_bishop" tags="securitynpc,aic_practitioner_bishop" faction="coalition" job="securityofficer" moduleflags="none" behavior="Patrol" healthmultiplier="1.2" aimspeed="15" aimaccuracy="1">
+      <Character speciesname="human" tags="male,head14" hairindex="3" beardindex="0" moustacheindex="0" faceattachmentindex="0" skincolor="210,168,130,255" haircolor="62,60,58,255" facialhaircolor="62,60,58,255" personality="professional">
+        <job identifier="securityofficer">
+          <skill identifier="weapons" level="90" />
+          <skill identifier="mechanical" level="60" />
+          <skill identifier="electrical" level="50" />
+          <skill identifier="medical" level="55" />
+          <skill identifier="helm" level="25" />
+        </job>
+      </Character>
+      <ItemSet commonness="1">
+        <Item identifier="idcard" equip="true" />
+        <Item identifier="headset" equip="true" showpreview="false" />
+        <Item identifier="aic_practitioner_archon_heavy_armor" equip="true">
+          <Item identifier="oxygenitetank" />
+          <Item identifier="deusizine" />
+          <Item identifier="fulguriumbatterycell" />
+        </Item>
+        <Item identifier="aic_wardens_spearlauncher_rifle" equip="true">
+          <Item identifier="aic_wardens_spearlauncher_tungsten_mag" />
+        </Item>
+        <Item identifier="aic_wardens_spearlauncher_tungsten_mag" amount="8" />
+        <Item identifier="antibleeding2" amount="8" />
+        <Item identifier="deusizine" amount="8" />
+      </ItemSet>
+    </npc>
+
+    <npc identifier="aic_practitioner_judgement_trooper" tags="securitynpc,aic_practitioner_judgement_trooper" faction="coalition" job="securityofficer" moduleflags="none" behavior="Patrol" healthmultiplier="1.2" aimspeed="15" aimaccuracy="1">
+      <Character speciesname="human" tags="male,head14" hairindex="3" beardindex="0" moustacheindex="0" faceattachmentindex="0" skincolor="210,168,130,255" haircolor="62,60,58,255" facialhaircolor="62,60,58,255" personality="professional">
+        <job identifier="securityofficer">
+          <skill identifier="weapons" level="90" />
+          <skill identifier="mechanical" level="60" />
+          <skill identifier="electrical" level="50" />
+          <skill identifier="medical" level="55" />
+          <skill identifier="helm" level="25" />
+        </job>
+      </Character>
+      <ItemSet commonness="1">
+        <Item identifier="idcard" equip="true" />
+        <Item identifier="headset" equip="true" showpreview="false" />
+        <Item identifier="aic_practitioner_archon_heavy_armor" equip="true">
+          <Item identifier="oxygenitetank" />
+          <Item identifier="deusizine" />
+          <Item identifier="fulguriumbatterycell" />
+        </Item>
+        <Item identifier="aic_practitioner_oracle_magnetic_storm_generator" equip="true">
+          <Item identifier="aic_practitioner_oracle_arc_magazine" />
+        </Item>
+        <Item identifier="aic_practitioner_oracle_arc_magazine" amount="8" />
+        <Item identifier="antibleeding2" amount="8" />
+        <Item identifier="deusizine" amount="8" />
+      </ItemSet>
+    </npc>
+  </npcset>
+
+  <npcset identifier="aic_wardens_outpost_npcs">
+    <npc
+      identifier="aic_wardens_sergeant_edwin"
+      tags="aic_wardens_sergeant_edwin"
+      faction="coalition"
+      job="securityofficer"
+      spawnpointtags="admin"
+      behavior="Passive"
+      preferredoutpostmoduletypes="admin,adminmodule"
+      healthmultiplier="1.1"
+      aimspeed="10"
+      aimaccuracy="0.8">
+      <Character speciesname="human" tags="male,head11" hairindex="5" beardindex="1" moustacheindex="0" faceattachmentindex="0" skincolor="200,165,131,255" haircolor="58,58,60,255" facialhaircolor="58,58,60,255" personality="professional">
+        <job identifier="securityofficer">
+          <skill identifier="weapons" level="60" />
+          <skill identifier="mechanical" level="50" />
+          <skill identifier="electrical" level="35" />
+          <skill identifier="medical" level="35" />
+          <skill identifier="helm" level="25" />
+        </job>
+      </Character>
+      <ItemSet commonness="1">
+        <Item identifier="idcard" equip="true" />
+        <Item identifier="headset" equip="true" showpreview="false" />
+        <Item identifier="captainsseparatistcap2" equip="true" />
+        <Item identifier="aic_wardens_chariot_exoarmor" equip="true" />
+      </ItemSet>
+    </npc>
+  </npcset>
+</npcsets>

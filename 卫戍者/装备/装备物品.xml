@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <!-- ==================================================================== -->
+  <!-- 卫戍者装备物品：配件、模块、随身装具                                     -->
+  <!-- ==================================================================== -->
+
+  <Item
+    name="卫戍者通用战斗瞄具"
+    identifier="aic_wardens_general_scope"
+    category="Weapon"
+    subcategory="卫戍者军备"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,aic_attachment,aic_attachment_scope,aic_attachment_ballistic_scope,aic_wardens_attachment,aic_scope_zoom2x"
+    scale="0.075"
+    impactsoundtag="impact_metal_light"
+    description="">
+
+    <!--
+      这是当前卫戍者线使用的通用弹道武器瞄具。
+      这里保留一个通用层 tag：aic_attachment_scope
+      再补一个更具体的系统层 tag：aic_attachment_ballistic_scope
+      这样以后能把“通用瞄具”和“弹道武器专用瞄具”分开扩展。
+
+      数值效果写在瞄具本体上：
+      - 只有在支持它的枪槽里被 setactive 激活
+      - 且角色按住副键 / 瞄准键时
+      才会通过 OnSecondaryUse 生效。
+    -->
+
+    <PreferredContainer primary="aic_wardens_hammeranvil_rifle" secondary="armcab,secarmcab,weaponholder" />
+
+    <Price baseprice="140" sold="true">
+      <Price storeidentifier="merchantmilitary" multiplier="0.95" sold="true" />
+      <Price storeidentifier="merchantarmory" multiplier="0.95" sold="true" />
+      <Price storeidentifier="merchantoutpost" multiplier="1.25" />
+    </Price>
+
+    <Fabricate suitablefabricators="fabricator" requiredtime="8">
+      <RequiredSkill identifier="weapons" level="25" />
+      <RequiredItem identifier="plastic" amount="1" />
+      <RequiredItem identifier="copper" amount="1" />
+    </Fabricate>
+
+    <Deconstruct time="5">
+      <Item identifier="plastic" amount="1" />
+    </Deconstruct>
+
+    <InventoryIcon
+      texture="%ModDir%/卫戍者/贴图/卫戍者通用战斗瞄具.png"
+      sourcerect="0,0,314,150"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/卫戍者通用战斗瞄具.png"
+      sourcerect="0,0,314,150"
+      depth="0.54"
+      origin="0.5,0.5" />
+
+    <Body width="30" height="14" density="15" />
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnSecondaryUse" target="Character" interval="1">
+        <StatValue stattype="RangedSpreadReduction" value="0.15" />
+        <StatValue stattype="WeaponsSkillGainSpeed" value="0.15" />
+      </StatusEffect>
+    </Holdable>
+  </Item>
+</Items>

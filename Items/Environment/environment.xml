@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="" identifier="aic_nanite_cloud" category="Misc" scale="1" health="3" tags="gas" sonarsize="0" hideinmenus="true" isdangerous="true" noninteractable="true" depth="0.1" damagedbyexplosions="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyrepairtools="true">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,0,2,2" depth="0.55" origin="0.5,0.5" />
+    <Body radius="50" density="15" gravityscale="0.1" lineardamping="0.5" />
+    <ItemComponent>
+      <StatusEffect type="OnSpawn" target="This" duration="0.5">
+        <ParticleEmitter particle="aic_nanite_smoke" particlespersecond="3" scalemin="2.8" scalemax="3.6" anglemin="0" anglemax="360" velocitymin="0" velocitymax="25" copyentityangle="false" colormultiplier="255,255,255,255" />
+        <ParticleEmitter particle="aic_nanite_swirlysmoke" particlespersecond="2" scalemin="0.9" scalemax="1.3" anglemin="0" anglemax="360" velocitymin="0" velocitymax="20" copyentityangle="false" colormultiplier="255,255,255,255" />
+      </StatusEffect>
+      <StatusEffect type="Always" target="This" condition="-1" disabledeltatime="false" />
+      <StatusEffect type="Always" target="NearbyCharacters" range="100" interval="0.5" stackable="false" disabledeltatime="true">
+        <Affliction identifier="aic_nanite_infection" strength="0.05" probability="0.5" />
+        <Affliction identifier="aic_nanite_erosion" strength="0.1" />
+      </StatusEffect>
+      <StatusEffect type="OnDamaged" target="This" requiredafflictions="emp" comparison="and">
+        <Remove />
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </ItemComponent>
+  </Item>
+</Items>

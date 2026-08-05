@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+
+  <Item
+    name="锤砧型战斗步枪"
+    identifier="aic_wardens_hammeranvil_rifle"
+    category="Weapon"
+    subcategory="卫戍者军备"
+    cargocontaineridentifier="metalcrate"
+    tags="mediumitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_wardens_weapon,aic_rifle"
+    scale="0.075"
+    impactsoundtag="impact_metal_light"
+    description="一把基础的战斗步枪，通常使用地球防卫部队遗留的标准钨钢重弹，射速不佳，但巨大的口径与较重的枪身足以支持它击穿大部分机械族的装甲和部分纳米护盾。">
+
+    <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
+
+    <Price baseprice="520" sold="true">
+      <Price storeidentifier="merchantmilitary" multiplier="0.95" sold="true" minavailable="1" maxavailable="2" />
+      <Price storeidentifier="merchantarmory" multiplier="0.95" sold="true" minavailable="1" maxavailable="2" />
+      <Price storeidentifier="merchantoutpost" multiplier="1.35" sold="true" minavailable="1" maxavailable="2" />
+      <Price storeidentifier="merchantcity" multiplier="1.15" sold="true" minavailable="1" maxavailable="2" />
+    </Price>
+
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+      <RequiredSkill identifier="weapons" level="35" />
+      <RequiredItem identifier="plastic" amount="2" />
+      <RequiredItem identifier="steel" amount="2" />
+    </Fabricate>
+
+    <Deconstruct time="10">
+      <Item identifier="plastic" amount="1" />
+      <Item identifier="steel" amount="1" />
+    </Deconstruct>
+
+    <InventoryIcon
+      texture="%ModDir%/卫戍者/贴图/锤砧物品贴图.png"
+      sourcerect="0,0,1200,1200"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/锤砧型战斗步枪（基础贴图）.png"
+      sourcerect="0,0,1594,363"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="162" height="38" density="30" />
+
+    <Holdable
+      slots="RightHand+LeftHand,Any"
+      controlpose="true"
+      holdpos="65,-10"
+      holdangle="-35"
+      aimpos="63,0"
+      handle1="-300,-112"
+      handle2="70,27">
+
+      <Conditional recoilstabilized="lte 0" />
+
+      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.88" setvalue="true" />
+      <StatusEffect type="OnSecondaryUse" target="Character" SpeedMultiplier="0.76" setvalue="true" />
+      <StatusEffect type="OnUse" target="Character" SpeedMultiplier="0.5" setvalue="true" />
+
+    </Holdable>
+
+    <RangedWeapon
+      reload="0.24"
+      holdtrigger="true"
+      barrelpos="800,103"
+      spread="3.2"
+      unskilledspread="5.2"
+      combatpriority="80"
+      drawhudwhenequipped="true"
+      crosshairscale="0.22">
+
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+
+      <ParticleEmitter particle="muzzleflash" scalemultiplier="1.2,1.2" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="229,221,215,255" />
+
+      <StatusEffect type="OnUse" target="This" forceplaysounds="true">
+        <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" copyentityangle="true" />
+        <Sound file="%ModDir%\卫戍者\音效\锤砧.ogg" volume="0.9" type="OnUse" range="3000" selectionmode="Random" />
+        <Sound file="%ModDir%\卫戍者\音效\锤砧2.ogg" volume="0.9" type="OnUse" range="3000" selectionmode="Random" />
+        <Sound file="%ModDir%\卫戍者\音效\锤砧3.ogg" volume="0.9" type="OnUse" range="3000" selectionmode="Random" />
+      </StatusEffect>
+
+      <StatusEffect type="OnUse" target="This">
+        <Explosion range="180.0" force="0.56" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="7.0" />
+      </StatusEffect>
+
+      <StatusEffect type="OnUse" target="Contained">
+        <Use />
+      </StatusEffect>
+
+      <RequiredItems items="aic_wardens_hammeranvil_mag,aic_wardens_hammeranvil_depleted_mag" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="35" />
+
+    </RangedWeapon>
+
+    <ItemContainer
+      capacity="1"
+      maxstacksize="1"
+      hideitems="false"
+      containedstateindicatorslot="0"
+      containedstateindicatorstyle="bullet"
+      >
+
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+
+      <Containable items="aic_wardens_hammeranvil_mag,aic_wardens_hammeranvil_depleted_mag" hide="false" itempos="-7,-9" setactive="true">
+
+        <StatusEffect type="OnInserted" target="This" holdpos="6,-24" holdangle="58" maxchargetime="999" setvalue="true" />
+
+        <StatusEffect type="OnInserted" target="This" setvalue="true">
+          <Conditional isactive="eq true" />
+          <Sound file="%ModDir%\卫戍者\音效\ReloadStart1.ogg" type="OnInserted" range="200.0" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%\卫戍者\音效\ReloadStart2.ogg" type="OnInserted" range="200.0" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%\卫戍者\音效\ReloadStart3.ogg" type="OnInserted" range="200.0" loop="false" volume="0.8" selectionmode="Random" />
+        </StatusEffect>
+
+        <StatusEffect type="OnInserted" target="This" holdpos="65,-10" holdangle="-35" disabledeltatime="true" checkconditionalalways="true" delay="0.8" maxchargetime="0" setvalue="true">
+          <Conditional maxchargetime="eq 999" />
+          <Sound file="%ModDir%\卫戍者\音效\ReloadEnd1.ogg" type="OnInserted" range="200.0" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%\卫戍者\音效\ReloadEnd2.ogg" type="OnInserted" range="200.0" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%\卫戍者\音效\ReloadEnd3.ogg" type="OnInserted" range="200.0" loop="false" volume="0.8" selectionmode="Random" />
+        </StatusEffect>
+
+      </Containable>
+
+      <SubContainer capacity="1" maxstacksize="1">
+        <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />
+        <Containable items="flashlight,aic_attachment_weaponlight" hide="false" itempos="10,5" setactive="true" depth="0.54" />
+      </SubContainer>
+
+      <SubContainer capacity="1" maxstacksize="1">
+        <SlotIcon slotindex="2" texture="%ModDir%\UI\瞄准框.png" sourcerect="0,0,64,64" origin="0.5,0.5" />
+        <Containable items="aic_attachment_ballistic_scope" hide="false" itempos="-6.4,17.6" setactive="true" depth="0.54">
+          <StatusEffect type="OnContaining" target="This" cameraaimoffset="340" setvalue="true" interval="0.1" />
+          <StatusEffect type="OnRemoved" target="This" cameraaimoffset="0" setvalue="true" />
+        </Containable>
+      </SubContainer>
+
+    </ItemContainer>
+
+    <AITarget sightrange="3000" soundrange="2250" fadeouttime="7" />
+
+    <Quality>
+      <QualityStat stattype="FirepowerMultiplier" value="0.08" />
+    </Quality>
+
+    <SkillRequirementHint identifier="weapons" level="35" />
+
+  </Item>
+
+  <Item
+    name="锤砧弹匣"
+    identifier="aic_wardens_hammeranvil_mag"
+    maxstacksize="24"
+    maxstacksizecharacterinventory="8"
+    subcategory="卫戍者军备"
+    scale="0.075"
+    category="Weapon"
+    cargocontaineridentifier="metalcrate"
+    linkable="true"
+    tags="smallitem,aic_wardens_hammeranvil_mag,handheldammo,aic_wardens_weaponmag"
+    impactsoundtag="impact_metal_light"
+    description="地球防卫部队用于大口径战斗步枪的重型钨钢穿甲弹，具有良好的性能与存能性，在地球防卫部队溃败后被卫戍者PMC作为锤砧型战斗步枪的标准弹药继续使用。">
+
+    <PreferredContainer primary="aic_wardens_hammeranvil_rifle" minamount="1" maxamount="1" spawnprobability="1" />
+    <PreferredContainer primary="armcab" secondary="secarmcab" />
+
+    <Price baseprice="110" sold="true" displaynonempty="true">
+      <Price storeidentifier="merchantmilitary" sold="true" multiplier="0.95" minavailable="6" maxavailable="7" />
+      <Price storeidentifier="merchantarmory" sold="true" multiplier="0.95" minavailable="6" maxavailable="7" />
+      <Price storeidentifier="merchantoutpost" sold="true" multiplier="1.3" minavailable="6" maxavailable="7" />
+    </Price>
+
+    <Fabricate suitablefabricators="fabricator" requiredtime="6" amount="4">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="magnesium" amount="1" />
+      <RequiredItem tag="munition_propulsion" amount="3" />
+      <RequiredItem identifier="aic_material_tungsten_steel" amount="1" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="6" displayname="recycleitem" amount="4">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="aic_wardens_hammeranvil_mag" mincondition="0.0" maxcondition="0.2" usecondition="false" amount="4" />
+      <RequiredItem identifier="aic_material_tungsten_steel" amount="1" />
+    </Fabricate>
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/锤砧弹匣.png"
+      sourcerect="0,0,148,235"
+      depth="0.56"
+      origin="0.5,0.5" />
+
+    <Body width="28" height="42" density="25" />
+
+    <ItemContainer
+      hideitems="true"
+      capacity="1"
+      drawinventory="false"
+      canbeselected="false"
+      showconditionincontainedstateindicator="true"
+      spawnwithid="aic_wardens_hammeranvil_round"
+      removecontaineditemsondeconstruct="true"
+      containedstateindicatorstyle="bullet">
+
+      <Containable items="aic_wardens_hammeranvil_round" />
+
+      <StatusEffect type="OnUse" target="This" condition="-5" disabledeltatime="true">
+        <SpawnItem identifiers="aic_wardens_hammeranvil_round" spawnposition="ThisInventory" />
+      </StatusEffect>
+
+    </ItemContainer>
+
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="锤砧贫化弹匣"
+    identifier="aic_wardens_hammeranvil_depleted_mag"
+    maxstacksize="24"
+    maxstacksizecharacterinventory="8"
+    subcategory="卫戍者军备"
+    scale="0.075"
+    category="Weapon"
+    cargocontaineridentifier="metalcrate"
+    linkable="true"
+    tags="smallitem,aic_wardens_hammeranvil_mag,handheldammo,aic_wardens_weaponmag"
+    impactsoundtag="impact_metal_light"
+    inventoryiconcolor="110,120,110,255"
+    spritecolor="110,120,110,255"
+    description="部分卫戍者工程师在军团突击步枪贫化物子弹工程中对重型弹做出了相似改型，虽然单发携带的辐射量更高，但限于锤砧步枪不佳的射击频率，用这种子弹制造辐射瘫痪机械体的效果并不理想，更多用于过载纳米护盾等器件。（辐射会对机械体造成emp效果）">
+
+    <PreferredContainer primary="aic_wardens_hammeranvil_rifle" minamount="1" maxamount="1" spawnprobability="1" />
+    <PreferredContainer primary="armcab" secondary="secarmcab" />
+
+    <Price baseprice="140" sold="true" displaynonempty="true">
+      <Price storeidentifier="merchantmilitary" sold="true" multiplier="0.95" minavailable="6" maxavailable="7" />
+      <Price storeidentifier="merchantarmory" sold="true" multiplier="0.95" minavailable="6" maxavailable="7" />
+      <Price storeidentifier="merchantoutpost" sold="true" multiplier="1.35" minavailable="6" maxavailable="7" />
+    </Price>
+
+    <Fabricate suitablefabricators="fabricator" requiredtime="6" amount="4">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="magnesium" amount="1" />
+      <RequiredItem tag="munition_propulsion" amount="3" />
+      <RequiredItem identifier="depletedfuel" amount="1" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="6" displayname="recycleitem" amount="4">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="aic_wardens_hammeranvil_depleted_mag" mincondition="0.0" maxcondition="0.2" usecondition="false" amount="4" />
+      <RequiredItem identifier="depletedfuel" amount="1" />
+    </Fabricate>
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/锤砧贫化弹匣.png"
+      sourcerect="0,0,148,235"
+      depth="0.56"
+      origin="0.5,0.5" />
+
+    <Body width="28" height="42" density="25" />
+
+    <ItemContainer
+      hideitems="true"
+      capacity="1"
+      drawinventory="false"
+      canbeselected="false"
+      showconditionincontainedstateindicator="true"
+      spawnwithid="aic_wardens_hammeranvil_depleted_round"
+      removecontaineditemsondeconstruct="true"
+      containedstateindicatorstyle="bullet">
+
+      <Containable items="aic_wardens_hammeranvil_depleted_round" />
+
+      <StatusEffect type="OnUse" target="This" condition="-5" disabledeltatime="true">
+        <SpawnItem identifiers="aic_wardens_hammeranvil_depleted_round" spawnposition="ThisInventory" />
+      </StatusEffect>
+
+    </ItemContainer>
+
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="锤砧步枪弹"
+    identifier="aic_wardens_hammeranvil_round"
+    category="Weapon"
+    interactthroughwalls="true"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,aic_wardens_round"
+    impactsoundtag="impact_metal_light"
+    hideinmenus="true"
+    scale="0.5">
+
+    <InventoryIcon texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.7,0.6" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+    <Body width="17" height="6" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+
+    <Projectile characterusable="true" hitscan="true" removeonhit="true">
+
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,200,200,175" scalemultiplier="1,0.8" />
+
+      <Attack structuredamage="1" targetforce="10" itemdamage="20" severlimbsprobability="1" penetration="0.15">
+
+        <Affliction identifier="gunshotwound" strength="14" />
+        <Affliction identifier="explosiondamage" strength="5" />
+        <Affliction identifier="bleeding" strength="3" />
+        <Affliction identifier="stun" strength="0.05" probability="0.2" />
+
+      </Attack>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="2,2" />
+      </StatusEffect>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+
+    </Projectile>
+  </Item>
+
+  <Item
+    name="锤砧贫化步枪弹"
+    identifier="aic_wardens_hammeranvil_depleted_round"
+    category="Weapon"
+    interactthroughwalls="true"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,aic_wardens_round"
+    impactsoundtag="impact_metal_light"
+    hideinmenus="true"
+    inventoryiconcolor="110,120,110,255"
+    spritecolor="110,120,110,255"
+    scale="0.5">
+
+    <InventoryIcon texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.7,0.6" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+    <Body width="17" height="6" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+
+    <Projectile characterusable="true" hitscan="true" removeonhit="true">
+
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="200,255,80,175" scalemultiplier="1,0.8" />
+
+      <Attack structuredamage="1" targetforce="10" itemdamage="20" severlimbsprobability="0.8" penetration="0.16">
+
+        <Affliction identifier="gunshotwound" strength="13" />
+        <Affliction identifier="explosiondamage" strength="3" />
+        <Affliction identifier="bleeding" strength="5" />
+        <Affliction identifier="stun" strength="0.05" probability="0.2" />
+        <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+          <Affliction identifier="radiationsickness" strength="9" />
+        </StatusEffect>
+
+      </Attack>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="2,2" />
+      </StatusEffect>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+
+    </Projectile>
+  </Item>
+
+
+
+  <Item
+    name="军团突击步枪"
+    identifier="aic_wardens_legion_rifle"
+    category="Weapon"
+    subcategory="卫戍者军备"
+    cargocontaineridentifier="metalcrate"
+    tags="mediumitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_wardens_weapon,aic_rifle,aic_scope_zoom2x_builtin"
+    scale="0.075"
+    impactsoundtag="impact_metal_light"
+    description="拥有良好射速和精确性的突击步枪，自带一个续航良好的照明装置和全息瞄具，使用中小口径的弹药，虽然通常因为口径原因无法快速击穿机械体装甲，但贫化弹药工程使其成为瘫痪机械体的优秀平台。">
+
+    <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
+
+    <Price baseprice="540" sold="true">
+      <Price storeidentifier="merchantmilitary" multiplier="0.95" sold="true" minavailable="1" maxavailable="2" />
+      <Price storeidentifier="merchantarmory" multiplier="0.95" sold="true" minavailable="1" maxavailable="2" />
+      <Price storeidentifier="merchantoutpost" multiplier="1.35" sold="true" minavailable="1" maxavailable="2" />
+      <Price storeidentifier="merchantcity" multiplier="1.15" sold="true" minavailable="1" maxavailable="2" />
+    </Price>
+
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+      <RequiredSkill identifier="weapons" level="35" />
+      <RequiredItem identifier="plastic" amount="2" />
+      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="aic_material_chromenickel_alloy" amount="2" />
+    </Fabricate>
+
+    <Deconstruct time="5">
+      <Item identifier="plastic" amount="1" />
+      <Item identifier="steel" amount="1" />
+      <Item identifier="aic_material_chromenickel_alloy" amount="1" />
+    </Deconstruct>
+
+    <InventoryIcon
+      texture="%ModDir%/卫戍者/贴图/军团突击步枪本体.png"
+      sourcerect="0,0,1413,465"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/军团突击步枪本体.png"
+      sourcerect="0,0,1413,465"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="144" height="49" density="30" />
+
+    <Holdable
+      slots="RightHand+LeftHand,Any"
+      controlpose="true"
+      holdpos="62,-12"
+      holdangle="-33"
+      aimpos="60,-2"
+      handle1="-260,-120"
+      handle2="62,18">
+
+      <Conditional recoilstabilized="lte 0" />
+
+      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.88" setvalue="true" />
+      <StatusEffect type="OnSecondaryUse" target="Character" SpeedMultiplier="0.76" setvalue="true" />
+      <StatusEffect type="OnUse" target="Character" SpeedMultiplier="0.5" setvalue="true" />
+
+    </Holdable>
+
+    <RangedWeapon
+      reload="0.15"
+      holdtrigger="true"
+      barrelpos="708,40"
+      spread="3.1"
+      unskilledspread="5.1"
+      combatpriority="80"
+      drawhudwhenequipped="true"
+      crosshairscale="0.22">
+
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+
+      <ParticleEmitter particle="muzzleflash" scalemultiplier="1.2,1.2" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="229,221,215,255" />
+
+      <StatusEffect type="OnUse" target="This" forceplaysounds="true">
+        <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" copyentityangle="true" />
+        <Sound file="%ModDir%\卫戍者\音效\军团1.ogg" volume="0.9" type="OnUse" range="3000" selectionmode="Random" />
+        <Sound file="%ModDir%\卫戍者\音效\军团2.ogg" volume="0.9" type="OnUse" range="3000" selectionmode="Random" />
+        <Sound file="%ModDir%\卫戍者\音效\军团3.ogg" volume="0.9" type="OnUse" range="3000" selectionmode="Random" />
+        <Sound file="%ModDir%\卫戍者\音效\军团4.ogg" volume="0.9" type="OnUse" range="3000" selectionmode="Random" />
+      </StatusEffect>
+
+      <StatusEffect type="OnUse" target="This">
+        <Explosion range="180.0" force="0.56" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="7.0" />
+      </StatusEffect>
+
+      <StatusEffect type="OnUse" target="Contained">
+        <Use />
+      </StatusEffect>
+
+      <RequiredItems items="aic_wardens_legion_mag,aic_wardens_legion_depleted_mag" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="45" />
+
+    </RangedWeapon>
+
+    <ItemContainer
+      capacity="1"
+      maxstacksize="1"
+      hideitems="false"
+      containedstateindicatorslot="0"
+      containedstateindicatorstyle="bullet"
+      >
+
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+
+      <Containable items="aic_wardens_legion_mag,aic_wardens_legion_depleted_mag" hide="false" itempos="6,-11" setactive="true">
+
+        <StatusEffect type="OnInserted" target="This" holdpos="6,-24" holdangle="58" maxchargetime="999" setvalue="true" />
+
+        <StatusEffect type="OnInserted" target="This" setvalue="true">
+          <Conditional isactive="eq true" />
+          <Sound file="%ModDir%\卫戍者\音效\ReloadStart1.ogg" type="OnInserted" range="200.0" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%\卫戍者\音效\ReloadStart2.ogg" type="OnInserted" range="200.0" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%\卫戍者\音效\ReloadStart3.ogg" type="OnInserted" range="200.0" loop="false" volume="0.8" selectionmode="Random" />
+        </StatusEffect>
+
+        <StatusEffect type="OnInserted" target="This" holdpos="62,-12" holdangle="-33" disabledeltatime="true" checkconditionalalways="true" delay="0.8" maxchargetime="0" setvalue="true">
+          <Conditional maxchargetime="eq 999" />
+          <Sound file="%ModDir%\卫戍者\音效\ReloadEnd1.ogg" type="OnInserted" range="200.0" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%\卫戍者\音效\ReloadEnd2.ogg" type="OnInserted" range="200.0" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%\卫戍者\音效\ReloadEnd3.ogg" type="OnInserted" range="200.0" loop="false" volume="0.8" selectionmode="Random" />
+        </StatusEffect>
+
+      </Containable>
+
+    </ItemContainer>
+
+    <AITarget sightrange="3000" soundrange="2250" fadeouttime="7" />
+
+    <Quality>
+      <QualityStat stattype="FirepowerMultiplier" value="0.08" />
+    </Quality>
+
+    <SkillRequirementHint identifier="weapons" level="45" />
+
+    <LightComponent LightColor="0.8,0.8,0.8,1.0" Flicker="0.02" range="480" powerconsumption="0" IsOn="false" canbeselected="true">
+      <LightTexture texture="Content/Lights/lightcone.png" origin="-0.015, 0.503" size="1.5,1.0" />
+    </LightComponent>
+
+    <CustomInterface canbeselected="true" drawhudwhenequipped="true">
+      <GuiFrame relativesize="0.1,0.1" anchor="BottomLeft" relativeoffset="0,0.4" style="ItemUI" />
+      <TickBox text="FlashLight">
+        <StatusEffect type="OnUse" target="This" IsOn="true" />
+        <StatusEffect type="OnSecondaryUse" target="This" IsOn="false" />
+      </TickBox>
+    </CustomInterface>
+
+  </Item>
+
+  <Item
+    name="军团突击步枪弹匣"
+    identifier="aic_wardens_legion_mag"
+    maxstacksize="24"
+    maxstacksizecharacterinventory="8"
+    subcategory="卫戍者军备"
+    scale="0.075"
+    category="Weapon"
+    cargocontaineridentifier="metalcrate"
+    linkable="true"
+    tags="smallitem,aic_wardens_legion_mag,handheldammo,aic_wardens_weaponmag"
+    impactsoundtag="impact_metal_light"
+    description="地球防卫部队用于突击步枪的小口径钨钢穿甲弹，在早期对抗人类防弹衣和部分异星生物时表现出色，但在后期对抗机械体时穿甲性能不足，削减了大量的产能，库存被卫戍者PMC用于木卫二的安保工作。">
+
+    <PreferredContainer primary="aic_wardens_legion_rifle" minamount="1" maxamount="1" spawnprobability="1" />
+    <PreferredContainer primary="armcab" secondary="secarmcab" />
+
+    <Price baseprice="110" sold="true" displaynonempty="true">
+      <Price storeidentifier="merchantmilitary" sold="true" multiplier="0.95" minavailable="6" maxavailable="7" />
+      <Price storeidentifier="merchantarmory" sold="true" multiplier="0.95" minavailable="6" maxavailable="7" />
+      <Price storeidentifier="merchantoutpost" sold="true" multiplier="1.3" minavailable="6" maxavailable="7" />
+    </Price>
+
+    <Fabricate suitablefabricators="fabricator" requiredtime="6" amount="4">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="magnesium" amount="1" />
+      <RequiredItem tag="munition_propulsion" amount="3" />
+      <RequiredItem identifier="aic_material_tungsten_steel" amount="1" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="6" displayname="recycleitem" amount="4">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="aic_wardens_legion_mag" mincondition="0.0" maxcondition="0.2" usecondition="false" amount="4" />
+      <RequiredItem identifier="aic_material_tungsten_steel" amount="1" />
+    </Fabricate>
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/军团突击步枪弹匣.png"
+      sourcerect="0,0,223,284"
+      depth="0.56"
+      origin="0.5,0.5" />
+
+    <Body width="34" height="46" density="25" />
+
+    <ItemContainer
+      hideitems="true"
+      capacity="1"
+      drawinventory="false"
+      canbeselected="false"
+      showconditionincontainedstateindicator="true"
+      spawnwithid="aic_wardens_legion_round"
+      removecontaineditemsondeconstruct="true"
+      containedstateindicatorstyle="bullet">
+
+      <Containable items="aic_wardens_legion_round" />
+
+      <StatusEffect type="OnUse" target="This" condition="-3.34" disabledeltatime="true">
+        <SpawnItem identifiers="aic_wardens_legion_round" spawnposition="ThisInventory" />
+      </StatusEffect>
+
+    </ItemContainer>
+
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="军团贫化弹匣"
+    identifier="aic_wardens_legion_depleted_mag"
+    maxstacksize="24"
+    maxstacksizecharacterinventory="8"
+    subcategory="卫戍者军备"
+    scale="0.075"
+    category="Weapon"
+    cargocontaineridentifier="metalcrate"
+    linkable="true"
+    tags="smallitem,aic_wardens_legion_mag,handheldammo,aic_wardens_weaponmag"
+    impactsoundtag="impact_metal_light"
+    inventoryiconcolor="110,120,110,255"
+    spritecolor="110,120,110,255"
+    description="卫戍者PMC的工程师为解决军团突击步枪无法击穿机械体研制的新型弹种，采用木卫二存量巨大的贫化物材质，可以利用辐射对于电子器件的损伤效果瘫痪部分小型机械体，但对于大型机械体的钨钢外壳效果不佳。（辐射会对机械体造成emp效果）">
+
+    <PreferredContainer primary="aic_wardens_legion_rifle" minamount="1" maxamount="1" spawnprobability="1" />
+    <PreferredContainer primary="armcab" secondary="secarmcab" />
+
+    <Price baseprice="140" sold="true" displaynonempty="true">
+      <Price storeidentifier="merchantmilitary" sold="true" multiplier="0.95" minavailable="6" maxavailable="7" />
+      <Price storeidentifier="merchantarmory" sold="true" multiplier="0.95" minavailable="6" maxavailable="7" />
+      <Price storeidentifier="merchantoutpost" sold="true" multiplier="1.35" minavailable="6" maxavailable="7" />
+    </Price>
+
+    <Fabricate suitablefabricators="fabricator" requiredtime="6" amount="4">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="magnesium" amount="1" />
+      <RequiredItem tag="munition_propulsion" amount="3" />
+      <RequiredItem identifier="depletedfuel" amount="1" />
+    </Fabricate>
+    <Fabricate suitablefabricators="fabricator" requiredtime="6" displayname="recycleitem" amount="4">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="aic_wardens_legion_depleted_mag" mincondition="0.0" maxcondition="0.2" usecondition="false" amount="4" />
+      <RequiredItem identifier="depletedfuel" amount="1" />
+    </Fabricate>
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/军团突击步枪贫化弹匣.png"
+      sourcerect="0,0,223,284"
+      depth="0.56"
+      origin="0.5,0.5" />
+
+    <Body width="34" height="46" density="25" />
+
+    <ItemContainer
+      hideitems="true"
+      capacity="1"
+      drawinventory="false"
+      canbeselected="false"
+      showconditionincontainedstateindicator="true"
+      spawnwithid="aic_wardens_legion_depleted_round"
+      removecontaineditemsondeconstruct="true"
+      containedstateindicatorstyle="bullet">
+
+      <Containable items="aic_wardens_legion_depleted_round" />
+
+      <StatusEffect type="OnUse" target="This" condition="-3.34" disabledeltatime="true">
+        <SpawnItem identifiers="aic_wardens_legion_depleted_round" spawnposition="ThisInventory" />
+      </StatusEffect>
+
+    </ItemContainer>
+
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="军团步枪弹"
+    identifier="aic_wardens_legion_round"
+    category="Weapon"
+    interactthroughwalls="true"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,aic_wardens_round"
+    impactsoundtag="impact_metal_light"
+    hideinmenus="true"
+    scale="0.5">
+
+    <InventoryIcon texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.7,0.6" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+    <Body width="17" height="6" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+
+    <Projectile characterusable="true" hitscan="true" removeonhit="true">
+
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,200,200,175" scalemultiplier="1,0.8" />
+
+      <Attack structuredamage="1" targetforce="5" itemdamage="10" severlimbsprobability="0.8" penetration="0.1">
+
+        <Affliction identifier="gunshotwound" strength="9" />
+        <Affliction identifier="explosiondamage" strength="3" />
+        <Affliction identifier="bleeding" strength="3" />
+        <Affliction identifier="stun" strength="0.02" probability="0.1" />
+
+      </Attack>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="2,2" />
+      </StatusEffect>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+
+    </Projectile>
+  </Item>
+
+  <Item
+    name="军团贫化步枪弹"
+    identifier="aic_wardens_legion_depleted_round"
+    category="Weapon"
+    interactthroughwalls="true"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,aic_wardens_round"
+    impactsoundtag="impact_metal_light"
+    hideinmenus="true"
+    inventoryiconcolor="110,120,110,255"
+    spritecolor="110,120,110,255"
+    scale="0.5">
+
+    <InventoryIcon texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.7,0.6" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+    <Body width="17" height="6" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+
+    <Projectile characterusable="true" hitscan="true" removeonhit="true">
+
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="200,255,80,175" scalemultiplier="1,0.8" />
+
+      <Attack structuredamage="1" targetforce="5" itemdamage="10" severlimbsprobability="0.5" penetration="0.12">
+
+        <Affliction identifier="gunshotwound" strength="7" />
+        <Affliction identifier="explosiondamage" strength="2" />
+        <Affliction identifier="bleeding" strength="3" />
+        <Affliction identifier="stun" strength="0.02" probability="0.1" />
+        <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
+          <Affliction identifier="radiationsickness" strength="7" />
+        </StatusEffect>
+
+      </Attack>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="2,2" />
+      </StatusEffect>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+
+    </Projectile>
+  </Item>
+</Items>

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item
+    name="红星等离子步枪"
+    identifier="aic_gdf_redstar_plasma_rifle"
+    category="Weapon"
+    subcategory="GDF军用武器"
+    cargocontaineridentifier="metalcrate"
+    tags="mediumitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_gdf_weapon,aic_wardens_weapon,aic_rifle"
+    scale="0.042"
+    impactsoundtag="impact_metal_light"
+    description="地球防卫部队使用的军用等离子步枪，以可更换电池栈驱动约束场，将高温等离子体沿瞬时传导通路投射至目标。">
+
+    <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
+
+    <InventoryIcon
+      texture="%ModDir%/卫戍者/贴图/GDF红星等离子步枪.png"
+      sourcerect="0,0,2575,806"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/GDF红星等离子步枪.png"
+      sourcerect="0,0,2575,806"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="190" height="52" density="32" />
+
+    <Holdable
+      slots="RightHand+LeftHand,Any"
+      controlpose="true"
+      holdpos="60,-10"
+      holdangle="-35"
+      aimpos="68,0"
+      handle1="-461,-236"
+      handle2="464,-72">
+
+      <Conditional recoilstabilized="lte 0" />
+      <StatusEffect type="OnActive" target="Character" speedmultiplier="0.84" setvalue="true" />
+      <StatusEffect type="OnSecondaryUse" target="Character" speedmultiplier="0.72" setvalue="true" />
+      <StatusEffect type="OnUse" target="Character" speedmultiplier="0.46" setvalue="true" />
+    </Holdable>
+
+    <RangedWeapon
+      reload="0.4"
+      holdtrigger="true"
+      barrelpos="1032,132"
+      spread="1.5"
+      unskilledspread="3.5"
+      combatpriority="88"
+      drawhudwhenequipped="true"
+      crosshairscale="0.22">
+
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+
+      <ParticleEmitter
+        particle="muzzleflashpulselaser"
+        particleamount="1"
+        velocitymin="0"
+        velocitymax="0"
+        scalemin="0.45"
+        scalemax="0.65" />
+
+      <Sound file="Content/Items/Weapons/WEAPONS_laserGunShot1.ogg" type="OnUse" range="3000" selectionmode="Random" />
+      <Sound file="Content/Items/Weapons/WEAPONS_laserGunShot2.ogg" type="OnUse" range="3000" selectionmode="Random" />
+      <Sound file="Content/Items/Weapons/WEAPONS_laserGunShot3.ogg" type="OnUse" range="3000" selectionmode="Random" />
+      <Sound file="Content/Items/Weapons/WEAPONS_laserGunShot4.ogg" type="OnUse" range="3000" selectionmode="Random" />
+
+      <StatusEffect type="OnUse" target="This">
+        <Explosion range="170" force="0.3" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="6" flashcolor="255,35,35,120" />
+      </StatusEffect>
+
+      <StatusEffect type="OnUse" target="Contained">
+        <Use />
+      </StatusEffect>
+
+      <RequiredItems items="aic_gdf_redstar_plasma_battery" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="45" />
+    </RangedWeapon>
+
+    <ItemContainer
+      capacity="1"
+      maxstacksize="1"
+      hideitems="false"
+      itemrotation="0"
+      containedspritedepth="0.56"
+      containedstateindicatorslot="0"
+      containedstateindicatorstyle="battery">
+
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+
+      <Containable
+        items="aic_gdf_redstar_plasma_battery"
+        hide="false"
+        itempos="-35,-1"
+        setactive="true">
+
+        <StatusEffect type="OnInserted" target="This" holdpos="6,-24" holdangle="58" maxchargetime="999" setvalue="true" />
+
+        <StatusEffect type="OnInserted" target="This" setvalue="true">
+          <Conditional isactive="eq true" />
+          <Sound file="%ModDir%/卫戍者/音效/ReloadStart1.ogg" type="OnInserted" range="200" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%/卫戍者/音效/ReloadStart2.ogg" type="OnInserted" range="200" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%/卫戍者/音效/ReloadStart3.ogg" type="OnInserted" range="200" loop="false" volume="0.8" selectionmode="Random" />
+        </StatusEffect>
+
+        <StatusEffect
+          type="OnInserted"
+          target="This"
+          holdpos="60,-10"
+          holdangle="-35"
+          disabledeltatime="true"
+          checkconditionalalways="true"
+          delay="0.8"
+          maxchargetime="0"
+          setvalue="true">
+          <Conditional maxchargetime="eq 999" />
+          <Sound file="%ModDir%/卫戍者/音效/ReloadEnd1.ogg" type="OnInserted" range="200" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%/卫戍者/音效/ReloadEnd2.ogg" type="OnInserted" range="200" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%/卫戍者/音效/ReloadEnd3.ogg" type="OnInserted" range="200" loop="false" volume="0.8" selectionmode="Random" />
+        </StatusEffect>
+      </Containable>
+    </ItemContainer>
+
+    <AITarget sightrange="3200" soundrange="2400" fadeouttime="7" />
+
+    <Quality>
+      <QualityStat stattype="FirepowerMultiplier" value="0.08" />
+    </Quality>
+
+    <SkillRequirementHint identifier="weapons" level="45" />
+  </Item>
+
+  <Item
+    name="红星等离子电池栈"
+    identifier="aic_gdf_redstar_plasma_battery"
+    maxstacksize="16"
+    maxstacksizecharacterinventory="8"
+    category="Weapon"
+    subcategory="GDF军用武器"
+    cargocontaineridentifier="metalcrate"
+    linkable="true"
+    tags="smallitem,handheldammo,aic_gdf_weaponmag,aic_wardens_weaponmag,aic_gdf_redstar_plasma_battery"
+    scale="0.042"
+    impactsoundtag="impact_metal_light"
+    description="红星等离子步枪使用的十二发高密度电池栈，为约束场和等离子体激发器供能。">
+
+    <PreferredContainer primary="aic_gdf_redstar_plasma_rifle" minamount="1" maxamount="1" spawnprobability="1" />
+    <PreferredContainer primary="armcab" secondary="secarmcab" />
+
+    <InventoryIcon
+      texture="%ModDir%/卫戍者/贴图/GDF红星等离子电池栈.png"
+      sourcerect="0,0,385,524"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/红星等离子电池栈.png"
+      sourcerect="0,0,385,524"
+      depth="0.56"
+      origin="0.5,0.5" />
+
+    <Body width="27" height="37" density="25" />
+
+    <ItemContainer
+      hideitems="true"
+      capacity="1"
+      drawinventory="false"
+      canbeselected="false"
+      spawnwithid="aic_gdf_redstar_plasma_beam"
+      removecontaineditemsondeconstruct="true"
+      showconditionincontainedstateindicator="true"
+      containedstateindicatorstyle="battery">
+
+      <Containable items="aic_gdf_redstar_plasma_beam" />
+
+      <StatusEffect type="OnUse" target="This" condition="-8.34" disabledeltatime="true">
+        <SpawnItem identifiers="aic_gdf_redstar_plasma_beam" spawnposition="ThisInventory" />
+      </StatusEffect>
+    </ItemContainer>
+
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="红星等离子束"
+    identifier="aic_gdf_redstar_plasma_beam"
+    category="Weapon"
+    interactthroughwalls="true"
+    tags="smallitem,aic_gdf_energy_bolt"
+    impactsoundtag="impact_metal_light"
+    hideinmenus="true"
+    scale="0.5">
+
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="143,414,113,9" depth="0.55" origin="0.5,0.5" />
+    <Body width="170" height="10" density="20" />
+    <Holdable slots="RightHand+LeftHand" holdpos="0,-50" handle1="-10,0" handle2="10,0" aimable="false" />
+
+    <Projectile
+      characterusable="false"
+      hitscan="true"
+      maxtargetstohit="1"
+      removeonhit="true"
+      damagedoors="true"
+      penetration="0.3">
+
+      <ParticleEmitter particle="tracerpulselaser" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="1,0.8" />
+      <ParticleEmitter particle="FlareBubbles" emitacrossrayinterval="50" />
+
+      <Attack structuredamage="3" targetforce="10" itemdamage="20" severlimbsprobability="0" penetration="0.3">
+        <Affliction identifier="burn" strength="32" />
+        <Affliction identifier="explosiondamage" strength="8" />
+        <Affliction identifier="aic_heat_buildup" strength="10" />
+      </Attack>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="muzzleflashpulselaser" anglemin="0" anglemax="360" particleamount="8" velocitymin="0" scalemin="0.35" scalemax="0.65" />
+        <ParticleEmitter particle="weldspark" particleamount="4" anglemin="0" anglemax="360" velocitymin="180" velocitymax="280" scalemin="0.8" scalemax="1.3" drawontop="true" colormultiplier="255,120,120,200" />
+        <ParticleEmitter particle="FlareBubbles" particleamount="3" anglemin="0" anglemax="360" velocitymin="0" velocitymax="45" />
+      </StatusEffect>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" colormultiplier="255,100,100,255" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+</Items>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item
+    name="神谕磁暴发生器"
+    identifier="aic_practitioner_oracle_magnetic_storm_generator"
+    category="Weapon"
+    subcategory="践行者军备"
+    cargocontaineridentifier="metalcrate"
+    tags="mediumitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_practitioner_weapon,aic_t2_weapon"
+    scale="0.15"
+    impactsoundtag="impact_metal_light"
+    description="践行者使用的蓄能磁暴发生器。武器通过电磁加速电磁孤子，在枪口与目标间形成导流通路，随后令暴烈的电弧沿通路传导以摧毁、瘫痪敌人。">
+
+    <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
+
+    <InventoryIcon
+      texture="%ModDir%/践行者/贴图/神谕磁暴发生器物品栏贴图.png"
+      sourcerect="0,0,852,852"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/践行者/贴图/神谕磁暴发生器.png"
+      sourcerect="0,0,1008,284"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="220" height="60" density="30" />
+
+    <Holdable
+      slots="RightHand+LeftHand,Any"
+      controlpose="true"
+      holdpos="75,5"
+      aimpos="75,0"
+      handle1="-280,-28"
+      handle2="-100,-10"
+      holdangle="-30"
+      cameraaimoffset="500">
+
+      <Conditional recoilstabilized="lte 0" />
+      <StatusEffect type="OnActive" target="Character" speedmultiplier="0.75" setvalue="true" />
+      <StatusEffect type="OnSecondaryUse" target="Character" speedmultiplier="0.2" setvalue="true" />
+      <StatusEffect type="OnUse" target="Character" speedmultiplier="0.0" setvalue="true" />
+    </Holdable>
+
+    <RangedWeapon
+      reload="0.2"
+      maxchargetime="1.8"
+      holdtrigger="true"
+      barrelpos="470,46"
+      spread="0"
+      unskilledspread="0.32"
+      combatpriority="85"
+      drawhudwhenequipped="true"
+      crosshairscale="0.22"
+      offsetonselected="850">
+
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+
+      <ParticleEmitterCharge
+        particle="chargenucleargun"
+        particlespersecond="60"
+        colormultiplier="185,115,255,255"
+        scalemultiplier="1.1,1.1"
+        scalemin="1.0"
+        scalemax="1.0"
+        anglemax="360" />
+
+      <Sound file="%ModDir%/Sounds/IC-1 Starbeam.ogg" type="OnUse" range="3000" />
+      <ChargeSound file="Content/Items/Weapons/WEAPONS_chargeUp.ogg" range="3000" />
+
+      <StatusEffect type="OnUse" target="This">
+        <Explosion range="180" force="0.8" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="12" />
+      </StatusEffect>
+
+      <StatusEffect type="OnUse" target="Contained">
+        <Use />
+      </StatusEffect>
+
+      <RequiredItems items="aic_practitioner_oracle_arc_magazine" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="45" />
+    </RangedWeapon>
+
+    <ItemContainer
+      capacity="1"
+      maxstacksize="1"
+      hideitems="true"
+      containedstateindicatorslot="0"
+      containedstateindicatorstyle="bullet"
+      containedspritedepth="0.56">
+
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+
+      <Containable items="aic_practitioner_oracle_arc_magazine" hide="true" itempos="-10,-12" setactive="true">
+        <StatusEffect type="OnInserted" target="This" holdpos="25,-25" holdangle="80" maxchargetime="999" setvalue="true" />
+        <StatusEffect
+          type="OnInserted"
+          target="This"
+          holdpos="75,5"
+          holdangle="-30"
+          disabledeltatime="true"
+          checkconditionalalways="true"
+          delay="0.8"
+          maxchargetime="1.8"
+          setvalue="true">
+          <Conditional maxchargetime="eq 999" />
+        </StatusEffect>
+      </Containable>
+    </ItemContainer>
+
+    <AITarget sightrange="3200" soundrange="2400" fadeouttime="7" />
+
+    <Quality>
+      <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+    </Quality>
+
+    <SkillRequirementHint identifier="weapons" level="45" />
+  </Item>
+
+  <Item
+    name="神谕电弧弹匣"
+    identifier="aic_practitioner_oracle_arc_magazine"
+    maxstacksize="16"
+    maxstacksizecharacterinventory="8"
+    scale="0.5"
+    category="Weapon"
+    subcategory="践行者军备"
+    cargocontaineridentifier="metalcrate"
+    linkable="true"
+    tags="smallitem,handheldammo,aic_practitioner_weaponmag,aic_practitioner_oracle_arc_magazine"
+    impactsoundtag="impact_metal_light"
+    description="供神谕磁暴发生器使用的五发聚能电弧弹匣，为沿电磁孤子导流通路传导的电弧提供能量。当前使用氚燃料棒外形作为占位。">
+
+    <PreferredContainer primary="aic_practitioner_oracle_magnetic_storm_generator" minamount="1" maxamount="1" spawnprobability="1" />
+    <PreferredContainer primary="armcab" secondary="secarmcab" />
+
+    <InventoryIcon
+      texture="%ModDir%/材料/贴图/材料.png"
+      sourcerect="0,59,20,69"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/材料/贴图/材料.png"
+      sourcerect="0,59,20,69"
+      depth="0.56"
+      origin="0.5,0.5" />
+
+    <Body radius="6" width="21" height="71" density="20" />
+
+    <ItemContainer
+      hideitems="true"
+      capacity="1"
+      itemrotation="90"
+      drawinventory="false"
+      canbeselected="false"
+      spawnwithid="aic_practitioner_oracle_arc_bolt"
+      removecontaineditemsondeconstruct="true"
+      showconditionincontainedstateindicator="true"
+      containedstateindicatorstyle="bullet">
+
+      <Containable items="aic_practitioner_oracle_arc_bolt" />
+
+      <StatusEffect type="OnUse" target="This" condition="-20" disabledeltatime="true">
+        <SpawnItem identifiers="aic_practitioner_oracle_arc_bolt" spawnposition="ThisInventory" />
+      </StatusEffect>
+    </ItemContainer>
+
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="神谕磁暴电弧"
+    identifier="aic_practitioner_oracle_arc_bolt"
+    category="Weapon"
+    interactthroughwalls="true"
+    tags="smallitem,aic_practitioner_energy_bolt"
+    impactsoundtag="impact_metal_light"
+    hideinmenus="true"
+    description="沿电磁孤子形成的导流通路传导的高强度电弧，用于向目标释放磁暴电弧。"
+    scale="0.5">
+
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="143,414,113,9" depth="0.55" origin="0.5,0.5" />
+    <Body width="170" height="10" density="20" />
+    <Holdable slots="RightHand+LeftHand" holdpos="0,-50" handle1="-10,0" handle2="10,0" aimable="false" />
+
+    <Projectile characterusable="false" hitscan="true" maxtargetstohit="1" removeonhit="true" damagedoors="true">
+      <ParticleEmitter
+        particle="aic_electricarc_storm"
+        particleamount="1"
+        velocitymin="0"
+        velocitymax="0"
+        scalemultiplier="0.00055,0.75" />
+      <ParticleEmitter particle="FlareBubbles" emitacrossrayinterval="50" />
+
+      <Attack structuredamage="8" targetforce="20" itemdamage="45" severlimbsprobability="0" penetration="0.8">
+        <Affliction identifier="electricshock" strength="150" />
+        <Affliction identifier="emp" strength="150" />
+        <Affliction identifier="burn" strength="160" />
+        <Affliction identifier="aic_heat_buildup" strength="60" />
+      </Attack>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="muzzleflashnucleargun" anglemin="0" anglemax="360" particleamount="10" velocitymin="0" scalemin="0.8" scalemax="1.0" scalemultiplier="0.75,0.75" colormultiplier="205,145,255,255" />
+        <ParticleEmitter particle="ElectricShock" drawontop="true" distancemin="5" distancemax="35" particleamount="9" scalemin="0.2" scalemax="0.4" colormultiplier="205,145,255,255" />
+        <ParticleEmitter particle="FlareBubbles" particleamount="3" anglemin="0" anglemax="360" velocitymin="0" velocitymax="50" />
+      </StatusEffect>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" colormultiplier="185,115,255,255" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+</Items>

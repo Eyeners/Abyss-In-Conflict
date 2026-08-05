@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Character SpeciesName="aic_wardens_marksman_raider" Tags="aic_wardensraider" SpeciesTranslationOverride="卫戍者精确射手（突袭）" Group="aic_wardensraider" Humanoid="True" HasInfo="False" CanInteract="True" CanClimb="True" ForceSlowClimbing="False" Husk="False" HuskedSpecies="" NonHuskedSpecies="" UseHuskAppendage="False" NeedsAir="True" NeedsWater="False" UseHumanAI="False" IsMachine="False" CanSpeak="True" ShowHealthBar="True" UseBossHealthBar="False" Noise="300" Visibility="300" BloodDecal="blood" BleedParticleAir="blooddrop" BleedParticleWater="waterblood" BleedParticleMultiplier="1" CanEat="False" EatingSpeed="10" UsePathFinding="True" PathFinderPriority="1" HideInSonar="False" HideInThermalGoggles="False" SonarDisruption="0" DistantSonarRange="0" DisableDistance="25000" SoundInterval="10" DrawLast="False" AITurretPriority="1" AISlowTurretPriority="1" DespawnContainer="" MusicType="monster" MusicCommonness="1" MusicRangeMultiplier="1" UnlockKillAchievementForWholeCrew="False">
+  <ragdolls folder="default" />
+  <animations folder="default" />
+  <health Vitality="110" DoesBleed="True" CrushDepth="12000" UseHealthWindow="False" BleedingReduction="0.5" BurnReduction="0" ConstantHealthRegeneration="0" HealthRegenerationWhenEating="0" StunImmunity="False" PoisonImmunity="False" PoisonVulnerability="1" EmpVulnerability="0" ApplyMovementPenalties="True" DieFromBeheading="True" AllowSeveringLegs="True" ApplyAfflictionColors="False" Immunities="">
+    <Limb name="Head">
+      <VitalityMultiplier type="damage" multiplier="2.0" />
+    </Limb>
+    <Limb name="Torso" />
+    <Limb name="LeftArm">
+      <VitalityMultiplier type="damage" multiplier="0.5" />
+    </Limb>
+    <Limb name="RightArm">
+      <VitalityMultiplier type="damage" multiplier="0.5" />
+    </Limb>
+    <Limb name="LeftLeg">
+      <VitalityMultiplier type="damage" multiplier="0.5" />
+    </Limb>
+    <Limb name="RightLeg">
+      <VitalityMultiplier type="damage" multiplier="0.5" />
+    </Limb>
+  </health>
+  <ai CombatStrength="560" Sight="3.0" Hearing="3" AggressionHurt="150" AggressionGreed="5" FleeHealthThreshold="0" AttackWhenProvoked="True" AvoidGunfire="False" DamageThreshold="0" AvoidTime="3" MinFleeTime="20" AggressiveBoarding="True" EnforceAggressiveBehaviorForMissions="True" TargetOuterWalls="True" RandomAttack="True" CanOpenDoors="True" UsePathFindingToGetInside="True" KeepDoorsClosed="True" AvoidAbyss="True" StayInAbyss="True" PatrolFlooded="False" PatrolDry="False" StartAggression="120" MaxAggression="400" AggressionCumulation="120" WallTargetingMethod="Target">
+    <target Tag="human" State="Attack" Priority="230" ReactDistance="5" AttackDistance="24" IgnoreIfNotInSameSub="True" IgnoreIncapacitated="True" AttackPattern="Straight" />
+    <target Tag="provocative" State="Attack" Priority="100" IgnoreIfNotInSameSub="True" AttackPattern="Straight" />
+    <target Tag="weapon" State="Attack" Priority="100" IgnoreIfNotInSameSub="True" AttackPattern="Straight" />
+    <target Tag="wall" State="Attack" Priority="95" IgnoreInside="True" IgnoreIfNotInSameSub="True" AttackPattern="Straight" />
+    <target Tag="door" State="Attack" Priority="95" IgnoreInside="True" IgnoreIfNotInSameSub="True" AttackPattern="Straight" />
+  </ai>
+  <inventory arrowslot="9" Slots="Card, Headset, Head, InnerClothes, OuterClothes, LeftHand, RightHand, Bag, Any, Any, Any, Any, Any, Any, Any, Any, Any, HealthInterface" AccessibleWhenAlive="False" Commonness="1">
+    <Item slot="Card" Identifier="idcard" />
+    <Item slot="Headset" Identifier="headset" />
+    <Item slot="OuterClothes" Identifier="aic_wardens_chariot_exoarmor" />
+    <Item slot="Head" Identifier="aic_wardens_chariot_exohelmet" />
+    <Item slot="RightHand, LeftHand" equip="true" Identifier="aic_wardens_hammeranvil_raider_ai" />
+    <Item slot="Any" Identifier="aic_wardens_hammeranvil_rifle">
+      <Item Identifier="aic_wardens_hammeranvil_depleted_mag" />
+      <Item Identifier="flashlight">
+        <Item Identifier="fulguriumbatterycell" />
+      </Item>
+      <Item Identifier="aic_wardens_general_scope" />
+    </Item>
+    <Item amount="8" Identifier="aic_wardens_hammeranvil_depleted_mag" />
+    <Item amount="8" Identifier="aic_wardens_hammeranvil_mag" />
+    <Item amount="3" Identifier="antibleeding1" />
+    <Item amount="1" Identifier="opium" />
+  </inventory>
+</Character>

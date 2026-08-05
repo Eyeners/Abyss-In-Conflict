@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item
+    name="铬镍合金"
+    identifier="aic_material_chromenickel_alloy"
+    category="Material"
+    subcategory="先进材料"
+    maxstacksize="32"
+    maxstacksizecharacterinventory="8"
+    scale="0.5"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,petfood3,aic_material"
+    impactsoundtag="impact_metal_light"
+    description="以镍和铬为主要成分的合金，具有良好的抗腐蚀与耐磨性能，常用于制造高性能机械部件和工具。">
+
+    <PreferredContainer primary="metalcrate,securelocker" secondary="crate,locker" />
+
+    <Price baseprice="120" sold="true">
+      <Price storeidentifier="merchantoutpost" multiplier="1.15" sold="true" minavailable="6" maxavailable="6" />
+      <Price storeidentifier="merchantengineering" multiplier="1.0" sold="true" minavailable="6" maxavailable="6" />
+    </Price>
+
+    <Deconstruct time="6">
+      <Item identifier="steel" amount="1" />
+    </Deconstruct>
+
+    <InventoryIcon
+      texture="%ModDir%/材料/贴图/材料.png"
+      sourcerect="1,31,53,26"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/材料/贴图/材料.png"
+      sourcerect="1,31,53,26"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="38" height="18" density="28" />
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="钨钢"
+    identifier="aic_material_tungsten_steel"
+    category="Material"
+    subcategory="先进材料"
+    maxstacksize="32"
+    maxstacksizecharacterinventory="8"
+    scale="0.5"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,petfood3,aic_material,advmunition_core,advmunition_tip"
+    impactsoundtag="impact_metal_heavy"
+    description="一种沉重且坚固的合金，被大规模用于穿甲子弹和防护装备的制造，机械族也大规模将这种物质应用于机械框架和外壳。">
+
+    <PreferredContainer primary="metalcrate,securelocker" secondary="crate,locker" />
+
+    <Price baseprice="150" sold="true">
+      <Price storeidentifier="merchantoutpost" multiplier="1.15" sold="true" minavailable="6" maxavailable="6" />
+      <Price storeidentifier="merchantengineering" multiplier="1.0" sold="true" minavailable="6" maxavailable="6" />
+    </Price>
+
+    <Deconstruct time="6">
+      <Item identifier="steel" amount="1" />
+    </Deconstruct>
+
+    <InventoryIcon
+      texture="%ModDir%/材料/贴图/材料.png"
+      sourcerect="1,1,54,26"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/材料/贴图/材料.png"
+      sourcerect="1,1,54,26"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="39" height="18" density="30" />
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="高熵合金"
+    identifier="aic_material_high_entropy_alloy"
+    category="Material"
+    subcategory="先进材料"
+    maxstacksize="32"
+    maxstacksizecharacterinventory="8"
+    scale="0.5"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,material,aic_material"
+    impactsoundtag="impact_metal_heavy"
+    description="由多种主要金属元素例构成的高性能非晶态合金，在力学性能、耐腐蚀性能、热稳定性和磁学性能方面皆表现出色，大部分由外层空间的轨道工业设施的巨型真空感应炉生产，在木卫二仅有部分拥有激光熔覆冶炼装置的大型工业城市有小规模制造能力。">
+
+    <InventoryIcon
+      texture="%ModDir%/材料/贴图/材料.png"
+      sourcerect="112,1,54,26"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/材料/贴图/材料.png"
+      sourcerect="112,1,54,26"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="39" height="18" density="30" />
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="瓷金复合材料"
+    identifier="aic_material_cerametal_composite"
+    category="Material"
+    subcategory="先进材料"
+    maxstacksize="32"
+    maxstacksizecharacterinventory="8"
+    scale="0.5"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,petfood3,aic_material"
+    impactsoundtag="impact_metal_light"
+    description="一种陶瓷与金属制造的绝缘轻质复合材料，对子弹的冲击有很好的缓冲能力，表层的涂料会在激光等高能武器的冲击下自行解离为尘埃云减轻所受伤害。">
+
+    <PreferredContainer primary="metalcrate,securelocker" secondary="crate,locker" />
+
+    <Price baseprice="125" sold="true">
+      <Price storeidentifier="merchantoutpost" multiplier="1.15" sold="true" minavailable="6" maxavailable="6" />
+      <Price storeidentifier="merchantengineering" multiplier="1.0" sold="true" minavailable="6" maxavailable="6" />
+    </Price>
+
+    <Fabricate suitablefabricators="fabricator" requiredtime="5" amount="4">
+      <RequiredSkill identifier="mechanical" level="45" />
+      <RequiredSkill identifier="electrical" level="45" />
+      <RequiredItem identifier="carbon" amount="1" />
+      <RequiredItem identifier="silicon" amount="1" />
+      <RequiredItem identifier="titaniumaluminiumalloy" amount="4" />
+    </Fabricate>
+
+    <Deconstruct time="6">
+      <Item identifier="titaniumaluminiumalloy" amount="3" />
+      <Item identifier="silicon" amount="1" />
+    </Deconstruct>
+
+    <InventoryIcon
+      texture="%ModDir%/材料/贴图/材料.png"
+      sourcerect="57,1,53,26"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/材料/贴图/材料.png"
+      sourcerect="57,1,53,26"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="38" height="18" density="28" />
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="电磁轴承"
+    identifier="aic_material_electromagnetic_bearing"
+    category="Material"
+    subcategory="先进材料"
+    maxstacksize="32"
+    maxstacksizecharacterinventory="16"
+    scale="0.04"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,aic_material"
+    impactsoundtag="impact_metal_light"
+    description="利用电磁力来稳定关节和减少摩擦的轴承，用于各种机械骨骼中">
+
+    <PreferredContainer primary="metalcrate,securelocker" secondary="crate,locker" />
+
+    <Price baseprice="500" sold="true">
+      <Price storeidentifier="merchantoutpost" multiplier="1.15" sold="true" minavailable="3" maxavailable="4" />
+      <Price storeidentifier="merchantengineering" multiplier="1.0" sold="true" minavailable="3" maxavailable="4" />
+    </Price>
+
+    <Fabricate suitablefabricators="fabricator" requiredtime="10" amount="2">
+      <RequiredSkill identifier="mechanical" level="45" />
+      <RequiredItem identifier="aic_material_chromenickel_alloy" amount="1" />
+      <RequiredItem identifier="copper" amount="2" />
+      <RequiredItem identifier="steel" amount="1" />
+    </Fabricate>
+
+    <Deconstruct time="6">
+      <Item identifier="copper" amount="1" />
+      <Item identifier="aic_material_chromenickel_alloy" amount="1" />
+    </Deconstruct>
+
+    <InventoryIcon
+      texture="%ModDir%/材料/贴图/电磁轴承贴图.png"
+      sourcerect="0,0,500,500"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/材料/贴图/电磁轴承贴图.png"
+      sourcerect="0,0,500,500"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="38" height="18" density="28" />
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="超导轴承"
+    identifier="aic_material_superconductive_bearing"
+    category="Material"
+    subcategory="先进材料"
+    maxstacksize="32"
+    maxstacksizecharacterinventory="16"
+    scale="0.04"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,material,aic_material"
+    impactsoundtag="impact_metal_light"
+    description="以超导材料和电磁稳定结构制成的高级轴承，能够在高负载下维持极低摩擦和极高响应速度">
+
+    <PreferredContainer primary="metalcrate,securelocker" secondary="crate,locker" />
+
+    <Price baseprice="720" sold="true">
+      <Price storeidentifier="merchantoutpost" multiplier="1.15" sold="true" minavailable="3" maxavailable="4" />
+      <Price storeidentifier="merchantengineering" multiplier="1.0" sold="true" minavailable="3" maxavailable="4" />
+    </Price>
+
+    <Fabricate suitablefabricators="fabricator" requiredtime="12" amount="1">
+      <RequiredSkill identifier="mechanical" level="50" />
+      <RequiredSkill identifier="electrical" level="40" />
+      <RequiredItem identifier="aic_material_superconductive_material" amount="1" />
+      <RequiredItem identifier="aic_material_electromagnetic_bearing" amount="1" />
+    </Fabricate>
+
+    <Deconstruct time="6">
+      <Item identifier="copper" amount="1" />
+      <Item identifier="aic_material_chromenickel_alloy" amount="1" />
+      <Item identifier="aic_material_superconductive_material" amount="1" />
+    </Deconstruct>
+
+    <InventoryIcon
+      texture="%ModDir%/材料/贴图/超导轴承贴图.png"
+      sourcerect="0,0,500,500"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/材料/贴图/超导轴承贴图.png"
+      sourcerect="0,0,500,500"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="38" height="18" density="28" />
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="护盾电容"
+    identifier="aic_material_shield_capacitor"
+    category="Material"
+    subcategory="先进材料"
+    maxstacksize="32"
+    maxstacksizecharacterinventory="16"
+    scale="0.04"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,material,aic_material"
+    impactsoundtag="impact_metal_light"
+    description="用以驱动迈斯纳效应原理的超导磁力护盾的高容量电容">
+
+    <PreferredContainer primary="metalcrate,securelocker" secondary="crate,locker" />
+
+    <Price baseprice="1600" sold="false">
+      <Price storeidentifier="merchantoutpost" multiplier="1.15" sold="false" />
+      <Price storeidentifier="merchantengineering" multiplier="1.0" sold="false" />
+    </Price>
+
+    <Fabricate suitablefabricators="fabricator" requiredtime="14" amount="1">
+      <RequiredSkill identifier="mechanical" level="55" />
+      <RequiredSkill identifier="electrical" level="45" />
+      <RequiredItem identifier="aic_material_superconductive_material" amount="3" />
+      <RequiredItem identifier="fulgurium" amount="3" />
+      <RequiredItem identifier="aic_material_cerametal_composite" amount="2" />
+    </Fabricate>
+
+    <Deconstruct time="6">
+      <Item identifier="fulgurium" amount="2" />
+      <Item identifier="aic_material_superconductive_material" amount="2" />
+      <Item identifier="aic_material_cerametal_composite" amount="1" />
+    </Deconstruct>
+
+    <InventoryIcon
+      texture="%ModDir%/材料/贴图/护盾电容.png"
+      sourcerect="0,0,500,500"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/材料/贴图/护盾电容.png"
+      sourcerect="0,0,500,500"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="38" height="18" density="28" />
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="氚燃料棒"
+    identifier="aic_material_tritium_fuelrod"
+    category="Fuel"
+    subcategory="先进材料"
+    maxstacksize="8"
+    maxstacksizecharacterinventory="8"
+    health="200"
+    scale="0.5"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,material,reactorfuel,divingsuitfuel,aic_material"
+    impactsoundtag="impact_metal_light"
+    description="以氚为主要燃料的实验型燃料棒，尺寸和标准燃料棒一致，可用于反应堆和部分动力装备。">
+
+    <PreferredContainer primary="reactorcab" secondary="metalcrate,securelocker,crate,locker" />
+
+    <Price baseprice="280" sold="true">
+      <Price storeidentifier="merchantoutpost" multiplier="1.15" sold="true" />
+      <Price storeidentifier="merchantcity" multiplier="1.1" sold="true" />
+      <Price storeidentifier="merchantresearch" multiplier="1.15" sold="true" />
+      <Price storeidentifier="merchantengineering" multiplier="0.95" sold="true" />
+    </Price>
+
+    <Deconstruct time="10">
+      <Item identifier="steel" amount="1" />
+    </Deconstruct>
+
+    <InventoryIcon
+      texture="%ModDir%/材料/贴图/材料.png"
+      sourcerect="0,59,20,69"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/材料/贴图/材料.png"
+      sourcerect="0,59,20,69"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body radius="6" width="21" height="71" density="20" />
+    <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" />
+
+    <ItemContainer hideitems="true" capacity="1" itemrotation="90" drawinventory="false" canbeselected="false" SpawnWithId="nucleargunbolt" removecontaineditemsondeconstruct="true" showcontainedstateindicator="false">
+      <Containable items="nucleargunbolt" />
+      <StatusEffect type="OnUse" target="This" condition="-25.0" disabledeltatime="true">
+        <SpawnItem identifiers="nucleargunbolt" spawnposition="ThisInventory" />
+      </StatusEffect>
+    </ItemContainer>
+
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1" />
+    </Quality>
+  </Item>
+
+  <Item
+    name="超导材料"
+    identifier="aic_material_superconductive_material"
+    category="Material"
+    subcategory="先进材料"
+    maxstacksize="32"
+    maxstacksizecharacterinventory="8"
+    scale="0.5"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,material,aic_material"
+    impactsoundtag="impact_metal_light"
+    description="在常温下仍具有超导特性的奇异材料，在磁力发生和电力传导等领域有不可替代的作用。">
+
+    <PreferredContainer primary="metalcrate,securelocker" secondary="crate,locker" />
+
+    <Price baseprice="200" sold="true">
+      <Price storeidentifier="merchantoutpost" multiplier="1.15" sold="true" minavailable="3" maxavailable="4" />
+      <Price storeidentifier="merchantengineering" multiplier="0.95" sold="true" minavailable="3" maxavailable="4" />
+    </Price>
+
+    <Deconstruct time="8">
+      <Item identifier="silicon" amount="1" />
+    </Deconstruct>
+
+    <InventoryIcon
+      texture="%ModDir%/材料/贴图/材料.png"
+      sourcerect="55,30,49,71"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/材料/贴图/材料.png"
+      sourcerect="55,30,49,71"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="28" height="40" density="24" />
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="特种金属材料储存箱"
+    identifier="aic_material_special_metal_crate"
+    category="Material"
+    subcategory="先进材料"
+    maxstacksize="4"
+    maxstacksizecharacterinventory="4"
+    scale="0.35"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,material,aic_material"
+    impactsoundtag="impact_metal_heavy"
+    description="装满高价值特种金属材料的储存箱，通常被用于集中运输和前线补给。">
+
+    <PreferredContainer primary="storagecab,metalcrate,securelocker" secondary="crate,locker" />
+
+    <Price baseprice="3200" sold="true">
+      <Price storeidentifier="merchantoutpost" multiplier="1.2" sold="true" />
+      <Price storeidentifier="merchantcity" multiplier="1.15" sold="true" />
+      <Price storeidentifier="merchantmilitary" multiplier="1.0" sold="true" />
+      <Price storeidentifier="merchantarmory" multiplier="0.95" sold="true" />
+      <Price storeidentifier="merchantengineering" multiplier="1.0" sold="true" />
+    </Price>
+
+    <Deconstruct time="12">
+      <Item identifier="aic_material_tungsten_steel" amount="16" />
+      <Item identifier="aic_material_cerametal_composite" amount="8" />
+      <Item identifier="aic_material_chromenickel_alloy" amount="8" />
+      <Item identifier="aic_material_superconductive_material" amount="4" />
+    </Deconstruct>
+
+    <InventoryIcon
+      texture="%ModDir%/材料/贴图/特种金属材料储存箱.png"
+      sourcerect="0,0,300,126"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/材料/贴图/特种金属材料储存箱实物.png"
+      sourcerect="0,0,500,170"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="176" height="60" density="30" />
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" attachable="true" reattachable="false" />
+    <StatusEffect type="OnBroken" target="This">
+      <Remove />
+    </StatusEffect>
+    <AiTarget sightrange="1000" static="true" />
+  </Item>
+</Items>

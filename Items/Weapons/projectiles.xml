@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <!-- Placeholder weapon. Its visual assets currently come from XCOM Terror From The Abyss. -->
+  <Item name="照明钉枪（占位）" identifier="aic_illumination_nailgun" category="Weapon" Tags="mediumitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_illumination_nailgun" cargocontaineridentifier="metalcrate" Scale="0.09" impactsoundtag="impact_metal_light">
+    <PreferredContainer primary="guncontainer" secondary="wreckguncontainer" amount="1" spawnprobability="0.2" />
+    <Sprite texture="%ModDir:3428506670%/二创/信号枪.png" sourcerect="0,0,500,312" depth="0.55" origin="0.5,0.5" />
+    <Body width="180" height="30" density="25" />
+    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="85,5" handle1="-200,-70" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnSecondaryUse" target="Character" SpeedMultiplier="0.9" setvalue="true" />
+      <StatusEffect type="OnUse" target="Character" SpeedMultiplier="0.8" setvalue="true" />
+    </Holdable>
+    <RangedWeapon barrelpos="250,15" launchimpulse="5" spread="0" unskilledspread="0" combatPriority="0" reload="1.0" drawhudwhenequipped="true" crosshairscale="0.2">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <Sound file="%ModDir:3428506670%/sounds/合金手炮.ogg" type="OnUse" range="3000" selectionmode="Random" />
+      <StatusEffect type="OnUse" target="This">
+        <Explosion range="150" force="0.55" shockwave="false" smoke="false" flash="true" sparks="false" flames="false" underwaterbubble="false" camerashake="6" />
+      </StatusEffect>
+      <RequiredItems items="aic_illumination_nail" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="25" />
+    </RangedWeapon>
+    <aitarget sightrange="500" soundrange="500" fadeouttime="2" />
+    <Quality />
+    <ItemContainer capacity="1" maxstacksize="4" hideitems="false" containedstateindicatorstyle="bullet" containedstateindicatorslot="0" containedspritedepth="0.56">
+      <Containable items="aic_illumination_nail" hide="true" />
+    </ItemContainer>
+    <SkillRequirementHint identifier="weapons" level="25" />
+  </Item>
+
+  <Item name="照明钉弹（占位）" identifier="aic_illumination_nail" category="Weapon" Tags="smallitem,handheldammo,aic_illumination_nail" maxstacksize="32" maxstacksizecharacterinventory="8" cargocontaineridentifier="metalcrate" Scale="0.05" isshootable="true" impactsoundtag="impact_metal_light" health="10">
+    <InventoryIcon texture="%ModDir:3428506670%/二创/照明弹高功率.png" sourcerect="0,0,340,340" origin="0.5,0.5" />
+    <Sprite texture="%ModDir:3428506670%/二创/合金箭弹.png" sourcerect="0,0,340,100" depth="0.55" origin="0.5,0.5" />
+    <Body width="340" height="100" density="20" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+    <Projectile characterusable="false" hitscan="false" launchimpulse="20" removeonhit="false" friendlyfire="false" sticktocharacters="true" sticktoitems="true" sticktostructures="true" sticktodeflective="true" sticktodoors="true" sticktolighttargets="true">
+      <Attack structuredamage="0" itemdamage="0" targetforce="1" severlimbsprobability="0">
+        <Affliction identifier="lacerations" strength="2" />
+        <Affliction identifier="aic_illumination_mark" strength="1" />
+      </Attack>
+      <StatusEffect type="OnUse" targettype="This" targetitemcomponent="LightComponent" IsOn="true" DontCleanUp="true">
+        <Conditional IsOn="eq false" targetitemcomponent="LightComponent" />
+        <sound file="Content/Items/Tools/FlareIgnite.ogg" range="800" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" targettype="This">
+        <ParticleEmitter particle="spark" particleamount="3" velocitymin="20" velocitymax="80" />
+      </StatusEffect>
+    </Projectile>
+    <LightComponent LightColor="255,255,235,90" Flicker="0.02" range="1400" powerconsumption="0" IsOn="false">
+      <sprite texture="Content/Items/Tools/tools.png" sourcerect="374,140,62,20" origin="0.5,0.5" />
+      <StatusEffect type="OnActive" targettype="This" Condition="-0.00625" />
+      <StatusEffect type="OnBroken" targettype="This" IsOn="false" />
+    </LightComponent>
+  </Item>
+</Items>

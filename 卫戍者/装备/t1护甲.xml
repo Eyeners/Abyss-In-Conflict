@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="战车外骨骼机动护甲" identifier="aic_wardens_chariot_exoarmor" category="Equipment" subcategory="卫戍者护甲" tags="smallitem,armor,clothing,aic_wardens_armor" scale="0.5" fireproof="true" impactsoundtag="impact_metal_heavy" cargocontaineridentifier="metalcrate" description="卫戍者PMC派发给新兵和部分联盟协作人员的外骨骼助力装甲，提供基本的防护效果和机械助力，不要想着靠这一点增强的力量去和机械族搏斗，不过它至少可以在你腿被打烂的时候拖着你逃走">
+    <PreferredContainer primary="locker,armcab" secondary="metalcrate" />
+    <Price baseprice="680" sold="true">
+      <Price storeidentifier="merchantmilitary" multiplier="0.95" sold="true" minavailable="1" maxavailable="3" />
+      <Price storeidentifier="merchantarmory" multiplier="0.95" sold="true" minavailable="1" maxavailable="3" />
+      <Price storeidentifier="merchantoutpost" multiplier="1.2" sold="true" minavailable="1" maxavailable="3" />
+      <Price storeidentifier="merchantcity" multiplier="1.1" sold="true" minavailable="1" maxavailable="3" />
+    </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="30">
+      <RequiredSkill identifier="mechanical" level="45" />
+      <RequiredSkill identifier="weapons" level="45" />
+      <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
+      <RequiredItem identifier="aic_material_cerametal_composite" amount="4" />
+      <RequiredItem identifier="aic_material_electromagnetic_bearing" amount="4" />
+      <RequiredItem identifier="aic_material_tungsten_steel" amount="1" />
+    </Fabricate>
+    <Deconstruct time="15">
+      <Item identifier="ballisticfiber" amount="1" />
+      <Item identifier="steel" amount="1" />
+    </Deconstruct>
+    <InventoryIcon texture="%ModDir%/卫戍者/贴图/卫戍者PMC白.png" sourcerect="0,0,1254,1254" scale="0.02" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/卫戍者/贴图/卫戍者PMC实物贴图.png" sourcerect="0,0,64,64" depth="0.55" origin="0.5,0.5" />
+    <Body radius="24" height="20" density="24" />
+    <Wearable slots="OuterClothes" msg="ItemMsgPickUpSelect" displaycontainedstatus="true">
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound" damagemultiplier="0.55" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.6" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="explosiondamage" damagemultiplier="0.75" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bleeding" damagemultiplier="0.4" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.6" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_heat_buildup" damagemultiplier="0.6" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="radiationsickness" damagemultiplier="0.5" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="electricshock" damagemultiplier="0.5" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="stun" damagemultiplier="0.75" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="concussion" damagemultiplier="0.2" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="huskinfection,aic_nanite_infection" probabilitymultiplier="0.5" damagesound="LimbArmor" />
+      <sprite name="Hunter Exo Torso" texture="%ModDir%/卫戍者/贴图/战车外骨骼机动护甲.png" limb="Torso" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.58,0.62" sourcerect="153,18,108,127" />
+      <sprite name="Hunter Exo Right Hand" texture="%ModDir%/卫戍者/贴图/战车外骨骼机动护甲.png" limb="RightHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.4,0.45" sourcerect="289,161,30,38" depthlimb="RightArm" />
+      <sprite name="Hunter Exo Left Hand" texture="%ModDir%/卫戍者/贴图/战车外骨骼机动护甲.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.4,0.45" sourcerect="354,161,30,38" />
+      <sprite name="Hunter Exo Right Arm" texture="%ModDir%/卫戍者/贴图/战车外骨骼机动护甲.png" limb="RightArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.5,0.48" sourcerect="283,1,40,87" />
+      <sprite name="Hunter Exo Left Arm" texture="%ModDir%/卫戍者/贴图/战车外骨骼机动护甲.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.5,0.48" sourcerect="348,1,40,87" />
+      <sprite name="Hunter Exo Right Forearm" texture="%ModDir%/卫戍者/贴图/战车外骨骼机动护甲.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.5,0.48" sourcerect="286,90,32,70" />
+      <sprite name="Hunter Exo Left Forearm" texture="%ModDir%/卫戍者/贴图/战车外骨骼机动护甲.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.5,0.48" sourcerect="352,90,32,70" />
+      <sprite name="Hunter Exo Waist" texture="%ModDir%/卫戍者/贴图/战车外骨骼机动护甲.png" limb="Waist" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.5,0.62" sourcerect="187,193,51,49" />
+      <sprite name="Hunter Exo Right Thigh" texture="%ModDir%/卫戍者/贴图/战车外骨骼机动护甲.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.5,0.62" sourcerect="0,13,64,123" />
+      <sprite name="Hunter Exo Left Thigh" texture="%ModDir%/卫戍者/贴图/战车外骨骼机动护甲.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.5,0.62" sourcerect="83,13,64,123" />
+      <sprite name="Hunter Exo Right Leg" texture="%ModDir%/卫戍者/贴图/战车外骨骼机动护甲.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.5,0.54" sourcerect="12,137,50,114" />
+      <sprite name="Hunter Exo Left Leg" texture="%ModDir%/卫戍者/贴图/战车外骨骼机动护甲.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.5,0.54" sourcerect="94,137,50,114" />
+      <sprite name="Hunter Exo Left Foot" texture="%ModDir%/卫戍者/贴图/战车外骨骼机动护甲.png" limb="LeftFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.48,0.5" sourcerect="338,219,62,34" />
+      <sprite name="Hunter Exo Right Foot" texture="%ModDir%/卫戍者/贴图/战车外骨骼机动护甲.png" limb="RightFoot" depthlimb="RightHand" inheritlimbdepth="false" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.48,0.5" sourcerect="274,219,62,34" />
+      <StatValue stattype="MaximumHealthMultiplier" value="0.1" />
+      <StatValue stattype="WalkingSpeed" value="0.08" />
+      <StatValue stattype="FlowResistance" value="0.25" />
+      <SkillModifier skillidentifier="weapons" skillvalue="15" />
+      <StatusEffect type="OnWearing" target="Character" interval="1.5" disabledeltatime="true">
+        <Affliction identifier="aic_wardens_assisted_exoskeleton" amount="1" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Character" interval="1.5" disabledeltatime="true">
+        <Affliction identifier="aic_wardens_military_protection" amount="1" />
+        <Affliction identifier="aic_wardens_military_protection_gunshot" amount="1" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Character" stunresistance="10" setvalue="true" disabledeltatime="true" />
+    </Wearable>
+    <Holdable slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+    <ItemContainer capacity="0" maxstacksize="0" hideitems="true">
+      <SubContainer capacity="4" maxstacksize="8" slotsperrow="2">
+        <Containable items="smallitem,toolbelt,toolbox,bandolier" excludeditems="largemobilecontainer" />
+      </SubContainer>
+    </ItemContainer>
+  </Item>
+  <Item name="战车外骨骼战术头盔" identifier="aic_wardens_chariot_exohelmet" category="Equipment" subcategory="卫戍者护甲" tags="smallitem,armor,helmet,clothing,aic_wardens_armor" scale="0.5" fireproof="true" impactsoundtag="impact_metal_heavy" cargocontaineridentifier="metalcrate" description="和战车外骨骼机动护甲配套的头盔，瓷金复合物外壳可以提供不错的防护效果，内置夜视仪和医疗扫描装置，物美价廉，哪怕是分离主义者也会想办法给自己弄到一个">
+    <PreferredContainer primary="locker,armcab" secondary="metalcrate" />
+    <Price baseprice="260" sold="true">
+      <Price storeidentifier="merchantmilitary" multiplier="0.95" sold="true" minavailable="1" maxavailable="3" />
+      <Price storeidentifier="merchantarmory" multiplier="0.95" sold="true" minavailable="1" maxavailable="3" />
+      <Price storeidentifier="merchantoutpost" multiplier="1.2" sold="true" minavailable="1" maxavailable="3" />
+      <Price storeidentifier="merchantcity" multiplier="1.1" sold="true" minavailable="1" maxavailable="3" />
+    </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="14">
+      <RequiredSkill identifier="mechanical" level="28" />
+      <RequiredItem identifier="aic_material_cerametal_composite" amount="1" />
+      <RequiredItem identifier="plastic" amount="1" />
+      <RequiredItem identifier="ballisticfiber" amount="1" />
+      <RequiredItem identifier="fpgacircuit" amount="1" />
+    </Fabricate>
+    <Deconstruct time="8">
+      <Item identifier="steel" amount="1" />
+    </Deconstruct>
+    <InventoryIcon texture="%ModDir%/卫戍者/贴图/卫戍者PMC白.png" sourcerect="0,0,1254,1254" scale="0.02" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/卫戍者/贴图/卫戍者PMC实物贴图.png" sourcerect="0,0,64,64" depth="0.56" origin="0.5,0.5" />
+    <Body radius="16" density="22" />
+    <Wearable slots="Head" msg="ItemMsgPickUpSelect">
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound,lacerations,bitewounds" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="stun" damagemultiplier="0.5" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="concussion" damagemultiplier="0.0" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bleeding" damagemultiplier="0.3" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.6" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_heat_buildup" damagemultiplier="0.6" />
+      <sprite name="Hunter Exo Helmet" texture="%ModDir%/卫戍者/贴图/战车外骨骼机动护甲.png" hidelimb="true" limb="Head" depthlimb="LeftHand" inheritlimbdepth="false" inheritscale="false" ignorelimbscale="true" scale="0.5" hidewearablesoftype="Hair" sourcerect="418,9,67,59" origin="0.48,0.54" depth="0.0011">
+        <LightComponent LightColor="220,220,220,120" range="5000" castshadows="false" powerconsumption="infinity" IsOn="true" flicker="0.1" flickerspeed="0.5" pulsefrequency="0.1" pulseamount="0.1" />
+      </sprite>
+      <StatusEffect type="OnWearing" target="Character,This" disabledeltatime="true">
+        <Affliction identifier="aic_nightvision" amount="60" />
+        <Conditional targetself="true" targetitemcomponent="LightComponent" IsOn="true" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="This,Character" voltage="1.0" interval="0.1" setvalue="true" comparison="and">
+        <Conditional IsLocalPlayer="true" aic_nightvision="gt 0" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Character" stunresistance="15" setvalue="true" disabledeltatime="true" />
+    </Wearable>
+    <StatusHUD drawhudwhenequipped="true" />
+    <StatusHUD range="150" overlaycolor="140,255,180,35">
+      <StatusEffect type="OnWearing" target="This,Character" drawhudwhenequipped="true" setvalue="true" comparison="And">
+        <Conditional IsLocalPlayer="true" aic_nightvision="gt 0" />
+      </StatusEffect>
+    </StatusHUD>
+    <CustomInterface canbeselected="true" drawhudwhenequipped="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.09,0.07" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.09" style="ItemUI" />
+      <TickBox text="夜视">
+        <StatusEffect type="OnUse" targettype="This" IsOn="true" HudTint="50,255,50,30" interval="0.1" />
+        <StatusEffect type="OnSecondaryUse" targettype="This" IsOn="false" HudTint="0,0,0,0" interval="0.1" />
+      </TickBox>
+    </CustomInterface>
+    <Holdable slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+</Items>
