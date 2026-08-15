@@ -1,3 +1,39 @@
+local ARCHON_SHIELD_SOUND_EVENT = "aic_archon_shield_impact_sound"
+local ARCHON_SHIELD_SOUND_RANGE = 2000
+local archonShieldSounds = {}
+
+local function LoadArchonShieldSounds()
+    if not CLIENT or #archonShieldSounds > 0 then
+        return
+    end
+
+    local soundDirectory = ST_Lua.Path .. "/践行者/音效/"
+    archonShieldSounds = {
+        Game.SoundManager.LoadSound(soundDirectory .. "Shield impact 1.ogg"),
+        Game.SoundManager.LoadSound(soundDirectory .. "Shield impact 1H.ogg"),
+        Game.SoundManager.LoadSound(soundDirectory .. "Shield impact 1L.ogg")
+    }
+end
+
+local function PlayArchonShieldSound(position)
+    if not CLIENT then
+        return
+    end
+
+    LoadArchonShieldSounds()
+    local sound = archonShieldSounds[math.random(1, #archonShieldSounds)]
+    SoundPlayer.PlaySound(sound, position, 1, ARCHON_SHIELD_SOUND_RANGE, 1)
+end
+
+if CLIENT then
+    LoadArchonShieldSounds()
+    if Game.IsMultiplayer then
+        Networking.Receive(ARCHON_SHIELD_SOUND_EVENT, function(message)
+            PlayArchonShieldSound(Vector2(message.ReadDouble(), message.ReadDouble()))
+        end)
+    end
+end
+
 if not SERVER and Game.IsMultiplayer then
     return
 end
@@ -129,6 +165,25 @@ local ARCHON_BATTERY_SLOT = 2
 local ARCHON_MIN_DAMAGE = 30
 local ARCHON_MIN_RAW_PENETRATION = 0.3
 local ARCHON_BATTERY_DRAIN = 25
+local FORESIGHT_IDENTIFIER = "aic_foresight_t3_armor"
+local FORESIGHT_SHIELD_ENABLED_TAG = "aic_foresight_nanocluster_shield_on"
+local FORESIGHT_BATTERY_SLOT = 2
+local FORESIGHT_DRAIN_MULTIPLIER = 0.8
+
+local function EmitArchonShieldSound(armor)
+    if armor == nil then
+        return
+    end
+
+    if Game.IsMultiplayer then
+        local message = Networking.Start(ARCHON_SHIELD_SOUND_EVENT)
+        message.WriteDouble(armor.WorldPosition.X)
+        message.WriteDouble(armor.WorldPosition.Y)
+        Networking.Send(message)
+    else
+        PlayArchonShieldSound(Vector2(armor.WorldPosition.X, armor.WorldPosition.Y))
+    end
+end
 
 local function BuildBastionTargetIdentifiers()
     local targetIdentifiers = {}
@@ -170,6 +225,19 @@ local function GetArchonBattery(armor)
     return battery
 end
 
+local function GetForesightBattery(armor)
+    if armor == nil or armor.OwnInventory == nil then
+        return nil
+    end
+
+    local battery = armor.OwnInventory.GetItemAt(FORESIGHT_BATTERY_SLOT)
+    if battery == nil or not battery.HasTag("mobilebattery") or battery.Condition <= 0 then
+        return nil
+    end
+
+    return battery
+end
+
 local function MatchesTargetIdentifier(input, required)
     if type(required) == "string" then
         return input == required
@@ -194,14 +262,14 @@ end
 
 local function SelectAfflictionForArmor(afflictions, data)
     local fieldIdentifier = data.aicProbabilityFieldIdentifier
-    if fieldIdentifier == BASTION_IDENTIFIER or fieldIdentifier == ARCHON_IDENTIFIER then
+    if fieldIdentifier == BASTION_IDENTIFIER or fieldIdentifier == ARCHON_IDENTIFIER or fieldIdentifier == FORESIGHT_IDENTIFIER then
         local weightedDamage = 0
 
         for affliction in afflictions do
             local identifier, afflictionType = GetAfflictionIdentity(affliction)
             local strength = math.max(0, affliction.Strength or 0)
 
-            if afflictionType == "damage" and identifier ~= "organdamage" then
+            if afflictionType == "damage" and (fieldIdentifier == FORESIGHT_IDENTIFIER or identifier ~= "organdamage") then
                 weightedDamage = weightedDamage + strength
             elseif afflictionType == "burn" then
                 local burnMultiplier = fieldIdentifier == BASTION_IDENTIFIER and BASTION_BURN_DRAIN_MULTIPLIER or 1
@@ -355,10 +423,18 @@ FieldSystem.Register({
     onBlock = function(armor, character, limb, affliction, penetrationLevel, rawPenetration)
         local battery = GetBastionBattery(armor)
         if battery ~= nil then
+            local previousCondition = battery.Condition
             local weightedDamage = affliction and affliction.Strength or 0
             local penetration = math.max(0, tonumber(rawPenetration) or ((penetrationLevel or 0) / 10))
             local batteryDrain = math.max(0, weightedDamage * penetration)
             battery.Condition = math.max(0, battery.Condition - batteryDrain)
+
+            if AIC.BastionShieldSounds ~= nil then
+                AIC.BastionShieldSounds.PlayImpact(armor)
+                if previousCondition > 0 and battery.Condition <= 0 then
+                    AIC.BastionShieldSounds.PlayBreak(armor)
+                end
+            end
         end
     end
 })
@@ -413,6 +489,56 @@ FieldSystem.Register({
         end
 
         battery.Condition = math.max(0, battery.Condition - ARCHON_BATTERY_DRAIN)
+        EmitArchonShieldSound(armor)
+    end
+})
+
+FieldSystem.Register({
+    identifier = FORESIGHT_IDENTIFIER,
+    name = "Foresight Nano Cluster Shield",
+    ricochetchance = 1,
+    targetidentifier = {
+        ["damage"] = true,
+        ["burn"] = true
+    },
+    protectionarea = {
+        [LimbType.Head] = true,
+        [LimbType.Torso] = true,
+        [LimbType.Waist] = true,
+        [LimbType.LeftArm] = true,
+        [LimbType.LeftForearm] = true,
+        [LimbType.LeftHand] = true,
+        [LimbType.RightArm] = true,
+        [LimbType.RightForearm] = true,
+        [LimbType.RightHand] = true,
+        [LimbType.LeftThigh] = true,
+        [LimbType.RightThigh] = true,
+        [LimbType.LeftLeg] = true,
+        [LimbType.RightLeg] = true,
+        [LimbType.LeftFoot] = true,
+        [LimbType.RightFoot] = true
+    },
+    canBlock = function(armor)
+        if not armor.HasTag(FORESIGHT_SHIELD_ENABLED_TAG) then
+            return false
+        end
+
+        return GetForesightBattery(armor) ~= nil
+    end,
+    onBlock = function(armor, character, limb, affliction, penetrationLevel, rawPenetration)
+        local battery = GetForesightBattery(armor)
+        if battery == nil then
+            return
+        end
+
+        local totalDamage = affliction and affliction.Strength or 0
+        local penetration = math.max(0, tonumber(rawPenetration) or ((penetrationLevel or 0) / 10))
+        local batteryDrain = math.max(0, totalDamage * penetration * FORESIGHT_DRAIN_MULTIPLIER)
+        battery.Condition = math.max(0, battery.Condition - batteryDrain)
+
+        if AIC.NanoClusterShieldVisual ~= nil then
+            AIC.NanoClusterShieldVisual.Flash(character)
+        end
     end
 })
 

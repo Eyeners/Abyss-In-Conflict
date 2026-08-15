@@ -40,4 +40,26 @@
     <Reputation identifier="location" amount="4" />
     <Icon texture="Content/UI/MissionIcons2.png" sourcerect="768,768,256,256" color="214,50,48" />
   </MonsterMission>
+
+  <EscortMission
+    identifier="aic_transport_wardens_soldiers"
+    tags="aic_gdf_mission,aic_wardens_mission"
+    type="Escort"
+    difficulty="2"
+    commonness="100"
+    reward="3000"
+    achievementidentifier="escortmission"
+    baseescortedcharacters="1"
+    scalingescortedcharacters="0">
+    <Characters>
+      <Character from="aic_wardens_combatants" identifier="aic_wardens_assaulter" />
+      <Character from="aic_wardens_combatants" identifier="aic_wardens_assaulter" />
+      <Character from="aic_wardens_combatants" identifier="aic_wardens_marksman" />
+      <Character from="aic_wardens_combatants" identifier="aic_wardens_marksman" />
+    </Characters>
+    <Reputation identifier="aic_gdf_contribution" amount="2" />
+    <Reputation identifier="aic_wardens_pmc" amount="2" />
+    <Icon texture="Content/UI/MissionIcons.png" sourcerect="256,512,256,256" color="243,146,55" />
+    <LocationType from="AnyOutpost" to="AnyOutpost" />
+  </EscortMission>
 </Missions>

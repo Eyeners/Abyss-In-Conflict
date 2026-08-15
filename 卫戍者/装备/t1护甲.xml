@@ -24,17 +24,17 @@
     <Sprite texture="%ModDir%/卫戍者/贴图/卫戍者PMC实物贴图.png" sourcerect="0,0,64,64" depth="0.55" origin="0.5,0.5" />
     <Body radius="24" height="20" density="24" />
     <Wearable slots="OuterClothes" msg="ItemMsgPickUpSelect" displaycontainedstatus="true">
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound" damagemultiplier="0.55" damagesound="LimbArmor" deflectprojectiles="true" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.6" damagesound="LimbArmor" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="explosiondamage" damagemultiplier="0.75" damagesound="LimbArmor" deflectprojectiles="true" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bleeding" damagemultiplier="0.4" damagesound="LimbArmor" />
-      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.6" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_heat_buildup" damagemultiplier="0.6" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="radiationsickness" damagemultiplier="0.5" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound" damagemultiplier="0.25" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.27" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="explosiondamage" damagemultiplier="0.35" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bleeding" damagemultiplier="0.45" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.5" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_heat_buildup" damagemultiplier="0.5" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="radiationsickness" damagemultiplier="0.4" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="electricshock" damagemultiplier="0.5" damagesound="LimbArmor" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="stun" damagemultiplier="0.75" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="stun" damagemultiplier="0.45" damagesound="LimbArmor" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="concussion" damagemultiplier="0.2" deflectprojectiles="true" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="huskinfection,aic_nanite_infection" probabilitymultiplier="0.5" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="huskinfection,aic_nanite_infection" probabilitymultiplier="0.4" damagesound="LimbArmor" />
       <sprite name="Hunter Exo Torso" texture="%ModDir%/卫戍者/贴图/战车外骨骼机动护甲.png" limb="Torso" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.58,0.62" sourcerect="153,18,108,127" />
       <sprite name="Hunter Exo Right Hand" texture="%ModDir%/卫戍者/贴图/战车外骨骼机动护甲.png" limb="RightHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.4,0.45" sourcerect="289,161,30,38" depthlimb="RightArm" />
       <sprite name="Hunter Exo Left Hand" texture="%ModDir%/卫戍者/贴图/战车外骨骼机动护甲.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.4,0.45" sourcerect="354,161,30,38" />
@@ -91,8 +91,8 @@
     <Sprite texture="%ModDir%/卫戍者/贴图/卫戍者PMC实物贴图.png" sourcerect="0,0,64,64" depth="0.56" origin="0.5,0.5" />
     <Body radius="16" density="22" />
     <Wearable slots="Head" msg="ItemMsgPickUpSelect">
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound,lacerations,bitewounds" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="stun" damagemultiplier="0.5" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound,lacerations,bitewounds" damagemultiplier="0.25" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="stun" damagemultiplier="0.4" damagesound="LimbArmor" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="concussion" damagemultiplier="0.0" deflectprojectiles="true" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bleeding" damagemultiplier="0.3" damagesound="LimbArmor" />
       <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.6" />

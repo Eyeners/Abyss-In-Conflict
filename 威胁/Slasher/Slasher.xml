@@ -5,15 +5,16 @@
     <animations folder="%ModDir%/威胁/Slasher/Animations/" />
     <bloodemitter Particle="spark" AngleMin="0" AngleMax="360" ScaleMin="0.6" ScaleMax="1" VelocityMin="20" VelocityMax="120" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="6" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
     <bloodemitter Particle="spark" AngleMin="0" AngleMax="360" ScaleMin="0.4" ScaleMax="0.8" VelocityMin="10" VelocityMax="60" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="3" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
-    <gibemitter Particle="heavygib" AngleMin="0" AngleMax="360" ScaleMin="1" ScaleMax="1" VelocityMin="50" VelocityMax="500" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="10" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
-    <sound gender="None" File="%ModDir%/威胁/Slasher/idle1.ogg" State="Idle" Range="1000" Volume="0.5" Tags="" />
-    <sound gender="None" File="%ModDir%/威胁/Slasher/idle2.ogg" State="Idle" Range="1000" Volume="0.5" Tags="" />
-    <sound gender="None" File="%ModDir%/威胁/Slasher/idle3.ogg" State="Idle" Range="1000" Volume="0.5" Tags="" />
-    <sound gender="None" File="%ModDir%/威胁/Slasher/idle4.ogg" State="Idle" Range="1000" Volume="0.5" Tags="" />
-    <sound gender="None" File="%ModDir%/威胁/Slasher/hurt1.ogg" State="Damage" Range="1000" Volume="0.5" Tags="" />
-    <sound gender="None" File="%ModDir%/威胁/Slasher/hurt2.ogg" State="Damage" Range="1000" Volume="0.5" Tags="" />
-    <sound gender="None" File="%ModDir%/威胁/Slasher/die1.ogg" State="Die" Range="1000" Volume="0.5" Tags="" />
-    <sound gender="None" File="%ModDir%/威胁/Slasher/die2.ogg" State="Die" Range="1000" Volume="0.5" Tags="" />
+    <gibemitter Particle="shrapnel" AngleMin="0" AngleMax="360" ScaleMin="0.3" ScaleMax="0.7" VelocityMin="80" VelocityMax="500" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="12" HighQualityCollisionDetection="False" CopyEntityAngle="False" />
+    <gibemitter Particle="weldspark" AngleMin="0" AngleMax="360" ScaleMin="0.4" ScaleMax="0.9" VelocityMin="100" VelocityMax="400" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="8" HighQualityCollisionDetection="False" CopyEntityAngle="False" DrawOnTop="True" />
+    <gibemitter Particle="ElectricShock" AngleMin="0" AngleMax="360" ScaleMin="0.08" ScaleMax="0.14" VelocityMin="0" VelocityMax="0" EmitInterval="0" ParticlesPerSecond="0" ParticleAmount="3" HighQualityCollisionDetection="False" CopyEntityAngle="False" DrawOnTop="True" />
+    <sound gender="None" File="%ModDir%/威胁/Slasher/机械体 4.ogg" State="Idle" Range="1000" Volume="0.5" Tags="" />
+    <sound gender="None" File="%ModDir%/威胁/Slasher/机械体 1.ogg" State="Damage" Range="1000" Volume="0.5" Tags="" />
+    <sound gender="None" File="%ModDir%/威胁/Slasher/机械体 2.ogg" State="Damage" Range="1000" Volume="0.5" Tags="" />
+    <sound gender="None" File="%ModDir%/威胁/Slasher/机械体 3.ogg" State="Damage" Range="1000" Volume="0.5" Tags="" />
+    <sound gender="None" File="%ModDir%/威胁/Slasher/机械体 1.ogg" State="Die" Range="1000" Volume="0.5" Tags="" />
+    <sound gender="None" File="%ModDir%/威胁/Slasher/机械体 2.ogg" State="Die" Range="1000" Volume="0.5" Tags="" />
+    <sound gender="None" File="%ModDir%/威胁/Slasher/机械体 3.ogg" State="Die" Range="1000" Volume="0.5" Tags="" />
     <health Vitality="400" DoesBleed="False" CrushDepth="Infinity" UseHealthWindow="True" BleedingReduction="10" BurnReduction="5" ConstantHealthRegeneration="1" HealthRegenerationWhenEating="0" StunImmunity="True" PoisonImmunity="True" PoisonVulnerability="0" EmpVulnerability="3" ApplyMovementPenalties="False" DieFromBeheading="False" AllowSeveringLegs="False" ApplyAfflictionColors="False">
       <Limb name="Head">
         <VitalityMultiplier type="damage" multiplier="1" />

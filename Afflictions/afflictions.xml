@@ -69,9 +69,19 @@
   <Affliction name="夜视" identifier="aic_nightvision" type="none" isbuff="true" limbspecific="false" indicatorlimb="Head" maxstrength="100" showiconthreshold="infinity">
     <Effect minstrength="0" maxstrength="100" multiplybymaxvitality="true" graincolor="0,0,0,255" mingrainstrength="2.95" maxgrainstrength="3.05" minscreenblur="0.095" maxscreenblur="0.105" strengthchange="-50" />
   </Affliction>
+  <AfflictionHusk name="纳米集群护盾附肢" identifier="aic_nanocluster_shield_appendage" type="buff" isbuff="true" limbspecific="false" indicatorlimb="Torso" targets="human" huskedspeciesname="[speciesname]_aic_nanocluster_shield" needsair="true" causespeechimpediment="false" sendmessages="false" controlhusk="false" transferbuffs="false" dormantthreshold="0.01" activethreshold="0.01" transitionthreshold="1000" transformthresholdondeath="1000" maxstrength="1" duration="0.75" treatmentthreshold="1000" healableinmedicalclinic="false" showiconthreshold="infinity" showicontoothersthreshold="infinity" showinhealthscannerthreshold="infinity">
+    <Effect minstrength="0" maxstrength="1" />
+  </AfflictionHusk>
   <Affliction name="助力外骨骼" identifier="aic_wardens_assisted_exoskeleton" type="talentbuff" isbuff="true" limbspecific="false" indicatorlimb="Torso" hideiconafterdelay="true" maxstrength="1" duration="2" treatmentthreshold="1000" iconcolors="33,75,78;126,211,224;126,211,224;227,247,249" showiconthreshold="infinity" showicontoothersthreshold="infinity" showinhealthscannerthreshold="0.01">
     <Effect minstrength="0" maxstrength="1">
       <StatValue stattype="MeleeAttackMultiplier" value="0.4" />
+      <AbilityFlag flagtype="MoveNormallyWhileDragging" />
+    </Effect>
+    <icon texture="%ModDir%/卫戍者/贴图/卫戍者PMC白.png" sourcerect="0,0,1254,1254" color="255,255,255,255" origin="0.5,0.5" />
+  </Affliction>
+  <Affliction name="人造肌肉纤维助力" identifier="aic_artificial_muscle_fiber_assistance" type="talentbuff" isbuff="true" limbspecific="false" indicatorlimb="Torso" hideiconafterdelay="true" maxstrength="1" duration="2" treatmentthreshold="1000" iconcolors="33,75,78;126,211,224;126,211,224;227,247,249" showiconthreshold="infinity" showicontoothersthreshold="infinity" showinhealthscannerthreshold="0.01">
+    <Effect minstrength="0" maxstrength="1">
+      <StatValue stattype="MeleeAttackMultiplier" value="1.5" />
       <AbilityFlag flagtype="MoveNormallyWhileDragging" />
     </Effect>
     <icon texture="%ModDir%/卫戍者/贴图/卫戍者PMC白.png" sourcerect="0,0,1254,1254" color="255,255,255,255" origin="0.5,0.5" />
@@ -132,7 +142,7 @@
     <Effect minstrength="40" maxstrength="60" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-1.50" maxresistance="-1.50" />
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="896,0,128,128" color="225,80,65,255" origin="0,0" />
   </Affliction>
-  <Affliction name="机械结构损伤" identifier="aic_machine_structural_damage" description="机械体的承力结构和装甲内层受到深层破坏。" type="damage" limbspecific="true" maxstrength="200" damageoverlayalpha="1" showiconthreshold="1" showinhealthscannerthreshold="1" affectmachines="true">
+  <Affliction name="机械结构损伤" identifier="aic_machine_structural_damage" description="机械体的传送结构和装甲内层受到深层破坏。" type="damage" limbspecific="true" maxstrength="200" damageoverlayalpha="1" showiconthreshold="1" showinhealthscannerthreshold="1" affectmachines="true">
     <Description textidentifier="afflictiondescription.aic_machine_structural_damage.low" minstrength="0" maxstrength="40" />
     <Description textidentifier="afflictiondescription.aic_machine_structural_damage" minstrength="40" maxstrength="200" />
     <Effect minstrength="0" maxstrength="200" multiplybymaxvitality="true" minvitalitydecrease="0" maxvitalitydecrease="2" resistancefor="emp" minresistance="0" maxresistance="-0.5" />
@@ -260,8 +270,50 @@
     <Effect minstrength="100" maxstrength="200" strengthchange="-0.06" multiplybymaxvitality="true" minbodytint="255,35,130,165" maxbodytint="255,60,190,255" minvitalitydecrease="1.0" maxvitalitydecrease="2.0" />
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="256,512,128,128" color="120,240,255,255" origin="0,0" />
   </Affliction>
+  <Affliction name="微小奇迹" identifier="aic_minor_miracle" description="经过敌我识别的纳米机械正在持续封闭伤口、清除异物并修复受损组织。" type="buff" isbuff="true" limbspecific="true" activationthreshold="0.1" showiconthreshold="0.1" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" maxstrength="500" affectmachines="true">
+    <Effect minstrength="0" maxstrength="500" strengthchange="-10">
+      <StatusEffect target="Limb">
+        <ReduceAffliction identifier="bleeding" amount="20" />
+        <ReduceAffliction identifier="gunshotwound" amount="8" />
+        <ReduceAffliction identifier="blunttrauma" amount="8" />
+        <ReduceAffliction identifier="bitewounds" amount="8" />
+        <ReduceAffliction identifier="lacerations" amount="8" />
+        <ReduceAffliction identifier="burn" amount="10" />
+        <ReduceAffliction identifier="acidburn" amount="5" />
+        <ReduceAffliction identifier="explosiondamage" amount="8" />
+        <ReduceAffliction identifier="aic_nanite_erosion" amount="8" />
+        <ReduceAffliction identifier="aic_machine_structural_damage" amount="8" />
+        <ReduceAffliction identifier="aic_machine_component_damage" amount="6" />
+        <ReduceAffliction type="damage" amount="1" />
+        <ReduceAffliction type="burn" amount="3" />
+      </StatusEffect>
+      <StatusEffect target="Character">
+        <ReduceAffliction identifier="organdamage" amount="6" />
+        <ReduceAffliction identifier="bloodloss" amount="3.25" />
+        <ReduceAffliction identifier="huskinfection" amount="10" />
+        <ReduceAffliction type="poison" amount="10" />
+      </StatusEffect>
+    </Effect>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="256,512,128,128" color="180,245,255,255" origin="0,0" />
+  </Affliction>
+  <Affliction name="纳米机械敌我识别码" identifier="aic_nanite_iff_code" description="受信任的纳米机械识别信号。武器化纳米机械将被重新编程并投入修复作业。" type="buff" isbuff="true" duration="2" limbspecific="false" indicatorlimb="Torso" activationthreshold="0.1" showiconthreshold="0.1" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" maxstrength="1" affectmachines="true">
+    <Effect minstrength="0" maxstrength="1" />
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="256,512,128,128" color="120,220,190,255" origin="0,0" />
+  </Affliction>
   <Affliction name="照明标记" identifier="aic_illumination_mark" description="目标被高亮照明，防护弱点更容易遭到攻击。" type="debuff" isbuff="false" limbspecific="false" indicatorlimb="Torso" maxstrength="1" duration="15" showiconthreshold="0.1" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" affectmachines="true">
     <Effect minstrength="0" maxstrength="1" resistancefor="damage" minresistance="-0.15" maxresistance="-0.15" />
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="384,256,128,128" color="255,235,150,255" origin="0,0" />
+  </Affliction>
+  <Affliction name="希格斯场解耦" identifier="aic_higgs_field_decoupling" description="局部希格斯场正在失去耦合，目标的结构强度、运动能力与武器控制能力均受到严重干扰。" type="debuff" isbuff="false" limbspecific="false" indicatorlimb="Torso" activationthreshold="0.1" showiconthreshold="0.1" showicontoothersthreshold="0.1" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" maxstrength="100" affectmachines="true">
+    <Effect minstrength="0" maxstrength="100" strengthchange="-2" minspeedmultiplier="0.2" maxspeedmultiplier="0.2" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-1.50" maxresistance="-1.50">
+      <StatValue stattype="RangedSpreadReduction" value="-2.0" />
+      <StatusEffect target="Character" interval="1" disabledeltatime="true">
+        <Affliction identifier="internaldamage" amount="5" />
+        <Affliction identifier="psychosis" amount="5" />
+        <Affliction identifier="explosiondamage" amount="5" />
+        <Affliction identifier="emp" amount="5" />
+      </StatusEffect>
+    </Effect>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="896,0,128,128" color="160,235,255,255" origin="0,0" />
   </Affliction>
 </Afflictions>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<huskappendage>
+  <limb Name="AIC Nano Cluster Shield" ID="1101" Type="None" Scale="0.42" Flip="True" MirrorVertically="False" MirrorHorizontally="True" Hide="False" SpriteOrientation="0" InheritLimbDepth="None" SteerForce="0" Radius="1" Height="0" Width="0" Density="0.01" IgnoreCollisions="True" AngularDamping="7" AttackPriority="0" PullPos="0,0" StepOffset="0,0" RefJoint="-1" MouthPos="0,0" ConstantTorque="0" ConstantAngle="0" AttackForceMultiplier="0" MinSeveranceDamage="100000" CanBeSeveredAlive="False" SeveredFadeOutTime="0" ApplyTailAngle="False" SineFrequencyMultiplier="1" SineAmplitudeMultiplier="1" BlinkFrequency="0" BlinkDurationIn="0.2" BlinkDurationOut="0.5" BlinkHoldTime="0" BlinkRotationIn="0" BlinkRotationOut="0" BlinkForce="0" OnlyBlinkInWater="False" UseTextureOffsetForBlinking="False" BlinkTextureOffsetIn="0.5,0.5" BlinkTextureOffsetOut="0.5,0.5" BlinkTransitionIn="Linear" BlinkTransitionOut="Linear" HealthIndex="0" Friction="0" Restitution="0" CanEnterSubmarine="True">
+    <sprite SourceRect="0,0,894,895" Origin="0.5,0.5" Depth="0" Texture="%ModDir%/预视科技/贴图/纳米集群护盾.png" IgnoreTint="True" Color="220,224,224,210" DeadColor="220,224,224,0" DeadColorTime="0" />
+  </limb>
+  <joint Name="AIC Nano Cluster Shield Mount" Limb1="0" Limb2="1101" Limb1Anchor="0,-50" Limb2Anchor="0,0" CanBeSevered="False" SeveranceProbabilityModifier="0" BreakSound="" LimitEnabled="True" UpperLimit="0" LowerLimit="0" Stiffness="100" Scale="1" WeldJoint="True" ClockWiseRotation="False" />
+</huskappendage>

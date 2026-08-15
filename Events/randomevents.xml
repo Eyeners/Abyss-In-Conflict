@@ -88,14 +88,9 @@
         waitforinteraction="true"
         endeventifinterrupted="false">
         <Option text="eventtext.aic_wardens_dispatcher.option.missions">
-          <MissionAction missionidentifier="aic_cargo_surface_facility_construction_materials" />
-          <MissionAction missionidentifier="aic_investigate_unknown_threats" />
-          <RNGAction chance="0.5">
-            <Success>
-              <MissionAction missiontag="aic_wardens_mission" />
-            </Success>
-            <Failure />
-          </RNGAction>
+          <!-- UnlockMissionByTag excludes missions already unlocked at this location, so these draws cannot repeat. -->
+          <MissionAction missiontag="aic_wardens_mission" />
+          <MissionAction missiontag="aic_wardens_mission" />
           <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.missions_assigned" endeventifinterrupted="false" />
           <GoTo name="aic_wardens_dispatcher_wait" />
         </Option>
@@ -178,6 +173,7 @@
                   <ReputationAction targettype="Faction" identifier="aic_gdf_contribution" increase="-2" />
                   <MoneyAction amount="-1500" />
                   <SpawnAction itemidentifier="aic_material_special_metal_crate" amount="1" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
+                  <SpawnAction itemidentifier="phosphorus" amount="4" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
                   <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.low.success" waitforinteraction="false" endeventifinterrupted="false" />
                   <GoTo name="aic_wardens_dispatcher_store_bribed" />
                 </Success>
@@ -214,6 +210,27 @@
             </Failure>
           </CheckReputationAction>
         </Option>
+        <Option text="eventtext.aic_wardens_dispatcher.store.low.option.gdfpdwblueprint">
+          <CheckReputationAction targettype="Faction" identifier="aic_gdf_contribution" condition="gte 10">
+            <Success>
+              <CheckMoneyAction amount="2000">
+                <Success>
+                  <ReputationAction targettype="Faction" identifier="aic_gdf_contribution" increase="-10" />
+                  <MoneyAction amount="-2000" />
+                  <SpawnAction itemidentifier="aic_gdf_personal_defense_weapon_blueprint" amount="1" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
+                  <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.low.success" waitforinteraction="false" endeventifinterrupted="false" />
+                  <GoTo name="aic_wardens_dispatcher_store_bribed" />
+                </Success>
+                <Failure>
+                  <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+                </Failure>
+              </CheckMoneyAction>
+            </Success>
+            <Failure>
+              <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+            </Failure>
+          </CheckReputationAction>
+        </Option>
         <Option text="eventtext.aic_wardens_dispatcher.store.low.option.cancel">
           <GoTo name="aic_wardens_dispatcher_wait" />
         </Option>
@@ -230,6 +247,7 @@
                   <ReputationAction targettype="Faction" identifier="aic_gdf_contribution" increase="-2" />
                   <MoneyAction amount="-1500" />
                   <SpawnAction itemidentifier="aic_material_special_metal_crate" amount="1" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
+                  <SpawnAction itemidentifier="phosphorus" amount="4" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
                   <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.low.success" waitforinteraction="false" endeventifinterrupted="false" />
                   <GoTo name="aic_wardens_dispatcher_store_low" />
                 </Success>
@@ -272,6 +290,27 @@
               <ReputationAction targettype="Faction" identifier="aic_gdf_contribution" increase="-1" />
               <MoneyAction amount="400" />
               <GoTo name="aic_wardens_dispatcher_store_low" />
+            </Success>
+            <Failure>
+              <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+            </Failure>
+          </CheckReputationAction>
+        </Option>
+        <Option text="eventtext.aic_wardens_dispatcher.store.low.option.gdfpdwblueprint">
+          <CheckReputationAction targettype="Faction" identifier="aic_gdf_contribution" condition="gte 10">
+            <Success>
+              <CheckMoneyAction amount="2000">
+                <Success>
+                  <ReputationAction targettype="Faction" identifier="aic_gdf_contribution" increase="-10" />
+                  <MoneyAction amount="-2000" />
+                  <SpawnAction itemidentifier="aic_gdf_personal_defense_weapon_blueprint" amount="1" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
+                  <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.low.success" waitforinteraction="false" endeventifinterrupted="false" />
+                  <GoTo name="aic_wardens_dispatcher_store_low" />
+                </Success>
+                <Failure>
+                  <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+                </Failure>
+              </CheckMoneyAction>
             </Success>
             <Failure>
               <GoTo name="aic_wardens_dispatcher_exchange_failed" />

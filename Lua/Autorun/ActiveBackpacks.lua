@@ -2,8 +2,10 @@ if SERVER then
     return
 end
 
-local BACKPACK_TAG = "aic_self_destruct_backpack"
-local BUTTON_LABEL = "启动自爆"
+local BACKPACK_ACTIONS = {
+    { tag = "aic_self_destruct_backpack", label = "启动自爆" },
+    { tag = "aic_multifunction_medical_backpack", label = "释放医疗烟雾" }
+}
 
 LuaUserData.MakeFieldAccessible(
     Descriptors["Barotrauma.Items.Components.CustomInterface"],
@@ -36,13 +38,14 @@ Hook.Add("think", "aic_active_backpack_hotkey", function()
         return
     end
 
-    local backpack = character.GetEquippedItem(BACKPACK_TAG, InvSlotType.Bag)
-    if backpack == nil then
-        return
-    end
-
-    local customInterface = backpack.GetComponentString("CustomInterface")
-    if customInterface ~= nil and customInterface.DrawHudWhenEquipped then
-        ActivateTickBox(customInterface, BUTTON_LABEL)
+    for _, action in ipairs(BACKPACK_ACTIONS) do
+        local backpack = character.GetEquippedItem(action.tag, InvSlotType.Bag)
+        if backpack ~= nil then
+            local customInterface = backpack.GetComponentString("CustomInterface")
+            if customInterface ~= nil and customInterface.DrawHudWhenEquipped then
+                ActivateTickBox(customInterface, action.label)
+            end
+            return
+        end
     end
 end)

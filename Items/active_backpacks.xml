@@ -51,4 +51,169 @@
       <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier" />
     </ItemContainer>
   </Item>
+
+  <Item name="弹药打印背包" identifier="aic_wardens_ammo_printer_backpack" category="Equipment" subcategory="卫戍者军备" tags="mediumitem,mobilecontainer,largemobilecontainer,tool,aic,aic_wardens_equipment,aic_wardens_ammo_printer_backpack" showcontentsintooltip="true" health="480" scale="0.5" fireproof="true" description="内置便携式弹药打印与整备装置。供料槽会将钨钢或其他卫戍者弹匣的剩余耐久转入背包储备，再由储备按一比一耐久填充打印槽中的卫戍者弹匣；另保留八个常规物品栏位。" impactsoundtag="impact_soft">
+    <InventoryIcon texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" depth="0.6" />
+    <Body width="60" height="100" density="15" />
+
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <StatusEffect type="OnWearing" target="Character" setvalue="true" disabledeltatime="true" />
+      <sprite name="AIC Wardens Ammo Printer Backpack" canbehiddenbyotherwearables="false" canbehiddenbyitem="deepdivinglarge" texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" limb="Torso" depthlimb="Waist" inherittexturescale="true" origin="1.1,0.5" />
+      <StatValue stattype="MovementSpeed" value="-0.3" />
+      <StatValue stattype="PropulsionSpeed" value="-0.3" />
+    </Wearable>
+
+    <Holdable slots="RightHand+LeftHand" holdpos="0,-70" handle1="-5,50" handle2="10,50" holdangle="0" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" allowswappingwhenpicked="false">
+      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.7" setvalue="true" disabledeltatime="true" />
+      <StatValue stattype="PropulsionSpeed" value="-0.3" />
+    </Holdable>
+
+    <ItemContainer capacity="0" maxstacksize="0" hideitems="true" depth="0.5">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="Content/UI/CampaignUIAtlas.png" sourcerect="314,10,151,145" origin="0.5,0.5" />
+
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="aic_wardens_weaponmag" excludebroken="false" />
+      </SubContainer>
+
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="aic_material_tungsten_steel,aic_wardens_weaponmag" excludebroken="true" />
+      </SubContainer>
+
+      <SubContainer capacity="8" maxstacksize="32" slotsperrow="4">
+        <Containable items="smallitem,toolbelt,toolbox,bandolier" excludeditems="largemobilecontainer" />
+      </SubContainer>
+    </ItemContainer>
+  </Item>
+
+  <!-- Backpack state. Deploying it swaps to the dedicated table prefab below. -->
+  <Item name="多功能医疗背包" identifier="aic_multifunction_medical_backpack_test" category="Equipment" tags="mediumitem,mobilecontainer,largemobilecontainer,tool,aic,aic_active_backpack,aic_multifunction_medical_backpack" showcontentsintooltip="true" scale="0.5" health="100" fireproof="true" description="可折叠的多功能医疗系统。蓄能完全时，穿戴者可按Q持续释放约3秒的纳米治疗泡沫，随后需要约20秒自充能；可双手搬运并安装为便携式解剖台。内置十五个常规储物格和一个自注射药物槽。" impactsoundtag="impact_soft">
+    <InventoryIcon texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" depth="0.6" origin="0.5,0.5" />
+    <Body width="60" height="100" density="15" />
+
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite name="AIC Multifunction Medical Backpack" canbehiddenbyotherwearables="false" canbehiddenbyitem="deepdivinglarge" texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" limb="Torso" depthlimb="Waist" inherittexturescale="true" origin="1.1,0.5" />
+      <StatValue stattype="MovementSpeed" value="-0.2" />
+      <StatValue stattype="PropulsionSpeed" value="-0.2" />
+      <SkillModifier skillidentifier="medical" skillvalue="40" />
+    </Wearable>
+
+    <Holdable selectkey="Select" pickkey="Use" slots="RightHand+LeftHand,Any" msg="itemmsgforceopencrowbar" pickingtime="2.0" aimpos="65,-10" handle1="0,0" attachable="true" reattachable="true" attachestofloor="true" aimable="true">
+      <RequiredItem identifier="Crowbar" type="Equipped" />
+      <StatusEffect type="OnActive" target="Character" speedmultiplier="0.85" setvalue="true" />
+    </Holdable>
+
+    <!-- This must be the backpack prefab's first and only ItemContainer. -->
+    <ItemContainer capacity="15" maxstacksize="32" canbeselected="true" hideitems="true" slotsperrow="4" uilabel="" allowuioverlap="true">
+      <SlotIcon slotindex="15" texture="Content/UI/StatusMonitorUI.png" sourcerect="384,448,64,64" origin="0.5,0.5" />
+      <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,mobilecontainer,largemobilecontainer" />
+      <SubContainer capacity="1" maxstacksize="1" autoinject="true">
+        <Containable items="chem,syringe" />
+      </SubContainer>
+    </ItemContainer>
+
+    <!-- A full charge spawns one 3-second cloud, empties the charge, then restores 5 condition per second. -->
+    <LightComponent characterusable="false" lightcolor="255,255,255,0" range="10" powerconsumption="0" ison="false" castshadows="false" allowingameediting="false">
+      <StatusEffect type="OnActive" target="This" condition="0" setvalue="true" disabledeltatime="true" stackable="false">
+        <Conditional conditionpercentage="eq 100" />
+        <SpawnItem identifier="aic_medical_backpack_cloud_emitter" spawnposition="This" />
+        <Sound file="Content/Items/Weapons/StunGrenade.ogg" range="1000" volume="0.45" />
+      </StatusEffect>
+      <StatusEffect type="OnActive" target="This" targetitemcomponent="LightComponent" ison="false" disabledeltatime="true" stackable="false" />
+      <StatusEffect type="Always" target="This" condition="5" allowwhenbroken="true">
+        <Conditional conditionpercentage="lt 100" />
+      </StatusEffect>
+    </LightComponent>
+    <CustomInterface canbeselected="false" drawhudwhenequipped="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.09,0.07" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.22" style="ItemUI" />
+      <TickBox text="释放医疗烟雾" targetitemcomponent="LightComponent" propertyname="IsOn" continuoussignal="false" getvalueinterval="0.1" />
+    </CustomInterface>
+  </Item>
+
+  <!-- Deployed state. It intentionally has no Wearable component. -->
+  <Item name="多功能医疗背包（解剖台）" identifier="aic_multifunction_medical_autopsy_table_test" category="Hidden" hideinmenus="true" tags="deconstructor,donttakeitems,dontsellitems,mediumitem,aic,aic_multifunction_medical_autopsy_table" scale="0.5" health="100" fireproof="true" invulnerabletodamage="true" impactsoundtag="impact_metal">
+    <Sprite texture="Content/Map/Outposts/Art/HuskDistrict.png" sourcerect="2,2,549,220" depth="0.55" premultiplyalpha="false" origin="0.5,0.5" />
+    <Body width="500" height="200" density="40" />
+
+    <Deconstructor canbeselected="true" deconstructionspeed="25" powerconsumption="0" msg="ItemMsgInteractSelect">
+      <GuiFrame relativesize="0.32,0.65" minsize="440,620" maxsize="560,760" style="ItemUI" anchor="Center" />
+      <StatusEffect type="Always" target="This" voltage="1.0" setvalue="true" />
+    </Deconstructor>
+
+    <ItemContainer capacity="1" canbeselected="true" hideitems="false" hudpos="0.5,0.4" slotsperrow="1" uilabel="" allowuioverlap="true">
+      <Containable items="aic_medical_autopsy_subject" itempos="130,-15" depth="0.551" />
+    </ItemContainer>
+
+    <ItemContainer capacity="15" maxstacksize="32" canbeselected="true" hideitems="true" hudpos="0.5,0.8" slotsperrow="4" uilabel="" allowuioverlap="true">
+      <SlotIcon slotindex="15" texture="Content/UI/StatusMonitorUI.png" sourcerect="384,448,64,64" origin="0.5,0.5" />
+      <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,mobilecontainer,largemobilecontainer" />
+      <SubContainer capacity="1" maxstacksize="1" autoinject="true">
+        <Containable items="chem,syringe" />
+      </SubContainer>
+    </ItemContainer>
+
+    <Controller msg="ItemMsgPutInside" kickoutcharactermsg="ItemMsgTakeOut" putothercharactermsg="ItemMsgPutInside" canbeselectedbycharacters="false" hideallitemcomponenthuds="true" allowputtinginothercharacters="true" selectingkickscharacterout="true" spawnitemonselected="aic_medical_autopsy_subject" allowingameediting="false" userpos="0,-20" direction="Right" canbeselected="true" selectkey="Action" drawuserbehind="true" forceusertostayattached="true">
+      <limbposition limb="Head" position="74,-40" />
+      <limbposition limb="Torso" position="74,-40" />
+      <limbposition limb="Waist" position="74,-40" />
+      <limbposition limb="LeftHand" position="74,-40" />
+      <limbposition limb="RightHand" position="74,-40" />
+      <limbposition limb="RightLeg" position="74,-40" />
+      <limbposition limb="LeftLeg" position="74,-40" />
+      <limbposition limb="RightFoot" position="74,-40" />
+      <limbposition limb="LeftFoot" position="74,-40" />
+    </Controller>
+
+    <Repairable selectkey="Action" canbeselected="false" header="mechanicalrepairsheader" deteriorationspeed="0" mindeteriorationdelay="600" maxdeteriorationdelay="600" repairthreshold="80" fixdurationhighskill="5" fixdurationlowskill="25" msg="ItemMsgRepairWrench">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI" />
+      <RequiredSkill identifier="mechanical" level="30" />
+      <RequiredItem items="wrench" type="equipped" />
+    </Repairable>
+
+    <Holdable selectkey="Select" pickkey="Use" slots="RightHand+LeftHand,Any" msg="itemmsgforceopencrowbar" pickingtime="2.0" aimpos="65,-10" handle1="0,0" attachable="true" reattachable="true" attachestofloor="true" aimable="true">
+      <RequiredItem identifier="Crowbar" type="Equipped" />
+      <StatusEffect type="OnActive" target="Character" speedmultiplier="0.85" setvalue="true" />
+    </Holdable>
+  </Item>
+
+  <Item name="医疗泡沫云" identifier="aic_medical_backpack_cloud_emitter" category="Hidden" tags="gas,aic" hideinmenus="true" noninteractable="true" sonarsize="0" scale="1" health="100">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,0,2,2" depth="0.99" origin="0.5,0.5" />
+    <Body radius="20" density="15" gravityscale="0.1" lineardamping="0.5" />
+    <ItemComponent>
+      <StatusEffect type="OnSpawn" target="This" duration="3.0" soundselectionmode="All">
+        <Sound file="Content/Items/Tools/Sprayer.ogg" range="1000" volume="0.5" />
+        <Sound file="Content/Items/Tools/FlareLoop.ogg" range="1000" volume="0.35" />
+        <ParticleEmitter particle="fixfoam" anglemax="360" velocitymin="4000" velocitymax="4000" particlespersecond="64" />
+        <ParticleEmitter particle="fixfoamgoosplash" anglemax="360" distancemax="10" particlespersecond="60" />
+        <ParticleEmitter particle="fixfoamgoosplash" anglemax="360" distancemax="10" scalemultiplier="2.0,2.0" particlespersecond="20" />
+      </StatusEffect>
+      <StatusEffect type="Always" target="NearbyCharacters" range="300" interval="0.5" disabledeltatime="true">
+        <Affliction identifier="aic_minor_miracle" amount="8" />
+      </StatusEffect>
+      <StatusEffect type="Always" target="This" condition="-34" />
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </ItemComponent>
+  </Item>
+
+  <Item name="解剖目标" identifier="aic_medical_autopsy_subject" tags="smallitem" category="Hidden" hideinmenus="true" scale="0.5">
+    <LinkedControllerCharacterComponent maxdeconstructtimemultiplier="0.25" removeitemifcharacternull="true">
+      <StatusEffect type="OnDeconstructing" target="This" disabledeltatime="true" interval="0.8">
+        <Conditional targetitemcomponent="LinkedControllerCharacterComponent" doesbleed="eq true" />
+        <Sound file="Content/Sounds/Damage/Gore1.ogg" selectionmode="Random" volume="1.2" />
+        <Sound file="Content/Sounds/Damage/Gore2.ogg" selectionmode="Random" volume="1.2" />
+        <Sound file="Content/Sounds/Damage/Gore3.ogg" selectionmode="Random" volume="1.2" />
+      </StatusEffect>
+      <StatusEffect type="OnDeconstructing" target="Limb" disabledeltatime="true" interval="0.8" severlimbsprobability="0.5">
+        <Affliction identifier="bleeding" amount="10" />
+        <Affliction identifier="lacerations" amount="15" />
+      </StatusEffect>
+    </LinkedControllerCharacterComponent>
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+    <Deconstruct time="15" timeinoutposts="10" />
+    <Sprite texture="Content/Map/Outposts/Art/SeparatistOutpost.png" sourcerect="707,591,280,67" depth="0.97" premultiplyalpha="false" origin="0.5,0.5" />
+  </Item>
 </Items>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="" identifier="aic_disintegration_field_device" category="Weapon" subcategory="Abyss In Conflict" health="30" maxstacksize="10" maxstacksizecharacterinventory="2" cargocontaineridentifier="explosivecrate" tags="smallitem,grenade,explosive,aic_item" scale="0.11" impactsoundtag="impact_metal_light" showcontainedstateindicator="true">
+    <InventoryIcon texture="%ModDir%/Items/崩解发生装置（暗）.png" sourcerect="0,0,290,320" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/崩解发生装置（暗）.png" sourcerect="0,0,290,320" depth="0.55" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Items/崩解发生装置（亮）.png" sourcerect="0,0,290,320" depth="0.55" origin="0.5,0.5" maxcondition="99" />
+    <Body width="40" height="44" density="10" />
+    <ItemComponent characterusable="false">
+      <StatusEffect type="OnUse" target="This" stackable="false" setvalue="true" condition="15" />
+      <StatusEffect type="Always" target="This,NearbyCharacters" delay="0.5" duration="0.5" stackable="false" range="600" checkconditionalalways="true">
+        <Conditional condition="lt 30" />
+        <ParticleEmitter particle="aic_higgs_decoupling_wave" anglemin="0" anglemax="360" scalemin="4.5" scalemax="4.5" scalemultiplier="1,1" particlespersecond="1" colormultiplier="180,245,255,255" />
+        <Affliction identifier="aic_higgs_field_decoupling" amount="2" />
+      </StatusEffect>
+      <StatusEffect type="Always" target="This" delay="30" checkconditionalalways="true">
+        <Conditional condition="lt 30" />
+        <ParticleEmitter particle="spark" anglemin="0" anglemax="360" particleamount="8" velocitymin="100" velocitymax="500" scalemin="0.75" scalemax="1" />
+      </StatusEffect>
+      <StatusEffect type="Always" target="This" delay="30.5" checkconditionalalways="true">
+        <Conditional condition="lt 30" />
+        <ParticleEmitter particle="spark" anglemin="0" anglemax="360" particleamount="12" velocitymin="100" velocitymax="500" scalemin="0.75" scalemax="1" />
+        <Remove />
+      </StatusEffect>
+    </ItemComponent>
+    <Throwable slots="Any,RightHand,LeftHand" holdpos="0,0" handle1="0,0" throwforce="4" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnSecondaryUse" target="This" stackable="false" setvalue="true" condition="15" delay="3" />
+    </Throwable>
+    <Projectile characterusable="false" launchimpulse="20" sticktocharacters="false">
+      <StatusEffect type="OnImpact" target="This" stackable="false" setvalue="true" condition="15" disabledeltatime="true" />
+    </Projectile>
+  </Item>
+</Items>

@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="典范机动作战护甲" identifier="aic_foresight_t3_armor" category="Equipment,Diving" subcategory="预视科技护甲" tags="mobilecontainer,armor,clothing,diving,deepdiving,divinggear_wearableindoors,human,aic_foresight_armor,aic_foresight_nanocluster_shield_on" health="100" maxstacksize="1" scale="0.167" fireproof="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate">
+    <PreferredContainer primary="divingsuitcontainer,divingsuitlocker,steelcabinet" />
+    <InventoryIcon texture="%ModDir%/预视科技/贴图/预视科技白.png" sourcerect="0,0,1254,1254" scale="0.05" origin="0.5,0.5" />
+    <Sprite name="Foresight T3 Armor Item" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" sourcerect="1621,423,637,421" depth="0.55" origin="0.5,0.5" />
+    <ContainedSprite name="Foresight T3 Armor In Diving Locker" allowedcontainertags="divingsuitcontainervertical,divingsuitcontainerwindow" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" sourcerect="1182,1443,254,668" depth="0.55" origin="-0.12,-0.117" />
+    <Body radius="45" width="34" density="20" />
+    <Wearable slots="OuterClothes+Head" msg="ItemMsgEquipSelect" displaycontainedstatus="true" canbepicked="true" pickkey="Select">
+      <sprite name="Foresight T3 Head" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="Head" sourcerect="208,7,354,394" origin="0.507,0.58" scale="0.11" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" alphaclipotherwearables="true" canbehiddenbyotherwearables="false" hideotherwearables="true" depthlimb="LeftForearm">
+        <LightComponent LightColor="255,255,255,255" range="0" powerconsumption="0" IsOn="true" DrawBehindSubs="false" castshadows="false" alphablend="true" allowingameediting="false">
+          <sprite texture="%ModDir%/预视科技/贴图/头灯.png" origin="0.1642,0.7867" scale="0.11" alpha="0.65" />
+        </LightComponent>
+        <LightComponent LightColor="220,220,220,120" range="5000" castshadows="false" powerconsumption="infinity" IsOn="true" flicker="0.1" flickerspeed="0.5" pulsefrequency="0.1" pulseamount="0.1" />
+      </sprite>
+      <sprite name="Foresight T3 Head Light Overlay" texture="%ModDir%/预视科技/贴图/头灯.png" limb="Head" origin="0.1642,0.7867" scale="0.11" depth="0" hidelimb="false" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" canbehiddenbyotherwearables="false" depthlimb="LeftForearm" />
+      <sprite name="Foresight T3 Torso" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="Torso" sourcerect="194,457,440,649" origin="0.5,0.5" scale="0.11" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="Foresight T3 Waist Light Overlay" texture="%ModDir%/预视科技/贴图/腰灯.png" limb="Torso" origin="3.8421,-0.2782" scale="0.11" depth="0" hidelimb="false" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" canbehiddenbyotherwearables="false">
+        <LightComponent LightColor="255,255,255,255" range="0" LightSpriteScale="0.6587" powerconsumption="0" IsOn="true" DrawBehindSubs="false" castshadows="false" alphablend="true" allowingameediting="false">
+          <sprite texture="%ModDir%/预视科技/贴图/腰灯.png" origin="3.8421,-0.2782" alpha="0.65" />
+        </LightComponent>
+      </sprite>
+      <sprite name="Foresight T3 Waist" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="Waist" sourcerect="271,1148,275,278" origin="0.486,0.5" scale="0.11" hidelimb="true" inheritscale="false" ignorelimbscale="true" hideotherwearables="true" depthlimb="LeftFoot" />
+      <sprite name="Foresight T3 Outer Thigh" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="RightThigh" sourcerect="246,1479,276,487" origin="0.5,0.5" scale="0.11" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" depthlimb="RightArm" />
+      <sprite name="Foresight T3 Inner Thigh" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="LeftThigh" sourcerect="616,1479,276,487" origin="0.5,0.5" scale="0.11" hidelimb="true" inheritscale="false" ignorelimbscale="true" hideotherwearables="true" />
+      <sprite name="Foresight T3 Outer Leg" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="RightLeg" sourcerect="268,2024,254,455" origin="0.5,0.5" scale="0.11" hidelimb="true" inheritscale="false" ignorelimbscale="true" hideotherwearables="true" depthlimb="RightForearm" />
+      <sprite name="Foresight T3 Inner Leg" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="LeftLeg" sourcerect="635,2024,254,455" origin="0.5,0.5" scale="0.11" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="Foresight T3 Outer Arm" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="RightArm" sourcerect="686,479,297,377" origin="0.6,0.5" scale="0.11" hidelimb="true" inheritscale="false" ignorelimbscale="true" hideotherwearables="true" depthlimb="RightForearm" />
+      <sprite name="Foresight T3 Inner Arm" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="LeftArm" sourcerect="1093,482,292,361" origin="0.6,0.5" scale="0.11" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" depthlimb="LeftArm" />
+      <sprite name="Foresight T3 Outer Forearm" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="RightForearm" sourcerect="762,893,191,358" origin="0.5,0.5" scale="0.11" hidelimb="true" inheritscale="false" ignorelimbscale="true" hideotherwearables="true" depthlimb="RightHand" />
+      <sprite name="Foresight T3 Inner Forearm" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="LeftForearm" sourcerect="1158,886,205,342" origin="0.5,0.5" scale="0.11" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" depthlimb="LeftHand" />
+      <sprite name="Foresight T3 Outer Hand" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="RightHand" sourcerect="1547,1019,190,224" origin="0.3,0.4" scale="0.11" hidelimb="true" inheritscale="false" ignorelimbscale="true" hideotherwearables="true" />
+      <sprite name="Foresight T3 Inner Hand" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="LeftHand" sourcerect="1849,1032,183,214" origin="0.3,0.4" scale="0.11" hidelimb="true" inheritscale="false" ignorelimbscale="true" hideotherwearables="true" />
+      <sprite name="Foresight T3 Outer Foot" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="RightFoot" sourcerect="1133,2297,299,180" origin="0.5,0.5" scale="0.11" sound="footstep_armor_heavy" hidelimb="true" inheritscale="false" ignorelimbscale="true" hideotherwearables="true" depthlimb="RightArm" />
+      <sprite name="Foresight T3 Inner Foot" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="LeftFoot" sourcerect="1526,2298,319,189" origin="0.5,0.5" scale="0.11" sound="footstep_armor_heavy" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound" damagemultiplier="0.12" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.12" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="explosiondamage" damagemultiplier="0.20" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bleeding" damagemultiplier="0.12" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.25" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_heat_buildup" damagemultiplier="0.25" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="acidburn" damagemultiplier="0.25" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="radiationsickness" damagemultiplier="0.12" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="electricshock" damagemultiplier="0.20" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="stun" damagemultiplier="0.20" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="concussion" damagemultiplier="0.05" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="huskinfection,aic_nanite_infection" probabilitymultiplier="0.10" damagesound="LimbArmor" />
+      <StatusEffect type="OnWearing" target="Character" UseHullOxygen="true" PressureProtection="9500.0" setvalue="true" disabledeltatime="true" />
+      <StatusEffect type="OnContained" target="Contained" Condition="1.0" targetslot="0" interval="1" disabledeltatime="true">
+        <Conditional Voltage="gt 0.01" targetcontainer="true" targetgrandparent="true" targetitemcomponent="Powered" />
+        <RequiredItem items="refillableoxygensource" type="Contained" excludebroken="false" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained,Character" UseHullOxygen="false" OxygenAvailable="1000.0" comparison="And" targetslot="0">
+        <RequiredItem items="oxygensource" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained" Condition="1.0" comparison="And" targetslot="0" interval="1" disabledeltatime="true">
+        <Conditional IsDead="false" />
+        <Conditional InWater="false" />
+        <Conditional HullOxygenPercentage="gt 50" />
+        <RequiredItem items="refillableoxygensource" type="Contained" excludebroken="false" excludefullcondition="true" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained" UseHullOxygen="false" Condition="-0.3" comparison="And" targetslot="0">
+        <Conditional targetcontainer="true" targetgrandparent="true" IsDead="false" />
+        <Conditional targetcontainer="true" targetgrandparent="true" DecreasedOxygenConsumption="lt 99" />
+        <Conditional targetcontainer="true" targetgrandparent="true" HullOxygenPercentage="lt 50" />
+        <Conditional targetcontainer="true" targetgrandparent="true" NeedsAir="true" />
+        <Conditional InWater="false" />
+        <RequiredItem items="oxygensource" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained" UseHullOxygen="false" Condition="-0.3" comparison="And" targetslot="0">
+        <Conditional targetcontainer="true" targetgrandparent="true" IsDead="false" />
+        <Conditional targetcontainer="true" targetgrandparent="true" DecreasedOxygenConsumption="lt 99" />
+        <Conditional targetcontainer="true" targetgrandparent="true" NeedsAir="true" />
+        <Conditional InWater="true" />
+        <RequiredItem items="oxygensource" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Character" interval="1.5" disabledeltatime="true">
+        <Affliction identifier="aic_artificial_muscle_fiber_assistance" amount="1" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Character" interval="1.5" disabledeltatime="true">
+        <Affliction identifier="aic_nanite_iff_code" amount="1" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Character,this" SpeedMultiplier="1.45" setvalue="true" comparison="And">
+        <Conditional HasTag="eq aic_foresight_booster_on" />
+        <Conditional InWater="true" />
+        <sound file="Content/Items/Diving/ScooterLoop.ogg" range="500.0" loop="true" />
+        <ParticleEmitter particle="bubbles" ScaleMultiplier="0.3,0.3" EmitInterval="0.05" ParticleAmount="1" ColorMultiplier="255,255,255,255" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="This" targetitemcomponent="LightComponent" IsOn="true" setvalue="true" disabledeltatime="true" />
+      <StatusEffect type="OnWearing" target="Character,This" disabledeltatime="true">
+        <Affliction identifier="aic_nightvision" amount="60" />
+        <Conditional targetself="true" targetitemcomponent="StatusHUD" thermalgoggles="true" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="This,Character" voltage="1.0" interval="0.1" setvalue="true" comparison="And">
+        <Conditional IsLocalPlayer="true" aic_nightvision="gt 0" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Character" stunresistance="15" setvalue="true" disabledeltatime="true" />
+      <StatusEffect type="OnWearing" target="Character" interval="0.5" disabledeltatime="true">
+        <Affliction identifier="aic_nanocluster_shield_appendage" amount="10000" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="This" interval="1" disabledeltatime="true">
+        <LuaHook name="aic_nanocluster_shield_visual_maintain" />
+      </StatusEffect>
+      <StatValue stattype="MaximumHealthMultiplier" value="0.14" />
+      <StatValue stattype="WalkingSpeed" value="0.16" />
+      <StatValue stattype="SwimmingSpeed" value="0.12" />
+      <StatValue stattype="PropulsionSpeed" value="0.12" />
+      <StatValue stattype="FlowResistance" value="0.90" />
+      <SkillModifier skillidentifier="weapons" skillvalue="25" />
+      <CustomInterface canbeselected="true" drawhudwhenequipped="true" allowuioverlap="true" elementstates="false,true,false">
+        <GuiFrame relativesize="0.12,0.15" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.16" style="ItemUI" />
+        <TickBox text="夜视/热成像">
+          <StatusEffect type="OnUse" target="This" targetitemcomponent="LightComponent" HudTint="50,255,50,30" interval="0.1" />
+          <StatusEffect type="OnUse" target="This" targetitemcomponent="StatusHUD" thermalgoggles="true" range="5000" overlaycolor="255,255,255,255" showdeadcharacters="false" showtexts="true" setvalue="true" />
+          <StatusEffect type="OnSecondaryUse" target="This" targetitemcomponent="LightComponent" HudTint="0,0,0,0" interval="0.1" />
+          <StatusEffect type="OnSecondaryUse" target="This" targetitemcomponent="StatusHUD" thermalgoggles="false" range="500" overlaycolor="72,119,72,120" showdeadcharacters="true" showtexts="true" setvalue="true" />
+        </TickBox>
+        <TickBox text="纳米集群护盾">
+          <StatusEffect type="OnUse" target="This" playsoundonrequireditemfailure="true">
+            <RequiredItem items="mobilebattery" type="Contained" targetslot="2" excludebroken="true" />
+            <LuaHook name="aic_foresight_shield_enable" />
+          </StatusEffect>
+          <StatusEffect type="OnSecondaryUse" target="This">
+            <LuaHook name="aic_foresight_shield_disable" />
+          </StatusEffect>
+        </TickBox>
+        <TickBox text="水下推进">
+          <StatusEffect type="OnUse" target="This">
+            <LuaHook name="aic_foresight_booster_enable" />
+          </StatusEffect>
+          <StatusEffect type="OnSecondaryUse" target="This">
+            <LuaHook name="aic_foresight_booster_disable" />
+          </StatusEffect>
+        </TickBox>
+      </CustomInterface>
+    </Wearable>
+    <StatusHUD drawhudwhenequipped="true" overlaycolor="72,119,72,120" range="500" thermalgoggles="false" showdeadcharacters="true" showtexts="true" />
+    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="0,-50" handle1="-10,-20" handle2="10,-20" holdangle="45" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" />
+    <ItemContainer capacity="0" maxstacksize="0" hideitems="true" containedstateindicatorstyle="tank" containedstateindicatorslot="0" autoinject="true">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="384,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="2" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="oxygensource" excludeditems="oxygenitetank" />
+        <Containable items="oxygensource">
+          <StatusEffect type="OnWearing" target="Character" OxygenAvailable="1000.0" UseHullOxygen="false" />
+        </Containable>
+        <Containable items="oxygenitetank">
+          <StatusEffect type="OnWearing" target="Character" SpeedMultiplier="1.2" setvalue="true" targetslot="0" comparison="And">
+            <Conditional IsDead="false" />
+            <Conditional HullOxygenPercentage="lt 50" />
+            <Conditional DecreasedOxygenConsumption="lt 99" />
+            <Conditional NeedsAir="true" />
+          </StatusEffect>
+        </Containable>
+      </SubContainer>
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="chem,syringe" />
+      </SubContainer>
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="mobilebattery" />
+      </SubContainer>
+      <SubContainer capacity="6" maxstacksize="8" slotsperrow="3">
+        <Containable items="smallitem,toolbelt,toolbox,bandolier" excludeditems="largemobilecontainer" />
+      </SubContainer>
+    </ItemContainer>
+  </Item>
+</Items>

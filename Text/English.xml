@@ -4,27 +4,39 @@
   <afflictiondescription.aic_heat_buildup.medium>The target surface or armor is melting. Protection against multiple damage types is falling. Do not rapidly cool with seawater; flash boiling may occur.</afflictiondescription.aic_heat_buildup.medium>
   <afflictiondescription.aic_heat_buildup.high>The target surface or armor is nearly melted through. Defensive performance is severely reduced, continuous burns are occurring, and further heating may cause a flash fire.</afflictiondescription.aic_heat_buildup.high>
   <npctitle.aic_wardens_elite_guard>Warden Elite Guard</npctitle.aic_wardens_elite_guard>
+  <npctitle.aic_wardens_defender>Warden Defender</npctitle.aic_wardens_defender>
+  <npctitle.aic_foresight_research_knight>Research Knight</npctitle.aic_foresight_research_knight>
   <npctitle.aic_practitioner_bishop>Practitioner Bishop</npctitle.aic_practitioner_bishop>
   <npctitle.aic_practitioner_judgement_trooper>Practitioner Judgment Trooper</npctitle.aic_practitioner_judgement_trooper>
+  <entityname.aic_gdf_downpour_smg>Downpour Ricochet SMG</entityname.aic_gdf_downpour_smg>
+  <entitydescription.aic_gdf_downpour_smg>A compact GDF ricochet-submachine gun designed to suppress close-range targets in confined compartments with a high rate of fire. Originally intended for security aboard surface vessels and indoor facilities, its hybrid propellant-gas and electromagnetic propulsion system was not designed with hull damage control in mind.</entitydescription.aic_gdf_downpour_smg>
+  <entityname.aic_gdf_stiletto_pdw>Stiletto Personal Defense Weapon</entityname.aic_gdf_stiletto_pdw>
+  <entitydescription.aic_gdf_stiletto_pdw>A compact, agile GDF personal defense weapon for vehicle crews and specialist support personnel. It uses hybrid propellant-gas and electromagnetic propulsion, though its short frame reduces electromagnetic acceleration efficiency. Can be fired one-handed.</entitydescription.aic_gdf_stiletto_pdw>
+  <entityname.aic_gdf_small_magazine>GDF Military Small Magazine</entityname.aic_gdf_small_magazine>
+  <entitydescription.aic_gdf_small_magazine>A standard GDF thirty-round compact military magazine loaded with tungsten-core flechettes. Small, but far from weak.</entitydescription.aic_gdf_small_magazine>
+  <entityname.aic_gdf_personal_defense_weapon_blueprint>GDF Personal Defense Weapon Blueprint</entityname.aic_gdf_personal_defense_weapon_blueprint>
+  <entitydescription.aic_gdf_personal_defense_weapon_blueprint>A manufacturing blueprint detailing the construction, materials, and assembly of GDF personal defense weapons. Read it to permanently unlock fabrication recipes for the Stiletto PDW and Downpour SMG, along with fabrication and recycling recipes for GDF military small magazines.</entitydescription.aic_gdf_personal_defense_weapon_blueprint>
   <afflictiondescription.aic_machine_structural_damage.low>The machine's structure is slightly deformed or internally fractured, weakening its protection against electromagnetic shocks.</afflictiondescription.aic_machine_structural_damage.low>
   <afflictiondescription.aic_machine_structural_damage>The machine's load-bearing frame and inner armor are severely damaged and can no longer effectively isolate electromagnetic shocks.</afflictiondescription.aic_machine_structural_damage>
   <afflictiondescription.aic_machine_component_damage.low>Minor faults in internal components and transmission systems are beginning to slow the machine.</afflictiondescription.aic_machine_component_damage.low>
   <afflictiondescription.aic_machine_component_damage>Internal components and transmission systems are severely damaged, substantially reducing the machine's mobility.</afflictiondescription.aic_machine_component_damage>
   <faction.aic_wardens_pmc>Wardens PMC</faction.aic_wardens_pmc>
   <faction.aic_wardens_pmc.description>Wardens PMC is an armed organization of mysterious origin, composed of experienced security personnel, engineering specialists, and military veterans. It works closely with the Europa Coalition, primarily undertaking armed escort, hazardous-zone exploration, and facility defense contracts while assisting with the construction of surface defense systems. With advanced protective equipment and extensive experience in responding to biological hazards, the Wardens are gradually becoming a major security force on Europa.</faction.aic_wardens_pmc.description>
-  <faction.aic_wardens_pmc.shortdescription>An armed security organization working closely with the Europa Coalition on escort, hazardous-zone exploration, and facility defense operations.</faction.aic_wardens_pmc.shortdescription>
+  <faction.aic_wardens_pmc.shortdescription>Wardens PMC is an armed security organization working closely with the Europa Coalition on escort, hazardous-zone exploration, and facility defense operations.</faction.aic_wardens_pmc.shortdescription>
   <faction.aic_gdf_contribution>GDF Contribution Points</faction.aic_gdf_contribution>
-  <faction.aic_gdf_contribution.description>Campaign-shared contribution points recorded by the GDF and redeemable through Practitioner special exchange events.</faction.aic_gdf_contribution.description>
-  <faction.aic_gdf_contribution.shortdescription>GDF contribution points used for Practitioner special exchanges.</faction.aic_gdf_contribution.shortdescription>
+  <faction.aic_gdf_contribution.description>Points recording the crew's contributions, redeemable for supplies through special Wardens event stores.</faction.aic_gdf_contribution.description>
+  <faction.aic_gdf_contribution.shortdescription>GDF contribution points used for special Wardens exchanges.</faction.aic_gdf_contribution.shortdescription>
   <missionname.aic_cargo_surface_facility_construction_materials>Surface Facility Construction Materials</missionname.aic_cargo_surface_facility_construction_materials>
   <missiondescription.aic_cargo_surface_facility_construction_materials>The Europa Coalition is coordinating large shipments of engineering materials to construct and reinforce facilities on Europa's icy surface. The building program urgently needs structural steel, titanium-aluminium alloy, and tungsten steel delivered safely to [location2].</missiondescription.aic_cargo_surface_facility_construction_materials>
   <missionname.aic_investigate_unknown_threats>Investigate the Threat</missionname.aic_investigate_unknown_threats>
   <missiondescription.aic_investigate_unknown_threats>The Europa Coalition has received multiple reports of unidentified attacks in these waters. Investigate the reported area, identify the source of the threat, and eliminate it completely.</missiondescription.aic_investigate_unknown_threats>
+  <missionname.aic_transport_wardens_soldiers>Transport Wardens Soldiers</missionname.aic_transport_wardens_soldiers>
+  <missiondescription.aic_transport_wardens_soldiers>A Wardens combat detachment must reach [location2] to relieve the local facility security detail. Safely transport two assaulters and two marksmen to their destination.</missiondescription.aic_transport_wardens_soldiers>
   <charactername.aic_wardens_sergeant_edwin>Sergeant Edwin</charactername.aic_wardens_sergeant_edwin>
   <npctitle.aic_wardens_sergeant_edwin>Wardens Mission Dispatcher</npctitle.aic_wardens_sergeant_edwin>
   <eventtext.aic_wardens_dispatcher.greeting>Looking for work? I still have several Coalition contracts assigned to the Wardens.</eventtext.aic_wardens_dispatcher.greeting>
   <eventtext.aic_wardens_dispatcher.option.missions>We are here to take on some missions.</eventtext.aic_wardens_dispatcher.option.missions>
-  <eventtext.aic_wardens_dispatcher.missions_assigned>Understood. I will transmit two or three currently available assignments to your terminal. The objectives and compensation are included in the briefs.</eventtext.aic_wardens_dispatcher.missions_assigned>
+  <eventtext.aic_wardens_dispatcher.missions_assigned>Understood. I will transmit the assignments no one has taken yet to your terminal. The objectives and compensation are included in the briefs.</eventtext.aic_wardens_dispatcher.missions_assigned>
   <eventtext.aic_wardens_dispatcher.option.store>I want to exchange contribution points for supplies.</eventtext.aic_wardens_dispatcher.option.store>
   <eventtext.aic_wardens_dispatcher.store.reputationrequired>(Checks the roster.) New around here? I have not seen you before. Complete a few contracts and come back.</eventtext.aic_wardens_dispatcher.store.reputationrequired>
   <eventtext.aic_wardens_dispatcher.store.denied.accept>All right.</eventtext.aic_wardens_dispatcher.store.denied.accept>
@@ -38,8 +50,9 @@
   <eventtext.aic_wardens_dispatcher.store.low.greeting>(Checks the roster.) Your crew is authorized to exchange supplies. I hope you brought enough marks and contribution points.</eventtext.aic_wardens_dispatcher.store.low.greeting>
   <eventtext.aic_wardens_dispatcher.store.low.option.materials>We need materials for manufacturing ammunition and armor. (2 GDF Contribution Points, 1,500 mk)</eventtext.aic_wardens_dispatcher.store.low.option.materials>
   <eventtext.aic_wardens_dispatcher.store.low.option.weapons>I need guns. Lots of guns. (3 Legion Assault Rifles, 8 standard magazines, 8 depleted radioactive magazines; 2 GDF Contribution Points, 1,500 mk)</eventtext.aic_wardens_dispatcher.store.low.option.weapons>
-  <eventtext.aic_wardens_dispatcher.store.low.option.weapons.bribed>I need guns. Lots of guns. (3 Legion Assault Rifles, 8 standard magazines, 8 depleted radioactive magazines; 2 GDF Contribution Points, 1,600 mk)</eventtext.aic_wardens_dispatcher.store.low.option.weapons.bribed>
+  <eventtext.aic_wardens_dispatcher.store.low.option.weapons.bribed>I need guns. Lots of guns. (2 GDF Contribution Points, 1,600 mk)</eventtext.aic_wardens_dispatcher.store.low.option.weapons.bribed>
   <eventtext.aic_wardens_dispatcher.store.low.option.cash>I am short on marks. (Exchange 1 GDF Contribution Point for 400 mk)</eventtext.aic_wardens_dispatcher.store.low.option.cash>
+  <eventtext.aic_wardens_dispatcher.store.low.option.gdfpdwblueprint>Exchange for the GDF Personal Defense Weapon Blueprint. (10 GDF Contribution Points, 2,000 mk)</eventtext.aic_wardens_dispatcher.store.low.option.gdfpdwblueprint>
   <eventtext.aic_wardens_dispatcher.store.low.success>Here are your supplies. Check the contents now; missing items will not be replaced later.</eventtext.aic_wardens_dispatcher.store.low.success>
   <eventtext.aic_wardens_dispatcher.store.low.failed>You cannot afford that. Complete a couple more contracts and come back.</eventtext.aic_wardens_dispatcher.store.low.failed>
   <eventtext.aic_wardens_dispatcher.store.low.nocontribution>Your contribution balance is insufficient. Complete more contracts before requesting another exchange.</eventtext.aic_wardens_dispatcher.store.low.nocontribution>
@@ -57,4 +70,6 @@
   <eventtext.aic_wardens_dispatcher.firsttour.option.accept>Accept the assignment.</eventtext.aic_wardens_dispatcher.firsttour.option.accept>
   <eventtext.aic_wardens_dispatcher.firsttour.accepted>“Station personnel will load the cargo. The route, destination, and compensation are on your terminal. Complete this delivery and the Wardens will record your performance. Keep your boat and crew reliable, and better-paying work will follow.”</eventtext.aic_wardens_dispatcher.firsttour.accepted>
   <eventtext.aic_wardens_dispatcher.firsttour.option.prepare>Return to the submarine and prepare.</eventtext.aic_wardens_dispatcher.firsttour.option.prepare>
+  <entityname.aic_disintegration_field_device>Disintegration Field Device</entityname.aic_disintegration_field_device>
+  <entitydescription.aic_disintegration_field_device>A throwable Higgs-field disruption device. Once activated, it emits expanding decoupling waves that compromise armor, movement, weapon control, and the target's internal structure.</entitydescription.aic_disintegration_field_device>
 </infotexts>

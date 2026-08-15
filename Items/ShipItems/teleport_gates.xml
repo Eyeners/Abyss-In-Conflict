@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item
+    name="AIC传送门A"
+    identifier="aic_teleport_gate_a"
+    description="与另一座已接线的AIC传送门建立双向通道。使用按钮即可传送至导线另一端。"
+    category="Electrical"
+    subcategory="AIC舰船物品"
+    tags="smallitem,button,aic_shipitem,aic_teleport_gate"
+    allowedlinks="item"
+    linkable="true"
+    scale="0.25"
+    spritecolor="90,190,255,255"
+    impactsoundtag="impact_metal_light"
+    isshootable="true">
+    <Sprite
+      texture="Content/Items/Alien/AlienRuins_Items.png"
+      sourcerect="355,223,140,435"
+      depth="0.8"
+      origin="0.5,0.5" />
+    <Controller direction="None" canbepicked="true" msg="ItemMsgPressSelect">
+      <RequiredItem identifier="idcard" type="Picked" msg="ItemMsgUnauthorizedAccess" />
+      <Sound file="Content/Items/Alien/AlienDoorOpen1.ogg" type="OnUse" range="800" volume="0.8" />
+    </Controller>
+    <LightComponent
+      canbeselected="false"
+      lightcolor="90,190,255,80"
+      alphablend="true"
+      castshadows="false"
+      range="120"
+      pulsefrequency="0.8"
+      pulseamount="0.12"
+      ison="true">
+      <LightTexture texture="Content/Lights/pointlight_bounce.png" origin="0.5,0.5" />
+    </LightComponent>
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <RequiredItem identifier="screwdriver" type="Equipped" />
+      <output name="signal_out" displayname="connection.signalout" />
+      <output name="signal_in" displayname="connection.signalin" />
+    </ConnectionPanel>
+  </Item>
+
+  <Item
+    name="AIC传送门B"
+    identifier="aic_teleport_gate_b"
+    description="与另一座已接线的AIC传送门建立双向通道。使用按钮即可传送至导线另一端。"
+    category="Electrical"
+    subcategory="AIC舰船物品"
+    tags="smallitem,button,aic_shipitem,aic_teleport_gate"
+    allowedlinks="item"
+    linkable="true"
+    scale="0.25"
+    spritecolor="255,170,80,255"
+    impactsoundtag="impact_metal_light"
+    isshootable="true">
+    <Sprite
+      texture="Content/Items/Alien/AlienRuins_Items.png"
+      sourcerect="355,223,140,435"
+      depth="0.8"
+      origin="0.5,0.5" />
+    <Controller direction="None" canbepicked="true" msg="ItemMsgPressSelect">
+      <RequiredItem identifier="idcard" type="Picked" msg="ItemMsgUnauthorizedAccess" />
+      <Sound file="Content/Items/Alien/AlienDoorOpen1.ogg" type="OnUse" range="800" volume="0.8" />
+    </Controller>
+    <LightComponent
+      canbeselected="false"
+      lightcolor="255,170,80,80"
+      alphablend="true"
+      castshadows="false"
+      range="120"
+      pulsefrequency="0.8"
+      pulseamount="0.12"
+      ison="true">
+      <LightTexture texture="Content/Lights/pointlight_bounce.png" origin="0.5,0.5" />
+    </LightComponent>
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <RequiredItem identifier="screwdriver" type="Equipped" />
+      <output name="signal_out" displayname="connection.signalout" />
+      <output name="signal_in" displayname="connection.signalin" />
+    </ConnectionPanel>
+  </Item>
+
+  <Item
+    name="AIC双向传送门"
+    identifier="aic_bidirectional_teleport_gate"
+    description="将两座同型号传送门的信号输出端直接相连，即可从任意一端传送至另一端。"
+    category="Electrical"
+    subcategory="AIC舰船物品"
+    tags="smallitem,button,aic_shipitem,aic_teleport_gate,mediumdelay"
+    allowedlinks="item"
+    linkable="true"
+    scale="0.25"
+    spritecolor="120,255,190,255"
+    impactsoundtag="impact_metal_light"
+    isshootable="true">
+    <Sprite
+      texture="Content/Items/Alien/AlienRuins_Items.png"
+      sourcerect="355,223,140,435"
+      depth="0.8"
+      origin="0.5,0.5" />
+    <Controller direction="None" canbepicked="true" msg="ItemMsgPressSelect">
+      <RequiredItem identifier="idcard" type="Picked" msg="ItemMsgUnauthorizedAccess" />
+      <Sound file="Content/Items/Alien/AlienDoorOpen1.ogg" type="OnUse" range="800" volume="0.8" />
+    </Controller>
+    <LightComponent
+      canbeselected="false"
+      lightcolor="120,255,190,80"
+      alphablend="true"
+      castshadows="false"
+      range="120"
+      pulsefrequency="0.8"
+      pulseamount="0.12"
+      ison="true">
+      <LightTexture texture="Content/Lights/pointlight_bounce.png" origin="0.5,0.5" />
+    </LightComponent>
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <RequiredItem identifier="screwdriver" type="Equipped" />
+      <output name="signal_out" displayname="connection.signalout" />
+    </ConnectionPanel>
+  </Item>
+</Items>

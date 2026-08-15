@@ -26,12 +26,13 @@
 
     <InventoryIcon
       texture="%ModDir%/材料/贴图/材料.png"
-      sourcerect="1,31,53,26"
+      sourcerect="108,38,116,50"
       origin="0.5,0.5" />
 
     <Sprite
       texture="%ModDir%/材料/贴图/材料.png"
-      sourcerect="1,31,53,26"
+      sourcerect="108,38,116,50"
+      scale="0.457"
       depth="0.55"
       origin="0.5,0.5" />
 
@@ -42,6 +43,7 @@
   <Item
     name="钨钢"
     identifier="aic_material_tungsten_steel"
+    health="480"
     category="Material"
     subcategory="先进材料"
     maxstacksize="32"
@@ -75,7 +77,11 @@
       origin="0.5,0.5" />
 
     <Body width="39" height="18" density="30" />
-    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </Holdable>
   </Item>
 
   <Item
@@ -93,12 +99,13 @@
 
     <InventoryIcon
       texture="%ModDir%/材料/贴图/材料.png"
-      sourcerect="112,1,54,26"
+      sourcerect="28,106,92,44"
       origin="0.5,0.5" />
 
     <Sprite
       texture="%ModDir%/材料/贴图/材料.png"
-      sourcerect="112,1,54,26"
+      sourcerect="28,106,92,44"
+      scale="0.576"
       depth="0.55"
       origin="0.5,0.5" />
 
@@ -141,12 +148,13 @@
 
     <InventoryIcon
       texture="%ModDir%/材料/贴图/材料.png"
-      sourcerect="57,1,53,26"
+      sourcerect="133,98,91,36"
       origin="0.5,0.5" />
 
     <Sprite
       texture="%ModDir%/材料/贴图/材料.png"
-      sourcerect="57,1,53,26"
+      sourcerect="133,98,91,36"
+      scale="0.582"
       depth="0.55"
       origin="0.5,0.5" />
 
@@ -405,13 +413,7 @@
 
     <PreferredContainer primary="storagecab,metalcrate,securelocker" secondary="crate,locker" />
 
-    <Price baseprice="3200" sold="true">
-      <Price storeidentifier="merchantoutpost" multiplier="1.2" sold="true" />
-      <Price storeidentifier="merchantcity" multiplier="1.15" sold="true" />
-      <Price storeidentifier="merchantmilitary" multiplier="1.0" sold="true" />
-      <Price storeidentifier="merchantarmory" multiplier="0.95" sold="true" />
-      <Price storeidentifier="merchantengineering" multiplier="1.0" sold="true" />
-    </Price>
+    <Price baseprice="3200" sold="false" />
 
     <Deconstruct time="12">
       <Item identifier="aic_material_tungsten_steel" amount="16" />

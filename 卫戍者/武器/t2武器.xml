@@ -144,6 +144,7 @@
   <Item
     name="投矛器加速步枪钨钢弹匣"
     identifier="aic_wardens_spearlauncher_tungsten_mag"
+    health="80"
     maxstacksize="24"
     maxstacksizecharacterinventory="8"
     subcategory="卫戍者军备"
@@ -199,7 +200,7 @@
 
       <Containable items="aic_wardens_spearlauncher_tungsten_round" />
 
-      <StatusEffect type="OnUse" target="This" condition="-5" disabledeltatime="true">
+      <StatusEffect type="OnUse" target="This" condition="-4" disabledeltatime="true">
         <SpawnItem identifiers="aic_wardens_spearlauncher_tungsten_round" spawnposition="ThisInventory" />
       </StatusEffect>
 
@@ -230,9 +231,9 @@
 
       <Attack structuredamage="4" targetforce="24" itemdamage="34" severlimbsprobability="1.2" penetration="0.35">
 
-        <Affliction identifier="gunshotwound" strength="24" />
-        <Affliction identifier="explosiondamage" strength="9" />
-        <Affliction identifier="bleeding" strength="4" />
+        <Affliction identifier="gunshotwound" strength="28" />
+        <Affliction identifier="explosiondamage" strength="14" />
+        <Affliction identifier="bleeding" strength="5" />
         <Affliction identifier="stun" strength="0.2" probability="0.3" />
 
       </Attack>

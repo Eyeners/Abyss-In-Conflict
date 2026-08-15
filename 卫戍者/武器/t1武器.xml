@@ -155,6 +155,7 @@
   <Item
     name="锤砧弹匣"
     identifier="aic_wardens_hammeranvil_mag"
+    health="60"
     maxstacksize="24"
     maxstacksizecharacterinventory="8"
     subcategory="卫戍者军备"
@@ -207,7 +208,7 @@
 
       <Containable items="aic_wardens_hammeranvil_round" />
 
-      <StatusEffect type="OnUse" target="This" condition="-5" disabledeltatime="true">
+      <StatusEffect type="OnUse" target="This" condition="-3" disabledeltatime="true">
         <SpawnItem identifiers="aic_wardens_hammeranvil_round" spawnposition="ThisInventory" />
       </StatusEffect>
 
@@ -219,6 +220,7 @@
   <Item
     name="锤砧贫化弹匣"
     identifier="aic_wardens_hammeranvil_depleted_mag"
+    health="60"
     maxstacksize="24"
     maxstacksizecharacterinventory="8"
     subcategory="卫戍者军备"
@@ -273,7 +275,7 @@
 
       <Containable items="aic_wardens_hammeranvil_depleted_round" />
 
-      <StatusEffect type="OnUse" target="This" condition="-5" disabledeltatime="true">
+      <StatusEffect type="OnUse" target="This" condition="-3" disabledeltatime="true">
         <SpawnItem identifiers="aic_wardens_hammeranvil_depleted_round" spawnposition="ThisInventory" />
       </StatusEffect>
 
@@ -304,8 +306,8 @@
 
       <Attack structuredamage="1" targetforce="10" itemdamage="20" severlimbsprobability="1" penetration="0.15">
 
-        <Affliction identifier="gunshotwound" strength="14" />
-        <Affliction identifier="explosiondamage" strength="5" />
+        <Affliction identifier="gunshotwound" strength="18" />
+        <Affliction identifier="explosiondamage" strength="9" />
         <Affliction identifier="bleeding" strength="3" />
         <Affliction identifier="stun" strength="0.05" probability="0.2" />
 
@@ -352,8 +354,8 @@
 
       <Attack structuredamage="1" targetforce="10" itemdamage="20" severlimbsprobability="0.8" penetration="0.16">
 
-        <Affliction identifier="gunshotwound" strength="13" />
-        <Affliction identifier="explosiondamage" strength="3" />
+        <Affliction identifier="gunshotwound" strength="16" />
+        <Affliction identifier="explosiondamage" strength="8" />
         <Affliction identifier="bleeding" strength="5" />
         <Affliction identifier="stun" strength="0.05" probability="0.2" />
         <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">
@@ -537,6 +539,7 @@
   <Item
     name="军团突击步枪弹匣"
     identifier="aic_wardens_legion_mag"
+    health="90"
     maxstacksize="24"
     maxstacksizecharacterinventory="8"
     subcategory="卫戍者军备"
@@ -589,7 +592,7 @@
 
       <Containable items="aic_wardens_legion_round" />
 
-      <StatusEffect type="OnUse" target="This" condition="-3.34" disabledeltatime="true">
+      <StatusEffect type="OnUse" target="This" condition="-3" disabledeltatime="true">
         <SpawnItem identifiers="aic_wardens_legion_round" spawnposition="ThisInventory" />
       </StatusEffect>
 
@@ -601,6 +604,7 @@
   <Item
     name="军团贫化弹匣"
     identifier="aic_wardens_legion_depleted_mag"
+    health="90"
     maxstacksize="24"
     maxstacksizecharacterinventory="8"
     subcategory="卫戍者军备"
@@ -655,7 +659,7 @@
 
       <Containable items="aic_wardens_legion_depleted_round" />
 
-      <StatusEffect type="OnUse" target="This" condition="-3.34" disabledeltatime="true">
+      <StatusEffect type="OnUse" target="This" condition="-3" disabledeltatime="true">
         <SpawnItem identifiers="aic_wardens_legion_depleted_round" spawnposition="ThisInventory" />
       </StatusEffect>
 
@@ -686,8 +690,8 @@
 
       <Attack structuredamage="1" targetforce="5" itemdamage="10" severlimbsprobability="0.8" penetration="0.1">
 
-        <Affliction identifier="gunshotwound" strength="9" />
-        <Affliction identifier="explosiondamage" strength="3" />
+        <Affliction identifier="gunshotwound" strength="15" />
+        <Affliction identifier="explosiondamage" strength="5" />
         <Affliction identifier="bleeding" strength="3" />
         <Affliction identifier="stun" strength="0.02" probability="0.1" />
 
@@ -734,8 +738,8 @@
 
       <Attack structuredamage="1" targetforce="5" itemdamage="10" severlimbsprobability="0.5" penetration="0.12">
 
-        <Affliction identifier="gunshotwound" strength="7" />
-        <Affliction identifier="explosiondamage" strength="2" />
+        <Affliction identifier="gunshotwound" strength="13" />
+        <Affliction identifier="explosiondamage" strength="3" />
         <Affliction identifier="bleeding" strength="3" />
         <Affliction identifier="stun" strength="0.02" probability="0.1" />
         <StatusEffect type="OnUse" target="UseTarget" disabledeltatime="true">

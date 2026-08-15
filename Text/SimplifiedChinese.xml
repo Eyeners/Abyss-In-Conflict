@@ -4,27 +4,39 @@
   <afflictiondescription.aic_heat_buildup.medium>目标表面或装甲正在熔融，对于各项攻击的防护都在下降，请勿利用海水进行快速冷却，可能发生爆沸。</afflictiondescription.aic_heat_buildup.medium>
   <afflictiondescription.aic_heat_buildup.high>目标表面或装甲已经几乎熔毁，防御性能大幅下降，且持续造成灼烧，继续受热可能发生爆燃。</afflictiondescription.aic_heat_buildup.high>
   <npctitle.aic_wardens_elite_guard>精英卫队</npctitle.aic_wardens_elite_guard>
+  <npctitle.aic_wardens_defender>防卫者</npctitle.aic_wardens_defender>
+  <npctitle.aic_foresight_research_knight>科研骑士</npctitle.aic_foresight_research_knight>
   <npctitle.aic_practitioner_bishop>主教</npctitle.aic_practitioner_bishop>
   <npctitle.aic_practitioner_judgement_trooper>审判军</npctitle.aic_practitioner_judgement_trooper>
+  <entityname.aic_gdf_downpour_smg>骤雨反跳帮武器</entityname.aic_gdf_downpour_smg>
+  <entitydescription.aic_gdf_downpour_smg>GDF制式反跳帮武器，以高射速和紧凑结构压制狭窄舱室内的近距离目标，最初用于水面舰艇和部分室内场所的安保使用，没有考虑对于舰体的损伤管制，采用了火药燃气和电磁推进的混合推进方式。</entitydescription.aic_gdf_downpour_smg>
+  <entityname.aic_gdf_stiletto_pdw>短剑个人防卫武器</entityname.aic_gdf_stiletto_pdw>
+  <entitydescription.aic_gdf_stiletto_pdw>面向载具成员和专业勤务人员的GDF个人防卫武器，结构短小、操控灵活，采用了火药燃气和电磁推进的混合推进方式，但因为枪体较短电磁推进效率略低，可以单手持握。</entitydescription.aic_gdf_stiletto_pdw>
+  <entityname.aic_gdf_small_magazine>GDF军用小型弹匣</entityname.aic_gdf_small_magazine>
+  <entitydescription.aic_gdf_small_magazine>GDF制式的三十发军用小型弹匣，钨芯镖弹，短小但不贫弱。</entitydescription.aic_gdf_small_magazine>
+  <entityname.aic_gdf_personal_defense_weapon_blueprint>GDF个人防卫武器蓝图</entityname.aic_gdf_personal_defense_weapon_blueprint>
+  <entitydescription.aic_gdf_personal_defense_weapon_blueprint>记录GDF制式个人防卫武器结构、材料和装配工艺的制造蓝图。阅读后永久解锁短剑个人防卫武器、骤雨反跳帮武器及GDF军用小型弹匣的制造与回收配方。</entitydescription.aic_gdf_personal_defense_weapon_blueprint>
   <afflictiondescription.aic_machine_structural_damage.low>机械结构受到轻微变形或内部裂损，受损区域对电磁冲击的防护正在下降。</afflictiondescription.aic_machine_structural_damage.low>
   <afflictiondescription.aic_machine_structural_damage>机械结构严重破坏，承力框架和装甲内层难以隔绝电磁冲击。</afflictiondescription.aic_machine_structural_damage>
   <afflictiondescription.aic_machine_component_damage.low>机械体的电子储存、运算和控制组件受损，机械体运动协调能力下降。</afflictiondescription.aic_machine_component_damage.low>
   <afflictiondescription.aic_machine_component_damage>机械体的电子储存、运算和控制组件受损，机械体趋近瘫痪。</afflictiondescription.aic_machine_component_damage>
   <faction.aic_wardens_pmc>卫戍者PMC</faction.aic_wardens_pmc>
-  <faction.aic_wardens_pmc.description>卫戍者PMC是一个起源成谜的武装组织，由大量经验丰富的安保人员、工程技术人员和退役军人组成。该组织与木卫二联盟保持密切合作，主要承接武装护航、危险区域勘探和设施防卫任务，同时协助建设冰面防御体系。凭借先进的防护装备和丰富的生物灾害应对经验，卫戍者正逐渐成为木卫二重要的安全力量。</faction.aic_wardens_pmc.description>
-  <faction.aic_wardens_pmc.shortdescription>与木卫二联盟密切合作，承接武装护航、危险区域勘探和设施防卫任务的武装安保组织。</faction.aic_wardens_pmc.shortdescription>
+  <faction.aic_wardens_pmc.description>卫戍者PMC是一个起源成谜的武装组织，由大量经验丰富的安保人员、工程技术人员和退役军人组成。该组织与木卫二联盟保持密切合作，主要承接武装护航、危险区域勘探和设施防卫任务，目前协助联盟建设冰面防御体系。凭借先进的防护装备和丰富的生物灾害应对经验，卫戍者正逐渐成为木卫二重要的安全力量。</faction.aic_wardens_pmc.description>
+  <faction.aic_wardens_pmc.shortdescription>卫戍者PMC是一个与木卫二联盟密切合作，承接武装护航、危险区域勘探和设施防卫任务的武装安保组织。</faction.aic_wardens_pmc.shortdescription>
   <faction.aic_gdf_contribution>GDF贡献点</faction.aic_gdf_contribution>
-  <faction.aic_gdf_contribution.description>由GDF记录的战役共享贡献点，可在卫戍者特殊事件商店中兑换物资。</faction.aic_gdf_contribution.description>
+  <faction.aic_gdf_contribution.description>记录团队所作出贡献的积分，可在卫戍者特殊事件商店中兑换物资。</faction.aic_gdf_contribution.description>
   <faction.aic_gdf_contribution.shortdescription>用于卫戍者特殊兑换的GDF贡献点。</faction.aic_gdf_contribution.shortdescription>
   <missionname.aic_cargo_surface_facility_construction_materials>冰面设施建材运输</missionname.aic_cargo_surface_facility_construction_materials>
   <missiondescription.aic_cargo_surface_facility_construction_materials>木卫二联盟正在统筹调度大量工程材料，用于建设和加固木卫二冰面设施。施工计划急需一批结构钢材、钛铝合金与钨钢，请将这些建材安全运送至[location2]。</missiondescription.aic_cargo_surface_facility_construction_materials>
   <missionname.aic_investigate_unknown_threats>探查威胁</missionname.aic_investigate_unknown_threats>
   <missiondescription.aic_investigate_unknown_threats>木卫二联盟接到多起发生在这片海域的不明袭击报告。请前往报告所指区域展开探查，确认威胁来源并将其彻底消灭。</missiondescription.aic_investigate_unknown_threats>
+  <missionname.aic_transport_wardens_soldiers>运送卫戍者士兵</missionname.aic_transport_wardens_soldiers>
+  <missiondescription.aic_transport_wardens_soldiers>一支卫戍者作战分队需要前往[location2]接替当地的设施防卫人员。请将乘客安全送达目的地。</missiondescription.aic_transport_wardens_soldiers>
   <charactername.aic_wardens_sergeant_edwin>埃德温中士</charactername.aic_wardens_sergeant_edwin>
   <npctitle.aic_wardens_sergeant_edwin>卫戍者任务派发员</npctitle.aic_wardens_sergeant_edwin>
   <eventtext.aic_wardens_dispatcher.greeting>需要任务吗？我这里还有一些联盟转交给卫戍者处理的委托。</eventtext.aic_wardens_dispatcher.greeting>
   <eventtext.aic_wardens_dispatcher.option.missions>我们来接取一些任务。</eventtext.aic_wardens_dispatcher.option.missions>
-  <eventtext.aic_wardens_dispatcher.missions_assigned>明白。我会把两到三份当前可执行的任务发送到你们的终端，具体目标和报酬都在任务简报里。</eventtext.aic_wardens_dispatcher.missions_assigned>
+  <eventtext.aic_wardens_dispatcher.missions_assigned>明白。我会把还没人接手的任务发送给你们，目标和报酬都在任务简报里。</eventtext.aic_wardens_dispatcher.missions_assigned>
   <eventtext.aic_wardens_dispatcher.option.store>我想用贡献点兑换一些资源。</eventtext.aic_wardens_dispatcher.option.store>
   <eventtext.aic_wardens_dispatcher.store.reputationrequired>（查看名单）新来的？以前没怎么见过你，先去干几单活再回来。</eventtext.aic_wardens_dispatcher.store.reputationrequired>
   <eventtext.aic_wardens_dispatcher.store.denied.accept>行吧。</eventtext.aic_wardens_dispatcher.store.denied.accept>
@@ -37,9 +49,10 @@
   <eventtext.aic_wardens_dispatcher.store.low.option.cancel>算了。</eventtext.aic_wardens_dispatcher.store.low.option.cancel>
   <eventtext.aic_wardens_dispatcher.store.low.greeting>（翻看名单）你们是被授予兑换许可的队伍，希望你们准备了足够的马克和贡献点。</eventtext.aic_wardens_dispatcher.store.low.greeting>
   <eventtext.aic_wardens_dispatcher.store.low.option.materials>我们需要一些制造弹药和护甲的资源。（2 GDF贡献点，1500 mk）</eventtext.aic_wardens_dispatcher.store.low.option.materials>
-  <eventtext.aic_wardens_dispatcher.store.low.option.weapons>我需要枪，很多枪。（3把军团突击步枪、8个普通弹匣、8个贫化辐射弹匣；2 GDF贡献点，1500 mk）</eventtext.aic_wardens_dispatcher.store.low.option.weapons>
-  <eventtext.aic_wardens_dispatcher.store.low.option.weapons.bribed>我需要枪，很多枪。（3把军团突击步枪、8个普通弹匣、8个贫化辐射弹匣；2 GDF贡献点，1600 mk）</eventtext.aic_wardens_dispatcher.store.low.option.weapons.bribed>
+  <eventtext.aic_wardens_dispatcher.store.low.option.weapons>我需要枪，很多枪。（2 GDF贡献点，1500 mk）</eventtext.aic_wardens_dispatcher.store.low.option.weapons>
+  <eventtext.aic_wardens_dispatcher.store.low.option.weapons.bribed>我需要枪，很多枪。（2 GDF贡献点，1600 mk）</eventtext.aic_wardens_dispatcher.store.low.option.weapons.bribed>
   <eventtext.aic_wardens_dispatcher.store.low.option.cash>我有点缺钱。（1 GDF贡献点兑换400 mk）</eventtext.aic_wardens_dispatcher.store.low.option.cash>
+  <eventtext.aic_wardens_dispatcher.store.low.option.gdfpdwblueprint>兑换GDF个人防卫武器蓝图。（10 GDF贡献点，2000 mk）</eventtext.aic_wardens_dispatcher.store.low.option.gdfpdwblueprint>
   <eventtext.aic_wardens_dispatcher.store.low.success>这是你要的东西，自己检查一下有没有缺漏，过后不补。</eventtext.aic_wardens_dispatcher.store.low.success>
   <eventtext.aic_wardens_dispatcher.store.low.failed>这玩意你换不起，多去接两单活再来吧。</eventtext.aic_wardens_dispatcher.store.low.failed>
   <eventtext.aic_wardens_dispatcher.store.low.nocontribution>名单上的贡献点余额不够。先完成更多委托，再来谈兑换。</eventtext.aic_wardens_dispatcher.store.low.nocontribution>
@@ -49,12 +62,14 @@
   <eventtext.aic_wardens_dispatcher.firsttour.option.approach>过去看看。</eventtext.aic_wardens_dispatcher.firsttour.option.approach>
   <eventtext.aic_wardens_dispatcher.firsttour.option.ignore>不去凑热闹了。</eventtext.aic_wardens_dispatcher.firsttour.option.ignore>
   <eventtext.aic_wardens_dispatcher.firsttour.ignored>你还要准备首次航行，要做的事情很多，凑热闹的事情还是交给别人吧。</eventtext.aic_wardens_dispatcher.firsttour.ignored>
-  <eventtext.aic_wardens_dispatcher.firsttour.briefing>你挤过围观的人群，来到招工牌前。那名军人身上的外骨骼护甲绘制着一枚黑白相间的堡垒徽记。\n“来得正好，各位。”\n军人抬起戴着装甲手套的手，示意周围的人安静下来。\n“联盟正在冰面上建设一批新的设施，包括通讯站和观测站，以尝试和地球建立联系。那里环境恶劣，人员和设备都得依靠潜艇船队往返运输，仅靠联盟现有的工程队远远不够。”\n“他们需要施工人员、设备操作员和护航船员，也需要能把物资安全送到冰面升降港的人。报酬由联盟和卫戍者共同担保，参加航行的人还能获得额外贡献点，用来兑换一些外面买不到的好东西。”</eventtext.aic_wardens_dispatcher.firsttour.briefing>
+  <eventtext.aic_wardens_dispatcher.firsttour.briefing>你挤过围观的人群，来到招工牌前。那名军人身上的外骨骼防弹甲上漆着一枚黑白相间的堡垒徽记。\n“来得正好。”\n军人抬手，示意周围的人安静下来。\n“联盟正在冰面上建设一批新通讯站和观测站，尝试和地球重新建立联系。那里施工环境恶劣，需要大量的人手。”\n“他们需要施工人员、安保和后勤人员，也需要能把物资安全送到冰面升降港的船队。报酬由联盟担保，参加航行的人还能获得额外贡献点，用来低价兑换一些外面买不到的好东西。”</eventtext.aic_wardens_dispatcher.firsttour.briefing>
   <eventtext.aic_wardens_dispatcher.firsttour.option.continue>继续。</eventtext.aic_wardens_dispatcher.firsttour.option.continue>
-  <eventtext.aic_wardens_dispatcher.firsttour.introduction>“忘了自我介绍。我是卫戍者PMC的联络员埃德温中士。我们是一家联盟授权的正规安保承包组织，负责船队护航、危险区域勘探和设施防卫。我们受联盟委托，为冰面建设项目提供人员、装备和安全保障。”\n“你们不需要穿着我这身东西去和怪物角力。大多数岗位只是运输、施工或者设备维护。但我要提前说清楚，通往冰面的航线并不安全。不过任何报名的人都可以无偿接受卫戍者的基础训练，学会在警报响起时保住自己的命。”\n他在招工牌旁贴上一张新的任务清单，随后看向你。\n“你是来找工作的吗？”</eventtext.aic_wardens_dispatcher.firsttour.introduction>
+  <eventtext.aic_wardens_dispatcher.firsttour.introduction>“忘了自我介绍。我是卫戍者PMC的联络员埃德温中士。我们是一家联盟授权的正规安保承包组织，业务包括船队护航、危险区域勘探和设施防卫。我们受联盟委托，为冰面建设项目提供人员、装备和安全保障。”\n“你们不需要像我们一样和海鲜作战。联盟需要的大多数岗位只是运输、施工或者设备维护。但我要提前说清楚，通往冰面的航线出现了新的威胁。不过任何报名的人都可以无偿接受卫戍者的基础训练，学会在警报响起时保住自己的命。”\n他打开手中的终端，随后看向你。\n“你是来找工作的吗？”</eventtext.aic_wardens_dispatcher.firsttour.introduction>
   <eventtext.aic_wardens_dispatcher.firsttour.option.askwork>我是一名新手船长，手底下有一艘潜艇，有什么活可以干吗？</eventtext.aic_wardens_dispatcher.firsttour.option.askwork>
-  <eventtext.aic_wardens_dispatcher.firsttour.assignment>埃德温打量了你一眼，又低头看了看手中的终端。\n“新船长？好极了。”\n他滑动了几下屏幕，将一份货运清单调了出来。\n“正好有一批冰面工程需要的建材还堆在仓库里。主要是钢材、钛铝合金和钨钢之类的，数量不算多，但联盟现在运输艇颇为紧张。你把它们送到下一个站点，确保货物没有被泥偶迅猛龙偷走，就算完成了。”\n埃德温将任务资料传入你的终端。\n“另外，卫戍者正在把一座旧信标站改造成临时培训设施。等设施准备完毕，我会把入职培训的航道坐标一并交给你们。”\n他抬手敲了敲自己胸前的护甲。\n“木卫二不会因为你是新手就对你手下留情。多学点东西，总比第一次遇到泄漏和入侵时在船舱里乱跑要好。”</eventtext.aic_wardens_dispatcher.firsttour.assignment>
+  <eventtext.aic_wardens_dispatcher.firsttour.assignment>埃德温打量了你一眼。\n“新船长？好极了。”\n他滑动了几下屏幕，将一份货运清单调了出来。\n“正好有一批冰面工程需要的建材需要人运输。主要是钢材、钨钢之类的，联盟现在运输艇数量颇为紧张。把它们送到下一个站点，确保货物没有被泥偶迅猛龙偷走，就算完成了。”\n埃德温将任务资料传入你的终端。\n“另外，卫戍者正在把一座旧信标站改造成临时培训设施。等设施准备完毕，我会把入职培训的航道坐标一并交给你们。”\n他拂过护甲上一道可怖的划痕。\n“木卫二不会因为你是新手就对你手下留情。多学点东西，一个可靠的帮手对我们来说比物资重要的多。”</eventtext.aic_wardens_dispatcher.firsttour.assignment>
   <eventtext.aic_wardens_dispatcher.firsttour.option.accept>接受任务。</eventtext.aic_wardens_dispatcher.firsttour.option.accept>
   <eventtext.aic_wardens_dispatcher.firsttour.accepted>“货物会由站点人员装船，具体航线、交付地点和报酬都已经发送给你。完成这次运输后，卫戍者会记录你们的表现。只要你们靠得住，后面自然会有报酬更高的工作。”</eventtext.aic_wardens_dispatcher.firsttour.accepted>
   <eventtext.aic_wardens_dispatcher.firsttour.option.prepare>回去准备吧。</eventtext.aic_wardens_dispatcher.firsttour.option.prepare>
+  <entityname.aic_disintegration_field_device>崩解发生装置</entityname.aic_disintegration_field_device>
+  <entitydescription.aic_disintegration_field_device>投掷式希格斯场干扰装置。\n异星矿物的原理始终是一个黑箱，但是我们却可以研究它的应用方式。影响希格斯场的技术在曾经看来仿佛神话的领域，而现在我们利用摄魂矿石掌握了它。虽然目前只是粗浅的武器化应用，但可以相信精细化的深入运用并不遥远。</entitydescription.aic_disintegration_field_device>
 </infotexts>

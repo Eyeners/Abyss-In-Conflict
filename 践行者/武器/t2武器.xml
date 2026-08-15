@@ -194,16 +194,41 @@
       <ParticleEmitter particle="FlareBubbles" emitacrossrayinterval="50" />
 
       <Attack structuredamage="8" targetforce="20" itemdamage="45" severlimbsprobability="0" penetration="0.8">
-        <Affliction identifier="electricshock" strength="150" />
+        <Affliction identifier="electricshock" strength="100" />
         <Affliction identifier="emp" strength="150" />
-        <Affliction identifier="burn" strength="160" />
+        <Affliction identifier="burn" strength="100" />
         <Affliction identifier="aic_heat_buildup" strength="60" />
       </Attack>
 
       <StatusEffect type="OnImpact" target="UseTarget">
         <ParticleEmitter particle="muzzleflashnucleargun" anglemin="0" anglemax="360" particleamount="10" velocitymin="0" scalemin="0.8" scalemax="1.0" scalemultiplier="0.75,0.75" colormultiplier="205,145,255,255" />
-        <ParticleEmitter particle="ElectricShock" drawontop="true" distancemin="5" distancemax="35" particleamount="9" scalemin="0.2" scalemax="0.4" colormultiplier="205,145,255,255" />
+        <ParticleEmitter particle="ElectricShock" drawontop="true" distancemin="5" distancemax="80" particleamount="16" scalemin="0.2" scalemax="0.4" colormultiplier="205,145,255,255" />
         <ParticleEmitter particle="FlareBubbles" particleamount="3" anglemin="0" anglemax="360" velocitymin="0" velocitymax="50" />
+        <Explosion range="80" structuredamage="4" itemdamage="22.5" force="10" severlimbsprobability="0" penetration="0.4" shockwave="false" flames="false" smoke="false" sparks="false" underwaterbubble="false" flash="true" flashcolor="205,145,255,180" flashrange="80" flashduration="0.15" camerashake="3" playtinnitus="false">
+          <Affliction identifier="electricshock" strength="50" />
+          <Affliction identifier="emp" strength="75" />
+          <Affliction identifier="burn" strength="50" />
+          <Affliction identifier="aic_heat_buildup" strength="30" />
+        </Explosion>
+      </StatusEffect>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Sound file="%ModDir%/践行者/音效/Lightning Impact 1.ogg" range="2500" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/Lightning Impact 2.ogg" range="2500" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/Lightning Impact 3.ogg" range="2500" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/Lightning Impact 4.ogg" range="2500" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/Lightning Impact 5.ogg" range="2500" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/Lightning Impact 6.ogg" range="2500" selectionmode="Random" />
+      </StatusEffect>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Sound file="%ModDir%/践行者/音效/HeadImpact1.ogg" range="1200" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/HeadImpact2.ogg" range="1200" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/HeadImpact3.ogg" range="1200" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/HeadImpact4.ogg" range="1200" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/HeadImpact5.ogg" range="1200" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/HeadImpact6.ogg" range="1200" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/HeadImpact7.ogg" range="1200" selectionmode="Random" />
       </StatusEffect>
 
       <StatusEffect type="OnImpact" target="UseTarget">
