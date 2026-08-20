@@ -44,7 +44,8 @@
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="electricshock" damagemultiplier="0.20" damagesound="LimbArmor" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="stun" damagemultiplier="0.20" damagesound="LimbArmor" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="concussion" damagemultiplier="0.05" deflectprojectiles="true" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="huskinfection,aic_nanite_infection" probabilitymultiplier="0.10" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="huskinfection" probabilitymultiplier="0.10" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_nanite_erosion" damagemultiplier="0" damagesound="LimbArmor" />
       <StatusEffect type="OnWearing" target="Character" UseHullOxygen="true" PressureProtection="9500.0" setvalue="true" disabledeltatime="true" />
       <StatusEffect type="OnContained" target="Contained" Condition="1.0" targetslot="0" interval="1" disabledeltatime="true">
         <Conditional Voltage="gt 0.01" targetcontainer="true" targetgrandparent="true" targetitemcomponent="Powered" />

@@ -7,6 +7,7 @@
     subcategory="GDF军用武器"
     cargocontaineridentifier="metalcrate"
     tags="mediumitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_gdf_weapon,aic_wardens_weapon,aic_rifle"
+    health="100"
     scale="0.068"
     impactsoundtag="impact_metal_light"
     description="地球防卫部队使用的军用等离子步枪，以Z箍缩产生的强磁场约束并压缩高温等离子体，将形成的等离子束沿磁化通路投射至目标。">
@@ -76,9 +77,66 @@
         <Use />
       </StatusEffect>
 
+      <!-- 普通射击每发为枪体积累5%蓄能。枪体耐久在这里作为蓄能量表使用。 -->
+      <StatusEffect type="OnUse" target="This" condition="5" disabledeltatime="true">
+        <Conditional conditionpercentage="lt 99" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="This" condition="99" setvalue="true" disabledeltatime="true">
+        <Conditional conditionpercentage="gte 99" />
+      </StatusEffect>
+
+      <RequiredItems items="aic_gdf_redstar_mode_normal" type="Contained" />
       <RequiredItems items="aic_gdf_redstar_plasma_battery" type="Contained" msg="ItemMsgAmmoRequired" />
       <RequiredSkill identifier="weapons" level="45" />
     </RangedWeapon>
+
+    <!-- 满蓄能后可切换的连续等离子束。25%/秒的消耗提供约4秒持续射击。 -->
+    <RepairTool
+      firedamage="60"
+      structurefixamount="-8"
+      levelwallfixamount="-8"
+      range="1400"
+      barrelpos="43.4,5.6"
+      combatpriority="92"
+      repairmultiple="true"
+      repairthroughwalls="false"
+      repairthroughholes="false"
+      maxoverlappingwalldist="0"
+      targetforce="12">
+
+      <RequiredItems items="aic_gdf_redstar_mode_beam" type="Contained" />
+      <RequiredSkill identifier="weapons" level="45" />
+
+      <StatusEffect type="OnUse" target="This" condition="-25">
+        <Conditional conditionpercentage="gt 1" />
+      </StatusEffect>
+
+      <!-- 避免枪体到达0%后被引擎判定为损坏，并在耗尽时自动恢复常规模式。 -->
+      <StatusEffect type="OnUse" target="This" condition="1" setvalue="true" disabledeltatime="true">
+        <Conditional conditionpercentage="lte 1" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" targettype="Contained" targets="aic_gdf_redstar_mode_token" tags="aic_gdf_redstar_mode_normal" setvalue="true" disabledeltatime="true">
+        <Conditional conditionpercentage="lte 1" targetcontainer="true" />
+      </StatusEffect>
+
+      <StatusEffect type="OnSuccess" target="Limb">
+        <Conditional entitytype="eq Limb" />
+        <Affliction identifier="burn" amount="90" />
+        <Affliction identifier="explosiondamage" amount="40" />
+        <Affliction identifier="aic_heat_buildup" amount="40" />
+      </StatusEffect>
+
+      <ParticleEmitterHitStructure particle="shrapnel" particlespersecond="5" anglemin="-90" anglemax="90" velocitymin="100" velocitymax="200" scalemin="0.5" scalemax="0.75" />
+      <ParticleEmitterHitStructure particle="chargenucleargun" colormultiplier="190,105,255,125" particlespersecond="17" scalemin="1.0" scalemax="1.0" />
+      <ParticleEmitterHitCharacter particle="Steam" particlespersecond="12" copyentityangle="false" />
+      <ParticleEmitterHitCharacter particle="flare" colormultiplier="190,105,255,180" particlespersecond="12" copyentityangle="false" />
+      <Sound file="Content/Items/Tools/PlasmaCutterLoop.ogg" type="OnUse" range="750" loop="true" />
+      <Fixable identifier="structure" />
+
+      <LightComponent lightcolor="1.0,1.0,1.0,1.0" range="700" flicker="0.3" powerconsumption="0">
+        <LightTexture texture="%ModDir%/卫戍者/贴图/等离子束流.png" origin="-0.003,0.498" size="2.0,0.3" />
+      </LightComponent>
+    </RepairTool>
 
     <ItemContainer
       capacity="1"
@@ -113,7 +171,26 @@
           <Sound file="%ModDir%/卫戍者/音效/装电池ReloadEnd.ogg" type="OnInserted" range="200" loop="false" volume="0.8" />
         </StatusEffect>
       </Containable>
+
     </ItemContainer>
+
+    <!-- 模式令牌使用独立隐藏容器，不占用或显示在玩家看到的电池槽中。 -->
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" drawinventory="false" canbeselected="false" spawnwithid="aic_gdf_redstar_mode_token">
+      <Containable items="aic_gdf_redstar_mode_token" />
+    </ItemContainer>
+
+    <CustomInterface canbeselected="false" drawhudwhenequipped="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.12,0.06" anchor="BottomLeft" relativeoffset="0.02,0.28" style="ItemUI" />
+      <Button text="蓄能束流">
+        <StatusEffect type="OnUse" targettype="Contained" targets="aic_gdf_redstar_mode_token" tags="aic_gdf_redstar_mode_beam" setvalue="true" disabledeltatime="true">
+          <Conditional conditionpercentage="gte 99" targetcontainer="true" />
+        </StatusEffect>
+        <StatusEffect type="OnUse" target="Contained" targetslot="0">
+          <Conditional conditionpercentage="gte 99" targetcontainer="true" />
+          <DropItem />
+        </StatusEffect>
+      </Button>
+    </CustomInterface>
 
     <AITarget sightrange="3200" soundrange="2400" fadeouttime="7" />
 
@@ -122,6 +199,23 @@
     </Quality>
 
     <SkillRequirementHint identifier="weapons" level="45" />
+  </Item>
+
+  <Item
+    name=""
+    identifier="aic_gdf_redstar_mode_token"
+    category="Hidden"
+    hideinmenus="true"
+    tags="aic_gdf_redstar_mode_token,aic_gdf_redstar_mode_normal"
+    scale="0.1"
+    impactsoundtag="impact_metal_light">
+    <Sprite texture="%ModDir%/卫戍者/贴图/GDF红星等离子电池栈.png" sourcerect="0,0,8,8" depth="0.9" origin="0.5,0.5" />
+    <Body width="8" height="8" density="1" />
+    <ItemComponent allowingameediting="false">
+      <StatusEffect type="OnNotContained" target="This">
+        <Remove />
+      </StatusEffect>
+    </ItemComponent>
   </Item>
 
   <Item
@@ -208,15 +302,15 @@
       </Attack>
 
       <StatusEffect type="OnImpact" target="UseTarget">
-        <ParticleEmitter particle="muzzleflashpulselaser" anglemin="0" anglemax="360" particleamount="8" velocitymin="0" scalemin="0.35" scalemax="0.65" />
-        <ParticleEmitter particle="weldspark" particleamount="4" anglemin="0" anglemax="360" velocitymin="180" velocitymax="280" scalemin="0.8" scalemax="1.3" drawontop="true" colormultiplier="255,120,120,200" />
-        <ParticleEmitter particle="FlareBubbles" particleamount="3" anglemin="0" anglemax="360" velocitymin="0" velocitymax="45" />
+        <ParticleEmitter particle="muzzleflashnucleargun" anglemin="0" anglemax="360" particleamount="10" velocitymin="0" scalemin="0.5" scalemax="0.8" scalemultiplier="0.75,0.75" />
+        <ParticleEmitter particle="weldspark" particleamount="5" anglemin="0" anglemax="360" velocitymin="300" velocitymax="350" scalemin="1.5" scalemax="1.9" drawontop="true" colormultiplier="150,255,195,180" />
+        <ParticleEmitter particle="FlareBubbles" particleamount="3" anglemin="0" anglemax="360" velocitymin="0" velocitymax="50" />
       </StatusEffect>
 
       <StatusEffect type="OnImpact" target="UseTarget">
         <Conditional entitytype="eq Structure" />
         <Conditional hastag="eq door" />
-        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" colormultiplier="255,100,100,255" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
       </StatusEffect>
 
       <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
@@ -289,7 +383,7 @@
         <Use />
       </StatusEffect>
 
-      <RequiredItems items="aic_gdf_small_magazine" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredItems items="aic_gdf_small_magazine,aic_gdf_small_thermite_magazine,aic_gdf_small_piezoelectric_magazine" type="Contained" msg="ItemMsgAmmoRequired" />
       <RequiredSkill identifier="weapons" level="35" />
     </RangedWeapon>
 
@@ -304,7 +398,7 @@
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
 
       <Containable
-        items="aic_gdf_small_magazine"
+        items="aic_gdf_small_magazine,aic_gdf_small_thermite_magazine,aic_gdf_small_piezoelectric_magazine"
         hide="false"
         itempos="2.1,-5"
         rotation="10.6"
@@ -397,7 +491,7 @@
         <Use />
       </StatusEffect>
 
-      <RequiredItems items="aic_gdf_small_magazine" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredItems items="aic_gdf_small_magazine,aic_gdf_small_thermite_magazine,aic_gdf_small_piezoelectric_magazine" type="Contained" msg="ItemMsgAmmoRequired" />
       <RequiredSkill identifier="weapons" level="30" />
     </RangedWeapon>
 
@@ -412,7 +506,7 @@
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
 
       <Containable
-        items="aic_gdf_small_magazine"
+        items="aic_gdf_small_magazine,aic_gdf_small_thermite_magazine,aic_gdf_small_piezoelectric_magazine"
         hide="false"
         itempos="-1.25,-9"
         rotation="0"
@@ -630,11 +724,179 @@
 
   <Item
     name=""
+    identifier="aic_gdf_small_thermite_magazine"
+    health="75"
+    maxstacksize="24"
+    maxstacksizecharacterinventory="8"
+    category="Weapon"
+    subcategory="GDF军用武器"
+    cargocontaineridentifier="metalcrate"
+    linkable="true"
+    tags="smallitem,handheldammo,aic_gdf_weaponmag,aic_wardens_weaponmag,aic_gdf_small_magazine,aic_gdf_small_thermite_magazine"
+    scale="0.0567"
+    impactsoundtag="impact_metal_light"
+    description="">
+
+    <PreferredContainer primary="aic_gdf_downpour_smg,aic_gdf_stiletto_pdw" minamount="1" maxamount="1" spawnprobability="1" />
+    <PreferredContainer primary="armcab" secondary="secarmcab" />
+
+    <Fabricate suitablefabricators="fabricator" requiredtime="10" amount="8" requiresrecipe="true">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="aluminium" amount="1" />
+      <RequiredItem identifier="iron" amount="1" />
+      <RequiredItem identifier="phosphorus" amount="1" />
+    </Fabricate>
+
+    <InventoryIcon texture="%ModDir%/卫戍者/贴图/GDF军用小型铝热弹匣.png" sourcerect="0,0,108,404" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/卫戍者/贴图/GDF军用小型铝热弹匣.png" sourcerect="0,0,108,404" depth="0.56" origin="0.5,0.5" />
+    <Body width="3.3" height="11.7" density="25" />
+
+    <ItemContainer
+      hideitems="true"
+      capacity="1"
+      drawinventory="false"
+      canbeselected="false"
+      showconditionincontainedstateindicator="true"
+      spawnwithid="aic_gdf_small_thermite_round"
+      removecontaineditemsondeconstruct="true"
+      containedstateindicatorstyle="bullet">
+
+      <Containable items="aic_gdf_small_thermite_round" />
+
+      <StatusEffect type="OnUse" target="This" condition="-3" disabledeltatime="true">
+        <SpawnItem identifiers="aic_gdf_small_thermite_round" spawnposition="ThisInventory" />
+      </StatusEffect>
+    </ItemContainer>
+
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="GDF军用小型铝热弹"
+    identifier="aic_gdf_small_thermite_round"
+    category="Weapon"
+    interactthroughwalls="true"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,aic_gdf_round,aic_gdf_thermite_round"
+    impactsoundtag="impact_metal_light"
+    hideinmenus="true"
+    scale="0.5">
+
+    <InventoryIcon texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.7,0.6" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" color="255,150,80,255" />
+    <Body width="17" height="6" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+
+    <Projectile characterusable="true" hitscan="true" removeonhit="true">
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,125,55,210" scalemultiplier="1,0.75" />
+
+      <Attack structuredamage="10" targetforce="6" itemdamage="15" severlimbsprobability="0.5" penetration="0.4">
+        <Affliction identifier="gunshotwound" strength="2" />
+        <Affliction identifier="burn" strength="18" />
+        <Affliction identifier="burning" strength="2" />
+        <Affliction identifier="aic_heat_buildup" strength="3" />
+      </Attack>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="1.7,1.7" colormultiplier="255,130,65,255" />
+        <ParticleEmitter particle="weldspark" particleamount="4" anglemin="0" anglemax="360" velocitymin="80" velocitymax="220" scalemin="0.5" scalemax="1.0" colormultiplier="255,145,70,255" />
+      </StatusEffect>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+
+  <Item
+    name=""
+    identifier="aic_gdf_small_piezoelectric_magazine"
+    health="60"
+    maxstacksize="24"
+    maxstacksizecharacterinventory="8"
+    category="Weapon"
+    subcategory="GDF军用武器"
+    cargocontaineridentifier="metalcrate"
+    linkable="true"
+    tags="smallitem,handheldammo,aic_gdf_weaponmag,aic_wardens_weaponmag,aic_gdf_small_magazine,aic_gdf_small_piezoelectric_magazine"
+    scale="0.0567"
+    impactsoundtag="impact_metal_light"
+    description="">
+
+    <PreferredContainer primary="aic_gdf_downpour_smg,aic_gdf_stiletto_pdw" minamount="1" maxamount="1" spawnprobability="1" />
+    <PreferredContainer primary="armcab" secondary="secarmcab" />
+
+    <InventoryIcon texture="%ModDir%/卫戍者/贴图/GDF军用小型压电弹匣.png" sourcerect="0,0,108,404" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/卫戍者/贴图/GDF军用小型压电弹匣.png" sourcerect="0,0,108,404" depth="0.56" origin="0.5,0.5" />
+    <Body width="3.3" height="11.7" density="25" />
+
+    <ItemContainer
+      hideitems="true"
+      capacity="1"
+      drawinventory="false"
+      canbeselected="false"
+      showconditionincontainedstateindicator="true"
+      spawnwithid="aic_gdf_small_piezoelectric_round"
+      removecontaineditemsondeconstruct="true"
+      containedstateindicatorstyle="bullet">
+
+      <Containable items="aic_gdf_small_piezoelectric_round" />
+
+      <StatusEffect type="OnUse" target="This" condition="-2" disabledeltatime="true">
+        <SpawnItem identifiers="aic_gdf_small_piezoelectric_round" spawnposition="ThisInventory" />
+      </StatusEffect>
+    </ItemContainer>
+
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="GDF军用小型压电弹"
+    identifier="aic_gdf_small_piezoelectric_round"
+    category="Weapon"
+    interactthroughwalls="true"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,aic_gdf_round,aic_gdf_piezoelectric_round"
+    impactsoundtag="impact_metal_light"
+    hideinmenus="true"
+    scale="0.5">
+
+    <InventoryIcon texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.7,0.6" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" color="150,205,255,255" />
+    <Body width="17" height="6" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+
+    <Projectile characterusable="true" hitscan="true" removeonhit="true">
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="130,195,255,210" scalemultiplier="1,0.75" />
+
+      <Attack structuredamage="0" targetforce="3" itemdamage="0" severlimbsprobability="0" penetration="0">
+        <Affliction identifier="electricshock" strength="5" />
+        <Affliction identifier="emp" strength="5" probability="0.5" />
+      </Attack>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="spark" anglemin="0" anglemax="360" particleamount="5" velocitymin="50" velocitymax="180" scalemin="0.4" scalemax="0.8" colormultiplier="150,210,255,255" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+
+  <Item
+    name=""
     identifier="aic_gdf_personal_defense_weapon_blueprint"
     category="Misc"
     subcategory="GDF军用武器"
     tags="smallitem,aic_gdf_blueprint"
-    unlockedrecipeintooltip="aic_gdf_stiletto_pdw;aic_gdf_downpour_smg;aic_gdf_small_magazine"
+    unlockedrecipeintooltip="aic_gdf_stiletto_pdw;aic_gdf_downpour_smg;aic_gdf_small_magazine;aic_gdf_small_thermite_magazine"
     cargocontaineridentifier="metalcrate"
     scale="0.5"
     impactsoundtag="impact_soft"
@@ -647,7 +909,7 @@
 
     <Holdable slots="Any,RightHand+LeftHand" aimable="false" aimpos="40,-20" handle1="5,0" aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnSecondaryUse" target="This" condition="-10" />
-      <StatusEffect type="OnSecondaryUse" target="This,Character" unlockrecipe="aic_gdf_stiletto_pdw,aic_gdf_downpour_smg,aic_gdf_small_magazine" disabledeltatime="true">
+      <StatusEffect type="OnSecondaryUse" target="This,Character" unlockrecipe="aic_gdf_stiletto_pdw,aic_gdf_downpour_smg,aic_gdf_small_magazine,aic_gdf_small_thermite_magazine" disabledeltatime="true">
         <Conditional condition="lte 0" />
         <RemoveItem />
       </StatusEffect>

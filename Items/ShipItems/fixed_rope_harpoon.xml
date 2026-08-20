@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item
+    name="固定式绳索鱼叉发射器"
+    identifier="aic_fixed_rope_harpoon_launcher"
+    description="接收信号后垂直向下发射一枚牵引鱼叉。force_in可设定绳索拉力，release_in可主动断开绳索。"
+    category="Machine,Weapon"
+    subcategory="subweapons"
+    tags="machine,aic_fixed_rope_harpoon_launcher"
+    health="200"
+    scale="0.32"
+    interactthroughwalls="true"
+    damagedbyexplosions="true"
+    damagedbyprojectiles="true"
+    damagedbyrepairtools="true"
+    damagedbymeleeweapons="true">
+
+    <!-- Placeholder appearance shared with the fixed medical sprayer. -->
+    <Sprite texture="%ModDir%/Items/ShipItems/贴图/固定喷头设备图集.png" depth="0.55" sourcerect="480,0,96,128" origin="0.5,0.5" />
+    <StaticBody width="70" height="90" />
+
+    <ItemContainer
+      hideitems="true"
+      drawinventory="false"
+      capacity="1"
+      maxstacksize="1"
+      canbeselected="false"
+      characterusable="false"
+      spawnwithid="aic_fixed_rope_harpoon_anchor">
+      <Containable items="aic_fixed_rope_harpoon_anchor" />
+      <StatusEffect type="OnUse" target="Contained">
+        <SpawnItem identifier="aic_fixed_rope_harpoon_anchor" spawnposition="ThisInventory" />
+      </StatusEffect>
+    </ItemContainer>
+
+    <Turret
+      launchimpulse="25"
+      reload="0.5"
+      maxactiveprojectiles="1"
+      canbeselected="false"
+      characterusable="false"
+      linkable="false"
+      barrelpos="48,64"
+      firingoffset="0,-50"
+      rotationlimits="270,270"
+      powerconsumption="0"
+      showchargeindicator="false"
+      showprojectileindicator="false"
+      recoildistance="5"
+      springstiffnesslowskill="50"
+      springstiffnesshighskill="50"
+      springdampinglowskill="10"
+      springdampinghighskill="10"
+      rotationspeedlowskill="20"
+      rotationspeedhighskill="20">
+      <Sound file="Content/Items/Weapons/HarpoonGun1.ogg" range="1500" type="OnUse" />
+    </Turret>
+
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <RequiredItem items="screwdriver" type="Equipped" />
+      <input name="trigger_in" displayname="触发发射" />
+      <input name="force_in" displayname="拉力设定（0-5000）" />
+      <input name="release_in" displayname="断开绳索" />
+    </ConnectionPanel>
+
+    <aitarget maxsightrange="0" maxsoundrange="800" fadeouttime="2" />
+  </Item>
+
+  <Item
+    name="固定式绳索鱼叉"
+    identifier="aic_fixed_rope_harpoon_anchor"
+    category="hidden"
+    tags="aic_fixed_rope_harpoon_anchor"
+    hideinmenus="true"
+    noninteractable="true"
+    interactthroughwalls="true"
+    damagedbyexplosions="false"
+    damagedbyprojectiles="false"
+    damagedbyrepairtools="false"
+    damagedbymeleeweapons="false"
+    scale="0.5"
+    impactsoundtag="impact_metal_light">
+
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="85,368,168,11" depth="0.55" origin="0.5,0.5" />
+    <Body width="160" height="12" density="30" />
+
+    <Rope
+      sourcepullforce="0"
+      targetpullforce="600"
+      projectilepullforce="0"
+      maxlength="2500"
+      minpulldistance="80"
+      snaponcollision="true"
+      snapwhennotaimed="false"
+      snapwhenweaponfiredagain="true"
+      spritewidth="3"
+      tile="true"
+      targetminmass="0"
+      lerpforces="false"
+      increaseforceforescapingtargets="true"
+      snapanimduration="0.35">
+      <Sprite texture="Content/Map/Thalamus/thalamus.png" sourcerect="617,352,174,32" depth="0.57" origin="0.5,0.5" />
+      <SnapSound file="Content/Items/Weapons/HarpoonGun1.ogg" range="1000" frequencymultiplier="3.0,4.0" />
+
+      <StatusEffect type="OnUse" target="This" snapped="true" delay="5" checkconditionalalways="true">
+        <Conditional targetitemcomponent="Projectile" isstucktotarget="false" />
+      </StatusEffect>
+      <StatusEffect type="Always" target="This" delay="0.5" checkconditionalalways="true">
+        <Conditional snapped="true" />
+        <Remove />
+      </StatusEffect>
+    </Rope>
+
+    <Projectile
+      characterusable="false"
+      launchimpulse="25"
+      sticktocharacters="true"
+      sticktoitems="true"
+      sticktostructures="true"
+      sticktodeflective="true"
+      sticktodoors="true"
+      sticktolighttargets="true"
+      maxtargetstohit="1"
+      jointbreakpoint="10000"
+      prismatic="false">
+      <Attack structuredamage="0" itemdamage="0" targetforce="0" severlimbsprobability="0">
+        <Affliction identifier="aic_dragstun" strength="1.8" />
+      </Attack>
+      <StatusEffect type="OnActive" target="UseTarget,This" comparison="And" disabledeltatime="true">
+        <Conditional snapped="false" />
+        <Affliction identifier="drag" strength="1" />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+</Items>

@@ -74,11 +74,43 @@
       <SlotIcon slotindex="1" texture="Content/UI/CampaignUIAtlas.png" sourcerect="314,10,151,145" origin="0.5,0.5" />
 
       <SubContainer capacity="1" maxstacksize="1">
-        <Containable items="aic_wardens_weaponmag" excludebroken="false" />
+        <Containable items="aic_wardens_weaponmag" excludebroken="false">
+          <StatusEffect type="OnContaining" target="Contained" targetslot="0" Condition="24" comparison="And">
+            <Conditional IsFullCondition="false" />
+            <Conditional condition="gt 0" targetcontainer="true" />
+          </StatusEffect>
+          <StatusEffect type="OnContaining" target="This" Condition="-24" comparison="And">
+            <Conditional IsFullCondition="false" targetcontaineditem="true" targetslot="0" />
+            <Conditional condition="gt 0" />
+          </StatusEffect>
+        </Containable>
       </SubContainer>
 
       <SubContainer capacity="1" maxstacksize="1">
-        <Containable items="aic_material_tungsten_steel,aic_wardens_weaponmag" excludebroken="true" />
+        <Containable items="aic_material_tungsten_steel" excludebroken="false">
+          <StatusEffect type="OnContaining" target="Contained" targetslot="1" Condition="-24" comparison="And">
+            <Conditional IsFullCondition="false" targetcontainer="true" />
+            <Conditional condition="gt 0" />
+          </StatusEffect>
+          <StatusEffect type="OnContaining" target="This" Condition="24" comparison="And">
+            <Conditional IsFullCondition="false" />
+            <Conditional condition="gt 0" targetcontaineditem="true" targetslot="1" />
+          </StatusEffect>
+          <StatusEffect type="OnContaining" target="Contained" targetslot="1">
+            <Conditional condition="lte 0" />
+            <Remove />
+          </StatusEffect>
+        </Containable>
+        <Containable items="aic_wardens_weaponmag" excludebroken="false">
+          <StatusEffect type="OnContaining" target="Contained" targetslot="1" Condition="-24" comparison="And">
+            <Conditional IsFullCondition="false" targetcontainer="true" />
+            <Conditional condition="gt 0" />
+          </StatusEffect>
+          <StatusEffect type="OnContaining" target="This" Condition="24" comparison="And">
+            <Conditional IsFullCondition="false" />
+            <Conditional condition="gt 0" targetcontaineditem="true" targetslot="1" />
+          </StatusEffect>
+        </Containable>
       </SubContainer>
 
       <SubContainer capacity="8" maxstacksize="32" slotsperrow="4">

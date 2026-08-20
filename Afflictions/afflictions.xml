@@ -66,6 +66,22 @@
       <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="896,768,128,128" color="195,136,60,255" origin="0,0" />
     </Affliction>
   </Override>
+  <Affliction
+    name="拖拽眩晕"
+    identifier="aic_dragstun"
+    description="由牵引装置造成的短暂失能。"
+    type="aic_dragstun"
+    limbspecific="false"
+    indicatorlimb="Head"
+    activationthreshold="0"
+    maxstrength="30"
+    treatmentthreshold="1000"
+    healableinmedicalclinic="false"
+    showiconthreshold="infinity"
+    showicontoothersthreshold="infinity"
+    showinhealthscannerthreshold="infinity">
+    <Effect minstrength="0" maxstrength="30" strengthchange="-1" />
+  </Affliction>
   <Affliction name="夜视" identifier="aic_nightvision" type="none" isbuff="true" limbspecific="false" indicatorlimb="Head" maxstrength="100" showiconthreshold="infinity">
     <Effect minstrength="0" maxstrength="100" multiplybymaxvitality="true" graincolor="0,0,0,255" mingrainstrength="2.95" maxgrainstrength="3.05" minscreenblur="0.095" maxscreenblur="0.105" strengthchange="-50" />
   </Affliction>
@@ -297,7 +313,7 @@
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="256,512,128,128" color="180,245,255,255" origin="0,0" />
   </Affliction>
   <Affliction name="纳米机械敌我识别码" identifier="aic_nanite_iff_code" description="受信任的纳米机械识别信号。武器化纳米机械将被重新编程并投入修复作业。" type="buff" isbuff="true" duration="2" limbspecific="false" indicatorlimb="Torso" activationthreshold="0.1" showiconthreshold="0.1" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" maxstrength="1" affectmachines="true">
-    <Effect minstrength="0" maxstrength="1" />
+    <Effect minstrength="0" maxstrength="1" resistancefor="aic_nanite_erosion" minresistance="1" maxresistance="1" />
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="256,512,128,128" color="120,220,190,255" origin="0,0" />
   </Affliction>
   <Affliction name="照明标记" identifier="aic_illumination_mark" description="目标被高亮照明，防护弱点更容易遭到攻击。" type="debuff" isbuff="false" limbspecific="false" indicatorlimb="Torso" maxstrength="1" duration="15" showiconthreshold="0.1" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" affectmachines="true">

@@ -62,9 +62,9 @@
       <ParticleEmitter particle="muzzleflash" scalemultiplier="0.8,0.8" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="205,235,255,220" />
 
       <StatusEffect type="OnUse" target="This" forceplaysounds="true">
-        <Sound file="%ModDir%\预视科技\音效\AR-13 Fury 1.ogg" volume="0.95" type="OnUse" range="3200" selectionmode="Random" />
-        <Sound file="%ModDir%\预视科技\音效\AR-13 Fury 2.ogg" volume="0.95" type="OnUse" range="3200" selectionmode="Random" />
-        <Sound file="%ModDir%\预视科技\音效\AR-13 Fury 3.ogg" volume="0.95" type="OnUse" range="3200" selectionmode="Random" />
+        <Sound file="%ModDir%/卫戍者/音效/AR-13 Fury 1.ogg" volume="0.95" type="OnUse" range="3200" selectionmode="Random" />
+        <Sound file="%ModDir%/卫戍者/音效/AR-13 Fury 2.ogg" volume="0.95" type="OnUse" range="3200" selectionmode="Random" />
+        <Sound file="%ModDir%/卫戍者/音效/AR-13 Fury 3.ogg" volume="0.95" type="OnUse" range="3200" selectionmode="Random" />
       </StatusEffect>
 
       <StatusEffect type="OnUse" target="Contained">

@@ -5,7 +5,9 @@
   <afflictiondescription.aic_heat_buildup.high>The target surface or armor is nearly melted through. Defensive performance is severely reduced, continuous burns are occurring, and further heating may cause a flash fire.</afflictiondescription.aic_heat_buildup.high>
   <npctitle.aic_wardens_elite_guard>Warden Elite Guard</npctitle.aic_wardens_elite_guard>
   <npctitle.aic_wardens_defender>Warden Defender</npctitle.aic_wardens_defender>
+  <npctitle.aic_gdf_biohazard_emergency_response_trooper>GDF Biohazard Emergency Response Trooper</npctitle.aic_gdf_biohazard_emergency_response_trooper>
   <npctitle.aic_foresight_research_knight>Research Knight</npctitle.aic_foresight_research_knight>
+  <npctitle.aic_foresight_research_knight_squire>Research Knight Squire</npctitle.aic_foresight_research_knight_squire>
   <npctitle.aic_practitioner_bishop>Practitioner Bishop</npctitle.aic_practitioner_bishop>
   <npctitle.aic_practitioner_judgement_trooper>Practitioner Judgment Trooper</npctitle.aic_practitioner_judgement_trooper>
   <entityname.aic_gdf_downpour_smg>Downpour Ricochet SMG</entityname.aic_gdf_downpour_smg>
@@ -14,8 +16,12 @@
   <entitydescription.aic_gdf_stiletto_pdw>A compact, agile GDF personal defense weapon for vehicle crews and specialist support personnel. It uses hybrid propellant-gas and electromagnetic propulsion, though its short frame reduces electromagnetic acceleration efficiency. Can be fired one-handed.</entitydescription.aic_gdf_stiletto_pdw>
   <entityname.aic_gdf_small_magazine>GDF Military Small Magazine</entityname.aic_gdf_small_magazine>
   <entitydescription.aic_gdf_small_magazine>A standard GDF thirty-round compact military magazine loaded with tungsten-core flechettes. Small, but far from weak.</entitydescription.aic_gdf_small_magazine>
+  <entityname.aic_gdf_small_thermite_magazine>GDF Military Small Thermite Magazine</entityname.aic_gdf_small_thermite_magazine>
+  <entitydescription.aic_gdf_small_thermite_magazine>A compact GDF military magazine loaded with twenty-five thermite rounds. Each projectile releases high-temperature reactants after penetration, causing little direct trauma but steadily burning through protection and accumulating heat.</entitydescription.aic_gdf_small_thermite_magazine>
+  <entityname.aic_gdf_small_piezoelectric_magazine>GDF Military Small Piezoelectric Magazine</entityname.aic_gdf_small_piezoelectric_magazine>
+  <entitydescription.aic_gdf_small_piezoelectric_magazine>A compact GDF military magazine loaded with thirty piezoelectric rounds. Each projectile releases an electrical charge on impact to disrupt mechanical targets and electronic equipment.</entitydescription.aic_gdf_small_piezoelectric_magazine>
   <entityname.aic_gdf_personal_defense_weapon_blueprint>GDF Personal Defense Weapon Blueprint</entityname.aic_gdf_personal_defense_weapon_blueprint>
-  <entitydescription.aic_gdf_personal_defense_weapon_blueprint>A manufacturing blueprint detailing the construction, materials, and assembly of GDF personal defense weapons. Read it to permanently unlock fabrication recipes for the Stiletto PDW and Downpour SMG, along with fabrication and recycling recipes for GDF military small magazines.</entitydescription.aic_gdf_personal_defense_weapon_blueprint>
+  <entitydescription.aic_gdf_personal_defense_weapon_blueprint>A manufacturing blueprint detailing the construction, materials, and assembly of GDF personal defense weapons. Read it to permanently unlock the Stiletto PDW, Downpour SMG, standard GDF small magazine, and thermite magazine fabrication recipes.</entitydescription.aic_gdf_personal_defense_weapon_blueprint>
   <afflictiondescription.aic_machine_structural_damage.low>The machine's structure is slightly deformed or internally fractured, weakening its protection against electromagnetic shocks.</afflictiondescription.aic_machine_structural_damage.low>
   <afflictiondescription.aic_machine_structural_damage>The machine's load-bearing frame and inner armor are severely damaged and can no longer effectively isolate electromagnetic shocks.</afflictiondescription.aic_machine_structural_damage>
   <afflictiondescription.aic_machine_component_damage.low>Minor faults in internal components and transmission systems are beginning to slow the machine.</afflictiondescription.aic_machine_component_damage.low>
@@ -37,6 +43,7 @@
   <eventtext.aic_wardens_dispatcher.greeting>Looking for work? I still have several Coalition contracts assigned to the Wardens.</eventtext.aic_wardens_dispatcher.greeting>
   <eventtext.aic_wardens_dispatcher.option.missions>We are here to take on some missions.</eventtext.aic_wardens_dispatcher.option.missions>
   <eventtext.aic_wardens_dispatcher.missions_assigned>Understood. I will transmit the assignments no one has taken yet to your terminal. The objectives and compensation are included in the briefs.</eventtext.aic_wardens_dispatcher.missions_assigned>
+  <eventtext.aic_wardens_dispatcher.missions_exhausted>You have already received assignments during this run. Finish the current contracts and check back next run.</eventtext.aic_wardens_dispatcher.missions_exhausted>
   <eventtext.aic_wardens_dispatcher.option.store>I want to exchange contribution points for supplies.</eventtext.aic_wardens_dispatcher.option.store>
   <eventtext.aic_wardens_dispatcher.store.reputationrequired>(Checks the roster.) New around here? I have not seen you before. Complete a few contracts and come back.</eventtext.aic_wardens_dispatcher.store.reputationrequired>
   <eventtext.aic_wardens_dispatcher.store.denied.accept>All right.</eventtext.aic_wardens_dispatcher.store.denied.accept>
@@ -53,6 +60,7 @@
   <eventtext.aic_wardens_dispatcher.store.low.option.weapons.bribed>I need guns. Lots of guns. (2 GDF Contribution Points, 1,600 mk)</eventtext.aic_wardens_dispatcher.store.low.option.weapons.bribed>
   <eventtext.aic_wardens_dispatcher.store.low.option.cash>I am short on marks. (Exchange 1 GDF Contribution Point for 400 mk)</eventtext.aic_wardens_dispatcher.store.low.option.cash>
   <eventtext.aic_wardens_dispatcher.store.low.option.gdfpdwblueprint>Exchange for the GDF Personal Defense Weapon Blueprint. (10 GDF Contribution Points, 2,000 mk)</eventtext.aic_wardens_dispatcher.store.low.option.gdfpdwblueprint>
+  <eventtext.aic_wardens_dispatcher.store.low.option.piezoelectricmagazines>Exchange for 4 GDF Military Small Piezoelectric Magazines. (1 GDF Contribution Point)</eventtext.aic_wardens_dispatcher.store.low.option.piezoelectricmagazines>
   <eventtext.aic_wardens_dispatcher.store.low.success>Here are your supplies. Check the contents now; missing items will not be replaced later.</eventtext.aic_wardens_dispatcher.store.low.success>
   <eventtext.aic_wardens_dispatcher.store.low.failed>You cannot afford that. Complete a couple more contracts and come back.</eventtext.aic_wardens_dispatcher.store.low.failed>
   <eventtext.aic_wardens_dispatcher.store.low.nocontribution>Your contribution balance is insufficient. Complete more contracts before requesting another exchange.</eventtext.aic_wardens_dispatcher.store.low.nocontribution>
@@ -72,4 +80,8 @@
   <eventtext.aic_wardens_dispatcher.firsttour.option.prepare>Return to the submarine and prepare.</eventtext.aic_wardens_dispatcher.firsttour.option.prepare>
   <entityname.aic_disintegration_field_device>Disintegration Field Device</entityname.aic_disintegration_field_device>
   <entitydescription.aic_disintegration_field_device>A throwable Higgs-field disruption device. Once activated, it emits expanding decoupling waves that compromise armor, movement, weapon control, and the target's internal structure.</entitydescription.aic_disintegration_field_device>
+  <entityname.aic_traction_beam>Traction Beam</entityname.aic_traction_beam>
+  <entitydescription.aic_traction_beam>A portable tool that launches an energy anchor and pulls struck targets. Keep aiming to maintain the beam; releasing aim disconnects it. The device requires ten seconds to recharge after each shot.</entitydescription.aic_traction_beam>
+  <entityname.aic_foresight_nsg_nanite_smoke_grenade>NSG Nanite Smoke Dispersal Grenade</entityname.aic_foresight_nsg_nanite_smoke_grenade>
+  <entitydescription.aic_foresight_nsg_nanite_smoke_grenade>A Foresight Technology nanite dispersal device. Once activated, it rapidly releases corrosive nanite smoke. It can be thrown, fired from a grenade launcher, or triggered by standard and timed detonators.</entitydescription.aic_foresight_nsg_nanite_smoke_grenade>
 </infotexts>

@@ -12,6 +12,9 @@
         targetmoduletags="admin"
         allowduplicates="false" />
 
+      <!-- Reset on every new instance of this outpost-round event. -->
+      <SetDataAction identifier="aic_wardens_dispatcher_missions_claimed_this_round" value="0" />
+
       <!-- 新战役中该元数据尚未设置，因此首次检查会进入 Failure。 -->
       <CheckDataAction identifier="aic_wardens_first_tour_completed" condition="eq 1">
         <Success>
@@ -88,10 +91,18 @@
         waitforinteraction="true"
         endeventifinterrupted="false">
         <Option text="eventtext.aic_wardens_dispatcher.option.missions">
-          <!-- UnlockMissionByTag excludes missions already unlocked at this location, so these draws cannot repeat. -->
-          <MissionAction missiontag="aic_wardens_mission" />
-          <MissionAction missiontag="aic_wardens_mission" />
-          <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.missions_assigned" endeventifinterrupted="false" />
+          <CheckDataAction identifier="aic_wardens_dispatcher_missions_claimed_this_round" condition="eq 1">
+            <Success>
+              <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.missions_exhausted" endeventifinterrupted="false" />
+            </Success>
+            <Failure>
+              <MissionAction missionidentifier="aic_cargo_surface_facility_construction_materials" />
+              <MissionAction missionidentifier="aic_investigate_unknown_threats" />
+              <MissionAction missionidentifier="aic_transport_wardens_soldiers" />
+              <SetDataAction identifier="aic_wardens_dispatcher_missions_claimed_this_round" value="1" />
+              <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.missions_assigned" endeventifinterrupted="false" />
+            </Failure>
+          </CheckDataAction>
           <GoTo name="aic_wardens_dispatcher_wait" />
         </Option>
         <Option text="eventtext.aic_wardens_dispatcher.option.store">
@@ -210,6 +221,19 @@
             </Failure>
           </CheckReputationAction>
         </Option>
+        <Option text="eventtext.aic_wardens_dispatcher.store.low.option.piezoelectricmagazines">
+          <CheckReputationAction targettype="Faction" identifier="aic_gdf_contribution" condition="gte 1">
+            <Success>
+              <ReputationAction targettype="Faction" identifier="aic_gdf_contribution" increase="-1" />
+              <SpawnAction itemidentifier="aic_gdf_small_piezoelectric_magazine" amount="4" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
+              <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.low.success" waitforinteraction="false" endeventifinterrupted="false" />
+              <GoTo name="aic_wardens_dispatcher_store_bribed" />
+            </Success>
+            <Failure>
+              <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+            </Failure>
+          </CheckReputationAction>
+        </Option>
         <Option text="eventtext.aic_wardens_dispatcher.store.low.option.gdfpdwblueprint">
           <CheckReputationAction targettype="Faction" identifier="aic_gdf_contribution" condition="gte 10">
             <Success>
@@ -278,6 +302,19 @@
                   <GoTo name="aic_wardens_dispatcher_exchange_failed" />
                 </Failure>
               </CheckMoneyAction>
+            </Success>
+            <Failure>
+              <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+            </Failure>
+          </CheckReputationAction>
+        </Option>
+        <Option text="eventtext.aic_wardens_dispatcher.store.low.option.piezoelectricmagazines">
+          <CheckReputationAction targettype="Faction" identifier="aic_gdf_contribution" condition="gte 1">
+            <Success>
+              <ReputationAction targettype="Faction" identifier="aic_gdf_contribution" increase="-1" />
+              <SpawnAction itemidentifier="aic_gdf_small_piezoelectric_magazine" amount="4" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
+              <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.low.success" waitforinteraction="false" endeventifinterrupted="false" />
+              <GoTo name="aic_wardens_dispatcher_store_low" />
             </Success>
             <Failure>
               <GoTo name="aic_wardens_dispatcher_exchange_failed" />

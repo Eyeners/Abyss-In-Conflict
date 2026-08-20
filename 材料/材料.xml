@@ -114,6 +114,67 @@
   </Item>
 
   <Item
+    name="碳纤维"
+    identifier="aic_material_carbon_fiber"
+    category="Material"
+    subcategory="先进材料"
+    maxstacksize="32"
+    maxstacksizecharacterinventory="8"
+    scale="0.5"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,material,aic_material"
+    impactsoundtag="impact_soft"
+    description="由高强度碳纤维与树脂基体复合制成的轻质材料，兼具较高的比强度、耐腐蚀性和结构稳定性。">
+
+    <PreferredContainer primary="metalcrate,securelocker" secondary="crate,locker" />
+
+    <InventoryIcon
+      texture="%ModDir%/材料/贴图/材料.png"
+      sourcerect="5,150,37,51"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/材料/贴图/材料.png"
+      sourcerect="5,150,37,51"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="22" height="30" density="12" />
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="高分子聚合材料"
+    identifier="aic_material_advanced_polymer"
+    category="Material"
+    subcategory="先进材料"
+    maxstacksize="32"
+    maxstacksizecharacterinventory="8"
+    scale="0.5"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,material,aic_material"
+    impactsoundtag="impact_soft"
+    description="由多种高分子聚合物复合加工而成的轻质工程材料，具有良好的韧性、耐腐蚀性和电气绝缘性能。">
+
+    <PreferredContainer primary="metalcrate,securelocker" secondary="crate,locker" />
+
+    <InventoryIcon
+      texture="%ModDir%/材料/贴图/材料.png"
+      sourcerect="60,157,88,40"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/材料/贴图/材料.png"
+      sourcerect="60,157,88,40"
+      scale="0.602"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="39" height="18" density="12" />
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
     name="瓷金复合材料"
     identifier="aic_material_cerametal_composite"
     category="Material"

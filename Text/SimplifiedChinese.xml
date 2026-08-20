@@ -5,7 +5,9 @@
   <afflictiondescription.aic_heat_buildup.high>目标表面或装甲已经几乎熔毁，防御性能大幅下降，且持续造成灼烧，继续受热可能发生爆燃。</afflictiondescription.aic_heat_buildup.high>
   <npctitle.aic_wardens_elite_guard>精英卫队</npctitle.aic_wardens_elite_guard>
   <npctitle.aic_wardens_defender>防卫者</npctitle.aic_wardens_defender>
+  <npctitle.aic_gdf_biohazard_emergency_response_trooper>GDF生物危害应急响应部队</npctitle.aic_gdf_biohazard_emergency_response_trooper>
   <npctitle.aic_foresight_research_knight>科研骑士</npctitle.aic_foresight_research_knight>
+  <npctitle.aic_foresight_research_knight_squire>科研骑士扈从</npctitle.aic_foresight_research_knight_squire>
   <npctitle.aic_practitioner_bishop>主教</npctitle.aic_practitioner_bishop>
   <npctitle.aic_practitioner_judgement_trooper>审判军</npctitle.aic_practitioner_judgement_trooper>
   <entityname.aic_gdf_downpour_smg>骤雨反跳帮武器</entityname.aic_gdf_downpour_smg>
@@ -14,8 +16,12 @@
   <entitydescription.aic_gdf_stiletto_pdw>面向载具成员和专业勤务人员的GDF个人防卫武器，结构短小、操控灵活，采用了火药燃气和电磁推进的混合推进方式，但因为枪体较短电磁推进效率略低，可以单手持握。</entitydescription.aic_gdf_stiletto_pdw>
   <entityname.aic_gdf_small_magazine>GDF军用小型弹匣</entityname.aic_gdf_small_magazine>
   <entitydescription.aic_gdf_small_magazine>GDF制式的三十发军用小型弹匣，钨芯镖弹，短小但不贫弱。</entitydescription.aic_gdf_small_magazine>
+  <entityname.aic_gdf_small_thermite_magazine>GDF军用小型铝热弹匣</entityname.aic_gdf_small_thermite_magazine>
+  <entitydescription.aic_gdf_small_thermite_magazine>装填二十五发铝热子弹的GDF军用小型弹匣。清除顽固生物。</entitydescription.aic_gdf_small_thermite_magazine>
+  <entityname.aic_gdf_small_piezoelectric_magazine>GDF军用小型压电弹匣</entityname.aic_gdf_small_piezoelectric_magazine>
+  <entitydescription.aic_gdf_small_piezoelectric_magazine>装填三十发压电弹的GDF军用小型弹匣。逆向科研骑士的荷电粒子武器后以实体子弹作为压电水晶投送物的反机械装备。</entitydescription.aic_gdf_small_piezoelectric_magazine>
   <entityname.aic_gdf_personal_defense_weapon_blueprint>GDF个人防卫武器蓝图</entityname.aic_gdf_personal_defense_weapon_blueprint>
-  <entitydescription.aic_gdf_personal_defense_weapon_blueprint>记录GDF制式个人防卫武器结构、材料和装配工艺的制造蓝图。阅读后永久解锁短剑个人防卫武器、骤雨反跳帮武器及GDF军用小型弹匣的制造与回收配方。</entitydescription.aic_gdf_personal_defense_weapon_blueprint>
+  <entitydescription.aic_gdf_personal_defense_weapon_blueprint>记录GDF制式个人防卫武器结构、材料和装配工艺的制造蓝图。阅读后永久解锁短剑个人防卫武器、骤雨反跳帮武器、GDF军用小型弹匣及其铝热弹匣的制造配方。</entitydescription.aic_gdf_personal_defense_weapon_blueprint>
   <afflictiondescription.aic_machine_structural_damage.low>机械结构受到轻微变形或内部裂损，受损区域对电磁冲击的防护正在下降。</afflictiondescription.aic_machine_structural_damage.low>
   <afflictiondescription.aic_machine_structural_damage>机械结构严重破坏，承力框架和装甲内层难以隔绝电磁冲击。</afflictiondescription.aic_machine_structural_damage>
   <afflictiondescription.aic_machine_component_damage.low>机械体的电子储存、运算和控制组件受损，机械体运动协调能力下降。</afflictiondescription.aic_machine_component_damage.low>
@@ -37,6 +43,7 @@
   <eventtext.aic_wardens_dispatcher.greeting>需要任务吗？我这里还有一些联盟转交给卫戍者处理的委托。</eventtext.aic_wardens_dispatcher.greeting>
   <eventtext.aic_wardens_dispatcher.option.missions>我们来接取一些任务。</eventtext.aic_wardens_dispatcher.option.missions>
   <eventtext.aic_wardens_dispatcher.missions_assigned>明白。我会把还没人接手的任务发送给你们，目标和报酬都在任务简报里。</eventtext.aic_wardens_dispatcher.missions_assigned>
+  <eventtext.aic_wardens_dispatcher.missions_exhausted>你们这一巡回已经领取过任务了。先完成手头的委托，下一巡回再来找我。</eventtext.aic_wardens_dispatcher.missions_exhausted>
   <eventtext.aic_wardens_dispatcher.option.store>我想用贡献点兑换一些资源。</eventtext.aic_wardens_dispatcher.option.store>
   <eventtext.aic_wardens_dispatcher.store.reputationrequired>（查看名单）新来的？以前没怎么见过你，先去干几单活再回来。</eventtext.aic_wardens_dispatcher.store.reputationrequired>
   <eventtext.aic_wardens_dispatcher.store.denied.accept>行吧。</eventtext.aic_wardens_dispatcher.store.denied.accept>
@@ -53,6 +60,7 @@
   <eventtext.aic_wardens_dispatcher.store.low.option.weapons.bribed>我需要枪，很多枪。（2 GDF贡献点，1600 mk）</eventtext.aic_wardens_dispatcher.store.low.option.weapons.bribed>
   <eventtext.aic_wardens_dispatcher.store.low.option.cash>我有点缺钱。（1 GDF贡献点兑换400 mk）</eventtext.aic_wardens_dispatcher.store.low.option.cash>
   <eventtext.aic_wardens_dispatcher.store.low.option.gdfpdwblueprint>兑换GDF个人防卫武器蓝图。（10 GDF贡献点，2000 mk）</eventtext.aic_wardens_dispatcher.store.low.option.gdfpdwblueprint>
+  <eventtext.aic_wardens_dispatcher.store.low.option.piezoelectricmagazines>兑换4个GDF军用小型压电弹匣。（1 GDF贡献点）</eventtext.aic_wardens_dispatcher.store.low.option.piezoelectricmagazines>
   <eventtext.aic_wardens_dispatcher.store.low.success>这是你要的东西，自己检查一下有没有缺漏，过后不补。</eventtext.aic_wardens_dispatcher.store.low.success>
   <eventtext.aic_wardens_dispatcher.store.low.failed>这玩意你换不起，多去接两单活再来吧。</eventtext.aic_wardens_dispatcher.store.low.failed>
   <eventtext.aic_wardens_dispatcher.store.low.nocontribution>名单上的贡献点余额不够。先完成更多委托，再来谈兑换。</eventtext.aic_wardens_dispatcher.store.low.nocontribution>
@@ -72,4 +80,8 @@
   <eventtext.aic_wardens_dispatcher.firsttour.option.prepare>回去准备吧。</eventtext.aic_wardens_dispatcher.firsttour.option.prepare>
   <entityname.aic_disintegration_field_device>崩解发生装置</entityname.aic_disintegration_field_device>
   <entitydescription.aic_disintegration_field_device>投掷式希格斯场干扰装置。\n异星矿物的原理始终是一个黑箱，但是我们却可以研究它的应用方式。影响希格斯场的技术在曾经看来仿佛神话的领域，而现在我们利用摄魂矿石掌握了它。虽然目前只是粗浅的武器化应用，但可以相信精细化的深入运用并不遥远。</entitydescription.aic_disintegration_field_device>
+  <entityname.aic_traction_beam>牵引光束</entityname.aic_traction_beam>
+  <entitydescription.aic_traction_beam>发射能量锚并牵引命中目标的便携式工具。维持瞄准可持续拉扯目标，松开瞄准则断开牵引束；每次发射后需要十秒重新充能。</entitydescription.aic_traction_beam>
+  <entityname.aic_foresight_nsg_nanite_smoke_grenade>NSG纳米烟雾散布手榴弹</entityname.aic_foresight_nsg_nanite_smoke_grenade>
+  <entitydescription.aic_foresight_nsg_nanite_smoke_grenade>预视科技制造的纳米机械散布装置。启动后会迅速释放具有侵蚀性的纳米烟雾，可手投、装入榴弹发射器，或由雷管和定时引爆器触发。</entitydescription.aic_foresight_nsg_nanite_smoke_grenade>
 </infotexts>
