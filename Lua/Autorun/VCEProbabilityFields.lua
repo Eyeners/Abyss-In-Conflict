@@ -199,38 +199,12 @@ local function BuildBastionTargetIdentifiers()
     return targetIdentifiers
 end
 
-local function GetBastionBattery(armor)
+local function GetShieldBattery(armor, batterySlot)
     if armor == nil or armor.OwnInventory == nil then
         return nil
     end
 
-    local battery = armor.OwnInventory.GetItemAt(BASTION_BATTERY_SLOT)
-    if battery == nil or not battery.HasTag("mobilebattery") or battery.Condition <= 0 then
-        return nil
-    end
-
-    return battery
-end
-
-local function GetArchonBattery(armor)
-    if armor == nil or armor.OwnInventory == nil then
-        return nil
-    end
-
-    local battery = armor.OwnInventory.GetItemAt(ARCHON_BATTERY_SLOT)
-    if battery == nil or not battery.HasTag("mobilebattery") or battery.Condition <= 0 then
-        return nil
-    end
-
-    return battery
-end
-
-local function GetForesightBattery(armor)
-    if armor == nil or armor.OwnInventory == nil then
-        return nil
-    end
-
-    local battery = armor.OwnInventory.GetItemAt(FORESIGHT_BATTERY_SLOT)
+    local battery = armor.OwnInventory.GetItemAt(batterySlot)
     if battery == nil or not battery.HasTag("mobilebattery") or battery.Condition <= 0 then
         return nil
     end
@@ -269,7 +243,7 @@ local function SelectAfflictionForArmor(afflictions, data)
             local identifier, afflictionType = GetAfflictionIdentity(affliction)
             local strength = math.max(0, affliction.Strength or 0)
 
-            if afflictionType == "damage" and (fieldIdentifier == FORESIGHT_IDENTIFIER or identifier ~= "organdamage") then
+            if afflictionType == "damage" and identifier ~= "organdamage" then
                 weightedDamage = weightedDamage + strength
             elseif afflictionType == "burn" then
                 local burnMultiplier = fieldIdentifier == BASTION_IDENTIFIER and BASTION_BURN_DRAIN_MULTIPLIER or 1
@@ -414,14 +388,14 @@ FieldSystem.Register({
             return false
         end
 
-        if GetBastionBattery(armor) == nil then
+        if GetShieldBattery(armor, BASTION_BATTERY_SLOT) == nil then
             return false
         end
 
         return true
     end,
     onBlock = function(armor, character, limb, affliction, penetrationLevel, rawPenetration)
-        local battery = GetBastionBattery(armor)
+        local battery = GetShieldBattery(armor, BASTION_BATTERY_SLOT)
         if battery ~= nil then
             local previousCondition = battery.Condition
             local weightedDamage = affliction and affliction.Strength or 0
@@ -466,7 +440,7 @@ FieldSystem.Register({
             return false
         end
 
-        if GetArchonBattery(armor) == nil then
+        if GetShieldBattery(armor, ARCHON_BATTERY_SLOT) == nil then
             return false
         end
 
@@ -483,7 +457,7 @@ FieldSystem.Register({
         return true
     end,
     onBlock = function(armor)
-        local battery = GetArchonBattery(armor)
+        local battery = GetShieldBattery(armor, ARCHON_BATTERY_SLOT)
         if battery == nil then
             return
         end
@@ -523,10 +497,10 @@ FieldSystem.Register({
             return false
         end
 
-        return GetForesightBattery(armor) ~= nil
+        return GetShieldBattery(armor, FORESIGHT_BATTERY_SLOT) ~= nil
     end,
     onBlock = function(armor, character, limb, affliction, penetrationLevel, rawPenetration)
-        local battery = GetForesightBattery(armor)
+        local battery = GetShieldBattery(armor, FORESIGHT_BATTERY_SLOT)
         if battery == nil then
             return
         end

@@ -1,28 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Items>
-  <Item name="执政官重型装甲" identifier="aic_practitioner_archon_heavy_armor" category="Equipment,Diving" subcategory="践行者护甲" tags="mobilecontainer,armor,clothing,diving,deepdiving,divinggear_wearableindoors,human,aic_practitioner_armor" scale="0.167" fireproof="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate" description="践行者为高威胁正面作战制造的一体式重型装甲。厚重的复合防护层覆盖全身，并为穿戴者提供实验级战场防护。">
+  <Item name="执政官重型装甲" identifier="aic_practitioner_archon_heavy_armor" category="Equipment,Diving" subcategory="践行者护甲" tags="mobilecontainer,armor,clothing,diving,deepdiving,divinggear_wearableindoors,human,aic_practitioner_armor" scale="0.167" fireproof="true" damagedbyprojectiles="true" indestructible="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate" description="践行者为高威胁正面作战制造的一体式重型装甲。厚重的复合防护层覆盖全身，并为穿戴者提供实验级战场防护。">
     <PreferredContainer primary="divingsuitcontainer,divingsuitlocker,steelcabinet" />
     <InventoryIcon texture="%ModDir%/践行者/贴图/执政官重型装甲.png" sourcerect="1354,65,328,312" scale="0.2" origin="0.5,0.5" />
-    <Sprite name="Archon Heavy Armor Item" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" sourcerect="1537,526,621,446" depth="0.55" origin="0.5,0.5" />
+    <Sprite name="Archon Heavy Armor Item" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" sourcerect="1548,437,586,739" depth="0.55" origin="0.5,0.5" />
     <ContainedSprite name="Archon Heavy Armor In Diving Locker" allowedcontainertags="divingsuitcontainervertical,divingsuitcontainerwindow" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" sourcerect="2158,29,238,652" depth="0.55" origin="-0.12,-0.117" />
-    <Body radius="45" width="34" density="20" />
-    <Wearable slots="OuterClothes+Head" msg="ItemMsgEquipSelect" displaycontainedstatus="true" canbepicked="true" pickkey="Select">
-      <sprite name="Archon Heavy Armor Helmet" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="Head" inheritlimbdepth="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hidelimb="true" alphaclipotherwearables="true" sourcerect="1353,452,173,167" origin="0.52,0.86" depthlimb="LeftHand" canbehiddenbyotherwearables="false" hideotherwearables="true">
+    <Body width="586" height="739" density="20" />
+    <ScalingWearable slots="OuterClothes" ScaleMultiplier="1.2" msg="ItemMsgEquipSelect" displaycontainedstatus="true" canbepicked="true" pickkey="Select">
+      <sprite name="Archon Heavy Armor Helmet" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hidelimb="true" sourcerect="1353,452,173,167" origin="0.58,0.55" depthlimb="LeftHand" canbehiddenbyotherwearables="false" hideotherwearables="true">
         <LightComponent LightColor="220,220,220,120" range="5000" castshadows="false" powerconsumption="infinity" IsOn="true" flicker="0.1" flickerspeed="0.5" pulsefrequency="0.1" pulseamount="0.1" />
       </sprite>
-      <sprite name="Archon Heavy Armor Torso" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="Torso" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="511,305,326,585" origin="0.58,0.5" inheritlimbdepth="true" />
-      <sprite name="Archon Heavy Armor Inner Hand" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="LeftHand" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="1216,749,82,105" origin="0.3,0.32" />
-      <sprite name="Archon Heavy Armor Outer Hand" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="RightHand" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="910,749,82,105" origin="0.3,0.32" />
-      <sprite name="Archon Heavy Armor Inner Arm" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="LeftArm" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="1184,68,144,255" origin="0.5,0.5" />
-      <sprite name="Archon Heavy Armor Outer Arm" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="RightArm" depthlimb="RightForearm" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="879,68,144,255" origin="0.5,0.5" />
-      <sprite name="Archon Heavy Armor Inner Forearm" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="LeftForearm" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="1208,464,97,169" origin="0.5,0.4" />
-      <sprite name="Archon Heavy Armor Outer Forearm" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="RightForearm" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="904,464,97,169" origin="0.5,0.4" depthlimb="RightArm" />
-      <sprite name="Archon Heavy Armor Inner Thigh" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="LeftThigh" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="348,149,163,325" origin="0.45,0.6" />
-      <sprite name="Archon Heavy Armor Outer Thigh" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="RightThigh" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="73,149,163,325" origin="0.45,0.6" inheritlimbdepth="true" />
-      <sprite name="Archon Heavy Armor Inner Leg" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="LeftLeg" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="348,681,144,305" origin="0.5,0.5" />
-      <sprite name="Archon Heavy Armor Outer Leg" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="RightLeg" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="58,681,144,305" origin="0.5,0.5" depthlimb="Torso" />
-      <sprite name="Archon Heavy Armor Inner Foot" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="LeftFoot" inheritlimbdepth="true" sound="footstep_armor_heavy" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="1175,925,161,97" origin="0.45,0.5" />
-      <sprite name="Archon Heavy Armor Outer Foot" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="870,925,161,97" origin="0.4,0.5" depthlimb="RightArm" />
+      <sprite name="Archon Heavy Armor Torso" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="Torso" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="511,305,326,585" origin="0.6,0.44" inheritlimbdepth="true" size="1.01,1" />
+      <sprite name="Archon Heavy Armor Inner Hand" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="LeftHand" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="1216,749,82,105" origin="0.3,0.32" />
+      <sprite name="Archon Heavy Armor Outer Hand" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="RightHand" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="910,749,82,105" origin="0.3,0.32" />
+      <sprite name="Archon Heavy Armor Inner Arm" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="LeftArm" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="1184,68,144,255" origin="0.5,0.5" />
+      <sprite name="Archon Heavy Armor Outer Arm" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="RightArm" depthlimb="RightForearm" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="879,68,144,255" origin="0.5,0.5" />
+      <sprite name="Archon Heavy Armor Inner Forearm" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="LeftForearm" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="1208,464,97,169" origin="0.5,0.4" />
+      <sprite name="Archon Heavy Armor Outer Forearm" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="RightForearm" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="904,464,97,169" origin="0.5,0.4" depthlimb="RightArm" />
+      <sprite name="Archon Heavy Armor Inner Thigh" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="LeftThigh" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="348,149,163,325" origin="0.5,0.5" />
+      <sprite name="Archon Heavy Armor Outer Thigh" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="RightThigh" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="73,149,163,325" origin="0.5,0.5" inheritlimbdepth="true" />
+      <sprite name="Archon Heavy Armor Inner Leg" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="LeftLeg" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="348,681,144,305" origin="0.5,0.5" />
+      <sprite name="Archon Heavy Armor Outer Leg" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="RightLeg" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="58,681,144,305" origin="0.5,0.5" depthlimb="Torso" />
+      <sprite name="Archon Heavy Armor Inner Foot" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="LeftFoot" inheritlimbdepth="true" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="1175,925,161,97" origin="0.45,0.5" />
+      <sprite name="Archon Heavy Armor Outer Foot" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="870,925,161,97" origin="0.4,0.5" depthlimb="RightArm" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound" damagemultiplier="0.04" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.04" damagesound="LimbArmor" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="explosiondamage" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" />
@@ -34,7 +34,8 @@
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="electricshock" damagemultiplier="0.3" damagesound="LimbArmor" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="stun" damagemultiplier="0.3" damagesound="LimbArmor" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="concussion" damagemultiplier="0.0" deflectprojectiles="true" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="huskinfection,aic_nanite_infection" probabilitymultiplier="0.05" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="alieninfection" probabilitymultiplier="0.05" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_nanite_infection" probabilitymultiplier="0.05" damagesound="LimbArmor" />
       <StatusEffect type="OnWearing" target="Character" UseHullOxygen="true" PressureProtection="9500.0" setvalue="true" disabledeltatime="true" />
       <StatusEffect type="OnContained" target="Contained" Condition="1.0" targetslot="0" interval="1" disabledeltatime="true">
         <Conditional Voltage="gt 0.01" targetcontainer="true" targetgrandparent="true" targetitemcomponent="Powered" />
@@ -120,14 +121,13 @@
           </StatusEffect>
         </TickBox>
       </CustomInterface>
-    </Wearable>
+    </ScalingWearable>
     <ItemComponent>
       <StatusEffect type="OnSpawn" target="This">
         <LuaHook name="aic_archon_shield_enable" />
       </StatusEffect>
     </ItemComponent>
     <StatusHUD drawhudwhenequipped="true" overlaycolor="72,119,72,120" range="500" thermalgoggles="false" showdeadcharacters="true" showtexts="true" />
-    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="0,-50" handle1="-10,-20" handle2="10,-20" holdangle="45" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" />
     <ItemContainer capacity="0" maxstacksize="0" hideitems="true" containedstateindicatorstyle="tank" containedstateindicatorslot="0" autoinject="true">
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
       <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="384,448,64,64" origin="0.5,0.5" />

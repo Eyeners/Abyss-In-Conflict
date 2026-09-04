@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="Abyss In Conflict" modversion="0.1.21" corepackage="False" steamworkshopid="3724647577" gameversion="1.13.4.0">
+<contentpackage name="Abyss In Conflict" modversion="0.1.26" corepackage="False" steamworkshopid="3724647577" gameversion="1.13.4.0">
   <Item file="%ModDir%/Items/items_common.xml" />
   <Item file="%ModDir%/Items/active_backpacks.xml" />
   <Particles file="%ModDir%/Particles/ParticlePrefabs.xml" />
@@ -16,12 +16,13 @@
   <Item file="%ModDir%/Items/Weapons/test_burn_weapon.xml" />
   <Item file="%ModDir%/Items/Weapons/disintegration_field_device.xml" />
   <Item file="%ModDir%/Items/Weapons/traction_beam.xml" />
+  <Item file="%ModDir%/Items/Weapons/net_gun.xml" />
   <Item file="%ModDir%/卫戍者/武器/t1武器.xml" />
   <Item file="%ModDir%/卫戍者/武器/t2武器.xml" />
   <Item file="%ModDir%/卫戍者/武器/GDF军用武器.xml" />
-    <Item file="%ModDir%/卫戍者/装备/t1护甲.xml" />
-    <Item file="%ModDir%/卫戍者/装备/GDF护甲.xml" />
-    <Item file="%ModDir%/卫戍者/装备/t2护甲.xml" />
+  <Item file="%ModDir%/卫戍者/装备/t1护甲.xml" />
+  <Item file="%ModDir%/卫戍者/装备/GDF护甲.xml" />
+  <Item file="%ModDir%/卫戍者/装备/t2护甲.xml" />
   <Item file="%ModDir%/卫戍者/装备/t3护甲.xml" />
   <Item file="%ModDir%/卫戍者/装备/装备物品.xml" />
   <Item file="%ModDir%/外环工造/武器/t1武器.xml" />
@@ -42,6 +43,8 @@
   <Item file="%ModDir%/Characters/WardensRaiders/Weapons/AIWeapons.xml" />
   <Item file="%ModDir%/Characters/RevengeProtocol/RevengeProtocolWeapons.xml" />
   <Afflictions file="%ModDir%/Afflictions/afflictions.xml" />
+  <Other file="%ModDir%/Characters/NetEntanglementAppendage.xml" />
+  <Character file="%ModDir%/Characters/HumanNetEntangled.xml" />
   <Character file="%ModDir%/Characters/NanoclusterShield/HumanNanoClusterShield.xml" />
   <Character file="%ModDir%/Characters/RevengeProtocol/RevengeProtocolUnit.xml" />
   <Character file="%ModDir%/Characters/WardensRaiders/WardensAssaulterRaider.xml" />
@@ -61,4 +64,6 @@
   <Text file="%ModDir%/Text/English.xml" />
   <Submarine file="%ModDir%/Submarines/GDF护卫舰.sub" />
   <Submarine file="%ModDir%/Submarines/静风级护卫舰.sub" />
+  <Item file="%ModDir%/Characters/Humanbiodragger/PlagueDraggerTongue.xml" />
+  <Character file="%ModDir%/Characters/Humanbiodragger/Humanbiodragger.xml" />
 </contentpackage>

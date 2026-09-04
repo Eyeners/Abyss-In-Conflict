@@ -3,13 +3,23 @@
   <afflictiondescription.aic_heat_buildup.low>Heat is building up across the target surface or armor. Physical performance is not yet affected, but burn protection is weakening.</afflictiondescription.aic_heat_buildup.low>
   <afflictiondescription.aic_heat_buildup.medium>The target surface or armor is melting. Protection against multiple damage types is falling. Do not rapidly cool with seawater; flash boiling may occur.</afflictiondescription.aic_heat_buildup.medium>
   <afflictiondescription.aic_heat_buildup.high>The target surface or armor is nearly melted through. Defensive performance is severely reduced, continuous burns are occurring, and further heating may cause a flash fire.</afflictiondescription.aic_heat_buildup.high>
+  <afflictionname.aic_hacking>Hacking</afflictionname.aic_hacking>
+  <afflictiondescription.aic_hacking>Malicious control signals are disrupting the powered assistance system, progressively degrading movement response and weapon stability.</afflictiondescription.aic_hacking>
+  <afflictionname.aic_hacking_system_lock>Hacking: System Lock</afflictionname.aic_hacking_system_lock>
+  <afflictiondescription.aic_hacking_system_lock>The powered assistance system has been forcibly locked, temporarily preventing movement and use of both hands.</afflictiondescription.aic_hacking_system_lock>
   <npctitle.aic_wardens_elite_guard>Warden Elite Guard</npctitle.aic_wardens_elite_guard>
   <npctitle.aic_wardens_defender>Warden Defender</npctitle.aic_wardens_defender>
   <npctitle.aic_gdf_biohazard_emergency_response_trooper>GDF Biohazard Emergency Response Trooper</npctitle.aic_gdf_biohazard_emergency_response_trooper>
+  <npctitle.aic_gdf_security_trooper>GDF Security Trooper</npctitle.aic_gdf_security_trooper>
+  <npctitle.aic_gdf_breaching_trooper>GDF Breaching Trooper</npctitle.aic_gdf_breaching_trooper>
   <npctitle.aic_foresight_research_knight>Research Knight</npctitle.aic_foresight_research_knight>
   <npctitle.aic_foresight_research_knight_squire>Research Knight Squire</npctitle.aic_foresight_research_knight_squire>
   <npctitle.aic_practitioner_bishop>Practitioner Bishop</npctitle.aic_practitioner_bishop>
   <npctitle.aic_practitioner_judgement_trooper>Practitioner Judgment Trooper</npctitle.aic_practitioner_judgement_trooper>
+  <entityname.aic_gdf_broadsword_battle_rifle>Broadsword Battle Rifle</entityname.aic_gdf_broadsword_battle_rifle>
+  <entitydescription.aic_gdf_broadsword_battle_rifle>A two-handed GDF battle rifle feeding from a high-capacity box magazine. It sustains armor-piercing explosive fire for frontline personnel who require both endurance and medium-range accuracy.</entitydescription.aic_gdf_broadsword_battle_rifle>
+  <entityname.aic_gdf_broadsword_box_magazine>GDF Broadsword Box Magazine</entityname.aic_gdf_broadsword_box_magazine>
+  <entitydescription.aic_gdf_broadsword_box_magazine>A sixty-round box magazine for the Broadsword battle rifle, loaded with GDF armor-piercing explosive rounds that release a compact directed blast at the impact point.</entitydescription.aic_gdf_broadsword_box_magazine>
   <entityname.aic_gdf_downpour_smg>Downpour Ricochet SMG</entityname.aic_gdf_downpour_smg>
   <entitydescription.aic_gdf_downpour_smg>A compact GDF ricochet-submachine gun designed to suppress close-range targets in confined compartments with a high rate of fire. Originally intended for security aboard surface vessels and indoor facilities, its hybrid propellant-gas and electromagnetic propulsion system was not designed with hull damage control in mind.</entitydescription.aic_gdf_downpour_smg>
   <entityname.aic_gdf_stiletto_pdw>Stiletto Personal Defense Weapon</entityname.aic_gdf_stiletto_pdw>
@@ -61,6 +71,16 @@
   <eventtext.aic_wardens_dispatcher.store.low.option.cash>I am short on marks. (Exchange 1 GDF Contribution Point for 400 mk)</eventtext.aic_wardens_dispatcher.store.low.option.cash>
   <eventtext.aic_wardens_dispatcher.store.low.option.gdfpdwblueprint>Exchange for the GDF Personal Defense Weapon Blueprint. (10 GDF Contribution Points, 2,000 mk)</eventtext.aic_wardens_dispatcher.store.low.option.gdfpdwblueprint>
   <eventtext.aic_wardens_dispatcher.store.low.option.piezoelectricmagazines>Exchange for 4 GDF Military Small Piezoelectric Magazines. (1 GDF Contribution Point)</eventtext.aic_wardens_dispatcher.store.low.option.piezoelectricmagazines>
+  <eventtext.aic_wardens_dispatcher.store.advanced.option>I heard a new shipment of weapons came in. Let me see them.</eventtext.aic_wardens_dispatcher.store.advanced.option>
+  <eventtext.aic_wardens_dispatcher.store.advanced.greeting>News travels fast. Command has not restricted the circulation of this new equipment, so take a look.</eventtext.aic_wardens_dispatcher.store.advanced.greeting>
+  <eventtext.aic_wardens_dispatcher.store.advanced.option.broadsword>That battle rifle looks impressive.</eventtext.aic_wardens_dispatcher.store.advanced.option.broadsword>
+  <eventtext.aic_wardens_dispatcher.store.advanced.broadsword.description>This is the right tool for cracking armored targets. It combines new propellant with heavy accelerator coils, and its sixty-round box magazine is loaded with newly developed tungsten-core armor-piercing explosive ammunition. Eight contribution points and one thousand marks buys the rifle with two magazines included.</eventtext.aic_wardens_dispatcher.store.advanced.broadsword.description>
+  <eventtext.aic_wardens_dispatcher.store.advanced.broadsword.buyset>I'll take the set. (8 GDF Contribution Points, 1,000 mk)</eventtext.aic_wardens_dispatcher.store.advanced.broadsword.buyset>
+  <eventtext.aic_wardens_dispatcher.store.advanced.broadsword.buyammo>I'll take two magazines. (4 GDF Contribution Points, 600 mk)</eventtext.aic_wardens_dispatcher.store.advanced.broadsword.buyammo>
+  <eventtext.aic_wardens_dispatcher.store.advanced.option.chariotarmor>Is that the same armor your personnel wear?</eventtext.aic_wardens_dispatcher.store.advanced.option.chariotarmor>
+  <eventtext.aic_wardens_dispatcher.store.advanced.chariotarmor.description>This is the Wardens' basic light armor fitted with an exoskeleton system. It provides full-body ballistic protection, while the helmet's visual assistance suite includes health scanning and night vision. Most importantly, the powered frame can keep you moving even after a crawler tears your legs apart. Two complete armor-and-helmet sets now cost 4 GDF Contribution Points and 1,000 marks.</eventtext.aic_wardens_dispatcher.store.advanced.chariotarmor.description>
+  <eventtext.aic_wardens_dispatcher.store.advanced.chariotarmor.buyset>Continue.</eventtext.aic_wardens_dispatcher.store.advanced.chariotarmor.buyset>
+  <eventtext.aic_wardens_dispatcher.store.advanced.option.back>Back.</eventtext.aic_wardens_dispatcher.store.advanced.option.back>
   <eventtext.aic_wardens_dispatcher.store.low.success>Here are your supplies. Check the contents now; missing items will not be replaced later.</eventtext.aic_wardens_dispatcher.store.low.success>
   <eventtext.aic_wardens_dispatcher.store.low.failed>You cannot afford that. Complete a couple more contracts and come back.</eventtext.aic_wardens_dispatcher.store.low.failed>
   <eventtext.aic_wardens_dispatcher.store.low.nocontribution>Your contribution balance is insufficient. Complete more contracts before requesting another exchange.</eventtext.aic_wardens_dispatcher.store.low.nocontribution>
@@ -84,4 +104,8 @@
   <entitydescription.aic_traction_beam>A portable tool that launches an energy anchor and pulls struck targets. Keep aiming to maintain the beam; releasing aim disconnects it. The device requires ten seconds to recharge after each shot.</entitydescription.aic_traction_beam>
   <entityname.aic_foresight_nsg_nanite_smoke_grenade>NSG Nanite Smoke Dispersal Grenade</entityname.aic_foresight_nsg_nanite_smoke_grenade>
   <entitydescription.aic_foresight_nsg_nanite_smoke_grenade>A Foresight Technology nanite dispersal device. Once activated, it rapidly releases corrosive nanite smoke. It can be thrown, fired from a grenade launcher, or triggered by standard and timed detonators.</entitydescription.aic_foresight_nsg_nanite_smoke_grenade>
+  <entityname.aic_net_gun>Net Gun</entityname.aic_net_gun>
+  <entitydescription.aic_net_gun>A non-lethal weapon that fires electrified restraint nets. Human targets are entangled and struck by a stun-gun discharge on impact.</entitydescription.aic_net_gun>
+  <entityname.aic_net_round>Electrified Net Round</entityname.aic_net_round>
+  <entitydescription.aic_net_round>A folded restraint net for the net gun. Its carbon-fiber inventory icon is a temporary placeholder.</entitydescription.aic_net_round>
 </infotexts>

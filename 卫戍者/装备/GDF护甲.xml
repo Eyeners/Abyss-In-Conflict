@@ -6,21 +6,23 @@
     <Sprite texture="%ModDir%/卫戍者/贴图/卫戍者PMC实物贴图.png" sourcerect="0,0,64,64" depth="0.55" origin="0.5,0.5" />
     <Body radius="24" height="20" density="24" />
     <Wearable slots="OuterClothes+Head" msg="ItemMsgEquipSelect" displaycontainedstatus="true" canbepicked="true" pickkey="Select">
-      <sprite name="GDF Sentinel Head" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="Head" sourcerect="1459,110,154,175" origin="0.5,0.5" scale="0.18" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" alphaclipotherwearables="true" hidewearablesoftype="Hair" hideotherwearables="true" depthlimb="LeftForearm" />
-      <sprite name="GDF Sentinel Torso" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="Torso" sourcerect="538,325,265,408" origin="0.56,0.55" scale="0.18" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
-      <sprite name="GDF Sentinel Waist" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="Waist" sourcerect="631,861,150,146" origin="0.5,0.5" scale="0.18" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
-      <sprite name="GDF Sentinel Outer Arm" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="RightArm" sourcerect="877,69,155,247" origin="0.45,0.45" scale="0.18" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
-      <sprite name="GDF Sentinel Outer Forearm" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="RightForearm" sourcerect="908,437,94,221" origin="0.45,0.45" scale="0.18" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
-      <sprite name="GDF Sentinel Outer Hand" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="RightHand" sourcerect="910,745,95,117" origin="0.45,0.45" scale="0.18" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
-      <sprite name="GDF Sentinel Inner Arm" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="LeftArm" sourcerect="1174,69,155,247" origin="0.45,0.45" scale="0.18" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
-      <sprite name="GDF Sentinel Inner Forearm" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="LeftForearm" sourcerect="1210,437,94,221" origin="0.45,0.45" scale="0.18" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
-      <sprite name="GDF Sentinel Inner Hand" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="LeftHand" sourcerect="1216,745,95,117" origin="0.45,0.45" scale="0.18" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
-      <sprite name="GDF Sentinel Outer Thigh" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="RightThigh" sourcerect="52,159,181,322" origin="0.5,0.5" scale="0.18" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" depthlimb="RightArm" />
-      <sprite name="GDF Sentinel Outer Leg" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="RightLeg" sourcerect="73,688,127,298" origin="0.5,0.5" scale="0.18" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
-      <sprite name="GDF Sentinel Inner Thigh" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="LeftThigh" sourcerect="339,159,181,322" origin="0.5,0.5" scale="0.18" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
-      <sprite name="GDF Sentinel Inner Leg" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="LeftLeg" sourcerect="356,688,127,298" origin="0.5,0.5" scale="0.18" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
-      <sprite name="GDF Sentinel Outer Foot" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="RightFoot" sourcerect="872,906,173,113" origin="0.5,0.5" scale="0.18" sound="footstep_armor_heavy" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
-      <sprite name="GDF Sentinel Inner Foot" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="LeftFoot" sourcerect="1170,906,173,113" origin="0.5,0.5" scale="0.18" sound="footstep_armor_heavy" hidelimb="true" inheritscale="false" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Sentinel Head" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="Head" sourcerect="1459,110,154,175" origin="0.5,0.5" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" alphaclipotherwearables="true" hidewearablesoftype="Hair" hideotherwearables="true" depthlimb="LeftForearm">
+        <LightComponent LightColor="220,220,220,120" range="5000" castshadows="false" powerconsumption="infinity" IsOn="true" flicker="0.1" flickerspeed="0.5" pulsefrequency="0.1" pulseamount="0.1" />
+      </sprite>
+      <sprite name="GDF Sentinel Torso" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="Torso" sourcerect="538,325,265,408" origin="0.56,0.55" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Sentinel Waist" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="Waist" sourcerect="631,861,150,146" origin="0.5,0.5" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Sentinel Outer Arm" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="RightArm" sourcerect="877,69,155,247" origin="0.45,0.45" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Sentinel Outer Forearm" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="RightForearm" sourcerect="908,437,94,221" origin="0.45,0.45" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Sentinel Outer Hand" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="RightHand" sourcerect="910,745,95,117" origin="0.45,0.45" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Sentinel Inner Arm" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="LeftArm" sourcerect="1174,69,155,247" origin="0.45,0.45" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Sentinel Inner Forearm" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="LeftForearm" sourcerect="1210,437,94,221" origin="0.45,0.45" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Sentinel Inner Hand" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="LeftHand" sourcerect="1216,745,95,117" origin="0.45,0.45" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Sentinel Outer Thigh" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="RightThigh" sourcerect="52,159,181,322" origin="0.5,0.5" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" depthlimb="RightArm" />
+      <sprite name="GDF Sentinel Outer Leg" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="RightLeg" sourcerect="73,688,127,298" origin="0.5,0.5" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Sentinel Inner Thigh" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="LeftThigh" sourcerect="339,159,181,322" origin="0.5,0.5" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Sentinel Inner Leg" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="LeftLeg" sourcerect="356,688,127,298" origin="0.5,0.5" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Sentinel Outer Foot" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="RightFoot" sourcerect="872,906,173,113" origin="0.5,0.5" scale="0.36" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Sentinel Inner Foot" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="LeftFoot" sourcerect="1170,906,173,113" origin="0.5,0.5" scale="0.36" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound" damagemultiplier="0.28" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.16" damagesound="LimbArmor" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="explosiondamage" damagemultiplier="0.32" damagesound="LimbArmor" deflectprojectiles="true" />
@@ -31,7 +33,7 @@
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="electricshock" damagemultiplier="0.45" damagesound="LimbArmor" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="stun" damagemultiplier="0.4" damagesound="LimbArmor" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="concussion" damagemultiplier="0.15" deflectprojectiles="true" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="huskinfection" probabilitymultiplier="0.1" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="alieninfection" probabilitymultiplier="0.1" damagesound="LimbArmor" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_nanite_infection" probabilitymultiplier="0.4" damagesound="LimbArmor" />
       <StatusEffect type="OnWearing" target="Character" UseHullOxygen="true" PressureProtection="4000.0" setvalue="true" disabledeltatime="true" />
       <StatusEffect type="OnContained" target="Contained" Condition="1.0" targetslot="0" interval="1" disabledeltatime="true">
@@ -63,6 +65,13 @@
         <Affliction identifier="aic_wardens_military_protection" amount="1" />
         <Affliction identifier="aic_wardens_military_protection_gunshot" amount="1" />
       </StatusEffect>
+      <StatusEffect type="OnWearing" target="Character,This" disabledeltatime="true">
+        <Affliction identifier="aic_nightvision" amount="60" />
+        <Conditional targetself="true" targetitemcomponent="LightComponent" IsOn="true" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="This,Character" voltage="1.0" interval="0.1" setvalue="true" comparison="And">
+        <Conditional IsLocalPlayer="true" aic_nightvision="gt 0" />
+      </StatusEffect>
       <StatusEffect type="OnWearing" target="Character" stunresistance="12" setvalue="true" disabledeltatime="true" />
       <StatValue stattype="MaximumHealthMultiplier" value="0.12" />
       <StatValue stattype="WalkingSpeed" value="0.08" />
@@ -70,6 +79,19 @@
       <StatValue stattype="FlowResistance" value="0.35" />
       <SkillModifier skillidentifier="weapons" skillvalue="15" />
     </Wearable>
+    <StatusHUD drawhudwhenequipped="true" />
+    <StatusHUD range="150" overlaycolor="140,255,180,35">
+      <StatusEffect type="OnWearing" target="This,Character" drawhudwhenequipped="true" setvalue="true" comparison="And">
+        <Conditional IsLocalPlayer="true" aic_nightvision="gt 0" />
+      </StatusEffect>
+    </StatusHUD>
+    <CustomInterface canbeselected="true" drawhudwhenequipped="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.09,0.07" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.09" style="ItemUI" />
+      <TickBox text="夜视">
+        <StatusEffect type="OnUse" targettype="This" IsOn="true" HudTint="50,255,50,30" interval="0.1" />
+        <StatusEffect type="OnSecondaryUse" targettype="This" IsOn="false" HudTint="0,0,0,0" interval="0.1" />
+      </TickBox>
+    </CustomInterface>
     <Holdable slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
     <ItemContainer capacity="0" maxstacksize="0" hideitems="true" containedstateindicatorstyle="tank" containedstateindicatorslot="0">
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />

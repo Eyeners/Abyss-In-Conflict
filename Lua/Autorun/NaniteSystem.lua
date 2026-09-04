@@ -5,6 +5,8 @@ local INFECTION_IDENTIFIER = "aic_nanite_infection"
 local DIFFUSION_IDENTIFIER = "aic_nanite_diffusion"
 local MINOR_MIRACLE_IDENTIFIER = "aic_minor_miracle"
 local IFF_IDENTIFIER = "aic_nanite_iff_code"
+local HACKING_IDENTIFIER = "aic_hacking"
+local HACKING_LOCK_IDENTIFIER = "aic_hacking_system_lock"
 local IFF_UPDATE_INTERVAL = 1
 
 local nextIffUpdateTime = 0
@@ -18,6 +20,16 @@ local function ClearNaniteStages(character)
     character.CharacterHealth.ReduceAfflictionOnAllLimbs(DIFFUSION_IDENTIFIER, 1000, nil, nil)
 end
 
+local function ClearEmpSensitiveAfflictions(character)
+    if character == nil or character.CharacterHealth == nil then
+        return
+    end
+
+    ClearNaniteStages(character)
+    character.CharacterHealth.ReduceAfflictionOnAllLimbs(HACKING_IDENTIFIER, 1000, nil, nil)
+    character.CharacterHealth.ReduceAfflictionOnAllLimbs(HACKING_LOCK_IDENTIFIER, 1000, nil, nil)
+end
+
 local function ProcessNaniteDamageEvent(targetCharacter, afflictions)
     if targetCharacter == nil or afflictions == nil then
         return
@@ -29,7 +41,7 @@ local function ProcessNaniteDamageEvent(targetCharacter, afflictions)
             local identifier = string.lower(tostring(prefab.Identifier.Value))
 
             if identifier == EMP_IDENTIFIER then
-                ClearNaniteStages(targetCharacter)
+                ClearEmpSensitiveAfflictions(targetCharacter)
                 return
             end
         end

@@ -3,13 +3,23 @@
   <afflictiondescription.aic_heat_buildup.low>目标表面或装甲正在累积热量，未影响物理性能，但是对于灼烧的防护正在下降。</afflictiondescription.aic_heat_buildup.low>
   <afflictiondescription.aic_heat_buildup.medium>目标表面或装甲正在熔融，对于各项攻击的防护都在下降，请勿利用海水进行快速冷却，可能发生爆沸。</afflictiondescription.aic_heat_buildup.medium>
   <afflictiondescription.aic_heat_buildup.high>目标表面或装甲已经几乎熔毁，防御性能大幅下降，且持续造成灼烧，继续受热可能发生爆燃。</afflictiondescription.aic_heat_buildup.high>
+  <afflictionname.aic_hacking>骇入</afflictionname.aic_hacking>
+  <afflictiondescription.aic_hacking>恶意控制信号正在干扰动力辅助系统，运动响应与武器稳定性随入侵程度持续下降。</afflictiondescription.aic_hacking>
+  <afflictionname.aic_hacking_system_lock>骇入：系统锁死</afflictionname.aic_hacking_system_lock>
+  <afflictiondescription.aic_hacking_system_lock>动力辅助系统遭到强制锁死，暂时无法移动或使用双手。</afflictiondescription.aic_hacking_system_lock>
   <npctitle.aic_wardens_elite_guard>精英卫队</npctitle.aic_wardens_elite_guard>
   <npctitle.aic_wardens_defender>防卫者</npctitle.aic_wardens_defender>
   <npctitle.aic_gdf_biohazard_emergency_response_trooper>GDF生物危害应急响应部队</npctitle.aic_gdf_biohazard_emergency_response_trooper>
+  <npctitle.aic_gdf_security_trooper>GDF安保单位</npctitle.aic_gdf_security_trooper>
+  <npctitle.aic_gdf_breaching_trooper>GDF攻坚部队</npctitle.aic_gdf_breaching_trooper>
   <npctitle.aic_foresight_research_knight>科研骑士</npctitle.aic_foresight_research_knight>
   <npctitle.aic_foresight_research_knight_squire>科研骑士扈从</npctitle.aic_foresight_research_knight_squire>
   <npctitle.aic_practitioner_bishop>主教</npctitle.aic_practitioner_bishop>
   <npctitle.aic_practitioner_judgement_trooper>审判军</npctitle.aic_practitioner_judgement_trooper>
+  <entityname.aic_gdf_broadsword_battle_rifle>阔剑战斗步枪</entityname.aic_gdf_broadsword_battle_rifle>
+  <entitydescription.aic_gdf_broadsword_battle_rifle>GDF制式双手战斗步枪，使用大容量盒装弹匣持续投射穿甲爆破弹，面向需要兼顾火力持续性与中距离精度的正面作战人员。</entitydescription.aic_gdf_broadsword_battle_rifle>
+  <entityname.aic_gdf_broadsword_box_magazine>GDF阔剑盒装弹匣</entityname.aic_gdf_broadsword_box_magazine>
+  <entitydescription.aic_gdf_broadsword_box_magazine>阔剑战斗步枪使用的六十发盒装弹匣，装填GDF制式穿甲爆破弹。弹体穿透目标后会在命中点释放小范围定向爆破。</entitydescription.aic_gdf_broadsword_box_magazine>
   <entityname.aic_gdf_downpour_smg>骤雨反跳帮武器</entityname.aic_gdf_downpour_smg>
   <entitydescription.aic_gdf_downpour_smg>GDF制式反跳帮武器，以高射速和紧凑结构压制狭窄舱室内的近距离目标，最初用于水面舰艇和部分室内场所的安保使用，没有考虑对于舰体的损伤管制，采用了火药燃气和电磁推进的混合推进方式。</entitydescription.aic_gdf_downpour_smg>
   <entityname.aic_gdf_stiletto_pdw>短剑个人防卫武器</entityname.aic_gdf_stiletto_pdw>
@@ -61,6 +71,16 @@
   <eventtext.aic_wardens_dispatcher.store.low.option.cash>我有点缺钱。（1 GDF贡献点兑换400 mk）</eventtext.aic_wardens_dispatcher.store.low.option.cash>
   <eventtext.aic_wardens_dispatcher.store.low.option.gdfpdwblueprint>兑换GDF个人防卫武器蓝图。（10 GDF贡献点，2000 mk）</eventtext.aic_wardens_dispatcher.store.low.option.gdfpdwblueprint>
   <eventtext.aic_wardens_dispatcher.store.low.option.piezoelectricmagazines>兑换4个GDF军用小型压电弹匣。（1 GDF贡献点）</eventtext.aic_wardens_dispatcher.store.low.option.piezoelectricmagazines>
+  <eventtext.aic_wardens_dispatcher.store.advanced.option>听说最近有一批新的武器，给我看看。</eventtext.aic_wardens_dispatcher.store.advanced.option>
+  <eventtext.aic_wardens_dispatcher.store.advanced.greeting>消息挺灵通，不过上面并没有限制这批新玩意的流动，看看吧。</eventtext.aic_wardens_dispatcher.store.advanced.greeting>
+  <eventtext.aic_wardens_dispatcher.store.advanced.option.broadsword>这个战斗步枪看着挺劲爆。</eventtext.aic_wardens_dispatcher.store.advanced.option.broadsword>
+  <eventtext.aic_wardens_dispatcher.store.advanced.broadsword.description>这可是专门对付那些铁皮盒子用的好东西，采用新式火药和重接线圈混合加速，子弹更是新研制的钨弹头穿甲爆破弹，足足六十发弹容。现在只要8贡献点和一千马克就能购买一把这样劲爆的好武器和附送的2盒弹药。</eventtext.aic_wardens_dispatcher.store.advanced.broadsword.description>
+  <eventtext.aic_wardens_dispatcher.store.advanced.broadsword.buyset>给我来一套。（8 GDF贡献点，1000 mk）</eventtext.aic_wardens_dispatcher.store.advanced.broadsword.buyset>
+  <eventtext.aic_wardens_dispatcher.store.advanced.broadsword.buyammo>来两盒弹药吧。（4 GDF贡献点，600 mk）</eventtext.aic_wardens_dispatcher.store.advanced.broadsword.buyammo>
+  <eventtext.aic_wardens_dispatcher.store.advanced.option.chariotarmor>这是你们身上同款的护甲吗？</eventtext.aic_wardens_dispatcher.store.advanced.option.chariotarmor>
+  <eventtext.aic_wardens_dispatcher.store.advanced.chariotarmor.description>这是卫戍者搭载了外骨骼系统的基础轻型护甲，拥有覆盖全身的防弹能力，头盔的目视辅助系统搭载了健康扫描和夜视系统——最重要的，穿上它以后哪怕你的腿被迅猛龙咬断了也能跑起来。现在只需要4贡献点和1000马克，就能拿走两套头盔与护甲。</eventtext.aic_wardens_dispatcher.store.advanced.chariotarmor.description>
+  <eventtext.aic_wardens_dispatcher.store.advanced.chariotarmor.buyset>继续。</eventtext.aic_wardens_dispatcher.store.advanced.chariotarmor.buyset>
+  <eventtext.aic_wardens_dispatcher.store.advanced.option.back>返回。</eventtext.aic_wardens_dispatcher.store.advanced.option.back>
   <eventtext.aic_wardens_dispatcher.store.low.success>这是你要的东西，自己检查一下有没有缺漏，过后不补。</eventtext.aic_wardens_dispatcher.store.low.success>
   <eventtext.aic_wardens_dispatcher.store.low.failed>这玩意你换不起，多去接两单活再来吧。</eventtext.aic_wardens_dispatcher.store.low.failed>
   <eventtext.aic_wardens_dispatcher.store.low.nocontribution>名单上的贡献点余额不够。先完成更多委托，再来谈兑换。</eventtext.aic_wardens_dispatcher.store.low.nocontribution>
@@ -84,4 +104,8 @@
   <entitydescription.aic_traction_beam>发射能量锚并牵引命中目标的便携式工具。维持瞄准可持续拉扯目标，松开瞄准则断开牵引束；每次发射后需要十秒重新充能。</entitydescription.aic_traction_beam>
   <entityname.aic_foresight_nsg_nanite_smoke_grenade>NSG纳米烟雾散布手榴弹</entityname.aic_foresight_nsg_nanite_smoke_grenade>
   <entitydescription.aic_foresight_nsg_nanite_smoke_grenade>预视科技制造的纳米机械散布装置。启动后会迅速释放具有侵蚀性的纳米烟雾，可手投、装入榴弹发射器，或由雷管和定时引爆器触发。</entitydescription.aic_foresight_nsg_nanite_smoke_grenade>
+  <entityname.aic_net_gun>兜网枪</entityname.aic_net_gun>
+  <entitydescription.aic_net_gun>发射电击束缚网的非致命武器。网弹命中人类目标后会限制其动作，并释放一次电击枪级别的电击。</entitydescription.aic_net_gun>
+  <entityname.aic_net_round>电击网弹</entityname.aic_net_round>
+  <entitydescription.aic_net_round>兜网枪使用的折叠式束缚网弹。碳纤维外壳仅为当前占位外观。</entitydescription.aic_net_round>
 </infotexts>

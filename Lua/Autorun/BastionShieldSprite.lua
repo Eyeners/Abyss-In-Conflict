@@ -83,7 +83,10 @@ local function updateShieldSprites(item, force)
         local wearableSprite = wearable.wearableSprites[spriteIndex]
         if wearableSprite ~= nil and wearableSprite.Sprite ~= nil then
             local rect = sourceRects[index]
+            local relativeOrigin = wearableSprite.Sprite.RelativeOrigin
             wearableSprite.Sprite.SourceRect = Rectangle(rect[1], rect[2], rect[3], rect[4])
+            -- Reapply the XML origin after changing rect size (lit legs/feet differ by a few pixels).
+            wearableSprite.Sprite.RelativeOrigin = relativeOrigin
         end
     end
 

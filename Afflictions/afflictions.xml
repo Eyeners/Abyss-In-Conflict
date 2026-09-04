@@ -82,6 +82,16 @@
     showinhealthscannerthreshold="infinity">
     <Effect minstrength="0" maxstrength="30" strengthchange="-1" />
   </Affliction>
+  <AfflictionHusk name="束缚网" identifier="aic_net_entanglement" type="debuff" isbuff="false" limbspecific="false" targets="human" indicatorlimb="Torso" huskedspeciesname="[speciesname]_aic_net_entangled" needsair="true" causespeechimpediment="false" sendmessages="false" controlhusk="false" transferbuffs="false" dormantthreshold="0.01" activethreshold="0.01" transitionthreshold="1000" transformthresholdondeath="1000" treatmentthreshold="1000" maxstrength="1" healableinmedicalclinic="false" showiconthreshold="infinity" showicontoothersthreshold="infinity" showinhealthscannerthreshold="infinity">
+    <Effect minstrength="0" maxstrength="1" strengthchange="-5" />
+  </AfflictionHusk>
+  <Affliction name="束缚网挣扎" identifier="aic_net_struggle" type="debuff" isbuff="false" limbspecific="true" indicatorlimb="Head" maxstrength="100" treatmentthreshold="1000" healableinmedicalclinic="false" showiconthreshold="infinity" showicontoothersthreshold="infinity" showinhealthscannerthreshold="infinity">
+    <Effect minstrength="0" maxstrength="100" strengthchange="-1000">
+      <StatusEffect target="Limb">
+        <Explosion range="50" force="-0.1" shockwave="false" smoke="false" showeffects="false" flames="false" sparks="false" severlimbsprobability="0" decal="Blood" decalsize="0" />
+      </StatusEffect>
+    </Effect>
+  </Affliction>
   <Affliction name="夜视" identifier="aic_nightvision" type="none" isbuff="true" limbspecific="false" indicatorlimb="Head" maxstrength="100" showiconthreshold="infinity">
     <Effect minstrength="0" maxstrength="100" multiplybymaxvitality="true" graincolor="0,0,0,255" mingrainstrength="2.95" maxgrainstrength="3.05" minscreenblur="0.095" maxscreenblur="0.105" strengthchange="-50" />
   </Affliction>
@@ -101,6 +111,46 @@
       <AbilityFlag flagtype="MoveNormallyWhileDragging" />
     </Effect>
     <icon texture="%ModDir%/卫戍者/贴图/卫戍者PMC白.png" sourcerect="0,0,1254,1254" color="255,255,255,255" origin="0.5,0.5" />
+  </Affliction>
+  <Affliction name="骇入" identifier="aic_hacking" description="恶意程序正在干扰电子系统。" type="debuff" isbuff="false" limbspecific="false" indicatorlimb="Torso" activationthreshold="0.1" showiconthreshold="0.1" showicontoothersthreshold="0.1" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" maxstrength="20" affectmachines="true">
+    <Effect minstrength="0" maxstrength="19.99" strengthchange="-0.3" minspeedmultiplier="1" maxspeedmultiplier="0.5">
+      <StatValue stattype="RangedSpreadReduction" minvalue="0" maxvalue="-0.8" />
+      <StatusEffect target="Character" conditionalcomparison="And" disabledeltatime="true">
+        <Conditional IsMachine="false" />
+        <Conditional aic_wardens_assisted_exoskeleton="eq 0" />
+        <Conditional aic_artificial_muscle_fiber_assistance="eq 0" />
+        <ReduceAffliction identifier="aic_hacking" amount="1000" />
+      </StatusEffect>
+    </Effect>
+    <Effect minstrength="19.99" maxstrength="20" strengthchange="-0.3" minspeedmultiplier="0.5" maxspeedmultiplier="0.5">
+      <StatValue stattype="RangedSpreadReduction" value="-0.8" />
+      <StatusEffect target="Character" conditionalcomparison="And" disabledeltatime="true">
+        <Conditional IsMachine="false" />
+        <Conditional aic_wardens_assisted_exoskeleton="eq 0" />
+        <Conditional aic_artificial_muscle_fiber_assistance="eq 0" />
+        <ReduceAffliction identifier="aic_hacking" amount="1000" />
+      </StatusEffect>
+      <StatusEffect target="Character" conditionalcomparison="Or" disabledeltatime="true">
+        <Conditional IsMachine="true" />
+        <Conditional aic_wardens_assisted_exoskeleton="gt 0" />
+        <Conditional aic_artificial_muscle_fiber_assistance="gt 0" />
+        <Affliction identifier="aic_hacking_system_lock" amount="1" />
+        <ReduceAffliction identifier="aic_hacking" amount="1000" />
+      </StatusEffect>
+    </Effect>
+    <icon texture="%ModDir%/UI/数字矩阵N.png" sourcerect="0,0,128,128" color="255,255,255,255" origin="0,0" />
+  </Affliction>
+  <Affliction name="骇入：系统锁死" identifier="aic_hacking_system_lock" description="动力辅助系统遭到强制锁死。" type="debuff" isbuff="false" limbspecific="false" indicatorlimb="Torso" duration="8" activationthreshold="0.1" showiconthreshold="0.1" showicontoothersthreshold="0.1" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" maxstrength="1" affectmachines="true">
+    <Effect minstrength="0" maxstrength="1" minspeedmultiplier="0" maxspeedmultiplier="0">
+      <StatusEffect target="Character" lockhands="true" setvalue="true" stackable="false" disabledeltatime="true" />
+      <StatusEffect target="Character" conditionalcomparison="And" disabledeltatime="true">
+        <Conditional IsMachine="false" />
+        <Conditional aic_wardens_assisted_exoskeleton="eq 0" />
+        <Conditional aic_artificial_muscle_fiber_assistance="eq 0" />
+        <ReduceAffliction identifier="aic_hacking_system_lock" amount="1000" />
+      </StatusEffect>
+    </Effect>
+    <icon texture="%ModDir%/UI/机械锁定.png" sourcerect="0,0,128,128" color="255,255,255,255" origin="0,0" />
   </Affliction>
   <AfflictionHusk name="复仇协议" identifier="aic_revenge_protocol" description="执政官重型装甲搭载作战AI，穿戴者死亡后，装甲将自行作战一段时间。" type="talentbuff" isbuff="true" limbspecific="false" indicatorlimb="Torso" targets="human" huskedspeciesname="_aic_revenge_protocol" needsair="false" causespeechimpediment="false" sendmessages="false" controlhusk="false" transferbuffs="false" activationthreshold="0" dormantthreshold="0.01" activethreshold="1000" transitionthreshold="1000" transformthresholdondeath="0.5" maxstrength="1" duration="0.75" treatmentthreshold="1000" healableinmedicalclinic="false" showiconthreshold="infinity" showicontoothersthreshold="infinity" showinhealthscannerthreshold="0.01">
     <Effect minstrength="0" maxstrength="1" />
@@ -150,13 +200,13 @@
     <Effect minstrength="0" maxstrength="20" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-0.60" maxresistance="-0.60" />
     <Effect minstrength="20" maxstrength="40" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-0.80" maxresistance="-0.80" />
     <Effect minstrength="40" maxstrength="60" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-1.00" maxresistance="-1.00" />
-    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="896,0,128,128" color="225,155,80,255" origin="0,0" />
+    <icon texture="%ModDir%/UI/碎甲.png" sourcerect="0,0,128,128" color="225,155,80,255" origin="0,0" />
   </Affliction>
   <Affliction name="装甲破碎II" identifier="aic_armorbreaker2" description="防护结构遭到严重破坏，针对物理攻击的抗性大幅下降。" type="armorbreaker" isbuff="false" limbspecific="false" indicatorlimb="Torso" hideiconafterdelay="true" showiconthreshold="1" showicontoothersthreshold="1" showinhealthscannerthreshold="1" treatmentthreshold="100" maxstrength="60" affectmachines="true">
     <Effect minstrength="0" maxstrength="20" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-1.10" maxresistance="-1.10" />
     <Effect minstrength="20" maxstrength="40" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-1.25" maxresistance="-1.25" />
     <Effect minstrength="40" maxstrength="60" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-1.50" maxresistance="-1.50" />
-    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="896,0,128,128" color="225,80,65,255" origin="0,0" />
+    <icon texture="%ModDir%/UI/碎甲.png" sourcerect="0,0,128,128" color="225,80,65,255" origin="0,0" />
   </Affliction>
   <Affliction name="机械结构损伤" identifier="aic_machine_structural_damage" description="机械体的传送结构和装甲内层受到深层破坏。" type="damage" limbspecific="true" maxstrength="200" damageoverlayalpha="1" showiconthreshold="1" showinhealthscannerthreshold="1" affectmachines="true">
     <Description textidentifier="afflictiondescription.aic_machine_structural_damage.low" minstrength="0" maxstrength="40" />
@@ -206,8 +256,8 @@
       <StatusEffect target="Character" interval="0.25" disabledeltatime="true">
         <Conditional InWater="true" />
         <Explosion range="32.0" structuredamage="0" itemdamage="0" force="0.8" severlimbsprobability="0.3" shockwave="true" sparks="true" flames="true" smoke="true" flash="true" flashcolor="255,90,50,255" decal="explosion" decalsize="0.15" underwaterbubble="true" camerashake="2.0" playtinnitus="false">
-          <Affliction identifier="burn" strength="10" />
-          <Affliction identifier="explosiondamage" strength="10" />
+          <Affliction identifier="burn" strength="5" dividebylimbcount="false" />
+          <Affliction identifier="explosiondamage" strength="5" dividebylimbcount="false" />
         </Explosion>
         <ReduceAffliction identifier="aic_heat_buildup" amount="1000" />
       </StatusEffect>
@@ -223,8 +273,8 @@
       <StatusEffect target="Character" interval="0.25" disabledeltatime="true">
         <Conditional InWater="true" />
         <Explosion range="42.0" structuredamage="0" itemdamage="0" force="1.0" severlimbsprobability="0.4" shockwave="true" sparks="true" flames="true" smoke="true" flash="true" flashcolor="255,95,55,255" decal="explosion" decalsize="0.18" underwaterbubble="true" camerashake="2.5" playtinnitus="false">
-          <Affliction identifier="burn" strength="20" />
-          <Affliction identifier="explosiondamage" strength="20" />
+          <Affliction identifier="burn" strength="15" dividebylimbcount="false" />
+          <Affliction identifier="explosiondamage" strength="15" dividebylimbcount="false" />
         </Explosion>
         <ReduceAffliction identifier="aic_heat_buildup" amount="1000" />
       </StatusEffect>
@@ -232,17 +282,17 @@
     <Effect minstrength="99" maxstrength="100" strengthchange="0" resistancefor="burn,acidburn,damage" minresistance="-0.60" maxresistance="-0.60" minbodytint="255,220,80,80" maxbodytint="255,255,110,150">
       <StatusEffect target="Character" interval="0.1" disabledeltatime="true">
         <Conditional InWater="true" />
-        <Explosion range="32.0" structuredamage="0" itemdamage="0" force="0.8" severlimbsprobability="0.3" shockwave="true" sparks="true" flames="true" smoke="true" flash="true" flashcolor="255,90,50,255" decal="explosion" decalsize="0.15" underwaterbubble="true" camerashake="2.0" playtinnitus="false">
-          <Affliction identifier="burn" strength="20" />
-          <Affliction identifier="explosiondamage" strength="20" />
+        <Explosion range="42.0" structuredamage="0" itemdamage="0" force="1.2" severlimbsprobability="0.5" shockwave="true" sparks="true" flames="true" smoke="true" flash="true" flashcolor="255,90,50,255" decal="explosion" decalsize="0.18" underwaterbubble="true" camerashake="2.7" playtinnitus="false">
+          <Affliction identifier="burn" strength="20" dividebylimbcount="false" />
+          <Affliction identifier="explosiondamage" strength="20" dividebylimbcount="false" />
         </Explosion>
         <ReduceAffliction identifier="aic_heat_buildup" amount="1000" />
       </StatusEffect>
       <StatusEffect target="Character" interval="0.1" disabledeltatime="true">
         <Conditional InWater="false" />
         <Explosion range="100.0" structuredamage="0" itemdamage="0" force="1.2" severlimbsprobability="0.8" shockwave="true" sparks="true" flames="true" smoke="true" flash="true" flashcolor="255,110,40,255" decal="explosion" decalsize="0.2" underwaterbubble="false" camerashake="3.0" playtinnitus="false" penetration="0.8">
-          <Affliction identifier="burn" strength="30" penetration="0.8" />
-          <Affliction identifier="explosiondamage" strength="30" penetration="0.8" />
+          <Affliction identifier="burn" strength="30" penetration="0.8" dividebylimbcount="false" />
+          <Affliction identifier="explosiondamage" strength="30" penetration="0.8" dividebylimbcount="false" />
         </Explosion>
         <ReduceAffliction identifier="aic_heat_buildup" amount="70" />
       </StatusEffect>
@@ -267,7 +317,7 @@
         <Affliction identifier="aic_nanite_diffusion" amount="2" />
       </StatusEffect>
     </Effect>
-    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="256,512,128,128" color="90,210,255,255" origin="0,0" />
+    <icon texture="%ModDir%/UI/纳米机械.png" sourcerect="0,0,128,128" color="255,255,255,255" origin="0,0" />
   </Affliction>
   <Affliction name="纳米机械扩散" identifier="aic_nanite_diffusion" description="纳米机械正在向周围环境扩散。" type="none" limbspecific="false" indicatorlimb="Torso" activationthreshold="1.0" showiconthreshold="infinity" showicontoothersthreshold="infinity" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" maxstrength="100" affectmachines="true">
     <Effect minstrength="0" maxstrength="29" strengthchange="0" minbodytint="255,0,0,0" maxbodytint="255,0,0,0" />
@@ -284,7 +334,7 @@
     <Effect minstrength="0" maxstrength="50" strengthchange="-0.02" multiplybymaxvitality="true" minbodytint="255,0,0,0" maxbodytint="255,20,90,110" minvitalitydecrease="0" maxvitalitydecrease="0.5" />
     <Effect minstrength="50" maxstrength="100" strengthchange="-0.04" multiplybymaxvitality="true" minbodytint="255,20,90,110" maxbodytint="255,35,130,165" minvitalitydecrease="0.5" maxvitalitydecrease="1.0" />
     <Effect minstrength="100" maxstrength="200" strengthchange="-0.06" multiplybymaxvitality="true" minbodytint="255,35,130,165" maxbodytint="255,60,190,255" minvitalitydecrease="1.0" maxvitalitydecrease="2.0" />
-    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="256,512,128,128" color="120,240,255,255" origin="0,0" />
+    <icon texture="%ModDir%/UI/纳米侵蚀.png" sourcerect="0,0,128,128" color="255,255,255,255" origin="0,0" />
   </Affliction>
   <Affliction name="微小奇迹" identifier="aic_minor_miracle" description="经过敌我识别的纳米机械正在持续封闭伤口、清除异物并修复受损组织。" type="buff" isbuff="true" limbspecific="true" activationthreshold="0.1" showiconthreshold="0.1" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" maxstrength="500" affectmachines="true">
     <Effect minstrength="0" maxstrength="500" strengthchange="-10">
@@ -310,11 +360,11 @@
         <ReduceAffliction type="poison" amount="10" />
       </StatusEffect>
     </Effect>
-    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="256,512,128,128" color="180,245,255,255" origin="0,0" />
+    <icon texture="%ModDir%/UI/纳米治疗.png" sourcerect="0,0,128,128" color="255,255,255,255" origin="0,0" />
   </Affliction>
   <Affliction name="纳米机械敌我识别码" identifier="aic_nanite_iff_code" description="受信任的纳米机械识别信号。武器化纳米机械将被重新编程并投入修复作业。" type="buff" isbuff="true" duration="2" limbspecific="false" indicatorlimb="Torso" activationthreshold="0.1" showiconthreshold="0.1" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" maxstrength="1" affectmachines="true">
     <Effect minstrength="0" maxstrength="1" resistancefor="aic_nanite_erosion" minresistance="1" maxresistance="1" />
-    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="256,512,128,128" color="120,220,190,255" origin="0,0" />
+    <icon texture="%ModDir%/UI/数字矩阵N.png" sourcerect="0,0,128,128" color="255,255,255,255" origin="0,0" />
   </Affliction>
   <Affliction name="照明标记" identifier="aic_illumination_mark" description="目标被高亮照明，防护弱点更容易遭到攻击。" type="debuff" isbuff="false" limbspecific="false" indicatorlimb="Torso" maxstrength="1" duration="15" showiconthreshold="0.1" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" affectmachines="true">
     <Effect minstrength="0" maxstrength="1" resistancefor="damage" minresistance="-0.15" maxresistance="-0.15" />

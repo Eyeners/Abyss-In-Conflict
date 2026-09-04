@@ -9,7 +9,7 @@
     tags="mediumitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_practitioner_weapon,aic_t2_weapon"
     scale="0.15"
     impactsoundtag="impact_metal_light"
-    description="践行者使用的蓄能磁暴发生器。武器通过电磁加速电磁孤子，在枪口与目标间形成导流通路，随后令暴烈的电弧沿通路传导以摧毁、瘫痪敌人。">
+    description="我们先进的电弧发生器已经完全超越了老旧的电磁加速武器。/n践行者使用的蓄能磁暴发生器。武器通过电磁加速电磁孤子，在枪口与目标间形成导流通路，随后令暴烈的电弧沿通路传导以摧毁、瘫痪复数敌人。">
 
     <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
 
@@ -193,19 +193,20 @@
         scalemultiplier="0.00055,0.75" />
       <ParticleEmitter particle="FlareBubbles" emitacrossrayinterval="50" />
 
-      <Attack structuredamage="8" targetforce="20" itemdamage="45" severlimbsprobability="0" penetration="0.8">
+      <Attack structuredamage="10" targetforce="20" itemdamage="30" severlimbsprobability="0" penetration="0.8">
         <Affliction identifier="electricshock" strength="100" />
-        <Affliction identifier="emp" strength="150" />
-        <Affliction identifier="burn" strength="100" />
-        <Affliction identifier="aic_heat_buildup" strength="60" />
+        <Affliction identifier="emp" strength="100" />
+        <Affliction identifier="burn" strength="60" />
+        <Affliction identifier="aic_heat_buildup" strength="40" />
       </Attack>
 
       <StatusEffect type="OnImpact" target="UseTarget">
+        <LuaHook name="aic_oracle_arc_primary_impact" />
         <ParticleEmitter particle="muzzleflashnucleargun" anglemin="0" anglemax="360" particleamount="10" velocitymin="0" scalemin="0.8" scalemax="1.0" scalemultiplier="0.75,0.75" colormultiplier="205,145,255,255" />
         <ParticleEmitter particle="ElectricShock" drawontop="true" distancemin="5" distancemax="80" particleamount="16" scalemin="0.2" scalemax="0.4" colormultiplier="205,145,255,255" />
         <ParticleEmitter particle="FlareBubbles" particleamount="3" anglemin="0" anglemax="360" velocitymin="0" velocitymax="50" />
         <Explosion range="80" structuredamage="4" itemdamage="22.5" force="10" severlimbsprobability="0" penetration="0.4" shockwave="false" flames="false" smoke="false" sparks="false" underwaterbubble="false" flash="true" flashcolor="205,145,255,180" flashrange="80" flashduration="0.15" camerashake="3" playtinnitus="false">
-          <Affliction identifier="electricshock" strength="50" />
+          <Affliction identifier="electricshock" strength="60" />
           <Affliction identifier="emp" strength="75" />
           <Affliction identifier="burn" strength="50" />
           <Affliction identifier="aic_heat_buildup" strength="30" />
@@ -235,6 +236,109 @@
         <Conditional entitytype="eq Structure" />
         <Conditional hastag="eq door" />
         <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" colormultiplier="185,115,255,255" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+
+  <Item
+    name="神谕磁暴一级传导电弧"
+    identifier="aic_practitioner_oracle_arc_jump_1"
+    category="Weapon"
+    interactthroughwalls="true"
+    tags="smallitem,aic_practitioner_energy_bolt"
+    impactsoundtag="impact_metal_light"
+    hideinmenus="true"
+    scale="0.5">
+
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="143,414,113,9" depth="0.55" origin="0.5,0.5" />
+    <Body width="170" height="10" density="20" />
+    <Holdable slots="RightHand+LeftHand" holdpos="0,-50" handle1="-10,0" handle2="10,0" aimable="false" />
+
+    <Projectile characterusable="false" hitscan="true" maxtargetstohit="1" removeonhit="true" damagedoors="true">
+      <ParticleEmitter
+        particle="aic_electricarc_storm"
+        particleamount="1"
+        velocitymin="0"
+        velocitymax="0"
+        scalemultiplier="0.00055,0.75" />
+      <ParticleEmitter particle="FlareBubbles" emitacrossrayinterval="50" />
+
+      <Attack structuredamage="5" targetforce="10" itemdamage="15" severlimbsprobability="0" penetration="0.8">
+        <Affliction identifier="electricshock" strength="50" />
+        <Affliction identifier="emp" strength="50" />
+        <Affliction identifier="burn" strength="30" />
+        <Affliction identifier="aic_heat_buildup" strength="30" />
+      </Attack>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <LuaHook name="aic_oracle_arc_tier1_impact" />
+        <ParticleEmitter particle="muzzleflashnucleargun" anglemin="0" anglemax="360" particleamount="8" velocitymin="0" scalemin="0.6" scalemax="0.8" scalemultiplier="0.6,0.6" colormultiplier="205,145,255,255" />
+        <ParticleEmitter particle="ElectricShock" drawontop="true" distancemin="5" distancemax="65" particleamount="12" scalemin="0.15" scalemax="0.3" colormultiplier="205,145,255,255" />
+        <ParticleEmitter particle="FlareBubbles" particleamount="2" anglemin="0" anglemax="360" velocitymin="0" velocitymax="40" />
+      </StatusEffect>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Sound file="%ModDir%/践行者/音效/Lightning Impact 1.ogg" range="2000" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/Lightning Impact 2.ogg" range="2000" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/Lightning Impact 3.ogg" range="2000" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/Lightning Impact 4.ogg" range="2000" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/Lightning Impact 5.ogg" range="2000" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/Lightning Impact 6.ogg" range="2000" selectionmode="Random" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+
+  <Item
+    name="神谕磁暴二级传导电弧"
+    identifier="aic_practitioner_oracle_arc_jump_2"
+    category="Weapon"
+    interactthroughwalls="true"
+    tags="smallitem,aic_practitioner_energy_bolt"
+    impactsoundtag="impact_metal_light"
+    hideinmenus="true"
+    scale="0.5">
+
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="143,414,113,9" depth="0.55" origin="0.5,0.5" />
+    <Body width="170" height="10" density="20" />
+    <Holdable slots="RightHand+LeftHand" holdpos="0,-50" handle1="-10,0" handle2="10,0" aimable="false" />
+
+    <Projectile characterusable="false" hitscan="true" maxtargetstohit="1" removeonhit="true" damagedoors="true">
+      <ParticleEmitter
+        particle="aic_electricarc_storm"
+        particleamount="1"
+        velocitymin="0"
+        velocitymax="0"
+        scalemultiplier="0.00055,0.6" />
+      <ParticleEmitter particle="FlareBubbles" emitacrossrayinterval="50" />
+
+      <Attack structuredamage="2" targetforce="5" itemdamage="7.5" severlimbsprobability="0" penetration="0.8">
+        <Affliction identifier="electricshock" strength="25" />
+        <Affliction identifier="emp" strength="25" />
+        <Affliction identifier="burn" strength="18" />
+        <Affliction identifier="aic_heat_buildup" strength="20" />
+      </Attack>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="muzzleflashnucleargun" anglemin="0" anglemax="360" particleamount="6" velocitymin="0" scalemin="0.45" scalemax="0.65" scalemultiplier="0.45,0.45" colormultiplier="205,145,255,255" />
+        <ParticleEmitter particle="ElectricShock" drawontop="true" distancemin="5" distancemax="50" particleamount="8" scalemin="0.1" scalemax="0.25" colormultiplier="205,145,255,255" />
+        <ParticleEmitter particle="FlareBubbles" particleamount="1" anglemin="0" anglemax="360" velocitymin="0" velocitymax="30" />
+      </StatusEffect>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Sound file="%ModDir%/践行者/音效/Lightning Impact 1.ogg" range="1600" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/Lightning Impact 2.ogg" range="1600" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/Lightning Impact 3.ogg" range="1600" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/Lightning Impact 4.ogg" range="1600" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/Lightning Impact 5.ogg" range="1600" selectionmode="Random" />
+        <Sound file="%ModDir%/践行者/音效/Lightning Impact 6.ogg" range="1600" selectionmode="Random" />
       </StatusEffect>
 
       <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">

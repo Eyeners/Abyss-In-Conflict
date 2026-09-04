@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item
+    identifier="aic_threat_plague_dragger_tongue"
+    nameidentifier="tonguetendon"
+    hideinmenus="true"
+    category=""
+    health="100"
+    sonarsize="0"
+    scale="0.5"
+    damagedbyexplosions="false"
+    damagedbyprojectiles="false"
+    damagedbyrepairtools="false"
+    damagedbymeleeweapons="false"
+    impactsoundtag="impact_soft">
+    <Sprite texture="Content/Characters/Latcher/Latcher.png" sourcerect="0,0,1,1" depth="0.55" origin="0.5,0.5" />
+    <Body radius="8" density="1" />
+    <Rope
+      sourcepullforce="0"
+      targetpullforce="600"
+      projectilepullforce="0"
+      maxlength="1000"
+      minpulldistance="70"
+      snaponcollision="false"
+      spritewidth="20"
+      tile="true"
+      targetminmass="0"
+      lerpforces="true"
+      increaseforceforescapingtargets="true"
+      snapanimduration="1"
+      breakfrommiddle="false">
+      <Sprite name="tongue" texture="Content/Characters/Latcher/Latcher.png" sourcerect="16,0,480,256" depth="0.57" origin="0.5,0.5" />
+      <StatusEffect type="OnUse" target="This" snapped="true" delay="2" />
+      <StatusEffect type="Always" target="This" delay="1" checkconditionalalways="true">
+        <Conditional snapped="true" />
+        <Remove />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="This" snapped="true" delay="2" checkconditionalalways="true">
+        <Conditional targetitemcomponent="Projectile" isstucktotarget="false" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="This" delay="3">
+        <Remove />
+      </StatusEffect>
+    </Rope>
+    <Projectile
+      characterusable="false"
+      launchimpulse="35"
+      sticktostructures="false"
+      sticktoitems="false"
+      sticktodoors="false"
+      sticktodeflective="true"
+      sticktocharacters="true"
+      sticktolighttargets="true"
+      maxtargetstohit="1"
+      jointbreakpoint="10000"
+      prismatic="false">
+      <Attack structuredamage="0" itemdamage="0" targetforce="0" severlimbsprobability="0">
+        <Affliction identifier="stun" strength="2" />
+      </Attack>
+      <StatusEffect type="OnActive" target="UseTarget,This" comparison="And" disabledeltatime="true">
+        <Conditional snapped="false" />
+        <Affliction identifier="drag" strength="1" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="This">
+        <particleemitter drawontop="true" particle="tonguehitsplash" particleamount="8" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="360" />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+</Items>

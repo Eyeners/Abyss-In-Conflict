@@ -11,6 +11,9 @@
       <StatusEffect type="Always" target="This" condition="-1" disabledeltatime="false" />
       <StatusEffect type="Always" target="NearbyCharacters" range="100" interval="0.5" stackable="false" disabledeltatime="true">
         <Affliction identifier="aic_nanite_infection" strength="0.05" probability="0.5" />
+      </StatusEffect>
+      <StatusEffect type="Always" target="NearbyCharacters" range="100" interval="0.5" stackable="false" disabledeltatime="true">
+        <Conditional aic_nanite_iff_code="lt 0.1" />
         <Affliction identifier="aic_nanite_erosion" strength="0.1" />
       </StatusEffect>
       <StatusEffect type="OnDamaged" target="This" requiredafflictions="emp" comparison="and">

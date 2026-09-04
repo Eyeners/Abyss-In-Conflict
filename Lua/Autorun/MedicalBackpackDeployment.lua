@@ -4,17 +4,44 @@ end
 
 local BACKPACK_IDENTIFIER = "aic_multifunction_medical_backpack_test"
 local TABLE_IDENTIFIER = "aic_multifunction_medical_autopsy_table_test"
-local FALLBACK_INTERVAL = 0.5
+local TRACKED_CHECK_INTERVAL = 0.5
+local DISCOVERY_INTERVAL = 5.0
 local TRANSFORM_DELAY_MS = 100
 
 local pending = {}
-local nextFallbackTime = 0
+local trackedItems = {}
+local nextTrackedCheckTime = 0
+local nextDiscoveryTime = 0
 
 local function GetIdentifier(item)
     if item == nil or item.Prefab == nil or item.Prefab.Identifier == nil then
         return ""
     end
     return string.lower(tostring(item.Prefab.Identifier.Value))
+end
+
+local function TrackItem(item)
+    if item == nil or item.Removed then
+        return nil
+    end
+
+    local identifier = GetIdentifier(item)
+    if identifier ~= BACKPACK_IDENTIFIER and identifier ~= TABLE_IDENTIFIER then
+        trackedItems[item] = nil
+        return nil
+    end
+
+    trackedItems[item] = identifier
+    return identifier
+end
+
+local function ForgetItem(item)
+    if item == nil then
+        return
+    end
+
+    trackedItems[item] = nil
+    pending[item] = nil
 end
 
 local function GetItemContainers(item)
@@ -75,12 +102,13 @@ local function SpawnReplacement(sourceItem, prefabIdentifier, sourceInventory, t
             pending[sourceItem] = nil
             return
         end
+        TrackItem(replacement)
         pending[replacement] = true
 
         if sourceItem == nil or sourceItem.Removed then
             Entity.Spawner.AddItemToRemoveQueue(replacement)
-            pending[replacement] = nil
-            pending[sourceItem] = nil
+            ForgetItem(replacement)
+            ForgetItem(sourceItem)
             return
         end
 
@@ -89,7 +117,7 @@ local function SpawnReplacement(sourceItem, prefabIdentifier, sourceInventory, t
         if targetContainer == nil or not MoveInventory(sourceInventory, targetContainer.Inventory) then
             print("[AIC] Failed to transfer multifunction medical backpack inventory")
             Entity.Spawner.AddItemToRemoveQueue(replacement)
-            pending[replacement] = nil
+            ForgetItem(replacement)
             pending[sourceItem] = nil
             return
         end
@@ -109,6 +137,7 @@ local function SpawnReplacement(sourceItem, prefabIdentifier, sourceInventory, t
         end
 
         Entity.Spawner.AddItemToRemoveQueue(sourceItem)
+        trackedItems[sourceItem] = nil
         pending[replacement] = nil
         pending[sourceItem] = nil
     end
@@ -150,13 +179,20 @@ local function PackTable(tableItem)
     SpawnReplacement(tableItem, BACKPACK_IDENTIFIER, outputContainer.Inventory, 1, false)
 end
 
-local function CheckTransformation(item)
-    if item == nil or item.Removed or pending[item] then
+local function CheckTransformation(item, knownIdentifier)
+    if item == nil then
+        return
+    end
+    if item.Removed then
+        ForgetItem(item)
+        return
+    end
+    if pending[item] then
         return
     end
 
-    local identifier = GetIdentifier(item)
-    if identifier ~= BACKPACK_IDENTIFIER and identifier ~= TABLE_IDENTIFIER then
+    local identifier = knownIdentifier or trackedItems[item] or TrackItem(item)
+    if identifier == nil then
         return
     end
 
@@ -175,8 +211,7 @@ local function CheckTransformation(item)
 end
 
 local function ScheduleCheck(item)
-    local identifier = GetIdentifier(item)
-    if identifier ~= BACKPACK_IDENTIFIER and identifier ~= TABLE_IDENTIFIER then
+    if TrackItem(item) == nil then
         return
     end
     Timer.Wait(function()
@@ -192,18 +227,38 @@ Hook.Add("item.drop", "aic_medical_backpack_transform_drop", function(item)
     ScheduleCheck(item)
 end)
 
+Hook.Add("item.created", "aic_medical_backpack_transform_created", function(item)
+    TrackItem(item)
+end)
+
+Hook.Add("item.removed", "aic_medical_backpack_transform_removed", function(item)
+    ForgetItem(item)
+end)
+
+-- Creation/removal hooks cover normal play; discovery only recovers items missed during load or Lua reload.
 Hook.Add("think", "aic_medical_backpack_transform_fallback", function()
     local now = Timer.GetTime()
-    if now < nextFallbackTime then
+
+    if now >= nextDiscoveryTime then
+        nextDiscoveryTime = now + DISCOVERY_INTERVAL
+        for item in Item.ItemList do
+            TrackItem(item)
+        end
+    end
+
+    if now < nextTrackedCheckTime then
         return
     end
-    nextFallbackTime = now + FALLBACK_INTERVAL
+    nextTrackedCheckTime = now + TRACKED_CHECK_INTERVAL
 
-    for item in Item.ItemList do
-        CheckTransformation(item)
+    for item, identifier in pairs(trackedItems) do
+        CheckTransformation(item, identifier)
     end
 end)
 
 Hook.Add("roundEnd", "aic_medical_backpack_transform_cleanup", function()
     pending = {}
+    trackedItems = {}
+    nextTrackedCheckTime = 0
+    nextDiscoveryTime = 0
 end)

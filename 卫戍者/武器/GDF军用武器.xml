@@ -77,12 +77,24 @@
         <Use />
       </StatusEffect>
 
-      <!-- 普通射击每发为枪体积累5%蓄能。枪体耐久在这里作为蓄能量表使用。 -->
-      <StatusEffect type="OnUse" target="This" condition="5" disabledeltatime="true">
+      <!-- 普通射击每发为枪体积累5%蓄能。枪体耐久在这里作为蓄能使用。 -->
+      <StatusEffect type="OnUse" target="This" condition="5.3" disabledeltatime="true">
         <Conditional conditionpercentage="lt 99" />
       </StatusEffect>
       <StatusEffect type="OnUse" target="This" condition="99" setvalue="true" disabledeltatime="true">
         <Conditional conditionpercentage="gte 99" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" targettype="Contained" targets="aic_gdf_redstar_mode_token" tags="aic_gdf_redstar_mode_beam" setvalue="true" disabledeltatime="true">
+        <Conditional conditionpercentage="gte 99" targetcontainer="true" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="This">
+        <Conditional conditionpercentage="gte 99" />
+        <LuaHook name="aic_redstar_eject_battery" />
+      </StatusEffect>
+      <!-- 主电池槽不能留空，否则 NPC 会把同一物品上的 RepairTool 束流判定为空。 -->
+      <StatusEffect type="OnUse" target="This">
+        <Conditional conditionpercentage="gte 99" />
+        <SpawnItem identifier="aic_gdf_redstar_beam_capacitor" spawnposition="ThisInventory" />
       </StatusEffect>
 
       <RequiredItems items="aic_gdf_redstar_mode_normal" type="Contained" />
@@ -90,14 +102,14 @@
       <RequiredSkill identifier="weapons" level="45" />
     </RangedWeapon>
 
-    <!-- 满蓄能后可切换的连续等离子束。25%/秒的消耗提供约4秒持续射击。 -->
+    <!-- 满蓄能后自动切换的连续等离子束。25%/秒的消耗提供约4秒持续射击。 -->
     <RepairTool
       firedamage="60"
       structurefixamount="-8"
       levelwallfixamount="-8"
       range="1400"
       barrelpos="43.4,5.6"
-      combatpriority="92"
+      combatpriority="82"
       repairmultiple="true"
       repairthroughwalls="false"
       repairthroughholes="false"
@@ -117,6 +129,14 @@
       </StatusEffect>
       <StatusEffect type="OnUse" targettype="Contained" targets="aic_gdf_redstar_mode_token" tags="aic_gdf_redstar_mode_normal" setvalue="true" disabledeltatime="true">
         <Conditional conditionpercentage="lte 1" targetcontainer="true" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" targettype="Contained" targets="aic_gdf_redstar_beam_capacitor">
+        <Conditional conditionpercentage="lte 1" targetcontainer="true" />
+        <Remove />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="This">
+        <Conditional conditionpercentage="lte 1" />
+        <LuaHook name="aic_redstar_reload_after_beam" />
       </StatusEffect>
 
       <StatusEffect type="OnSuccess" target="Limb">
@@ -171,6 +191,7 @@
           <Sound file="%ModDir%/卫戍者/音效/装电池ReloadEnd.ogg" type="OnInserted" range="200" loop="false" volume="0.8" />
         </StatusEffect>
       </Containable>
+      <Containable items="aic_gdf_redstar_beam_capacitor" hide="true" />
 
     </ItemContainer>
 
@@ -178,19 +199,6 @@
     <ItemContainer capacity="1" maxstacksize="1" hideitems="true" drawinventory="false" canbeselected="false" spawnwithid="aic_gdf_redstar_mode_token">
       <Containable items="aic_gdf_redstar_mode_token" />
     </ItemContainer>
-
-    <CustomInterface canbeselected="false" drawhudwhenequipped="true" allowuioverlap="true">
-      <GuiFrame relativesize="0.12,0.06" anchor="BottomLeft" relativeoffset="0.02,0.28" style="ItemUI" />
-      <Button text="蓄能束流">
-        <StatusEffect type="OnUse" targettype="Contained" targets="aic_gdf_redstar_mode_token" tags="aic_gdf_redstar_mode_beam" setvalue="true" disabledeltatime="true">
-          <Conditional conditionpercentage="gte 99" targetcontainer="true" />
-        </StatusEffect>
-        <StatusEffect type="OnUse" target="Contained" targetslot="0">
-          <Conditional conditionpercentage="gte 99" targetcontainer="true" />
-          <DropItem />
-        </StatusEffect>
-      </Button>
-    </CustomInterface>
 
     <AITarget sightrange="3200" soundrange="2400" fadeouttime="7" />
 
@@ -207,6 +215,24 @@
     category="Hidden"
     hideinmenus="true"
     tags="aic_gdf_redstar_mode_token,aic_gdf_redstar_mode_normal"
+    scale="0.1"
+    impactsoundtag="impact_metal_light">
+    <Sprite texture="%ModDir%/卫戍者/贴图/GDF红星等离子电池栈.png" sourcerect="0,0,8,8" depth="0.9" origin="0.5,0.5" />
+    <Body width="8" height="8" density="1" />
+    <ItemComponent allowingameediting="false">
+      <StatusEffect type="OnNotContained" target="This">
+        <Remove />
+      </StatusEffect>
+    </ItemComponent>
+  </Item>
+
+  <!-- 束流期间留在主电池槽中的隐藏占位件，只用于通过 NPC 的武器非空判定。 -->
+  <Item
+    name=""
+    identifier="aic_gdf_redstar_beam_capacitor"
+    category="Hidden"
+    hideinmenus="true"
+    tags="aic_gdf_redstar_beam_capacitor"
     scale="0.1"
     impactsoundtag="impact_metal_light">
     <Sprite texture="%ModDir%/卫戍者/贴图/GDF红星等离子电池栈.png" sourcerect="0,0,8,8" depth="0.9" origin="0.5,0.5" />
@@ -296,7 +322,7 @@
       <ParticleEmitter particle="FlareBubbles" emitacrossrayinterval="50" />
 
       <Attack structuredamage="3" targetforce="10" itemdamage="20" severlimbsprobability="0.2" penetration="0.3">
-        <Affliction identifier="burn" strength="32" />
+        <Affliction identifier="burn" strength="34" />
         <Affliction identifier="explosiondamage" strength="12" />
         <Affliction identifier="aic_heat_buildup" strength="15" />
       </Attack>
@@ -317,6 +343,110 @@
         <Remove />
       </StatusEffect>
     </Projectile>
+  </Item>
+
+  <Item
+    name=""
+    identifier="aic_gdf_broadsword_battle_rifle"
+    category="Weapon"
+    subcategory="GDF军用武器"
+    cargocontaineridentifier="metalcrate"
+    tags="mediumitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_gdf_weapon,aic_wardens_weapon,aic_rifle"
+    scale="0.068"
+    impactsoundtag="impact_metal_light"
+    description="">
+
+    <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
+
+    <InventoryIcon texture="%ModDir%/卫戍者/贴图/GDF阔剑战斗步枪.png" sourcerect="0,0,1657,538" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/卫戍者/贴图/GDF阔剑战斗步枪.png" sourcerect="0,0,1657,538" depth="0.55" origin="0.5,0.5" />
+    <Body width="112.7" height="36.6" density="32" />
+
+    <Holdable
+      slots="RightHand+LeftHand,Any"
+      controlpose="true"
+      holdpos="60,-10"
+      holdangle="-35"
+      aimpos="68,0"
+      handle1="-352,-142"
+      handle2="216,-97">
+      <Conditional recoilstabilized="lte 0" />
+      <StatusEffect type="OnActive" target="Character" speedmultiplier="0.84" setvalue="true" />
+      <StatusEffect type="OnSecondaryUse" target="Character" speedmultiplier="0.72" setvalue="true" />
+      <StatusEffect type="OnUse" target="Character" speedmultiplier="0.46" setvalue="true" />
+    </Holdable>
+
+    <RangedWeapon
+      reload="0.5"
+      holdtrigger="true"
+      barrelpos="824,58"
+      spread="1.0"
+      unskilledspread="4.0"
+      combatpriority="84"
+      drawhudwhenequipped="true"
+      crosshairscale="0.22">
+
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+
+      <ParticleEmitter particle="muzzleflash" scalemultiplier="1.0,1.0" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="229,221,215,255" />
+      <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="220" copyentityangle="true" />
+
+      <Sound file="%ModDir%/卫戍者/音效/军团1.ogg" type="OnUse" range="2400" selectionmode="Random" />
+      <Sound file="%ModDir%/卫戍者/音效/军团2.ogg" type="OnUse" range="2400" selectionmode="Random" />
+      <Sound file="%ModDir%/卫戍者/音效/军团3.ogg" type="OnUse" range="2400" selectionmode="Random" />
+      <Sound file="%ModDir%/卫戍者/音效/军团4.ogg" type="OnUse" range="2400" selectionmode="Random" />
+
+      <StatusEffect type="OnUse" target="Contained">
+        <Use />
+      </StatusEffect>
+
+      <RequiredItems items="aic_gdf_broadsword_box_magazine" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="45" />
+    </RangedWeapon>
+
+    <ItemContainer
+      capacity="1"
+      maxstacksize="1"
+      hideitems="false"
+      containedspritedepth="0.56"
+      containedstateindicatorslot="0"
+      containedstateindicatorstyle="bullet">
+
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+
+      <Containable
+        items="aic_gdf_broadsword_box_magazine"
+        hide="false"
+        itempos="-3.7,-9.2"
+        rotation="0"
+        setactive="true">
+
+        <StatusEffect type="OnInserted" target="This" holdpos="6,-24" holdangle="58" maxchargetime="999" setvalue="true" />
+
+        <StatusEffect type="OnInserted" target="This" setvalue="true">
+          <Conditional isactive="eq true" />
+          <Sound file="%ModDir%/卫戍者/音效/ReloadStart1.ogg" type="OnInserted" range="200" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%/卫戍者/音效/ReloadStart2.ogg" type="OnInserted" range="200" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%/卫戍者/音效/ReloadStart3.ogg" type="OnInserted" range="200" loop="false" volume="0.8" selectionmode="Random" />
+        </StatusEffect>
+
+        <StatusEffect type="OnInserted" target="This" holdpos="60,-10" holdangle="-35" disabledeltatime="true" checkconditionalalways="true" delay="3" maxchargetime="0" setvalue="true">
+          <Conditional maxchargetime="eq 999" />
+          <Sound file="%ModDir%/卫戍者/音效/ReloadEnd1.ogg" type="OnInserted" range="200" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%/卫戍者/音效/ReloadEnd2.ogg" type="OnInserted" range="200" loop="false" volume="0.8" selectionmode="Random" />
+          <Sound file="%ModDir%/卫戍者/音效/ReloadEnd3.ogg" type="OnInserted" range="200" loop="false" volume="0.8" selectionmode="Random" />
+        </StatusEffect>
+      </Containable>
+    </ItemContainer>
+
+    <AITarget sightrange="2800" soundrange="2400" fadeouttime="7" />
+
+    <Quality>
+      <QualityStat stattype="FirepowerMultiplier" value="0.08" />
+    </Quality>
+
+    <SkillRequirementHint identifier="weapons" level="45" />
   </Item>
 
   <Item
@@ -624,6 +754,107 @@
     </Quality>
 
     <SkillRequirementHint identifier="weapons" level="60" />
+  </Item>
+
+  <Item
+    name=""
+    identifier="aic_gdf_broadsword_box_magazine"
+    health="240"
+    maxstacksize="16"
+    maxstacksizecharacterinventory="2"
+    category="Weapon"
+    subcategory="GDF军用武器"
+    cargocontaineridentifier="metalcrate"
+    linkable="true"
+    tags="smallitem,handheldammo,aic_gdf_weaponmag,aic_wardens_weaponmag,aic_gdf_broadsword_box_magazine"
+    scale="0.068"
+    impactsoundtag="impact_metal_light"
+    description="">
+
+    <PreferredContainer primary="aic_gdf_broadsword_battle_rifle" minamount="1" maxamount="1" spawnprobability="1" />
+    <PreferredContainer primary="armcab" secondary="secarmcab" />
+
+    <Fabricate suitablefabricators="fabricator" requiredtime="16" amount="1">
+      <RequiredSkill identifier="weapons" level="45" />
+      <RequiredItem identifier="aic_material_tungsten_steel" amount="4" />
+      <RequiredItem identifier="flashpowder" amount="2" />
+    </Fabricate>
+
+    <Fabricate suitablefabricators="fabricator" requiredtime="16" displayname="recycleitem" amount="2">
+      <RequiredSkill identifier="weapons" level="45" />
+      <RequiredItem identifier="aic_gdf_broadsword_box_magazine" mincondition="0.0" maxcondition="0.2" usecondition="false" amount="2" />
+      <RequiredItem identifier="aic_material_tungsten_steel" amount="2" />
+      <RequiredItem identifier="flashpowder" amount="2" />
+    </Fabricate>
+
+    <InventoryIcon texture="%ModDir%/卫戍者/贴图/GDF阔剑盒装弹匣.png" sourcerect="0,0,239,421" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/卫戍者/贴图/GDF阔剑盒装弹匣.png" sourcerect="0,0,239,421" depth="0.56" origin="0.5,0.5" />
+    <Body width="16.3" height="28.6" density="25" />
+
+    <ItemContainer
+      hideitems="true"
+      capacity="1"
+      drawinventory="false"
+      canbeselected="false"
+      showconditionincontainedstateindicator="true"
+      spawnwithid="aic_gdf_armor_piercing_explosive_round"
+      removecontaineditemsondeconstruct="true"
+      containedstateindicatorstyle="bullet">
+
+      <Containable items="aic_gdf_armor_piercing_explosive_round" />
+
+      <StatusEffect type="OnUse" target="This" condition="-4" disabledeltatime="true">
+        <SpawnItem identifiers="aic_gdf_armor_piercing_explosive_round" spawnposition="ThisInventory" />
+      </StatusEffect>
+    </ItemContainer>
+
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="GDF穿甲爆破弹"
+    identifier="aic_gdf_armor_piercing_explosive_round"
+    category="Weapon"
+    interactthroughwalls="true"
+    cargocontaineridentifier="metalcrate"
+    tags="smallitem,aic_gdf_round,aic_gdf_armor_piercing_explosive_round"
+    impactsoundtag="impact_metal_light"
+    hideinmenus="true"
+    scale="0.5">
+
+    <InventoryIcon texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.7,0.6" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+    <Body width="17" height="6" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+
+    <Projectile characterusable="true" hitscan="true" removeonhit="true">
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,205,145,210" scalemultiplier="1.1,0.8" />
+
+      <Attack structuredamage="20" targetforce="10" itemdamage="10" severlimbsprobability="0.8" penetration="0.3">
+        <Affliction identifier="gunshotwound" strength="25" />
+        <Affliction identifier="explosiondamage" strength="18" />
+        <Affliction identifier="aic_armorbreaker" strength="1" />
+      </Attack>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Sound file="Content/Items/Weapons/ExplosionSmall1.ogg" range="1800" selectionmode="Random" />
+        <Sound file="Content/Items/Weapons/ExplosionSmall2.ogg" range="1800" selectionmode="Random" />
+        <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="2.2,2.2" />
+        <Explosion range="20" force="2" shockwave="false" smoke="false" flames="false" sparks="true" underwaterbubble="false" camerashake="2" playtinnitus="false">
+          <Affliction identifier="explosiondamage" strength="10" dividebylimbcount="false" />
+        </Explosion>
+      </StatusEffect>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="7" velocitymin="-10" velocitymax="-220" scalemin="0.5" scalemax="1.1" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
   </Item>
 
   <Item

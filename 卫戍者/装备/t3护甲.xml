@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Items>
-  <Item name="壁垒实验型动力装甲" identifier="aic_wardens_bastion_experimental_powerarmor" category="Equipment,Diving" subcategory="卫戍者护甲" tags="mobilecontainer,armor,clothing,diving,deepdiving,divinggear_wearableindoors,human,aic_wardens_armor" scale="0.167" fireproof="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate" description="地球防卫部队在后感染时期研发的实验型动力装甲，表层由超导物质层和护盾电容串联成迈斯纳护盾发生器，可防护金属实弹、荷电粒子、等离子团等各种带电攻击，其自身的材质和装甲则保障了对于激光等武器的防护能力。">
+  <Item name="壁垒实验型动力装甲" identifier="aic_wardens_bastion_experimental_powerarmor" category="Equipment,Diving" subcategory="卫戍者护甲" tags="mobilecontainer,armor,clothing,diving,deepdiving,divinggear_wearableindoors,human,aic_wardens_armor" scale="0.167" fireproof="true" damagedbyprojectiles="true" indestructible="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate" description="地球防卫部队在后感染时期研发的实验型动力装甲，表层由超导物质层和护盾电容串联成迈斯纳护盾发生器，可防护金属实弹、荷电粒子、等离子团等各种带电攻击，其自身的材质和装甲则保障了对于激光等武器的防护能力。">
     <PreferredContainer primary="divingsuitcontainer,divingsuitlocker,steelcabinet" />
     <Fabricate suitablefabricators="fabricator" requiredtime="60">
       <RequiredSkill identifier="mechanical" level="70" />
@@ -12,27 +12,27 @@
       <RequiredItem identifier="aic_material_superconductive_bearing" amount="4" />
     </Fabricate>
     <InventoryIcon texture="%ModDir%/卫戍者/贴图/壁垒总图.png" sourcerect="1741,100,318,260" scale="0.2" origin="0.5,0.5" />
-    <Sprite name="Bastion Experimental Power Armor Item" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" sourcerect="1439,400,498,368" depth="0.55" origin="0.5,0.5" />
+    <Sprite name="Bastion Experimental Power Armor Item" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" sourcerect="1751,1187,611,740" depth="0.55" origin="0.5,0.5" />
     <ContainedSprite name="Bastion Experimental Power Armor In Diving Locker" allowedcontainertags="divingsuitcontainervertical,divingsuitcontainerwindow" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" sourcerect="1958,424,238,652" depth="0.55" origin="-0.12,-0.117" />
-    <Body radius="45" width="34" density="20" />
-    <Wearable slots="OuterClothes+Head" msg="ItemMsgEquipSelect" displaycontainedstatus="true" canbepicked="true" pickkey="Select">
-      <sprite name="Bastion Experimental Helmet" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="Head" inheritlimbdepth="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hidelimb="true" alphaclipotherwearables="true" sourcerect="1508,121,173,167" origin="0.44,0.86" depthlimb="LeftHand" canbehiddenbyotherwearables="false" hideotherwearables="true">
+    <Body width="611" height="740" density="20" />
+    <ScalingWearable slots="OuterClothes" ScaleMultiplier="1.2" msg="ItemMsgEquipSelect" displaycontainedstatus="true" canbepicked="true" pickkey="Select">
+      <sprite name="Bastion Experimental Helmet" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hidelimb="true" sourcerect="1508,121,173,167" origin="0.5,0.55" depthlimb="LeftHand" canbehiddenbyotherwearables="false" hideotherwearables="true">
         <LightComponent LightColor="220,220,220,120" range="5000" castshadows="false" powerconsumption="infinity" IsOn="true" flicker="0.1" flickerspeed="0.5" pulsefrequency="0.1" pulseamount="0.1" />
       </sprite>
-      <sprite name="Bastion Experimental Torso" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="Torso" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="628,338,326,577" origin="0.56,0.5" inheritlimbdepth="true" />
-      <sprite name="Bastion Experimental Right Hand" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftHand" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="1310,791,82,105" origin="0.4,0.25" />
-      <sprite name="Bastion Experimental Left Hand" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightHand" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="1006,791,82,105" origin="0.4,0.25" />
-      <sprite name="Bastion Experimental Right Arm" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightArm" depthlimb="RightForearm" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="1264,91,144,255" origin="0.5,0.5" />
-      <sprite name="Bastion Experimental Left Arm" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftArm" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="977,91,144,255" origin="0.5,0.5" />
-      <sprite name="Bastion Experimental Right Forearm" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftForearm" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="1288,500,97,169" origin="0.5,0.4" />
-      <sprite name="Bastion Experimental Left Forearm" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightForearm" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="1002,500,97,169" origin="0.5,0.4" depthlimb="RightArm" />
-      <sprite name="Bastion Experimental Waist" texture="%ModDir%/卫戍者/贴图/阵线外层空间作战护甲原型.png" limb="Waist" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.5,0.5" sourcerect="192,186,51,49" depthlimb="LeftFoot" />
-      <sprite name="Bastion Experimental Right Thigh" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftThigh" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="441,178,163,325" origin="0.45,0.6" />
-      <sprite name="Bastion Experimental Left Thigh" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightThigh" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="149,178,163,325" origin="0.45,0.6" inheritlimbdepth="true" />
-      <sprite name="Bastion Experimental Right Leg" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftLeg" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="451,702,143,320" origin="0.5,0.5" />
-      <sprite name="Bastion Experimental Left Leg" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightLeg" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="165,702,143,320" origin="0.5,0.5" depthlimb="Torso" />
-      <sprite name="Bastion Experimental Left Foot" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="960,957,161,97" origin="0.5,0.5" depthlimb="RightArm" />
-      <sprite name="Bastion Experimental Right Foot" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftFoot" inheritlimbdepth="true" sound="footstep_armor_heavy" hidelimb="true" inheritscale="false" ignorelimbscale="true" scale="0.2" hideotherwearables="true" sourcerect="1264,955,161,97" origin="0.5,0.5" />
+      <sprite name="Bastion Experimental Torso" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="Torso" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="628,338,326,577" origin="0.58,0.44" inheritlimbdepth="true" size="1.01,1" />
+      <sprite name="Bastion Experimental Right Hand" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftHand" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="1310,791,82,105" origin="0.4,0.25" />
+      <sprite name="Bastion Experimental Left Hand" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightHand" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="1006,791,82,105" origin="0.4,0.25" />
+      <sprite name="Bastion Experimental Right Arm" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightArm" depthlimb="RightForearm" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="1264,91,144,255" origin="0.5,0.5" />
+      <sprite name="Bastion Experimental Left Arm" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftArm" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="977,91,144,255" origin="0.5,0.5" />
+      <sprite name="Bastion Experimental Right Forearm" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftForearm" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="1288,500,97,169" origin="0.5,0.4" />
+      <sprite name="Bastion Experimental Left Forearm" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightForearm" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="1002,500,97,169" origin="0.5,0.4" depthlimb="RightArm" />
+      <sprite name="Bastion Experimental Waist" texture="%ModDir%/卫戍者/贴图/阵线外层空间作战护甲原型.png" limb="Waist" hidelimb="true" scale="1" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" hideotherwearables="true" origin="0.5,0.5" sourcerect="192,186,51,49" depthlimb="LeftFoot" />
+      <sprite name="Bastion Experimental Right Thigh" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftThigh" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="441,178,163,325" origin="0.5,0.5" />
+      <sprite name="Bastion Experimental Left Thigh" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightThigh" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="149,178,163,325" origin="0.5,0.5" inheritlimbdepth="true" />
+      <sprite name="Bastion Experimental Right Leg" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftLeg" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="451,702,143,320" origin="0.5,0.5" />
+      <sprite name="Bastion Experimental Left Leg" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightLeg" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="165,702,143,320" origin="0.5,0.5" depthlimb="Torso" />
+      <sprite name="Bastion Experimental Left Foot" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="960,957,161,97" origin="0.5,0.5" depthlimb="RightArm" />
+      <sprite name="Bastion Experimental Right Foot" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftFoot" inheritlimbdepth="true" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="1264,955,161,97" origin="0.5,0.5" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound" damagemultiplier="0.08" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.08" damagesound="LimbArmor" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="explosiondamage" damagemultiplier="0.15" damagesound="LimbArmor" deflectprojectiles="true" />
@@ -44,7 +44,8 @@
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="electricshock" damagemultiplier="0.15" damagesound="LimbArmor" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="stun" damagemultiplier="0.15" damagesound="LimbArmor" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="concussion" damagemultiplier="0.0" deflectprojectiles="true" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="huskinfection,aic_nanite_infection" probabilitymultiplier="0.05" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="alieninfection" probabilitymultiplier="0.05" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_nanite_infection" probabilitymultiplier="0.05" damagesound="LimbArmor" />
       <StatusEffect type="OnWearing" target="Character" UseHullOxygen="true" PressureProtection="9500.0" setvalue="true" disabledeltatime="true" />
       <StatusEffect type="OnContained" target="Contained" Condition="1.0" targetslot="0" interval="1" disabledeltatime="true">
         <Conditional Voltage="gt 0.01" targetcontainer="true" targetgrandparent="true" targetitemcomponent="Powered" />
@@ -136,14 +137,13 @@
           </StatusEffect>
         </TickBox>
       </CustomInterface>
-    </Wearable>
+    </ScalingWearable>
     <ItemComponent>
       <StatusEffect type="OnSpawn" target="This">
         <LuaHook name="aic_bastion_shield_enable_silent" />
       </StatusEffect>
     </ItemComponent>
     <StatusHUD drawhudwhenequipped="true" overlaycolor="72,119,72,120" range="500" thermalgoggles="false" showdeadcharacters="true" showtexts="true" />
-    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="0,-50" handle1="-10,-20" handle2="10,-20" holdangle="45" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" />
     <ItemContainer capacity="0" maxstacksize="0" hideitems="true" containedstateindicatorstyle="tank" containedstateindicatorslot="0" autoinject="true">
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
       <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="384,448,64,64" origin="0.5,0.5" />

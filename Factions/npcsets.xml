@@ -160,6 +160,57 @@
         <Item identifier="opium" amount="2" />
       </ItemSet>
     </npc>
+
+    <npc identifier="aic_gdf_security_trooper" tags="securitynpc,aic_gdf_security_trooper" faction="coalition" job="securityofficer" moduleflags="none" behavior="Patrol" healthmultiplier="1.2" aimspeed="15" aimaccuracy="1">
+      <Character speciesname="human" tags="male,head14" hairindex="3" beardindex="0" moustacheindex="0" faceattachmentindex="0" skincolor="210,168,130,255" haircolor="62,60,58,255" facialhaircolor="62,60,58,255" personality="professional">
+        <job identifier="securityofficer">
+          <skill identifier="weapons" level="80" />
+          <skill identifier="mechanical" level="50" />
+          <skill identifier="electrical" level="35" />
+          <skill identifier="medical" level="45" />
+          <skill identifier="helm" level="15" />
+        </job>
+      </Character>
+      <ItemSet commonness="1">
+        <Item identifier="idcard" equip="true" />
+        <Item identifier="headset" equip="true" showpreview="false" />
+        <Item identifier="aic_wardens_gdf_sentinel_biohazard_armor" equip="true" />
+        <Item identifier="aic_gdf_downpour_smg" equip="true">
+          <Item identifier="aic_gdf_small_piezoelectric_magazine" />
+        </Item>
+        <Item identifier="aic_gdf_small_piezoelectric_magazine" amount="8" />
+        <Item identifier="aic_gdf_small_magazine" amount="8" />
+        <Item identifier="stunbaton">
+          <Item identifier="batterycell" />
+        </Item>
+        <Item identifier="handcuffs" />
+        <Item identifier="antibleeding1" amount="4" />
+        <Item identifier="opium" amount="2" />
+      </ItemSet>
+    </npc>
+
+    <npc identifier="aic_gdf_breaching_trooper" tags="securitynpc,aic_gdf_breaching_trooper" faction="coalition" job="securityofficer" moduleflags="none" behavior="Patrol" healthmultiplier="1.2" aimspeed="15" aimaccuracy="1">
+      <Character speciesname="human" tags="male,head14" hairindex="3" beardindex="0" moustacheindex="0" faceattachmentindex="0" skincolor="210,168,130,255" haircolor="62,60,58,255" facialhaircolor="62,60,58,255" personality="professional">
+        <job identifier="securityofficer">
+          <skill identifier="weapons" level="80" />
+          <skill identifier="mechanical" level="50" />
+          <skill identifier="electrical" level="35" />
+          <skill identifier="medical" level="45" />
+          <skill identifier="helm" level="15" />
+        </job>
+      </Character>
+      <ItemSet commonness="1">
+        <Item identifier="idcard" equip="true" />
+        <Item identifier="headset" equip="true" showpreview="false" />
+        <Item identifier="aic_wardens_gdf_sentinel_biohazard_armor" equip="true" />
+        <Item identifier="aic_gdf_broadsword_battle_rifle" equip="true">
+          <Item identifier="aic_gdf_broadsword_box_magazine" />
+        </Item>
+        <Item identifier="aic_gdf_broadsword_box_magazine" amount="2" />
+        <Item identifier="antibleeding1" amount="4" />
+        <Item identifier="opium" amount="2" />
+      </ItemSet>
+    </npc>
   </npcset>
 
   <npcset identifier="aic_practitioner_combatants">

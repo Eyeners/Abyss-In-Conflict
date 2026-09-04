@@ -262,6 +262,23 @@
       <GoTo name="aic_wardens_dispatcher_wait" />
 
       <Label name="aic_wardens_dispatcher_store_low" />
+      <CheckReputationAction targettype="Faction" identifier="aic_wardens_pmc" condition="gte 40">
+        <Success>
+          <CheckDifficultyAction mindifficulty="20">
+            <Success>
+              <GoTo name="aic_wardens_dispatcher_store_low_advanced" />
+            </Success>
+            <Failure>
+              <GoTo name="aic_wardens_dispatcher_store_low_basic" />
+            </Failure>
+          </CheckDifficultyAction>
+        </Success>
+        <Failure>
+          <GoTo name="aic_wardens_dispatcher_store_low_basic" />
+        </Failure>
+      </CheckReputationAction>
+
+      <Label name="aic_wardens_dispatcher_store_low_basic" />
       <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.low.greeting" endeventifinterrupted="false">
         <Option text="eventtext.aic_wardens_dispatcher.store.low.option.materials">
           <CheckReputationAction targettype="Faction" identifier="aic_gdf_contribution" condition="gte 2">
@@ -359,6 +376,203 @@
         </Option>
       </ConversationAction>
       <GoTo name="aic_wardens_dispatcher_wait" />
+
+      <Label name="aic_wardens_dispatcher_store_low_advanced" />
+      <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.low.greeting" endeventifinterrupted="false">
+        <Option text="eventtext.aic_wardens_dispatcher.store.low.option.materials">
+          <CheckReputationAction targettype="Faction" identifier="aic_gdf_contribution" condition="gte 2">
+            <Success>
+              <CheckMoneyAction amount="1500">
+                <Success>
+                  <ReputationAction targettype="Faction" identifier="aic_gdf_contribution" increase="-2" />
+                  <MoneyAction amount="-1500" />
+                  <SpawnAction itemidentifier="aic_material_special_metal_crate" amount="1" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
+                  <SpawnAction itemidentifier="phosphorus" amount="4" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
+                  <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.low.success" waitforinteraction="false" endeventifinterrupted="false" />
+                  <GoTo name="aic_wardens_dispatcher_store_low" />
+                </Success>
+                <Failure>
+                  <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+                </Failure>
+              </CheckMoneyAction>
+            </Success>
+            <Failure>
+              <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+            </Failure>
+          </CheckReputationAction>
+        </Option>
+        <Option text="eventtext.aic_wardens_dispatcher.store.low.option.weapons">
+          <CheckReputationAction targettype="Faction" identifier="aic_gdf_contribution" condition="gte 2">
+            <Success>
+              <CheckMoneyAction amount="1500">
+                <Success>
+                  <ReputationAction targettype="Faction" identifier="aic_gdf_contribution" increase="-2" />
+                  <MoneyAction amount="-1500" />
+                  <SpawnAction itemidentifier="aic_wardens_legion_rifle" amount="3" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
+                  <SpawnAction itemidentifier="aic_wardens_legion_mag" amount="8" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
+                  <SpawnAction itemidentifier="aic_wardens_legion_depleted_mag" amount="8" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
+                  <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.low.success" waitforinteraction="false" endeventifinterrupted="false" />
+                  <GoTo name="aic_wardens_dispatcher_store_low" />
+                </Success>
+                <Failure>
+                  <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+                </Failure>
+              </CheckMoneyAction>
+            </Success>
+            <Failure>
+              <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+            </Failure>
+          </CheckReputationAction>
+        </Option>
+        <Option text="eventtext.aic_wardens_dispatcher.store.low.option.piezoelectricmagazines">
+          <CheckReputationAction targettype="Faction" identifier="aic_gdf_contribution" condition="gte 1">
+            <Success>
+              <ReputationAction targettype="Faction" identifier="aic_gdf_contribution" increase="-1" />
+              <SpawnAction itemidentifier="aic_gdf_small_piezoelectric_magazine" amount="4" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
+              <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.low.success" waitforinteraction="false" endeventifinterrupted="false" />
+              <GoTo name="aic_wardens_dispatcher_store_low" />
+            </Success>
+            <Failure>
+              <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+            </Failure>
+          </CheckReputationAction>
+        </Option>
+        <Option text="eventtext.aic_wardens_dispatcher.store.low.option.cash">
+          <CheckReputationAction targettype="Faction" identifier="aic_gdf_contribution" condition="gte 1">
+            <Success>
+              <ReputationAction targettype="Faction" identifier="aic_gdf_contribution" increase="-1" />
+              <MoneyAction amount="400" />
+              <GoTo name="aic_wardens_dispatcher_store_low" />
+            </Success>
+            <Failure>
+              <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+            </Failure>
+          </CheckReputationAction>
+        </Option>
+        <Option text="eventtext.aic_wardens_dispatcher.store.low.option.gdfpdwblueprint">
+          <CheckReputationAction targettype="Faction" identifier="aic_gdf_contribution" condition="gte 10">
+            <Success>
+              <CheckMoneyAction amount="2000">
+                <Success>
+                  <ReputationAction targettype="Faction" identifier="aic_gdf_contribution" increase="-10" />
+                  <MoneyAction amount="-2000" />
+                  <SpawnAction itemidentifier="aic_gdf_personal_defense_weapon_blueprint" amount="1" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
+                  <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.low.success" waitforinteraction="false" endeventifinterrupted="false" />
+                  <GoTo name="aic_wardens_dispatcher_store_low" />
+                </Success>
+                <Failure>
+                  <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+                </Failure>
+              </CheckMoneyAction>
+            </Success>
+            <Failure>
+              <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+            </Failure>
+          </CheckReputationAction>
+        </Option>
+        <Option text="eventtext.aic_wardens_dispatcher.store.advanced.option">
+          <GoTo name="aic_wardens_dispatcher_store_advanced" />
+        </Option>
+        <Option text="eventtext.aic_wardens_dispatcher.store.low.option.cancel">
+          <GoTo name="aic_wardens_dispatcher_wait" />
+        </Option>
+      </ConversationAction>
+      <GoTo name="aic_wardens_dispatcher_wait" />
+
+      <Label name="aic_wardens_dispatcher_store_advanced" />
+      <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.advanced.greeting" endeventifinterrupted="false">
+        <Option text="eventtext.aic_wardens_dispatcher.store.advanced.option.broadsword">
+          <GoTo name="aic_wardens_dispatcher_store_advanced_broadsword" />
+        </Option>
+        <Option text="eventtext.aic_wardens_dispatcher.store.advanced.option.chariotarmor">
+          <GoTo name="aic_wardens_dispatcher_store_advanced_chariotarmor" />
+        </Option>
+        <Option text="eventtext.aic_wardens_dispatcher.store.advanced.option.back">
+          <GoTo name="aic_wardens_dispatcher_store_low" />
+        </Option>
+      </ConversationAction>
+      <GoTo name="aic_wardens_dispatcher_store_low" />
+
+      <Label name="aic_wardens_dispatcher_store_advanced_broadsword" />
+      <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.advanced.broadsword.description" endeventifinterrupted="false">
+        <Option text="eventtext.aic_wardens_dispatcher.store.advanced.broadsword.buyset">
+          <CheckReputationAction targettype="Faction" identifier="aic_gdf_contribution" condition="gte 8">
+            <Success>
+              <CheckMoneyAction amount="1000">
+                <Success>
+                  <ReputationAction targettype="Faction" identifier="aic_gdf_contribution" increase="-8" />
+                  <MoneyAction amount="-1000" />
+                  <SpawnAction itemidentifier="aic_gdf_broadsword_battle_rifle" amount="1" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
+                  <SpawnAction itemidentifier="aic_gdf_broadsword_box_magazine" amount="2" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
+                  <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.low.success" waitforinteraction="false" endeventifinterrupted="false" />
+                  <GoTo name="aic_wardens_dispatcher_store_advanced" />
+                </Success>
+                <Failure>
+                  <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+                </Failure>
+              </CheckMoneyAction>
+            </Success>
+            <Failure>
+              <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+            </Failure>
+          </CheckReputationAction>
+        </Option>
+        <Option text="eventtext.aic_wardens_dispatcher.store.advanced.broadsword.buyammo">
+          <CheckReputationAction targettype="Faction" identifier="aic_gdf_contribution" condition="gte 4">
+            <Success>
+              <CheckMoneyAction amount="600">
+                <Success>
+                  <ReputationAction targettype="Faction" identifier="aic_gdf_contribution" increase="-4" />
+                  <MoneyAction amount="-600" />
+                  <SpawnAction itemidentifier="aic_gdf_broadsword_box_magazine" amount="2" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
+                  <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.low.success" waitforinteraction="false" endeventifinterrupted="false" />
+                  <GoTo name="aic_wardens_dispatcher_store_advanced" />
+                </Success>
+                <Failure>
+                  <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+                </Failure>
+              </CheckMoneyAction>
+            </Success>
+            <Failure>
+              <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+            </Failure>
+          </CheckReputationAction>
+        </Option>
+        <Option text="eventtext.aic_wardens_dispatcher.store.advanced.option.back">
+          <GoTo name="aic_wardens_dispatcher_store_advanced" />
+        </Option>
+      </ConversationAction>
+      <GoTo name="aic_wardens_dispatcher_store_low" />
+
+      <Label name="aic_wardens_dispatcher_store_advanced_chariotarmor" />
+      <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.advanced.chariotarmor.description" endeventifinterrupted="false">
+        <Option text="eventtext.aic_wardens_dispatcher.store.advanced.chariotarmor.buyset">
+          <CheckReputationAction targettype="Faction" identifier="aic_gdf_contribution" condition="gte 4">
+            <Success>
+              <CheckMoneyAction amount="1000">
+                <Success>
+                  <ReputationAction targettype="Faction" identifier="aic_gdf_contribution" increase="-4" />
+                  <MoneyAction amount="-1000" />
+                  <SpawnAction itemidentifier="aic_wardens_chariot_exoarmor" amount="2" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
+                  <SpawnAction itemidentifier="aic_wardens_chariot_exohelmet" amount="2" targetinventory="aic_wardens_dispatcher_interactor" spawnifinventoryfull="true" />
+                  <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.low.success" waitforinteraction="false" endeventifinterrupted="false" />
+                  <GoTo name="aic_wardens_dispatcher_store_advanced" />
+                </Success>
+                <Failure>
+                  <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+                </Failure>
+              </CheckMoneyAction>
+            </Success>
+            <Failure>
+              <GoTo name="aic_wardens_dispatcher_exchange_failed" />
+            </Failure>
+          </CheckReputationAction>
+        </Option>
+        <Option text="eventtext.aic_wardens_dispatcher.store.advanced.option.back">
+          <GoTo name="aic_wardens_dispatcher_store_advanced" />
+        </Option>
+      </ConversationAction>
+      <GoTo name="aic_wardens_dispatcher_store_low" />
 
       <Label name="aic_wardens_dispatcher_exchange_failed" />
       <ConversationAction targettag="aic_wardens_dispatcher_interactor" text="eventtext.aic_wardens_dispatcher.store.low.failed" endeventifinterrupted="false">
