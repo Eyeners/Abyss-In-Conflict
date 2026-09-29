@@ -1,0 +1,731 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item
+    name="熔渣高热侦察步枪"
+    identifier="aic_faithguard_slag_recon_rifle"
+    category="Weapon"
+    subcategory="护教军Faithguard"
+    cargocontaineridentifier="metalcrate"
+    tags="mediumitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_faithguard_weapon,aic_rifle,aic_scope_zoom2x"
+    scale="0.068"
+    impactsoundtag="impact_metal_light"
+    description="发射铝热弹的侦察步枪，命中后以黏附的燃烧体摧毁敌人的护甲和身体。">
+
+    <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
+
+    <InventoryIcon texture="%ModDir%/践行者/贴图/熔渣高热侦察步枪.png" sourcerect="0,0,1821,381" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/践行者/贴图/熔渣高热侦察步枪.png" sourcerect="0,0,1821,381" depth="0.55" origin="0.5,0.5" />
+    <Body width="123.8" height="25.9" density="32" />
+
+    <Holdable
+      slots="RightHand+LeftHand,Any"
+      controlpose="true"
+      holdpos="60,-10"
+      holdangle="-35"
+      aimpos="68,0"
+      handle1="-494,-31"
+      handle2="262,-111">
+
+      <Conditional recoilstabilized="lte 0" />
+      <StatusEffect type="OnActive" target="Character" speedmultiplier="0.84" setvalue="true" />
+      <StatusEffect type="OnSecondaryUse" target="Character" speedmultiplier="0.72" setvalue="true" />
+      <StatusEffect type="OnUse" target="Character" speedmultiplier="0.46" setvalue="true" />
+    </Holdable>
+
+    <RangedWeapon
+      reload="0.33"
+      
+      holdtrigger="true"
+      barrelpos="903,98"
+      spread="1"
+      unskilledspread="4"
+      combatpriority="84"
+      drawhudwhenequipped="true"
+      crosshairscale="0.22">
+
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+
+      <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
+      <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="220" copyentityangle="true" />
+
+      <Sound file="%ModDir%/卫戍者/音效/军团1.ogg" type="OnUse" range="2400" selectionmode="Random" />
+      <Sound file="%ModDir%/卫戍者/音效/军团2.ogg" type="OnUse" range="2400" selectionmode="Random" />
+      <Sound file="%ModDir%/卫戍者/音效/军团3.ogg" type="OnUse" range="2400" selectionmode="Random" />
+      <Sound file="%ModDir%/卫戍者/音效/军团4.ogg" type="OnUse" range="2400" selectionmode="Random" />
+
+      <StatusEffect type="OnUse" target="Contained">
+        <Use />
+      </StatusEffect>
+
+      <RequiredItems items="aic_faithguard_slag_magazine" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="45" />
+    </RangedWeapon>
+
+    <ItemContainer
+      capacity="1"
+      maxstacksize="1"
+      hideitems="false"
+      containedspritedepth="0.56"
+      containedstateindicatorslot="0"
+      containedstateindicatorstyle="bullet">
+
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+
+      <Containable
+        items="aic_faithguard_slag_magazine"
+        hide="false"
+        itempos="-11.526,-6.324"
+        rotation="0"
+        setactive="true">
+
+        <StatusEffect type="OnInserted" target="This" holdpos="6,-24" holdangle="58" setvalue="true">
+          <LuaHook name="aic_ammo_insertion_delay" />
+          <Sound file="%ModDir%/卫戍者/音效/ReloadStart1.ogg" type="OnInserted" range="200" volume="0.8" />
+        </StatusEffect>
+
+        <StatusEffect type="OnInserted" target="This" holdpos="60,-10" holdangle="-35" delay="1" setvalue="true" disabledeltatime="true" />
+
+        <StatusEffect type="OnRemoved" target="This" disabledeltatime="true">
+          <LuaHook name="aic_ammo_insertion_delay" />
+        </StatusEffect>
+      </Containable>
+    </ItemContainer>
+
+    <AITarget sightrange="2400" soundrange="2400" fadeouttime="7" />
+    <SkillRequirementHint identifier="weapons" level="45" />
+  </Item>
+
+  <Item
+    name="熔渣铝热弹匣"
+    identifier="aic_faithguard_slag_magazine"
+    category="Weapon"
+    subcategory="护教军Faithguard"
+    tags="smallitem,handheldammo,aic_faithguard_weaponmag"
+    maxstacksize="16"
+    maxstacksizecharacterinventory="8"
+    health="100"
+    scale="0.068"
+    cargocontaineridentifier="metalcrate"
+    impactsoundtag="impact_metal_light"
+    description="装有二十发铝热弹药。">
+
+    <PreferredContainer primary="aic_faithguard_slag_recon_rifle" minamount="1" maxamount="1" spawnprobability="1" />
+    <PreferredContainer primary="armcab" secondary="secarmcab" />
+
+    <InventoryIcon texture="%ModDir%/践行者/贴图/熔渣铝热弹匣.png" sourcerect="0,0,276,407" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/践行者/贴图/熔渣铝热弹匣.png" sourcerect="0,0,276,407" depth="0.56" origin="0.5,0.5" />
+    <Body width="18.8" height="27.7" density="25" />
+
+    <ItemContainer
+      capacity="1"
+      hideitems="true"
+      drawinventory="false"
+      canbeselected="false"
+      spawnwithid="aic_faithguard_slag_round"
+      removecontaineditemsondeconstruct="true"
+      showconditionincontainedstateindicator="true"
+      containedstateindicatorstyle="bullet">
+
+      <Containable items="aic_faithguard_slag_round" />
+
+      <StatusEffect type="OnUse" target="This" condition="-5" disabledeltatime="true">
+        <SpawnItem identifiers="aic_faithguard_slag_round" spawnposition="ThisInventory" />
+      </StatusEffect>
+    </ItemContainer>
+
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="熔渣铝热弹"
+    identifier="aic_faithguard_slag_round"
+    category="Weapon"
+    tags="smallitem,aic_faithguard_round"
+    hideinmenus="true"
+    scale="0.5"
+    impactsoundtag="impact_metal_light">
+
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+    <Body width="17" height="6" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+
+    <Projectile
+      characterusable="true"
+      hitscan="true"
+      maxtargetstohit="1"
+      removeonhit="true"
+      penetration="0.4">
+
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,150,90,255" />
+
+      <Attack structuredamage="0" itemdamage="0" targetforce="3" severlimbsprobability="0" penetration="0">
+        <Affliction identifier="gunshotwound" strength="10" />
+        <Affliction identifier="explosiondamage" strength="10" />
+        <Affliction identifier="aic_heat_buildup" strength="5" />
+      </Attack>
+
+      <!-- Capture the contact point before the hitscan item is reset or removed. -->
+      <StatusEffect type="OnImpact" target="Limb,UseTarget" disabledeltatime="true">
+        <LuaHook name="aic_slag_impact_burn" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" delay="1" stackable="false">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+  <Item
+    name="熔渣小型燃烧体"
+    identifier="aic_faithguard_slag_burn"
+    tags="aic_extinguishable_burn"
+    category="Weapon"
+    hideinmenus="true"
+    noninteractable="true"
+    isdangerous="true"
+    scale="0.5"
+    health="50">
+
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,0,2,2" color="0,0,0,0" />
+
+    <Body width="12" height="12" density="5" gravityscale="1" />
+    <Projectile characterusable="false" launchimpulse="3" removeonhit="false" maxtargetstohit="1"
+      sticktocharacters="true" sticktostructures="true" sticktoitems="true" sticktodoors="true"
+      sticktodeflective="true" sticktolighttargets="true" prismatic="false">
+      <Attack structuredamage="0" itemdamage="0" targetforce="0" severlimbsprobability="0" />
+    </Projectile>
+    <ItemComponent>
+      <StatusEffect type="OnNotContained" target="This" condition="-5" />
+
+      <StatusEffect type="OnNotContained" target="This" interval="0.5">
+        <Explosion range="10" force="0" structuredamage="10" itemdamage="15" severlimbsprobability="0" ballastfloradamage="10" showeffects="false" ignorecover="true">
+          <Affliction identifier="burn" strength="3" />
+          <Affliction identifier="slow" strength="3" />
+          <Affliction identifier="aic_heat_buildup" strength="1" />
+          <Affliction identifier="aic_suppression" strength="1" />
+        </Explosion>
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This">
+        <ParticleEmitter particle="weldsmoke" particlespersecond="2" lifetimemultiplier="0.5" anglemin="70" anglemax="100" velocitymin="5" velocitymax="30" />
+        <ParticleEmitter particle="flamethrower" particlespersecond="2" scalemin="0.1" scalemax="0.18" copyentityangle="false" />
+        <ParticleEmitter particle="spark" particlespersecond="4" scalemin="0.4" scalemax="0.7" lifetimemultiplier="0.2" anglemin="0" anglemax="360" colormultiplier="255,233,233,177" velocitymin="200" velocitymax="400" />
+        <ParticleEmitter particle="FlareBubbles" particlespersecond="2" anglemin="70" anglemax="100" velocitymin="50" velocitymax="100" scalemin="0.4" scalemax="0.6" />
+      </StatusEffect>
+
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </ItemComponent>
+
+    <LightComponent lightcolor="255,222,222,100" flicker="0.2" range="75" ison="true" castshadows="false" />
+  </Item>
+  <Item
+    name="烙铁高热手枪"
+    identifier="aic_faithguard_brand_pistol"
+    category="Weapon"
+    subcategory="护教军Faithguard"
+    tags="smallitem,weapon,gun,pistolitem,gunsmith,provocativetohumanai,mountableweapon,aic_faithguard_weapon"
+    scale="0.068"
+    cargocontaineridentifier="metalcrate"
+    impactsoundtag="impact_metal_light">
+
+    <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
+    <InventoryIcon texture="%ModDir%/践行者/贴图/烙铁高热手枪.png" sourcerect="0,0,765,388" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/践行者/贴图/烙铁高热手枪.png" sourcerect="0,0,765,388" origin="0.5,0.5" depth="0.55" />
+    <Body width="52" height="26.4" density="25" />
+
+    <Holdable
+      slots="Any,RightHand,LeftHand"
+      controlpose="true"
+      aimpos="70,5"
+      handle1="-278,-52"
+      msg="ItemMsgPickUpSelect" />
+
+    <RangedWeapon
+      reload="0.4"
+      barrelpos="382,106"
+      spread="0.1"
+      unskilledspread="6"
+      combatpriority="70"
+      drawhudwhenequipped="true"
+      crosshairscale="0.2">
+
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <Sound file="Content/Items/Weapons/Revolver1.ogg" type="OnUse" range="3000" selectionmode="Random" />
+      <Sound file="Content/Items/Weapons/Revolver2.ogg" type="OnUse" range="3000" />
+      <Sound file="Content/Items/Weapons/Revolver3.ogg" type="OnUse" range="3000" />
+      <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
+      <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" copyentityangle="true" />
+
+      <StatusEffect type="OnUse" target="Contained">
+        <Use />
+      </StatusEffect>
+
+      <RequiredItems items="aic_faithguard_brand_magazine" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="40" />
+    </RangedWeapon>
+
+    <ItemContainer
+      capacity="1"
+      maxstacksize="1"
+      hideitems="false"
+      containedspritedepth="0.56"
+      containedstateindicatorslot="0"
+      containedstateindicatorstyle="bullet">
+
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <Containable
+        items="aic_faithguard_brand_magazine"
+        hide="false"
+        itempos="-18.768,-3.944"
+        rotation="0"
+        setactive="true">
+
+        <StatusEffect type="OnInserted" target="This" holdpos="5,-20" holdangle="58" setvalue="true">
+          <LuaHook name="aic_ammo_insertion_delay" />
+          <Sound file="%ModDir%/卫戍者/音效/ReloadStart1.ogg" type="OnInserted" range="200" volume="0.8" />
+        </StatusEffect>
+        <StatusEffect type="OnInserted" target="This" holdpos="0,0" holdangle="0" delay="1" setvalue="true" disabledeltatime="true" />
+        <StatusEffect type="OnRemoved" target="This" disabledeltatime="true">
+          <LuaHook name="aic_ammo_insertion_delay" />
+        </StatusEffect>
+      </Containable>
+    </ItemContainer>
+
+    <LightComponent
+      lightcolor="255,75,25,255"
+      range="800"
+      flicker="0.02"
+      characterusable="true"
+      powerconsumption="0"
+      ison="true"
+      castshadows="true">
+
+      <!-- Encode the 279,9 sprite-pixel mount point in the texture origin (scale 0.068). -->
+      <LightTexture texture="%ModDir%/Items/Weapons/faithguard_laser.png" origin="-0.012,0.503" size="1.0,0.12" />
+    </LightComponent>
+
+    <CustomInterface canbeselected="false" drawhudwhenequipped="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.18,0.07" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.22" style="ItemUI" />
+      <TickBox text="镭射" targetitemcomponent="LightComponent" propertyname="IsOn" continuoussignal="false" getvalueinterval="0.1" />
+    </CustomInterface>
+
+    <AITarget sightrange="2000" soundrange="3000" fadeouttime="7" />
+    <SkillRequirementHint identifier="weapons" level="40" />
+  </Item>
+
+  <Item
+    name="烙铁铝热弹匣"
+    identifier="aic_faithguard_brand_magazine"
+    category="Weapon"
+    subcategory="护教军Faithguard"
+    tags="smallitem,handheldammo,aic_faithguard_weaponmag"
+    health="12"
+    maxstacksize="16"
+    maxstacksizecharacterinventory="8"
+    scale="0.068"
+    cargocontaineridentifier="metalcrate"
+    impactsoundtag="impact_metal_light"
+    description="装有十二发铝热弹药。">
+
+    <PreferredContainer primary="aic_faithguard_brand_pistol" minamount="1" maxamount="1" spawnprobability="1" />
+    <PreferredContainer primary="armcab" secondary="secarmcab" />
+    <InventoryIcon texture="%ModDir%/践行者/贴图/烙铁铝热弹匣.png" sourcerect="0,0,213,374" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/践行者/贴图/烙铁铝热弹匣.png" sourcerect="0,0,213,374" origin="0.5,0.5" depth="0.56" />
+    <Body width="14.5" height="25.4" density="25" />
+
+    <ItemContainer
+      capacity="1"
+      hideitems="true"
+      drawinventory="false"
+      canbeselected="false"
+      spawnwithid="aic_faithguard_brand_round"
+      removecontaineditemsondeconstruct="true"
+      showconditionincontainedstateindicator="true"
+      containedstateindicatorstyle="bullet">
+
+      <Containable items="aic_faithguard_brand_round" />
+      <StatusEffect type="OnUse" target="This" condition="-1" disabledeltatime="true">
+        <SpawnItem identifiers="aic_faithguard_brand_round" spawnposition="ThisInventory" />
+      </StatusEffect>
+    </ItemContainer>
+
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="烙铁铝热弹"
+    identifier="aic_faithguard_brand_round"
+    category="Weapon"
+    tags="smallitem,aic_faithguard_round"
+    hideinmenus="true"
+    scale="0.5"
+    impactsoundtag="impact_metal_light">
+
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+    <Body width="17" height="6" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+
+    <Projectile
+      characterusable="true"
+      hitscan="true"
+      maxtargetstohit="1"
+      removeonhit="true"
+      friendlyfire="false"
+      penetration="0.4">
+
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,120,60,255" />
+      <Attack structuredamage="0" itemdamage="0" targetforce="3" severlimbsprobability="0" penetration="0">
+        <Affliction identifier="gunshotwound" strength="8" />
+        <Affliction identifier="explosiondamage" strength="8" />
+        <Affliction identifier="aic_heat_buildup" strength="5" />
+      </Attack>
+
+      <StatusEffect type="OnImpact" target="Limb,UseTarget" disabledeltatime="true">
+        <LuaHook name="aic_slag_impact_burn" />
+      </StatusEffect>
+      <StatusEffect type="OnNotContained" target="This" delay="1" stackable="false">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+
+  <Item
+    name="烙铁小型燃烧体"
+    identifier="aic_faithguard_brand_burn"
+    tags="aic_extinguishable_burn"
+    category="Weapon"
+    hideinmenus="true"
+    noninteractable="true"
+    isdangerous="true"
+    scale="0.5"
+    health="60">
+
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,0,2,2" color="0,0,0,0" />
+    <Body width="12" height="12" density="5" gravityscale="1" />
+    <Projectile characterusable="false" launchimpulse="3" removeonhit="false" maxtargetstohit="1"
+      sticktocharacters="true" sticktostructures="true" sticktoitems="true" sticktodoors="true"
+      sticktodeflective="true" sticktolighttargets="true" prismatic="false">
+      <Attack structuredamage="0" itemdamage="0" targetforce="0" severlimbsprobability="0" />
+    </Projectile>
+    <ItemComponent>
+      <StatusEffect type="OnNotContained" target="This" condition="-5" />
+      <StatusEffect type="OnNotContained" target="This" interval="0.5">
+        <Explosion range="15" force="0" structuredamage="15" itemdamage="20" severlimbsprobability="0" ballastfloradamage="15" showeffects="false" ignorecover="true">
+          <Affliction identifier="burn" strength="4" />
+          <Affliction identifier="slow" strength="4" />
+          <Affliction identifier="aic_heat_buildup" strength="1.2" />
+          <Affliction identifier="aic_suppression" strength="1.2" />
+        </Explosion>
+      </StatusEffect>
+      <StatusEffect type="OnNotContained" target="This">
+        <ParticleEmitter particle="weldsmoke" particlespersecond="2" lifetimemultiplier="0.5" anglemin="70" anglemax="100" velocitymin="5" velocitymax="30" />
+        <ParticleEmitter particle="flamethrower" particlespersecond="2" scalemin="0.1" scalemax="0.18" copyentityangle="false" />
+        <ParticleEmitter particle="spark" particlespersecond="4" scalemin="0.4" scalemax="0.7" lifetimemultiplier="0.2" anglemin="0" anglemax="360" colormultiplier="255,233,233,177" velocitymin="200" velocitymax="400" />
+        <ParticleEmitter particle="FlareBubbles" particlespersecond="2" anglemin="70" anglemax="100" velocitymin="50" velocitymax="100" scalemin="0.4" scalemax="0.6" />
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </ItemComponent>
+
+    <LightComponent lightcolor="255,160,90,100" flicker="0.2" range="75" ison="true" castshadows="false" />
+  </Item>
+  <Item
+    name="龙炎火焰喷射器"
+    identifier="aic_faithguard_dragon_flamethrower"
+    category="Weapon"
+    subcategory="护教军Faithguard"
+    tags="bigitem,weapon,gun,gunsmith,mountableweapon,provocativetohumanai,aic_faithguard_weapon"
+    scale="0.068"
+    fireproof="true"
+    cargocontaineridentifier="metalcrate"
+    impactsoundtag="impact_metal_light"
+    hideconditionbar="true"
+    description="抛射炽热燃烧燃料的火焰喷射器，附着能力和抛射距离优秀。">
+
+    <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
+    <InventoryIcon texture="%ModDir%/践行者/贴图/龙炎火焰喷射器.png" sourcerect="0,0,2005,544" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/践行者/贴图/龙炎火焰喷射器.png" sourcerect="0,0,2005,544" origin="0.5,0.5" depth="0.55" />
+    <Body width="136.3" height="37" density="40" />
+
+    <Holdable
+      slots="RightHand+LeftHand,Any"
+      controlpose="true"
+      holdpos="20,-84"
+      aimpos="20,-84"
+      holdangle="-10"
+      handle1="-856,31"
+      handle2="88,168"
+      msg="ItemMsgPickUpSelect">
+
+      <StatusEffect type="OnActive" target="Character" speedmultiplier="0.55" setvalue="true" />
+      <StatusEffect type="OnSecondaryUse" target="Character" speedmultiplier="0.4" setvalue="true" />
+      <StatusEffect type="OnUse" target="Character" speedmultiplier="0.3" setvalue="true" />
+    </Holdable>
+
+    <RangedWeapon
+      barrelpos="981,63"
+      reload="0.4"
+      holdtrigger="true"
+      spread="12"
+      unskilledspread="18"
+      combatpriority="80"
+      drawhudwhenequipped="true"
+      crosshairscale="0.2">
+
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <Sound file="%ModDir%/践行者/音效/DragonflameShot1.ogg" type="OnUse" range="2200" selectionmode="Random" />
+      <Sound file="%ModDir%/践行者/音效/DragonflameShot2.ogg" type="OnUse" range="2200" selectionmode="Random" />
+      <Sound file="%ModDir%/践行者/音效/DragonflameShot3.ogg" type="OnUse" range="2200" selectionmode="Random" />
+      <ParticleEmitter particle="muzzleflashnucleargun" particleamount="1" velocitymin="0" velocitymax="0" scalemin="0.150" scalemax="0.225" colormultiplier="255,75,15,160" />
+
+      <StatusEffect type="OnUse" target="This" disabledeltatime="true">
+        <SpawnItem identifier="aic_faithguard_dragon_round" spawnposition="ThisInventory" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="Contained" targets="weldingtoolfuel" condition="-10" disabledeltatime="true" />
+
+      <RequiredItems items="weldingtoolfuel" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="50" />
+    </RangedWeapon>
+
+    <ItemContainer
+      capacity="1"
+      maxstacksize="1"
+      hideitems="true"
+      containedstateindicatorslot="0"
+      showconditionincontainedstateindicator="false"
+      containedstateindicatorstyle="fuel">
+
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <Containable items="weldingtoolfuel">
+        <StatusEffect type="OnInserted" target="This" disabledeltatime="true">
+          <LuaHook name="aic_ammo_insertion_delay" />
+          <Sound file="%ModDir%/践行者/音效/火焰喷射器Reload1.ogg" type="OnInserted" range="200" selectionmode="Random" />
+          <Sound file="%ModDir%/践行者/音效/火焰喷射器Reload2.ogg" type="OnInserted" range="200" selectionmode="Random" />
+          <Sound file="%ModDir%/践行者/音效/火焰喷射器Reload3.ogg" type="OnInserted" range="200" selectionmode="Random" />
+        </StatusEffect>
+        <StatusEffect type="OnInserted" target="This" disabledeltatime="true" delay="1">
+          <Sound file="%ModDir%/践行者/音效/火焰喷射器ReloadEnd1.ogg" type="OnInserted" range="200" selectionmode="Random" />
+          <Sound file="%ModDir%/践行者/音效/火焰喷射器ReloadEnd2.ogg" type="OnInserted" range="200" selectionmode="Random" />
+          <Sound file="%ModDir%/践行者/音效/火焰喷射器ReloadEnd3.ogg" type="OnInserted" range="200" selectionmode="Random" />
+        </StatusEffect>
+        <StatusEffect type="OnRemoved" target="This" disabledeltatime="true">
+          <LuaHook name="aic_ammo_insertion_delay" />
+        </StatusEffect>
+      </Containable>
+    </ItemContainer>
+
+    <!-- Internal projectile feed is separate from the single visible fuel slot. -->
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" drawinventory="false" canbeselected="false" showcontainedstateindicator="false" spawnwithid="aic_faithguard_dragon_round" removecontaineditemsondeconstruct="true">
+      <Containable items="aic_faithguard_dragon_round" />
+    </ItemContainer>
+    <SkillRequirementHint identifier="weapons" level="50" />
+  </Item>
+
+  <Item
+    name="龙炎燃料液团"
+    identifier="aic_faithguard_dragon_round"
+    category="Weapon"
+    hideinmenus="true"
+    tags="smallitem,aic_faithguard_round"
+    scale="1">
+
+    <Sprite texture="%ModDir%/Particles/dragon_plasma.png" sourcerect="256,448,64,64" origin="0.5,0.5" depth="0.55" size="224,224" color="255,120,0,0" />
+    <Body width="16" height="16" density="20" gravityscale="1" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+
+    <Projectile characterusable="false" launchimpulse="18" removeonhit="true" maxtargetstohit="1">
+      <Attack structuredamage="5" itemdamage="5" targetforce="0" severlimbsprobability="0">
+        <Affliction identifier="burn" strength="40" />
+        <Affliction identifier="aic_heat_buildup" strength="40" />
+      </Attack>
+      <StatusEffect type="OnActive" target="This">
+        <ParticleEmitter particle="aic_dragon_flame_trail" particlespersecond="200" anglemin="0" anglemax="360" velocitymin="0" velocitymax="0" scalemin="0.525" scalemax="0.5400" colormultiplier="255,110,35,255" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="Limb,UseTarget" disabledeltatime="true">
+        <LuaHook name="aic_slag_impact_burn" />
+      </StatusEffect>
+      <StatusEffect type="OnActive" target="This" delay="1" stackable="false">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+    <LightComponent lightcolor="255,80,20,100" range="100" ison="true" castshadows="false" />
+  </Item>
+
+  <Item
+    name="龙炎小型燃烧体"
+    identifier="aic_faithguard_dragon_burn"
+    tags="aic_extinguishable_burn"
+    category="Weapon"
+    hideinmenus="true"
+    noninteractable="true"
+    isdangerous="true"
+    health="15">
+
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,0,2,2" color="0,0,0,0" />
+    <Body width="6" height="6" density="5" gravityscale="1" />
+
+    <!-- Physical droplets fall freely until a native projectile joint attaches them to a target. -->
+    <Projectile characterusable="false" launchimpulse="3" removeonhit="false" maxtargetstohit="1"
+      sticktocharacters="true" sticktostructures="true" sticktoitems="true" sticktodoors="true"
+      sticktodeflective="true" sticktolighttargets="true" prismatic="false">
+      <Attack structuredamage="0" itemdamage="0" targetforce="0" severlimbsprobability="0" />
+    </Projectile>
+
+    <ItemComponent>
+      <StatusEffect type="OnNotContained" target="This" condition="-1" />
+      <StatusEffect type="OnNotContained" target="This" condition="-5">
+        <Conditional inwater="true" />
+      </StatusEffect>
+      <StatusEffect type="OnNotContained" target="This" interval="0.5" disabledeltatime="true">
+        <Explosion range="20" force="0" structuredamage="5" levelwalldamage="0" itemdamage="3" severlimbsprobability="0.1" ballastfloradamage="20" showeffects="false" ignorecover="true">
+          <Affliction identifier="oxygenlow" strength="1" />
+          <Affliction identifier="burn" strength="2" dividebylimbcount="false" />
+          <Affliction identifier="aic_heat_buildup" strength="1" />
+          <Affliction identifier="aic_suppression" strength="1" />
+        </Explosion>
+      </StatusEffect>
+      <StatusEffect type="OnNotContained" target="This">
+        <ParticleEmitter particle="flamethrower" particlespersecond="5" scalemin="0.1200" scalemax="0.1800" lifetimemultiplier="1.5" copyentityangle="false" colormultiplier="255,140,60,255" />
+        <ParticleEmitter particle="spark" particlespersecond="1" scalemin="0.225" scalemax="0.375" lifetimemultiplier="0.2" anglemin="0" anglemax="360" colormultiplier="255,120,35,255" velocitymin="50" velocitymax="100" />
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </ItemComponent>
+    <LightComponent lightcolor="255,110,35,130" flicker="0.15" range="60" ison="true" castshadows="false" />
+  </Item>
+  <Item
+    name="熔流热能榴弹发射器"
+    identifier="aic_faithguard_molten_thermal_launcher"
+    category="Weapon"
+    subcategory="护教军Faithguard"
+    cargocontaineridentifier="metalcrate"
+    tags="bigitem,weapon,gun,gunsmith,mountableweapon,provocativetohumanai,aic_faithguard_weapon,aic_grenade_launcher,aic_scope_zoom2x"
+    scale="0.0952"
+    fireproof="true"
+    hideconditionbar="true"
+    impactsoundtag="impact_metal_heavy"
+    description="将燃料压成易爆高热火团沿抛物线投射，可同时装载6罐燃料。">
+
+    <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
+    <InventoryIcon texture="%ModDir%/践行者/贴图/熔流热能投掷器.png" sourcerect="0,0,1758,488" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/践行者/贴图/熔流热能投掷器.png" sourcerect="0,0,1758,488" origin="0.5,0.5" depth="0.55" />
+    <Body width="167.4" height="46.5" density="40" />
+
+    <Holdable
+      slots="RightHand+LeftHand"
+      controlpose="true"
+      holdpos="40,-84"
+      aimpos="40,-84"
+      holdangle="-10"
+      handle1="-759,13"
+      handle2="221,193"
+      msg="ItemMsgPickUpSelect">
+
+      <StatusEffect type="OnActive" target="Character" speedmultiplier="0.55" setvalue="true" />
+      <StatusEffect type="OnSecondaryUse" target="Character" speedmultiplier="0.4" setvalue="true" />
+      <StatusEffect type="OnUse" target="Character" speedmultiplier="0.3" setvalue="true" />
+    </Holdable>
+
+    <RangedWeapon
+      barrelpos="879,74"
+      reload="0.7"
+      spread="1"
+      unskilledspread="8"
+      combatpriority="90"
+      drawhudwhenequipped="true"
+      crosshairscale="0.2">
+
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <ParticleEmitter particle="muzzleflashnucleargun" particleamount="1" velocitymin="0" velocitymax="0" scalemin="0.3" scalemax="0.4" colormultiplier="255,110,35,255" />
+      <Sound file="%ModDir%/践行者/音效/DragonflameShot1.ogg" type="OnUse" range="2200" selectionmode="Random" />
+      <Sound file="%ModDir%/践行者/音效/DragonflameShot2.ogg" type="OnUse" range="2200" selectionmode="Random" />
+      <Sound file="%ModDir%/践行者/音效/DragonflameShot3.ogg" type="OnUse" range="2200" selectionmode="Random" />
+
+      <!-- Charge exactly one fuel tank on a successful use; never drain every contained tank. -->
+      <StatusEffect type="OnUse" target="This" disabledeltatime="true">
+        <LuaHook name="aic_thermal_launcher_fuel" />
+        <SpawnItem identifier="aic_faithguard_molten_thermal_round" spawnposition="ThisInventory" />
+      </StatusEffect>
+      <RequiredItems items="weldingtoolfuel" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="60" />
+    </RangedWeapon>
+
+    <ItemContainer
+      capacity="6"
+      maxstacksize="1"
+      slotsperrow="3"
+      hideitems="true"
+      showtotalstackcapacityincontainedstateindicator="true"
+      showconditionincontainedstateindicator="false"
+      containedstateindicatorstyle="fuel">
+
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="2" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="3" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="4" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="5" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <Containable items="weldingtoolfuel" hide="true">
+        <StatusEffect type="OnInserted" target="This" disabledeltatime="true">
+          <LuaHook name="aic_ammo_insertion_delay" />
+        </StatusEffect>
+        <StatusEffect type="OnRemoved" target="This" disabledeltatime="true">
+          <LuaHook name="aic_ammo_insertion_delay" />
+        </StatusEffect>
+      </Containable>
+    </ItemContainer>
+
+    <!-- The hidden projectile feed does not occupy any of the six fuel slots. -->
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" drawinventory="false" canbeselected="false" showcontainedstateindicator="false" spawnwithid="aic_faithguard_molten_thermal_round" removecontaineditemsondeconstruct="true">
+      <Containable items="aic_faithguard_molten_thermal_round" />
+    </ItemContainer>
+    <AITarget sightrange="3000" soundrange="2200" fadeouttime="5" />
+    <SkillRequirementHint identifier="weapons" level="60" />
+  </Item>
+
+  <Item
+    name="熔流热能榴弹"
+    identifier="aic_faithguard_molten_thermal_round"
+    category="Weapon"
+    hideinmenus="true"
+    tags="smallitem,aic_faithguard_round"
+    scale="1">
+
+    <Sprite texture="%ModDir%/Particles/dragon_plasma.png" sourcerect="256,448,64,64" origin="0.5,0.5" depth="0.55" size="224,224" color="255,110,35,0" />
+    <Body width="16" height="16" density="20" gravityscale="1" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+
+    <Projectile characterusable="false" launchimpulse="25" removeonhit="true" maxtargetstohit="1">
+      <Attack structuredamage="5" itemdamage="5" targetforce="0" severlimbsprobability="0">
+        <Affliction identifier="burn" strength="20" />
+        <Affliction identifier="aic_heat_buildup" strength="20" />
+        <Affliction identifier="aic_suppression" strength="5" />
+      </Attack>
+      <StatusEffect type="OnActive" target="This">
+        <ParticleEmitter particle="aic_molten_thermal_trail" particlespersecond="300" anglemin="0" anglemax="360" velocitymin="0" velocitymax="0" scalemin="0.8" scalemax="0.82" colormultiplier="255,110,35,225" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="This" disabledeltatime="true">
+        <Explosion range="300" force="5" structuredamage="20" itemdamage="20" levelwalldamage="0" severlimbsprobability="0.2" shockwave="false" smoke="false" sparks="false" underwaterbubble="false" applyfireeffects="false" flashcolor="255,110,35,255">
+          <Affliction identifier="burn" strength="40" />
+          <Affliction identifier="aic_heat_buildup" strength="40" />
+          <Affliction identifier="aic_suppression" strength="20" />
+        </Explosion>
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="Limb,UseTarget" disabledeltatime="true">
+        <LuaHook name="aic_slag_impact_burn" />
+      </StatusEffect>
+      <!-- Long enough for the complete Gavel trajectory preview. -->
+      <StatusEffect type="OnNotContained" target="This" delay="5" stackable="false">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+    <LightComponent lightcolor="255,110,35,150" range="130" ison="true" castshadows="false" />
+  </Item>
+</Items>

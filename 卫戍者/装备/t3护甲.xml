@@ -140,7 +140,7 @@
     </ScalingWearable>
     <ItemComponent>
       <StatusEffect type="OnSpawn" target="This">
-        <LuaHook name="aic_bastion_shield_enable_silent" />
+        <LuaHook name="aic_bastion_shield_initialize" />
       </StatusEffect>
     </ItemComponent>
     <StatusHUD drawhudwhenequipped="true" overlaycolor="72,119,72,120" range="500" thermalgoggles="false" showdeadcharacters="true" showtexts="true" />

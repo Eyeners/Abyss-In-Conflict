@@ -68,10 +68,6 @@
         <Conditional IsHuman="true" />
         <Affliction identifier="aic_net_entanglement" />
       </StatusEffect>
-      <StatusEffect type="OnImpact" target="UseTarget" setvalue="true" duration="40" comparison="And">
-        <Conditional IsHuman="true" />
-        <Affliction identifier="aic_net_struggle" />
-      </StatusEffect>
       <StatusEffect type="OnImpact" target="UseTarget" lockhands="true" setvalue="true" duration="10" comparison="And">
         <Conditional IsHuman="true" />
         <Affliction identifier="stun" />

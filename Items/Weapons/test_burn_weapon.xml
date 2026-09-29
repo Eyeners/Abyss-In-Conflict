@@ -272,4 +272,38 @@
       </StatusEffect>
     </Projectile>
   </Item>
+
+  <Item name="压制测试燃料棒" identifier="aic_test_suppression_fuelrod" category="Fuel" Tags="smallitem,reactorfuel,aic_test_ammo" maxstacksize="8" scale="0.5" indestructible="true">
+    <Price baseprice="20" sold="false" />
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="576,64,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Tools/tools.png" depth="0.55" sourcerect="410,1,19,68" />
+    <Body radius="6" height="55" density="20" />
+    <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" />
+    <ItemContainer hideitems="true" capacity="1" itemrotation="90" drawinventory="false" canbeselected="false" SpawnWithId="aic_test_suppression_bolt" removecontaineditemsondeconstruct="true" showcontainedstateindicator="false">
+      <Containable items="aic_test_suppression_bolt" />
+      <StatusEffect type="OnUse" target="This" condition="-25.0" disabledeltatime="true">
+        <SpawnItem identifiers="aic_test_suppression_bolt" spawnposition="ThisInventory" />
+      </StatusEffect>
+    </ItemContainer>
+  </Item>
+
+  <Item name="测试压制弹束" identifier="aic_test_suppression_bolt" category="Weapon" scale="0.5" sonarsize="2" hideinmenus="true">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="143,414,113,9" depth="0.55" origin="0.5,0.5" />
+    <Body width="170" height="10" density="20" />
+    <Holdable slots="RightHand+LeftHand" holdpos="0,-50" handle1="-10,0" handle2="10,0" aimable="false" />
+    <Projectile characterusable="false" hitscan="true" removeonhit="true">
+      <ParticleEmitter particle="tracernucleargun" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="1,0.75" colormultiplier="255,120,60,255" />
+      <ParticleEmitter particle="FlareBubbles" emitacrossrayinterval="50" />
+      <Attack structuredamage="0" targetforce="0" itemdamage="0" severlimbsprobability="0" penetration="0">
+        <Affliction identifier="aic_suppression" strength="10" />
+      </Attack>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="muzzleflashnucleargun" anglemin="0" anglemax="360" particleamount="10" velocitymin="0" scalemin="0.5" scalemax="0.8" scalemultiplier="0.75,0.75" colormultiplier="255,120,60,255" />
+        <ParticleEmitter particle="weldspark" particleamount="5" anglemin="0" anglemax="360" velocitymin="300" velocitymax="350" scalemin="1.5" scalemax="1.9" drawontop="true" colormultiplier="255,120,60,180" />
+      </StatusEffect>
+      <StatusEffect type="OnNotContained" target="This">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+  </Item>
 </Items>

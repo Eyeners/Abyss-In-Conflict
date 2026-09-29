@@ -188,6 +188,7 @@
 
     <Projectile characterusable="false" hitscan="true" maxtargetstohit="2" removeonhit="true" damagedoors="true" penetration="0.5">
       <ParticleEmitter particle="aic_electricarc_focused" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="0.000375,0.343" colormultiplier="190,100,255,255" />
+      <ParticleEmitter particle="electricshock" emitacrossrayinterval="30" scalemultiplier="0.25,0.25" colormultiplier="211,255,233,155" lifetimemultiplier="1.5" />
       <ParticleEmitter particle="FlareBubbles" emitacrossrayinterval="50" />
 
       <Attack structuredamage="5" targetforce="100" itemdamage="25" severlimbsprobability="1.0" penetration="0.5">

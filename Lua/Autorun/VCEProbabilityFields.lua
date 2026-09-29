@@ -162,9 +162,38 @@ local BASTION_BURN_DRAIN_MULTIPLIER = 2
 local ARCHON_IDENTIFIER = "aic_practitioner_archon_heavy_armor"
 local ARCHON_SHIELD_ENABLED_TAG = "aic_archon_shield_on"
 local ARCHON_BATTERY_SLOT = 2
-local ARCHON_MIN_DAMAGE = 30
-local ARCHON_MIN_RAW_PENETRATION = 0.3
+local ARCHON_MIN_DAMAGE = 20
+local ARCHON_MIN_RAW_PENETRATION = 0.2
 local ARCHON_BATTERY_DRAIN = 25
+
+-- A piercing round and its synchronous impact explosions may damage many limbs.
+-- Charge each armor once per projectile launch, not once per DamageLimb callback.
+local archonProjectilePayments = setmetatable({}, { __mode = "k" })
+local activeArchonPayments = nil
+local archonImpactStack = {}
+Hook.Patch("AIC.ArchonShield.NewProjectileUse", "Barotrauma.Items.Components.Projectile", "Use",
+    { "Barotrauma.Character", "System.Single" }, function(projectile)
+        archonProjectilePayments[projectile] = setmetatable({}, { __mode = "k" })
+    end, Hook.HookMethodType.Before)
+Hook.Patch("AIC.ArchonShield.ImpactBegin", "Barotrauma.Items.Components.Projectile", "HandleProjectileCollision",
+    function(projectile)
+        archonImpactStack[#archonImpactStack + 1] = activeArchonPayments or false
+        local payments = archonProjectilePayments[projectile]
+        if not payments then
+            payments = setmetatable({}, { __mode = "k" })
+            archonProjectilePayments[projectile] = payments
+        end
+        activeArchonPayments = payments
+    end, Hook.HookMethodType.Before)
+Hook.Patch("AIC.ArchonShield.ImpactEnd", "Barotrauma.Items.Components.Projectile", "HandleProjectileCollision",
+    function()
+        activeArchonPayments = table.remove(archonImpactStack) or nil
+    end, Hook.HookMethodType.After)
+Hook.Add("roundEnd", "AIC.ArchonShield.ResetPayments", function()
+    archonProjectilePayments = setmetatable({}, { __mode = "k" })
+    activeArchonPayments = nil
+    archonImpactStack = {}
+end)
 local FORESIGHT_IDENTIFIER = "aic_foresight_t3_armor"
 local FORESIGHT_SHIELD_ENABLED_TAG = "aic_foresight_nanocluster_shield_on"
 local FORESIGHT_BATTERY_SLOT = 2
@@ -440,7 +469,8 @@ FieldSystem.Register({
             return false
         end
 
-        if GetShieldBattery(armor, ARCHON_BATTERY_SLOT) == nil then
+        if not (activeArchonPayments and activeArchonPayments[armor])
+            and GetShieldBattery(armor, ARCHON_BATTERY_SLOT) == nil then
             return false
         end
 
@@ -457,11 +487,13 @@ FieldSystem.Register({
         return true
     end,
     onBlock = function(armor)
+        if activeArchonPayments and activeArchonPayments[armor] then return end
         local battery = GetShieldBattery(armor, ARCHON_BATTERY_SLOT)
         if battery == nil then
             return
         end
 
+        if activeArchonPayments then activeArchonPayments[armor] = true end
         battery.Condition = math.max(0, battery.Condition - ARCHON_BATTERY_DRAIN)
         EmitArchonShieldSound(armor)
     end

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+<Item name="太空推进背包（测试）" identifier="aic_space_propulsion_backpack" category="Equipment" tags="mediumitem,mobilecontainer,largemobilecontainer,tool,aic,aic_space_propulsion_backpack" scale="0.5" health="100" fireproof="true" damagedbyprojectiles="true" damagedbyexplosions="true" impactsoundtag="impact_soft" description="推进效率随耐久线性下降。背部可被射弹击中；首次降至60%耐久时失控喷气4秒，首次降至10%时爆炸。零耐久停止推进，保留背包及储物。">
+    <InventoryIcon texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" depth="0.6" origin="0.5,0.5" />
+    <Body width="60" height="100" density="15" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite canbehiddenbyotherwearables="false" canbehiddenbyitem="deepdivinglarge" texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" limb="Torso" depthlimb="Waist" inherittexturescale="true" origin="1.1,0.5" />
+    </Wearable>
+    <Holdable slots="RightHand+LeftHand,Any" holdpos="0,-70" handle1="-5,50" handle2="10,50" holdangle="0" msg="ItemMsgPickUpSelect" />
+    <ItemContainer capacity="16" maxstacksize="32" canbeselected="true" hideitems="true" slotsperrow="4">
+      <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,mobilecontainer,largemobilecontainer" />
+    </ItemContainer>
+    <SpacePropulsionBackpack ison="true" thrustgravitymultiplier="0.5" cruisegravitymultiplier="0.1" precisiongravitymultiplier="0.05" speedlimit="5" safetyoverride="false" drawhudwhenequipped="true" />
+    <SpaceBackpackDamage />
+    <CustomInterface canbeselected="false" drawhudwhenequipped="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.15,0.12" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.22" style="ItemUI" />
+      <TickBox text="推进背包总开关" targetitemcomponent="SpacePropulsionBackpack" propertyname="IsOn" continuoussignal="false" getvalueinterval="0.1" />
+      <TickBox text="安全协议超驰" targetitemcomponent="SpacePropulsionBackpack" propertyname="SafetyOverride" continuoussignal="false" getvalueinterval="0.1" />
+    </CustomInterface>
+  </Item>
+  <Item identifier="aic_space_backpack_failure_blast" name="推进背包殉爆" category="Misc" hideinmenus="true" noninteractable="true" sonarsize="0">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,0,1,1" color="255,255,255,0" />
+    <ItemComponent>
+      <StatusEffect type="OnSpawn" target="This">
+        <Explosion range="200" force="15" structuredamage="0" itemdamage="0" levelwalldamage="0" ballastfloradamage="0" severlimbsprobability="0" camerashake="15">
+          <Affliction identifier="explosiondamage" strength="25" />
+          <Affliction identifier="burn" strength="10" />
+        </Explosion>
+        <sound file="Content/Items/Weapons/ExplosionSmall1.ogg" range="2000" />
+      </StatusEffect>
+      <StatusEffect type="OnSpawn" target="This" delay="0.1"><Remove /></StatusEffect>
+    </ItemComponent>
+  </Item>
+</Items>

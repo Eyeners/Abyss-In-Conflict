@@ -26,11 +26,16 @@
     <target Tag="weapon" State="Attack" Priority="100" IgnoreIfNotInSameSub="True" AttackPattern="Straight" />
     <target Tag="wall" State="Attack" Priority="95" IgnoreInside="True" IgnoreIfNotInSameSub="True" AttackPattern="Straight" />
     <target Tag="door" State="Attack" Priority="95" IgnoreInside="True" IgnoreIfNotInSameSub="True" AttackPattern="Straight" />
+    <target Tag="aic_vanguard" State="Attack" Priority="180" IgnoreIfNotInSameSub="True" IgnoreIncapacitated="True" AttackPattern="Straight" />
+    <target Tag="aic_ivolo" State="Attack" Priority="180" IgnoreIfNotInSameSub="True" IgnoreIncapacitated="True" AttackPattern="Straight" />
+    <target Tag="stronger" State="Attack" Priority="150" IgnoreIfNotInSameSub="True" IgnoreIncapacitated="True" AttackPattern="Straight" />
+    <target Tag="equal" State="Attack" Priority="150" IgnoreIfNotInSameSub="True" IgnoreIncapacitated="True" AttackPattern="Straight" />
+    <target Tag="weaker" State="Attack" Priority="150" IgnoreIfNotInSameSub="True" IgnoreIncapacitated="True" AttackPattern="Straight" />
   </ai>
   <inventory arrowslot="9" Slots="Card, Headset, Head, InnerClothes, OuterClothes, LeftHand, RightHand, Bag, Any, Any, Any, Any, Any, Any, Any, Any, Any, HealthInterface" AccessibleWhenAlive="False" Commonness="1">
     <Item slot="Card" Identifier="idcard" />
     <Item slot="Headset" Identifier="headset" />
-    <Item slot="OuterClothes, Head" Identifier="aic_wardens_bastion_experimental_powerarmor">
+    <Item slot="OuterClothes" Identifier="aic_wardens_bastion_experimental_powerarmor">
       <Item Identifier="oxygenitetank" />
       <Item Identifier="deusizine" />
       <Item Identifier="fulguriumbatterycell" />

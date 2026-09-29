@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <!-- AOCS lab1 gun and 14-1 magazine visuals; independent ammunition and field logic. -->
+  <Item name="重力枪" identifier="aic_gravity_gun" category="Weapon" tags="mediumitem,weapon,gun" scale="0.5" impactsoundtag="impact_metal_heavy">
+    <Sprite texture="%ModDir%/Items/Weapons/gravity_gun.png" sourcerect="0,0,325,109" depth="0.55" origin="0.5,0.5" />
+    <Body width="140" height="60" density="50" />
+    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="50,15" aimpos="50,15" handle1="10,-30" handle2="26,5" holdangle="-30" msg="ItemMsgPickUpSelect" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite texture="%ModDir%/Items/Weapons/gravity_gun.png" sourcerect="0,0,325,109" canbehiddenbyotherwearables="false" rotation="90" inheritlimbdepth="false" depth="0.6" limb="Torso" ignorelimbscale="true" scale="0.5" origin="0.5,0.9" />
+    </Wearable>
+    <RangedWeapon reload="1.5" holdtrigger="false" barrelpos="145,8" spread="0" unskilledspread="0" combatpriority="80" drawhudwhenequipped="true" crosshairscale="0.2">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <Sound file="Content/Items/Weapons/GRAVITYSHELLS_boom.ogg" type="OnUse" volume="0.6" range="3000" />
+      <StatusEffect type="OnUse" target="Contained"><Use /></StatusEffect>
+      <RequiredItems items="aic_gravity_gun_magazine" type="Contained" msg="ItemMsgAmmoRequired" />
+    </RangedWeapon>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="bullet" containedstateindicatorslot="0">
+      <Containable items="aic_gravity_gun_magazine" />
+      <SlotIcon slotindex="0" texture="%ModDir%/Items/Weapons/gravity_gun_magazine.png" sourcerect="0,0,100,41" origin="0.5,0.5" />
+    </ItemContainer>
+    <aitarget sightrange="2000" soundrange="3000" fadeouttime="5" />
+  </Item>
+
+  <Item name="重力枪弹匣" identifier="aic_gravity_gun_magazine" category="Weapon" tags="smallitem" scale="0.3" maxstacksize="8" impactsoundtag="impact_metal_light">
+    <Sprite texture="%ModDir%/Items/Weapons/gravity_gun_magazine.png" sourcerect="0,0,100,41" depth="0.54" origin="0.5,0.5" />
+    <Body width="30" height="40" density="50" />
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+    <ItemContainer hideitems="true" capacity="1" drawinventory="false" canbeselected="false" showcontainedstateindicator="false" SpawnWithId="aic_gravity_gun_round" removecontaineditemsondeconstruct="true">
+      <Containable items="aic_gravity_gun_round" />
+      <StatusEffect type="OnUse" target="This" condition="-12.5" disabledeltatime="true">
+        <SpawnItem identifiers="aic_gravity_gun_round" spawnposition="ThisInventory" />
+      </StatusEffect>
+    </ItemContainer>
+  </Item>
+
+  <Item name="重力枪射弹" identifier="aic_gravity_gun_round" category="Weapon" hideinmenus="true" scale="0.5">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+    <Body width="17" height="6" density="20" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+    <Projectile characterusable="false" hitscan="true" maxtargetstohit="1" removeonhit="true">
+      <ParticleEmitter particle="tracernucleargun" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="0.5,0.5" colormultiplier="120,210,255,180" />
+      <Attack structuredamage="0" itemdamage="0" targetforce="0" severlimbsprobability="0" />
+      <StatusEffect type="OnImpact" target="This">
+        <LuaHook name="aic_gravity_gun_impact" />
+      </StatusEffect>
+      <StatusEffect type="OnNotContained" target="This" delay="2"><Remove /></StatusEffect>
+    </Projectile>
+  </Item>
+
+  <Item name="重力枪瞬时力场" identifier="aic_gravity_gun_field" category="Weapon" hideinmenus="true" scale="1" sonarsize="0" spritecolor="255,255,255,0">
+    <Sprite texture="%ModDir%/Items/Weapons/gravity_gun.png" sourcerect="0,0,1,1" color="255,255,255,0" depth="0.99" origin="0.5,0.5" />
+    <Body width="1" height="1" density="1" gravityscale="0" bodytype="static" collideswithcharacters="false" />
+    <ItemComponent characterusable="false">
+      <StatusEffect type="OnSpawn" target="This">
+        <ParticleEmitter particle="aic_gravity_gun_band" particleamount="1" anglemin="90" anglemax="90" distancemin="146" distancemax="146" velocitymin="-1460" velocitymax="-1460" />
+        <!-- One silent damage pulse, not an explosion repeated by every trigger occupant. -->
+        <Explosion range="180" force="0" structuredamage="0" itemdamage="0" levelwalldamage="0" ballastfloradamage="0" severlimbsprobability="1" shockwave="false" sparks="false" flames="false" smoke="false" flash="false" debris="false" underwaterbubble="false" camerashake="0" playtinnitus="false">
+          <Affliction identifier="organdamage" strength="20" dividebylimbcount="false" />
+          <Affliction identifier="explosiondamage" strength="20" dividebylimbcount="false" />
+          <Affliction identifier="nausea" strength="10" dividebylimbcount="false" />
+        </Explosion>
+      </StatusEffect>
+      <StatusEffect type="OnSpawn" target="This" delay="0.2"><Remove /></StatusEffect>
+    </ItemComponent>
+    <TriggerComponent triggeredby="Human,Creature,Item" width="200" height="300" force="0" directionalforce="0,-1000" relativedirectionalforce="false" distancebasedforce="false">
+      <StatusEffect type="OnActive" target="Character" interval="0.1" stackable="false" disabledeltatime="true">
+        <!-- Rectangle occupants receive full suppression, without explosion distance falloff. -->
+        <Affliction identifier="aic_suppression" strength="30" />
+      </StatusEffect>
+    </TriggerComponent>
+  </Item>
+</Items>

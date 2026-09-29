@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Items>
-  <!-- 预视科技装备物品占位文件 -->
+  <Item name="辅助瞄准头盔" identifier="aic_foresight_aim_assist_helmet" category="Equipment" subcategory="预视科技护甲" tags="smallitem,armor,helmet,clothing" scale="0.11" maxstacksize="1" health="100" fireproof="true" impactsoundtag="impact_metal_heavy" cargocontaineridentifier="metalcrate">
+    <InventoryIcon texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" sourcerect="208,7,354,394" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" sourcerect="208,7,354,394" origin="0.5,0.5" depth="0.55" />
+    <Body width="300" height="350" density="15" />
+    <Wearable slots="Head" msg="ItemMsgEquipSelect" canbepicked="true" pickkey="Select">
+      <sprite name="Aim Assist Helmet" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="Head" sourcerect="208,7,354,394" origin="0.507,0.58" scale="0.22" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" alphaclipotherwearables="true" canbehiddenbyotherwearables="true" hideotherwearables="true" depthlimb="LeftForearm" />
+      <sprite name="Aim Assist Helmet Overlay" texture="%ModDir%/预视科技/贴图/头灯.png" limb="Head" origin="0.1642,0.7867" scale="0.22" depth="0" hidelimb="false" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" canbehiddenbyotherwearables="true" depthlimb="LeftForearm" />
+    </Wearable>
+    <Holdable slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+    <CustomInterface canbeselected="true" drawhudwhenequipped="true">
+      <GuiFrame relativesize="0.16,0.07" anchor="BottomLeft" relativeoffset="0,0.43" style="ItemUI" />
+      <TickBox text="辅助瞄准">
+        <StatusEffect type="OnUse" target="This"><LuaHook name="aic_aim_helmet_on" /></StatusEffect>
+        <StatusEffect type="OnSecondaryUse" target="This"><LuaHook name="aic_aim_helmet_off" /></StatusEffect>
+      </TickBox>
+    </CustomInterface>
+  </Item>
 </Items>

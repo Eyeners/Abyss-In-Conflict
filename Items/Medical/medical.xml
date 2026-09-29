@@ -1,3 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Items>
+  <Item name="治疗喷雾" identifier="aic_healing_spray" category="Medical" tags="smallitem,medical" scale="0.15" health="100" maxstacksize="8" maxstacksizecharacterinventory="1" impactsoundtag="impact_metal_light" description="定向喷洒纳米治疗液，对喷射路径中的单位施加微小奇迹。喷雾可穿过单位，但不能穿过墙体和关闭的门；持续喷洒约20秒耗尽。">
+    <InventoryIcon texture="%ModDir%/Items/Medical/治疗喷雾.png" sourcerect="0,0,214,283" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/Medical/治疗喷雾.png" sourcerect="0,0,214,283" depth="0.55" origin="0.5,0.5" />
+    <Body width="50" height="90" density="0" />
+    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="35,0" handle1="-22,-72" holdangle="-90" msg="ItemMsgPickUpSelect" />
+    <!-- Native multi-hit repair ray passes through characters, not intact walls/doors. -->
+    <!-- RepairTool uses display-unit offsets, not unscaled texture pixels: (98,87) * 0.15. -->
+    <RepairTool range="500" barrelpos="14.7,13.05" repairmultiple="true" repairmultiplewalls="false" repairthroughwalls="false" repairthroughholes="true" hititems="false" ignorecharacters="false" structurefixamount="0" targetforce="0" extinguishamount="0">
+      <ParticleEmitter particle="extinguisher" velocitymin="1000" velocitymax="1650" particlespersecond="100" colormultiplier="170,255,190,210" />
+      <Sound file="Content/Items/Tools/Extinguisher.ogg" type="OnUse" range="500" loop="true" />
+      <StatusEffect type="OnUse" target="This" condition="-5" />
+      <StatusEffect type="OnUse" target="UseTarget">
+        <Affliction identifier="aic_minor_miracle" amount="20" />
+      </StatusEffect>
+      <!-- Like XCOM sprayers: Character is the operator, UseTarget is the patient. -->
+      <StatusEffect type="OnUse" target="Character">
+        <Affliction identifier="aic_minor_miracle" amount="20" />
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This"><Remove /></StatusEffect>
+    </RepairTool>
+    <AITarget sightrange="500" soundrange="500" fadeouttime="1" />
+  </Item>
 </Items>

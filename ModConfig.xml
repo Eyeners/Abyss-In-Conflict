@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModConfig>
+  <Assembly Folder="%ModDir%/CSharp/Shared" IsScript="true" Target="Client" UseInternalAccessName="true" FriendlyName="AIC.Shared.Client" />
+  <Assembly Folder="%ModDir%/CSharp/Shared" IsScript="true" Target="Server" UseInternalAccessName="true" FriendlyName="AIC.Shared.Server" />
   <Lua File="%ModDir%/Lua/LuaSetup.lua" IsAutorun="true" />
 </ModConfig>

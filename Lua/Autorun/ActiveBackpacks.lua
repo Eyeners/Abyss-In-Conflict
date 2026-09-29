@@ -3,6 +3,7 @@ if SERVER then
 end
 
 local BACKPACK_ACTIONS = {
+    { tag = "aic_cluster_missile_backpack", label = "发射弹群" },
     { tag = "aic_self_destruct_backpack", label = "启动自爆" },
     { tag = "aic_multifunction_medical_backpack", label = "释放医疗烟雾" }
 }

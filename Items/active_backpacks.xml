@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Items>
+  <Item name="弹群背包" identifier="aic_cluster_missile_backpack" category="Equipment" tags="mediumitem,mobilecontainer,largemobilecontainer,tool,aic,aic_active_backpack,aic_cluster_missile_backpack" showcontentsintooltip="true" scale="0.5" health="100" fireproof="true" impactsoundtag="impact_soft">
+    <InventoryIcon texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" depth="0.6" origin="0.5,0.5" />
+    <Body width="60" height="100" density="15" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite name="AIC Cluster Missile Backpack" canbehiddenbyotherwearables="false" canbehiddenbyitem="deepdivinglarge" texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" limb="Torso" depthlimb="Waist" inherittexturescale="true" origin="1.1,0.5" />
+      <StatValue stattype="MovementSpeed" value="-0.2" />
+      <StatValue stattype="PropulsionSpeed" value="-0.2" />
+    </Wearable>
+    <Holdable slots="RightHand+LeftHand,Any" holdpos="0,-70" handle1="-5,50" handle2="10,50" holdangle="0" msg="ItemMsgPickUpSelect" />
+    <!-- Upward-opening backpack UI: slots 0-3 are the bottom row, not 12-15. -->
+    <ItemContainer capacity="4" maxstacksize="1" canbeselected="true" hideitems="true" slotsperrow="4" allowuioverlap="true">
+      <Containable items="aic_gdf_cluster_rocket_ammo,aic_decoy_launcher" />
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="448,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="448,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="2" texture="Content/UI/StatusMonitorUI.png" sourcerect="448,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="3" texture="Content/UI/StatusMonitorUI.png" sourcerect="448,448,64,64" origin="0.5,0.5" />
+      <SubContainer capacity="12" maxstacksize="32">
+        <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,mobilecontainer,largemobilecontainer" />
+      </SubContainer>
+    </ItemContainer>
+    <LightComponent characterusable="false" lightcolor="255,255,255,0" range="0" powerconsumption="0" ison="false" castshadows="false" allowingameediting="false">
+      <StatusEffect type="OnActive" target="This">
+        <LuaHook name="aic_cluster_backpack_fire" />
+      </StatusEffect>
+      <StatusEffect type="OnActive" target="This" targetitemcomponent="LightComponent" ison="false" setvalue="true" disabledeltatime="true" />
+    </LightComponent>
+    <CustomInterface canbeselected="false" drawhudwhenequipped="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.09,0.07" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.22" style="ItemUI" />
+      <TickBox text="发射弹群" targetitemcomponent="LightComponent" propertyname="IsOn" continuoussignal="false" getvalueinterval="0.1" />
+    </CustomInterface>
+  </Item>
   <Item name="自爆背包" identifier="aic_self_destruct_backpack" category="Equipment" tags="mediumitem,mobilecontainer,largemobilecontainer,tool,aic,aic_active_backpack,aic_self_destruct_backpack" showcontentsintooltip="true" scale="0.5" fireproof="true" description="穿戴后按Q启动不可逆的3秒倒计时，随后引发一次核爆。" impactsoundtag="impact_soft">
     <InventoryIcon texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" depth="0.6" />

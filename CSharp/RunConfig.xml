@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RunConfig>
   <!-- Options: None / Forced / Standard -->
-  <Server>None</Server>
+  <Server>Standard</Server>
   <Client>Standard</Client>
 </RunConfig>

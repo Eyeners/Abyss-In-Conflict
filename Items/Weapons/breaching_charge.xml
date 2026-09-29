@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="投掷式破门炸药" identifier="aic_breaching_charge" category="Weapon" tags="smallitem,grenade,explosive" scale="0.5" maxstacksize="8" maxstacksizecharacterinventory="4" cargocontaineridentifier="explosivecrate" impactsoundtag="impact_metal_light">
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="704,64,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="215,242,41,21" depth="0.55" origin="0.5,0.5" />
+    <Body width="40" height="22" density="20" />
+    <Throwable slots="Any,RightHand,LeftHand" holdpos="0,0" handle1="0,0" throwforce="4" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnSecondaryUse" target="This" condition="99" setvalue="true" disabledeltatime="true" />
+    </Throwable>
+  </Item>
+  <Item name="破门后方爆破体" identifier="aic_breaching_charge_blast" category="Weapon" hideinmenus="true" noninteractable="true" sonarsize="0">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,0,1,1" color="0,0,0,0" origin="0.5,0.5" />
+    <ItemComponent>
+      <StatusEffect type="OnSpawn" target="This" delay="0.05">
+        <Sound file="Content/Items/Weapons/ExplosionSmall1.ogg" range="1800" />
+        <Explosion range="100" force="2" structuredamage="0" itemdamage="0" levelwalldamage="0" severlimbsprobability="0" flames="false" smoke="true" sparks="true" shockwave="true" underwaterbubble="true">
+          <Affliction identifier="explosiondamage" strength="18" />
+          <Affliction identifier="stun" strength="5" />
+        </Explosion>
+        <Remove />
+      </StatusEffect>
+    </ItemComponent>
+  </Item>
+</Items>

@@ -10,7 +10,7 @@
     health="100"
     scale="0.068"
     impactsoundtag="impact_metal_light"
-    description="地球防卫部队使用的军用等离子步枪，以Z箍缩产生的强磁场约束并压缩高温等离子体，将形成的等离子束沿磁化通路投射至目标。">
+    description="地球防卫部队使用的制式等离子步枪，以Z箍缩产生的强磁场约束并压缩高温等离子体，将形成的等离子束沿磁化通路投射至目标。">
 
     <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
 
@@ -351,7 +351,7 @@
     category="Weapon"
     subcategory="GDF军用武器"
     cargocontaineridentifier="metalcrate"
-    tags="mediumitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_gdf_weapon,aic_wardens_weapon,aic_rifle"
+    tags="mediumitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_gdf_weapon,aic_wardens_weapon,aic_rifle,aic_scope_zoom2x"
     scale="0.068"
     impactsoundtag="impact_metal_light"
     description="">
@@ -377,7 +377,7 @@
     </Holdable>
 
     <RangedWeapon
-      reload="0.5"
+      reload="0.35"
       holdtrigger="true"
       barrelpos="824,58"
       spread="1.0"
@@ -513,7 +513,7 @@
         <Use />
       </StatusEffect>
 
-      <RequiredItems items="aic_gdf_small_magazine,aic_gdf_small_thermite_magazine,aic_gdf_small_piezoelectric_magazine" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredItems items="aic_gdf_small_magazine" type="Contained" msg="ItemMsgAmmoRequired" />
       <RequiredSkill identifier="weapons" level="35" />
     </RangedWeapon>
 
@@ -528,7 +528,7 @@
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
 
       <Containable
-        items="aic_gdf_small_magazine,aic_gdf_small_thermite_magazine,aic_gdf_small_piezoelectric_magazine"
+        items="aic_gdf_small_magazine"
         hide="false"
         itempos="2.1,-5"
         rotation="10.6"
@@ -621,7 +621,7 @@
         <Use />
       </StatusEffect>
 
-      <RequiredItems items="aic_gdf_small_magazine,aic_gdf_small_thermite_magazine,aic_gdf_small_piezoelectric_magazine" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredItems items="aic_gdf_small_magazine" type="Contained" msg="ItemMsgAmmoRequired" />
       <RequiredSkill identifier="weapons" level="30" />
     </RangedWeapon>
 
@@ -636,7 +636,7 @@
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
 
       <Containable
-        items="aic_gdf_small_magazine,aic_gdf_small_thermite_magazine,aic_gdf_small_piezoelectric_magazine"
+        items="aic_gdf_small_magazine"
         hide="false"
         itempos="-1.25,-9"
         rotation="0"
@@ -675,10 +675,10 @@
     category="Weapon"
     subcategory="GDF军用武器"
     cargocontaineridentifier="metalcrate"
-    tags="bigitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_gdf_weapon,aic_wardens_weapon,aic_grenade_launcher"
+    tags="bigitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_gdf_weapon,aic_wardens_weapon,aic_grenade_launcher,aic_scope_zoom2x"
     scale="0.0952"
     impactsoundtag="impact_metal_light"
-    description="GDF制式手提转轮榴弹发射器，内置十二发弹仓，可装填多种不同榴弹。">
+    description="GDF制式手提转轮榴弹发射器，内置十二发弹仓，可装填多种不同榴弹，自带弹道计算机，可以帮助士兵简单预测榴弹轨迹。">
 
     <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
 
@@ -731,7 +731,12 @@
       showtotalstackcapacityincontainedstateindicator="true"
       containedstateindicatorstyle="bullet"
       containedspritedepth="0.56">
-      <Containable items="grenade" hide="true" />
+      <Containable items="grenade" hide="true">
+        <StatusEffect type="OnInserted" target="This" disabledeltatime="true">
+          <LuaHook name="aic_ammo_insertion_delay" />
+        </StatusEffect>
+        <StatusEffect type="OnRemoved" target="This" disabledeltatime="true"><LuaHook name="aic_ammo_insertion_delay" /></StatusEffect>
+      </Containable>
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="448,448,64,64" origin="0.5,0.5" />
       <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="448,448,64,64" origin="0.5,0.5" />
       <SlotIcon slotindex="2" texture="Content/UI/StatusMonitorUI.png" sourcerect="448,448,64,64" origin="0.5,0.5" />
@@ -1145,5 +1150,322 @@
         <RemoveItem />
       </StatusEffect>
     </Holdable>
+  </Item>
+
+  <Item
+    name="GDF锻锤加速霰弹枪"
+    identifier="aic_gdf_forgehammer_shotgun"
+    category="Weapon"
+    subcategory="GDF军用武器"
+    scale="0.0567"
+    tags="mediumitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_gdf_weapon,aic_wardens_weapon"
+    cargocontaineridentifier="metalcrate"
+    impactsoundtag="impact_metal_light"
+    description="单手持握的线圈加速霰弹枪，可容纳十二发霰弹，逐发装填。">
+
+    <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
+    <InventoryIcon texture="%ModDir%/卫戍者/贴图/锻锤加速霰弹枪.png" sourcerect="0,0,1263,408" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/卫戍者/贴图/锻锤加速霰弹枪.png" sourcerect="0,0,1263,408" origin="0.5,0.5" depth="0.55" />
+    <Body width="71.6" height="23.1" density="30" />
+
+    <Holdable
+      slots="RightHand,LeftHand,Any"
+      controlpose="true"
+      aimpos="70,0"
+      handle1="-340,-16"
+      msg="ItemMsgPickUpSelect">
+      <Conditional recoilstabilized="lte 0" />
+      <StatusEffect type="OnActive" target="Character" speedmultiplier="0.93" setvalue="true" />
+      <StatusEffect type="OnSecondaryUse" target="Character" speedmultiplier="0.82" setvalue="true" />
+      <StatusEffect type="OnUse" target="Character" speedmultiplier="0.68" setvalue="true" />
+    </Holdable>
+
+    <RangedWeapon
+      barrelpos="627,51"
+      reload="0.33"
+      weapondamagemodifier="1.5"
+      spread="3"
+      unskilledspread="6"
+      combatpriority="80"
+      drawhudwhenequipped="true"
+      crosshairscale="0.22">
+
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <ParticleEmitter particle="muzzleflash" scalemultiplier="0.75,0.75" particleamount="1" velocitymin="0" velocitymax="0" />
+      <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="40" velocitymax="190" copyentityangle="true" />
+      <Sound file="Content/Items/Weapons/ShotgunShot1.ogg" type="OnUse" range="2000" selectionmode="Random" />
+      <Sound file="Content/Items/Weapons/ShotgunShot2.ogg" type="OnUse" range="2000" selectionmode="Random" />
+      <Sound file="Content/Items/Weapons/ShotgunShot3.ogg" type="OnUse" range="2000" selectionmode="Random" />
+      <Sound file="Content/Items/Weapons/ShotgunShot4.ogg" type="OnUse" range="2000" selectionmode="Random" />
+      <RequiredItems items="shotgunammo" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="40" />
+
+      <StatusEffect type="OnUse" target="This" disabledeltatime="true">
+        <Explosion range="100" force="8" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="20" />
+        <LuaHook name="aic_forgehammer_recoil_penalty" />
+      </StatusEffect>
+    </RangedWeapon>
+
+    <ItemContainer
+      capacity="2"
+      maxstacksize="6"
+      hideitems="true"
+      containedstateindicatorslot="0"
+      containedstateindicatorstyle="bullet"
+      showtotalstackcapacityincontainedstateindicator="true">
+
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+      <Containable items="shotgunammo" hide="true">
+        <StatusEffect type="OnInserted" target="This" disabledeltatime="true">
+          <LuaHook name="aic_ammo_insertion_delay" />
+        </StatusEffect>
+        <StatusEffect type="OnRemoved" target="This" disabledeltatime="true">
+          <LuaHook name="aic_ammo_insertion_delay" />
+        </StatusEffect>
+      </Containable>
+    </ItemContainer>
+    <AITarget sightrange="2100" soundrange="2000" fadeouttime="7" />
+    <Quality>
+      <QualityStat stattype="FirepowerMultiplier" value="0.08" />
+    </Quality>
+    <SkillRequirementHint identifier="weapons" level="40" />
+  </Item>
+
+  <Item
+    name="激流等离子线性霰弹枪"
+    identifier="aic_test_plasma_shotgun"
+    category="Weapon"
+    subcategory="GDF军用武器"
+    cargocontaineridentifier="metalcrate"
+    tags="mediumitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_gdf_weapon,aic_wardens_weapon"
+    health="100"
+    scale="0.068"
+    impactsoundtag="impact_metal_light"
+    description="">
+
+    <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
+
+    <InventoryIcon
+      texture="%ModDir%/卫戍者/贴图/激流等离子线性霰弹枪.png"
+      sourcerect="0,0,1818,473"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/激流等离子线性霰弹枪.png"
+      sourcerect="0,0,1818,473"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="217" height="49.4" density="32" />
+
+    <Holdable
+      slots="RightHand+LeftHand,Any"
+      controlpose="true"
+      holdpos="60,-10"
+      holdangle="-35"
+      aimpos="68,0"
+      handle1="-359,-86"
+      handle2="166,-43">
+      <Conditional recoilstabilized="lte 0" />
+      <StatusEffect type="OnActive" target="Character" speedmultiplier="0.84" setvalue="true" />
+      <StatusEffect type="OnSecondaryUse" target="Character" speedmultiplier="0.72" setvalue="true" />
+      <StatusEffect type="OnUse" target="Character" speedmultiplier="0.46" setvalue="true" />
+    </Holdable>
+
+    <!-- Lua intercepts this native component to fire on release and tune spread/damage/penetration. -->
+    <RangedWeapon
+      reload="0.75"
+      holdtrigger="true"
+      maxchargetime="1.5"
+      chargesoundwinduppitchslide="0.5,1.5"
+      weapondamagemodifier="1.0"
+      penetration="0.1"
+      barrelpos="855,102"
+      spread="0.5"
+      unskilledspread="3.0"
+      combatpriority="82"
+      drawhudwhenequipped="true"
+      crosshairscale="0.22">
+
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+
+      <ParticleEmitterCharge
+        particle="chargenucleargun"
+        particlespersecond="45"
+        scalemultiplier="0.7,0.7"
+        scalemin="0.8"
+        scalemax="1.0"
+        anglemax="360"
+        colormultiplier="190,105,255,180" />
+
+      <ParticleEmitter
+        particle="muzzleflashnucleargun"
+        anglemin="0"
+        anglemax="360"
+        particleamount="10"
+        velocitymin="0"
+        scalemin="0.5"
+        scalemax="0.8"
+        scalemultiplier="0.75,0.75"
+        colormultiplier="190,105,255,220" />
+
+      <ChargeSound file="Content/Items/JobGear/Engineer/WEAPONS_rapidFissileAcceleratorStartLoop.ogg" range="1000" />
+      <Sound file="%ModDir%/卫戍者/音效/AR-13 Fury 1.ogg" type="OnUse" range="3000" selectionmode="Random" />
+      <Sound file="%ModDir%/卫戍者/音效/AR-13 Fury 2.ogg" type="OnUse" range="3000" selectionmode="Random" />
+      <Sound file="%ModDir%/卫戍者/音效/AR-13 Fury 3.ogg" type="OnUse" range="3000" selectionmode="Random" />
+
+      <StatusEffect type="OnUse" target="This">
+        <Explosion range="170" force="0.3" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="6" flashcolor="190,105,255,120" />
+      </StatusEffect>
+
+      <StatusEffect type="OnUse" target="Contained">
+        <Use />
+      </StatusEffect>
+
+      <RequiredItems items="aic_test_plasma_shotgun_battery" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="45" />
+    </RangedWeapon>
+
+    <ItemContainer
+      capacity="1"
+      maxstacksize="1"
+      hideitems="false"
+      itemrotation="0"
+      containedspritedepth="0.56"
+      containedstateindicatorslot="0"
+      containedstateindicatorstyle="battery"
+      spawnwithid="aic_test_plasma_shotgun_battery">
+
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+
+      <Containable
+        items="aic_test_plasma_shotgun_battery"
+        hide="false"
+        itempos="-41.276,0.952"
+        setactive="true">
+
+        <StatusEffect type="OnInserted" target="This" holdpos="6,-24" holdangle="58" setvalue="true" />
+
+        <StatusEffect
+          type="OnInserted"
+          target="This"
+          holdpos="60,-10"
+          holdangle="-35"
+          disabledeltatime="true"
+          checkconditionalalways="true"
+          delay="0.8"
+          setvalue="true" />
+      </Containable>
+    </ItemContainer>
+
+    <AITarget sightrange="2800" soundrange="2600" fadeouttime="7" />
+    <SkillRequirementHint identifier="weapons" level="45" />
+  </Item>
+
+  <Item
+    name="激流等离子霰弹电池栈"
+    identifier="aic_test_plasma_shotgun_battery"
+    health="60"
+    maxstacksize="16"
+    maxstacksizecharacterinventory="8"
+    category="Weapon"
+    subcategory="GDF军用武器"
+    cargocontaineridentifier="metalcrate"
+    linkable="true"
+    tags="smallitem,handheldammo,aic_test_plasma_shotgun_battery,aic_gdf_weaponmag,aic_wardens_weaponmag"
+    scale="0.068"
+    impactsoundtag="impact_metal_light"
+    description="">
+
+    <PreferredContainer primary="aic_test_plasma_shotgun" minamount="1" maxamount="1" spawnprobability="1" />
+    <PreferredContainer primary="armcab" secondary="secarmcab" />
+
+    <InventoryIcon
+      texture="%ModDir%/卫戍者/贴图/GDF红星等离子电池栈.png"
+      sourcerect="0,0,238,323"
+      origin="0.5,0.5" />
+
+    <Sprite
+      texture="%ModDir%/卫戍者/贴图/GDF红星等离子电池栈.png"
+      sourcerect="0,0,238,323"
+      depth="0.56"
+      origin="0.5,0.5" />
+
+    <Body width="27" height="37" density="25" />
+
+    <ItemContainer
+      hideitems="true"
+      capacity="1"
+      drawinventory="false"
+      canbeselected="false"
+      spawnwithid="aic_test_plasma_shotgun_blast"
+      removecontaineditemsondeconstruct="true"
+      showconditionincontainedstateindicator="true"
+      containedstateindicatorstyle="battery">
+
+      <Containable items="aic_test_plasma_shotgun_blast" />
+
+      <StatusEffect type="OnUse" target="This" condition="-3" disabledeltatime="true">
+        <SpawnItem identifiers="aic_test_plasma_shotgun_blast" spawnposition="ThisInventory" />
+      </StatusEffect>
+    </ItemContainer>
+
+    <Holdable canbecombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item
+    name="激流等离子霰弹束"
+    identifier="aic_test_plasma_shotgun_blast"
+    category="Weapon"
+    interactthroughwalls="true"
+    tags="smallitem,aic_gdf_energy_bolt,aic_test_plasma_shotgun_blast"
+    impactsoundtag="impact_metal_light"
+    hideinmenus="true"
+    scale="0.5"
+    description="">
+
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="143,414,113,9" depth="0.55" origin="0.5,0.5" />
+    <Body width="170" height="10" density="20" />
+    <Holdable slots="RightHand+LeftHand" holdpos="0,-50" handle1="-10,0" handle2="10,0" aimable="false" />
+
+    <!-- Each of the five rays starts at exactly one quarter of the Red Star bolt's direct values. -->
+    <Projectile
+      characterusable="false"
+      hitscan="true"
+      hitscancount="5"
+      spread="20"
+      maxtargetstohit="1"
+      removeonhit="true"
+      damagedoors="true"
+      penetration="0.3">
+
+      <ParticleEmitter particle="tracernucleargun" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="1,0.75" colormultiplier="190,105,255,220" />
+      <ParticleEmitter particle="FlareBubbles" emitacrossrayinterval="50" colormultiplier="190,105,255,180" />
+
+      <Attack structuredamage="0.75" targetforce="2.5" itemdamage="5" severlimbsprobability="0.05" penetration="0">
+        <Affliction identifier="burn" strength="8.5" />
+        <Affliction identifier="explosiondamage" strength="3" />
+        <Affliction identifier="aic_heat_buildup" strength="3.75" />
+      </Attack>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="muzzleflashnucleargun" anglemin="0" anglemax="360" particleamount="6" velocitymin="0" scalemin="0.35" scalemax="0.6" scalemultiplier="0.6,0.6" colormultiplier="190,105,255,180" />
+        <ParticleEmitter particle="weldspark" particleamount="3" anglemin="0" anglemax="360" velocitymin="220" velocitymax="300" scalemin="0.8" scalemax="1.2" drawontop="true" colormultiplier="190,105,255,180" />
+        <ParticleEmitter particle="FlareBubbles" particleamount="2" anglemin="0" anglemax="360" velocitymin="0" velocitymax="40" colormultiplier="190,105,255,180" />
+      </StatusEffect>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="3" velocitymin="-10" velocitymax="-160" scalemin="0.4" scalemax="0.8" colormultiplier="190,105,255,180" />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
   </Item>
 </Items>

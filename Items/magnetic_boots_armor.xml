@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="典范磁吸测试甲" identifier="aic_magnetic_boots_armor" category="Equipment,Diving" tags="armor,clothing,diving,deepdiving,divinggear_wearableindoors,aic_magnetic_boots_armor" health="100" maxstacksize="1" scale="0.167" fireproof="true">
+    <Sprite texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" sourcerect="1621,423,637,421" depth="0.55" origin="0.5,0.5" />
+    <Body radius="45" width="34" density="20" />
+    <Wearable slots="OuterClothes+Head" msg="ItemMsgEquipSelect" canbepicked="true" pickkey="Select">
+      <StatValue stattype="FlowResistance" value="0.8" />
+      <sprite name="Foresight T3 Head" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="Head" sourcerect="208,7,354,394" origin="0.507,0.58" scale="0.22" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" alphaclipotherwearables="true" canbehiddenbyotherwearables="false" hideotherwearables="true" depthlimb="LeftForearm">
+      </sprite>
+      <sprite name="Foresight T3 Torso" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="Torso" sourcerect="194,457,440,649" origin="0.5,0.5" scale="0.22" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="Foresight T3 Waist" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="Waist" sourcerect="271,1148,275,278" origin="0.486,0.5" scale="0.22" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" hideotherwearables="true" depthlimb="LeftFoot" />
+      <sprite name="Foresight T3 Outer Thigh" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="RightThigh" sourcerect="246,1479,276,487" origin="0.5,0.5" scale="0.22" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" depthlimb="RightArm" />
+      <sprite name="Foresight T3 Inner Thigh" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="LeftThigh" sourcerect="616,1479,276,487" origin="0.5,0.5" scale="0.22" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" hideotherwearables="true" />
+      <sprite name="Foresight T3 Outer Leg" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="RightLeg" sourcerect="268,2024,254,455" origin="0.5,0.5" scale="0.22" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" hideotherwearables="true" depthlimb="RightForearm" />
+      <sprite name="Foresight T3 Inner Leg" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="LeftLeg" sourcerect="635,2024,254,455" origin="0.5,0.5" scale="0.22" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="Foresight T3 Outer Arm" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="RightArm" sourcerect="686,479,297,377" origin="0.6,0.5" scale="0.22" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" hideotherwearables="true" depthlimb="RightForearm" />
+      <sprite name="Foresight T3 Inner Arm" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="LeftArm" sourcerect="1093,482,292,361" origin="0.6,0.5" scale="0.22" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" depthlimb="LeftArm" />
+      <sprite name="Foresight T3 Outer Forearm" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="RightForearm" sourcerect="762,893,191,358" origin="0.5,0.5" scale="0.22" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" hideotherwearables="true" depthlimb="RightHand" />
+      <sprite name="Foresight T3 Inner Forearm" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="LeftForearm" sourcerect="1158,886,205,342" origin="0.5,0.5" scale="0.22" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" depthlimb="LeftHand" />
+      <sprite name="Foresight T3 Outer Hand" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="RightHand" sourcerect="1547,1019,190,224" origin="0.3,0.4" scale="0.22" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" hideotherwearables="true" />
+      <sprite name="Foresight T3 Inner Hand" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="LeftHand" sourcerect="1849,1032,183,214" origin="0.3,0.4" scale="0.22" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" hideotherwearables="true" />
+      <sprite name="Foresight T3 Outer Foot" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="RightFoot" sourcerect="1133,2297,299,180" origin="0.5,0.5" scale="0.22" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" hideotherwearables="true" depthlimb="RightArm" />
+      <sprite name="Foresight T3 Inner Foot" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="LeftFoot" sourcerect="1526,2298,319,189" origin="0.5,0.5" scale="0.22" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+
+      <damagemodifier armorsector="0,360" afflictionidentifiers="gunshotwound,bitewounds,lacerations,blunttrauma,bleeding" damagemultiplier="0.12" />
+      <damagemodifier armorsector="0,360" afflictionidentifiers="explosiondamage" damagemultiplier="0.2" deflectprojectiles="true"/>
+      <damagemodifier armorsector="0,360" afflictiontypes="burn" damagemultiplier="0.25" />
+      <StatusEffect type="OnWearing" target="Character" UseHullOxygen="true" PressureProtection="9500" setvalue="true" />
+      <StatusEffect type="OnWearing" target="Contained,Character" targetslot="0" UseHullOxygen="false" OxygenAvailable="1000">
+        <RequiredItem items="oxygensource" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" condition="-0.3">
+        <Conditional targetcontainer="true" targetgrandparent="true" IsDead="false" />
+        <Conditional targetcontainer="true" targetgrandparent="true" InWater="true" />
+        <RequiredItem items="oxygensource" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" condition="-0.3">
+        <Conditional targetcontainer="true" targetgrandparent="true" IsDead="false" />
+        <Conditional targetcontainer="true" targetgrandparent="true" InWater="false" />
+        <Conditional targetcontainer="true" targetgrandparent="true" HullOxygenPercentage="lt 50" />
+        <RequiredItem items="oxygensource" type="Contained" />
+      </StatusEffect>
+    </Wearable>
+    <Holdable slots="RightHand+LeftHand,Any" holdpos="0,-50" handle1="-10,-20" handle2="10,-20" holdangle="45" msg="ItemMsgPickUpSelect" />
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" canbeselected="true">
+      <Containable items="oxygensource" />
+    </ItemContainer>
+    <MagneticBoots ison="false" />
+    <CustomInterface canbeselected="false" drawhudwhenequipped="true">
+      <GuiFrame relativesize="0.18,0.11" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.10" style="ItemUI" />
+      <TickBox text="磁吸靴" signal="false" targetitemcomponent="MagneticBoots" propertyname="IsOn" continuoussignal="false" getvalueinterval="0.1" />
+      <TickBox text="贴墙行走（测试）" signal="false" targetitemcomponent="MagneticBoots" propertyname="WallWalkEnabled" continuoussignal="false" getvalueinterval="0.1" />
+    </CustomInterface>
+  </Item>
+</Items>

@@ -7,6 +7,7 @@ using System.Xml.Linq;
 
 namespace AIC.Components
 {
+    // XML 中的 <ScalingWearable> 对应这个组件；保持 internal，与原版基类访问级别一致。
     class ScalingWearable : Wearable
     {
         private const float MIN_SCALE = 0.1f;
@@ -28,6 +29,7 @@ namespace AIC.Components
 
         public override void Equip(Character character)
         {
+            // 先挂上穿戴精灵。后面重建肢体会使旧肢体引用失效，需要再次绑定装备。
             base.Equip(character);
 
             if (hasModified) return;
@@ -36,11 +38,13 @@ namespace AIC.Components
             originalRagdoll = character.AnimController.RagdollParams as HumanRagdollParams;
             if (originalRagdoll == null) return;
 
+            // 重绑装备也会回调 Equip，必须先置位，防止递归重建。
             hasModified = true;
 
             var position = character.WorldPosition;
             var velocity = character.AnimController.Collider.LinearVelocity;
 
+            // 当前实现按槽收集，双手装备可能重复出现；这是待优化点，不在注释整理时改行为。
             var equippedItems = new List<Item>();
             for (int i = 0; i < character.Inventory.Capacity; i++)
             {
@@ -62,6 +66,7 @@ namespace AIC.Components
             {
                 character.Info.Ragdoll = cloned;
             }
+            // 真正重建碰撞体和关节，不是只放大贴图；客户端也需要相同的布娃娃参数。
             character.AnimController.Recreate(cloned);
 
             character.TeleportTo(position);
@@ -79,6 +84,7 @@ namespace AIC.Components
 
         public override void Unequip(Character character)
         {
+            // 卸甲恢复原参数，并重绑其余装备；不能把正在卸下的甲再次装备。
             if (hasModified && originalRagdoll != null && ValidateCharacter(character))
             {
                 hasModified = false;
@@ -132,6 +138,7 @@ namespace AIC.Components
 
         private HumanRagdollParams GetOrCreateClonedRagdoll(HumanRagdollParams original, float scale)
         {
+            // 缓存的是参数模板，不是某个角色的物理实例；不要在外部按角色修改缓存内容。
             int cacheKey = GetCacheKey(original, scale);
 
             HumanRagdollParams cached;
@@ -148,6 +155,7 @@ namespace AIC.Components
                 MIN_SCALE,
                 MAX_SCALE
             );
+            // 关节锚点也必须同比放大，否则碰撞体变大而连接位置仍停留在旧尺寸。
             cloned.JointScale = MathHelper.Clamp(
                 original.JointScale * scale,
                 MIN_SCALE,
@@ -180,6 +188,7 @@ namespace AIC.Components
         {
             try
             {
+                // 深复制 XML，避免直接污染其他角色共用的原版参数。
                 var clonedDoc = new XDocument(original.doc);
                 var cloned = new HumanRagdollParams
                 {

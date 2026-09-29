@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="智能狙击步枪（测试）" identifier="aic_smart_sniper" category="Weapon" tags="bigitem,weapon,gun,provocativetohumanai" scale="0.07" maxstacksize="1" cargocontaineridentifier="metalcrate">
+    <InventoryIcon texture="%ModDir%/Items/Weapons/smart_sniper_jsz.png" sourcerect="362,45,1096,1096" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/Weapons/smart_sniper_jsz.png" sourcerect="170,1231,2456,659" depth="0.55" origin="0.5,0.5" />
+    <Body width="521" height="142" density="45" />
+    <Holdable slots="LeftHand+RightHand" controlpose="true" holdpos="65,-22" aimpos="83,5" handle1="-670,-169" handle2="-336,-101" holdangle="-30" msg="ItemMsgPickUpSelect" />
+    <RangedWeapon reload="2" holdtrigger="false" barrelpos="1125,-20" spread="0" unskilledspread="2" weapondamagemodifier="1" combatpriority="80" drawhudwhenequipped="true" crosshairscale="0.22">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <Sound file="%ModDir%/Items/Weapons/smart_sniper_fire.ogg" type="OnUse" range="2500" volume="0.7" />
+      <StatusEffect type="OnUse" target="Contained"><Use /></StatusEffect>
+      <RequiredItems items="aic_smart_sniper_mag" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="50" />
+    </RangedWeapon>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="bullet" containedstateindicatorslot="0">
+      <Containable items="aic_smart_sniper_mag" />
+    </ItemContainer>
+    <CustomInterface canbeselected="true" drawhudwhenequipped="true">
+      <GuiFrame relativesize="0.16,0.07" anchor="BottomLeft" relativeoffset="0,0.35" style="ItemUI" />
+      <TickBox text="智能模式">
+        <StatusEffect type="OnUse" target="This"><LuaHook name="aic_smart_sniper_on" /></StatusEffect>
+        <StatusEffect type="OnSecondaryUse" target="This"><LuaHook name="aic_smart_sniper_off" /></StatusEffect>
+      </TickBox>
+    </CustomInterface>
+    <aitarget sightrange="1500" soundrange="2500" fadeouttime="3" />
+  </Item>
+  <Item name="智能狙击步枪弹匣" identifier="aic_smart_sniper_mag" category="Weapon" tags="smallitem,handheldammo,aic_smart_sniper_mag" health="100" scale="0.07" maxstacksize="8" cargocontaineridentifier="metalcrate">
+    <Sprite texture="%ModDir%/Items/Weapons/smart_sniper_mag_jsz.png" sourcerect="1928,1596,271,428" origin="0.5,0.5" depth="0.56" />
+    <Body width="200" height="350" density="25" />
+    <Holdable slots="Any,RightHand,LeftHand" canbecombined="true" handle1="0,0" msg="ItemMsgPickUpSelect" />
+    <ItemContainer capacity="1" hideitems="true" drawinventory="false" canbeselected="false" spawnwithid="aic_smart_sniper_round" removecontaineditemsondeconstruct="true" showconditionincontainedstateindicator="true">
+      <Containable items="aic_smart_sniper_round" />
+      <StatusEffect type="OnUse" target="This" condition="-10" disabledeltatime="true">
+        <SpawnItem identifiers="aic_smart_sniper_round" spawnposition="ThisInventory" />
+      </StatusEffect>
+    </ItemContainer>
+  </Item>
+  <Item name="智能狙击步枪射弹" identifier="aic_smart_sniper_round" category="Weapon" tags="smallitem" hideinmenus="true" scale="0.5">
+    <Sprite texture="%ModDir%/Items/Weapons/smart_sniper_jsz.png" sourcerect="0,0,1,1" color="0,0,0,0" />
+    <Body radius="1" density="10" bullet="true" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+    <Projectile characterusable="false" hitscan="true" removeonhit="true" maxtargetstohit="1" penetration="0.5">
+      <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" />
+      <Attack structuredamage="5" itemdamage="5">
+        <Affliction identifier="gunshotwound" strength="80" />
+      </Attack>
+    </Projectile>
+  </Item>
+</Items>

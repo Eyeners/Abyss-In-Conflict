@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="诱饵弹" identifier="aic_decoy_launcher" category="Weapon" tags="smallitem,weapon" scale="0.5" maxstacksize="1" description="一次性诱饵发射器。瞄准后使用，连续释放五枚诱饵，不分敌我吸引纳米蜂群、微型导弹和慢速追踪榴弹。诱饵存留15秒；被击毁时产生小范围物品伤害爆炸，自然到期不爆炸。">
+    <Sprite texture="%ModDir%/Items/Weapons/slow_homing_grenade.png" sourcerect="0,0,64,68" origin="0.5,0.5" depth="0.55" />
+    <Body width="38" height="15" density="30" />
+    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" holdpos="20,-10" aimpos="30,0" handle1="0,0" holdangle="0" msg="ItemMsgPickUpSelect" />
+    <RangedWeapon barrelpos="32,0" reload="10" holdtrigger="false" spread="0" unskilledspread="0" combatpriority="1" drawhudwhenequipped="true" crosshairscale="0.2">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <RequiredItems items="aic_decoy_carrier" type="Contained" msg="ItemMsgAmmoRequired" />
+      <Sound file="Content/Items/Weapons/FragGrenade40mmShot1.ogg" type="OnUse" range="1000" />
+      <StatusEffect type="OnUse" target="This" delay="0.8" stackable="false"><Remove /></StatusEffect>
+    </RangedWeapon>
+    <ItemContainer capacity="1" hideitems="true" drawinventory="false" canbeselected="false" SpawnWithId="aic_decoy_carrier">
+      <Containable items="aic_decoy_carrier" />
+    </ItemContainer>
+  </Item>
+  <Item name="诱饵连发载体" identifier="aic_decoy_carrier" hideinmenus="true" scale="0.1">
+    <Sprite texture="%ModDir%/Items/Weapons/slow_homing_grenade.png" sourcerect="0,0,64,68" color="255,255,255,0" />
+    <Body width="5" height="5" density="10" gravityscale="0" />
+    <Projectile characterusable="false" launchimpulse="5" removeonhit="false">
+      <Attack structuredamage="0" itemdamage="0" />
+      <StatusEffect type="OnUse" target="This"><LuaHook name="aic_nano_swarm_emit" /></StatusEffect>
+    </Projectile>
+  </Item>
+  <Item name="飞行诱饵" identifier="aic_homing_decoy" hideinmenus="true" category="Weapon" tags="aic_homing_decoy" scale="0.5" health="5" damagedbyprojectiles="true" damagedbyexplosions="true" damagedbymeleeweapons="true">
+    <Sprite texture="%ModDir%/Items/Weapons/slow_homing_grenade.png" sourcerect="0,0,64,68" origin="0.5,0.5" depth="0.55" />
+    <Body width="38" height="15" density="30" gravityscale="0" />
+    <Projectile characterusable="false" launchimpulse="5" impulsespread="0" removeonhit="false" sticktocharacters="false" friendlyfire="false" damagedoors="false">
+      <Attack structuredamage="0" itemdamage="0" targetforce="0" />
+      <StatusEffect type="OnUse" target="This" delay="15" stackable="false"><Remove /></StatusEffect>
+      <StatusEffect type="OnUse" target="This" duration="2" stackable="false">
+        <ParticleEmitter particle="steam" particlespersecond="24" scalemin="0.8" scalemax="1.2" />
+      </StatusEffect>
+    </Projectile>
+    <ItemComponent>
+      <StatusEffect type="Always" target="This"><LuaHook name="aic_decoy_update" /></StatusEffect>
+      <StatusEffect type="OnBroken" target="This" disabledeltatime="true">
+        <!-- Item-only blast; expiry removes the decoy without breaking it. -->
+        <Explosion range="50" itemdamage="20" structuredamage="0" levelwalldamage="0" ballastfloradamage="0" force="0" severlimbsprobability="0" flash="false" flames="false" smoke="false" shockwave="false" sparks="true" debris="false" underwaterbubble="false" applyfireeffects="false" camerashake="0" playtinnitus="false" />
+        <Remove />
+      </StatusEffect>
+    </ItemComponent>
+  </Item>
+</Items>

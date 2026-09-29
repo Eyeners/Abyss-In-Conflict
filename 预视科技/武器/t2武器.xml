@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Items>
   <Item
-    name="纳米精确步枪（占位）"
+    name="纳米蜂群步枪（占位）"
     identifier="aic_presight_nano_rifle"
     category="Weapon"
     subcategory="预视科技军备"
@@ -9,7 +9,7 @@
     tags="mediumitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_scope_zoom2x"
     scale="0.060"
     impactsoundtag="impact_metal_light"
-    description="预视科技 T2 纳米武器占位版。当前使用投矛器外形和弹匣结构进行测试，自带固定倍率瞄具，发射高速实体纳米团。">
+    description="预视科技 T2 纳米武器占位版。短暂蓄能后，一次释放八枚具备自主敌我识别和追踪能力的纳米团。">
 
     <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
 
@@ -49,6 +49,8 @@
       reload="0.58"
       holdtrigger="true"
       launchimpulse="30"
+      maxchargetime="0.5"
+      chargesoundwinduppitchslide="0.5,1.5"
       barrelpos="946,145"
       spread="0.35"
       unskilledspread="1.3"
@@ -60,6 +62,9 @@
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
 
       <ParticleEmitter particle="muzzleflash" scalemultiplier="0.8,0.8" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="205,235,255,220" />
+
+      <ParticleEmitterCharge particle="chargenucleargun" particlespersecond="50" scalemultiplier="0.55,0.55" scalemin="0.8" scalemax="1.0" anglemax="360" colormultiplier="195,220,235,220" />
+      <ChargeSound file="Content/Items/JobGear/Engineer/WEAPONS_rapidFissileAcceleratorStartLoop.ogg" range="900" volume="0.65" />
 
       <StatusEffect type="OnUse" target="This" forceplaysounds="true">
         <Sound file="%ModDir%/卫戍者/音效/AR-13 Fury 1.ogg" volume="0.95" type="OnUse" range="3200" selectionmode="Random" />
@@ -94,7 +99,7 @@
           <Sound file="%ModDir%\预视科技\音效\Reload Energy 1 Start.ogg" type="OnInserted" range="200.0" loop="false" volume="0.85" />
         </StatusEffect>
 
-        <StatusEffect type="OnInserted" target="This" holdpos="70,-14" holdangle="-35" disabledeltatime="true" checkconditionalalways="true" delay="0.8" maxchargetime="0" setvalue="true">
+        <StatusEffect type="OnInserted" target="This" holdpos="70,-14" holdangle="-35" disabledeltatime="true" checkconditionalalways="true" delay="0.8" maxchargetime="0.5" setvalue="true">
           <Conditional maxchargetime="eq 999" />
           <Sound file="%ModDir%\预视科技\音效\Reload Energy 1 End.ogg" type="OnInserted" range="200.0" loop="false" volume="0.85" />
         </StatusEffect>
@@ -110,7 +115,7 @@
   </Item>
 
   <Item
-    name="纳米团弹匣（占位）"
+    name="纳米蜂群弹匣（占位）"
     identifier="aic_presight_nano_mag"
     maxstacksize="24"
     maxstacksizecharacterinventory="8"
@@ -121,7 +126,7 @@
     linkable="true"
     tags="smallitem,aic_presight_nano_mag,handheldammo"
     impactsoundtag="impact_metal_light"
-    description="占位用纳米步枪弹匣。当前直接复用投矛器配套弹匣外观，按 5 发容量测试。">
+    description="占位用纳米步枪弹匣。当前直接复用投矛器配套弹匣外观，可支持 5 次八枚纳米团齐射。">
 
     <PreferredContainer primary="aic_presight_nano_rifle" minamount="1" maxamount="1" spawnprobability="1" />
     <PreferredContainer primary="armcab" secondary="secarmcab" />
@@ -163,15 +168,15 @@
   </Item>
 
   <Item
-    name="纳米团"
+    name="纳米蜂群载体"
     identifier="aic_presight_nano_round"
     category="Weapon"
     interactthroughwalls="true"
     cargocontaineridentifier="metalcrate"
-    tags="smallitem"
+    tags="smallitem,aic_nano_swarm_carrier"
     impactsoundtag="impact_metal_light"
     hideinmenus="true"
-    scale="0.36">
+    scale="0.14">
 
     <InventoryIcon
       texture="%ModDir%/预视科技/贴图/纳米团.png"
@@ -185,40 +190,97 @@
       depth="0.55"
       origin="0.5,0.5" />
 
-    <Body width="220" height="40" density="10" />
+    <Body width="220" height="40" density="8" gravityscale="0" />
     <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
     <Holdable slots="RightHand+LeftHand" holdpos="0,-50" handle1="-10,0" handle2="10,0" aimable="false" />
 
     <Projectile
       characterusable="false"
-      launchimpulse="100"
-      spread="0.75"
-      removeonhit="true"
-      damagedoors="true"
+      launchimpulse="12"
+      spread="0"
+      removeonhit="false"
+      damagedoors="false"
+      friendlyfire="false"
       maxtargetstohit="1">
 
-      <Attack structuredamage="6" itemdamage="8" targetforce="4" severlimbsprobability="0" penetration="0.05">
-        <Affliction identifier="gunshotwound" strength="12" />
-        <Affliction identifier="aic_nanite_infection" strength="24" />
-        <Affliction identifier="stun" strength="0.1" probability="0.3" />
-      </Attack>
-
-      <StatusEffect type="OnImpact" target="UseTarget">
-        <ParticleEmitter particle="aic_nanite_impact_smoke" anglemin="0" anglemax="360" particleamount="1" velocitymin="0" scalemin="5" scalemax="7" scalemultiplier="0.75,0.75" />
-        <ParticleEmitter particle="spark" drawontop="true" particleamount="3" velocitymin="10" velocitymax="40" scalemin="0.2" scalemax="0.35" />
-      </StatusEffect>
-
-      <StatusEffect type="OnImpact" target="UseTarget">
-        <Conditional entitytype="eq Structure" />
-        <Conditional hastag="eq door" />
-        <ParticleEmitter particle="spark" drawontop="true" particleamount="4" velocitymin="10" velocitymax="60" scalemin="0.2" scalemax="0.4" />
+      <StatusEffect type="OnActive" target="This">
+        <LuaHook name="aic_nano_swarm_emit" />
       </StatusEffect>
 
       <StatusEffect type="OnImpact" target="This">
         <Remove />
       </StatusEffect>
 
-      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="3">
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="0.3">
+        <Remove />
+      </StatusEffect>
+
+    </Projectile>
+  </Item>
+
+  <Item
+    name="纳米蜂群追踪体"
+    identifier="aic_presight_nano_swarm_projectile"
+    category="Weapon"
+    interactthroughwalls="true"
+    tags="smallitem,aic_nano_swarm_guided,aic_interceptable_projectile,aic_emp_shot_filter,aic_electrical_projectile_health"
+    health="3"
+    damagedbyprojectiles="true"
+    impactsoundtag="impact_metal_light"
+    hideinmenus="true"
+    sonarsize="1"
+    scale="0.14">
+
+    <Sprite
+      texture="%ModDir%/预视科技/贴图/纳米团.png"
+      sourcerect="0,0,385,70"
+      depth="0.55"
+      origin="0.5,0.5" />
+
+    <Body width="220" height="40" density="8" gravityscale="0" />
+
+    <Projectile
+      characterusable="false"
+      launchimpulse="12"
+      spread="0"
+      ignoreprojectileswhileactive="false"
+      removeonhit="true"
+      damagedoors="true"
+      friendlyfire="false"
+      maxtargetstohit="1">
+
+      <Attack structuredamage="0.75" itemdamage="1" targetforce="0.5" severlimbsprobability="0" penetration="0.05">
+        <Affliction identifier="gunshotwound" strength="1.5" />
+        <Affliction identifier="aic_nanite_infection" strength="3" />
+        <Affliction identifier="stun" strength="0.1" probability="0.044" />
+      </Attack>
+
+      <StatusEffect type="OnBroken" target="This">
+        <ParticleEmitter particle="nasonovsparkles" particleamount="4" velocitymin="0" velocitymax="20" scalemin="0.15" scalemax="0.25" />
+        <Remove />
+      </StatusEffect>
+
+      <StatusEffect type="OnActive" target="This">
+        <LuaHook name="aic_nano_swarm_guide" />
+        <ParticleEmitter particle="nasonovsparkles" particlespersecond="18" velocitymin="0" velocitymax="0" scalemin="0.25" scalemax="0.45" colormultiplier="185,215,235,150" />
+      </StatusEffect>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="aic_nanite_impact_smoke" anglemin="0" anglemax="360" particleamount="1" velocitymin="0" scalemin="1.2" scalemax="1.8" scalemultiplier="0.75,0.75" />
+        <ParticleEmitter particle="spark" drawontop="true" particleamount="2" velocitymin="10" velocitymax="40" scalemin="0.15" scalemax="0.25" colormultiplier="190,220,235,180" />
+      </StatusEffect>
+
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <Conditional entitytype="eq Structure" />
+        <Conditional hastag="eq door" />
+        <ParticleEmitter particle="spark" drawontop="true" particleamount="3" velocitymin="10" velocitymax="60" scalemin="0.15" scalemax="0.3" colormultiplier="190,220,235,180" />
+      </StatusEffect>
+
+      <StatusEffect type="OnImpact" target="This">
+        <Remove />
+      </StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" stackable="false" delay="8">
         <Remove />
       </StatusEffect>
 

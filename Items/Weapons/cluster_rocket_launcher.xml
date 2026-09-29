@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="集群火箭发射器" identifier="aic_gdf_cluster_rocket_launcher" category="Weapon" subcategory="GDF军用武器" cargocontaineridentifier="metalcrate" tags="bigitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_gdf_weapon,aic_wardens_weapon" scale="0.0952" impactsoundtag="impact_metal_light">
+    <InventoryIcon texture="%ModDir%/卫戍者/贴图/GDF法槌转轮榴弹发射器.png" sourcerect="0,0,1509,502" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/卫戍者/贴图/GDF法槌转轮榴弹发射器.png" sourcerect="0,0,1509,502" depth="0.55" origin="0.5,0.5" />
+    <Body width="144.2" height="47.6" density="40" />
+    <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="5,-84" aimpos="5,-84" handle1="-644,-34" handle2="390,176" holdangle="-10" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnActive" target="Character" speedmultiplier="0.55" setvalue="true" />
+      <StatusEffect type="OnSecondaryUse" target="Character" speedmultiplier="0.4" setvalue="true" />
+      <StatusEffect type="OnUse" target="Character" speedmultiplier="0.3" setvalue="true" />
+    </Holdable>
+    <RangedWeapon barrelpos="683,34" reload="0.75" maxchargetime="0.5" holdtrigger="true" spread="0.35" unskilledspread="1.3" combatpriority="90" drawhudwhenequipped="true" crosshairscale="0.2">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <ParticleEmitter particle="muzzleflashchaingun" particleamount="1" velocitymin="0" velocitymax="0" scalemin="0.7" scalemax="0.84" />
+      <RequiredItems items="aic_gdf_cluster_rocket_ammo" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="60" />
+    </RangedWeapon>
+    <ItemContainer capacity="1" maxstacksize="1" slotsperrow="1" hideitems="true" showtotalstackcapacityincontainedstateindicator="true" containedstateindicatorstyle="bullet">
+      <Containable items="aic_gdf_cluster_rocket_ammo" hide="true">
+        <StatusEffect type="OnInserted" target="This" disabledeltatime="true">
+          <LuaHook name="aic_ammo_insertion_delay" />
+        </StatusEffect>
+        <StatusEffect type="OnRemoved" target="This" disabledeltatime="true"><LuaHook name="aic_ammo_insertion_delay" /></StatusEffect>
+      </Containable>
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="448,448,64,64" origin="0.5,0.5" />
+    </ItemContainer>
+    <AITarget sightrange="3000" soundrange="1800" fadeouttime="5" />
+    <SkillRequirementHint identifier="weapons" level="60" />
+  </Item>
+
+  <!-- One loaded round is consumed by the native weapon; Lua releases its five missiles. -->
+  <Item name="微型导弹" identifier="aic_gdf_cluster_rocket_ammo" category="Weapon" subcategory="GDF军用武器" maxstacksize="32" maxstacksizecharacterinventory="8" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem,handheldammo,aic_gdf_weaponmag" scale="0.5" impactsoundtag="impact_metal_light">
+    <InventoryIcon texture="%ModDir%/卫戍者/贴图/微型导弹.png" sourcerect="0,0,30,6" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/卫戍者/贴图/微型导弹.png" sourcerect="0,0,30,6" depth="0.55" origin="0.5,0.5" />
+    <Body width="28" height="6" density="30" gravityscale="0" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+    <Projectile characterusable="false" launchimpulse="12" spread="0" removeonhit="false" damagedoors="false" friendlyfire="false" maxtargetstohit="1">
+      <Attack structuredamage="0" itemdamage="0" targetforce="0" />
+      <StatusEffect type="OnUse" target="This">
+        <LuaHook name="aic_nano_swarm_emit" />
+      </StatusEffect>
+      <StatusEffect type="OnActive" target="This" stackable="false" delay="1">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+  </Item>
+
+  <!-- Half of vanilla 40mm grenade impact/explosion damage and blast radius. -->
+  <Item name="追踪微型导弹" identifier="aic_gdf_cluster_micro_missile" category="Weapon" hideinmenus="true" tags="smallitem,aic_interceptable_projectile" health="5" damagedbyprojectiles="true" damagedbyexplosions="true" scale="0.5" impactsoundtag="impact_metal_light">
+    <Sprite texture="%ModDir%/卫戍者/贴图/微型导弹飞行.png" sourcerect="0,0,35,8" depth="0.55" origin="0.5,0.5" />
+    <Body width="33" height="7.5" density="30" gravityscale="0" />
+    <Projectile characterusable="false" launchimpulse="12" spread="0" removeonhit="true" damagedoors="true" friendlyfire="false" maxtargetstohit="1" sticktocharacters="false" ignoreprojectileswhileactive="false">
+      <Attack structuredamage="20" penetration="1" severlimbsprobability="2.5">
+        <Affliction identifier="explosiondamage" strength="25" />
+      </Attack>
+      <Sound file="Content/Items/Weapons/FragGrenade40mmShot1.ogg" type="OnImpact" range="2000" selectionmode="Random" />
+      <Sound file="Content/Items/Weapons/FragGrenade40mmShot2.ogg" type="OnImpact" range="2000" selectionmode="Random" />
+      <Sound file="%ModDir%/卫戍者/音效/dem_fire_01.ogg" type="OnUse" range="1800" />
+      <StatusEffect type="OnActive" target="This">
+        <LuaHook name="aic_nano_swarm_guide" />
+        <ParticleEmitter particle="bubbles" anglemin="0" anglemax="360" particlespersecond="12" velocitymin="10" velocitymax="50" scalemin="0.25" scalemax="0.5" />
+        <ParticleEmitter particle="steam" particlespersecond="24" scalemin="0.8" scalemax="1.2" />
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This">
+        <Sound file="Content/Items/Weapons/ExplosionDebris2.ogg" range="1500" />
+        <Explosion range="150" ballastfloradamage="40" structuredamage="10" levelwalldamage="60" itemdamage="200" force="2.5" severlimbsprobability="0.2" debris="true" decal="explosion" decalsize="0.15">
+          <Affliction identifier="burn" strength="50" />
+          <Affliction identifier="bleeding" strength="200" probability="0.05" />
+          <Affliction identifier="stun" strength="2.5" />
+        </Explosion>
+        <Remove />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="This" disabledeltatime="true">
+        <Sound file="Content/Items/Weapons/ExplosionDebris2.ogg" range="1500" />
+        <Explosion range="150" ballastfloradamage="40" structuredamage="10" levelwalldamage="60" itemdamage="200" force="2.5" severlimbsprobability="0.2" debris="true" decal="explosion" decalsize="0.15">
+          <Affliction identifier="burn" strength="50" />
+          <Affliction identifier="bleeding" strength="200" probability="0.05" />
+          <Affliction identifier="stun" strength="2.5" />
+        </Explosion>
+        <Remove />
+      </StatusEffect>
+      <StatusEffect type="OnActive" target="This" stackable="false" delay="8">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+    <LightComponent lightcolor="255,190,110,165" range="10" powerconsumption="0" ison="true" castshadows="false">
+      <LightTexture texture="Content/Lights/pointlight_falloff.png" origin="0.72,0.5" />
+    </LightComponent>
+  </Item>
+</Items>

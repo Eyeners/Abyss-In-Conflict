@@ -17,7 +17,7 @@
     <Body radius="8" density="1" />
     <Rope
       sourcepullforce="0"
-      targetpullforce="600"
+      targetpullforce="290"
       projectilepullforce="0"
       maxlength="1000"
       minpulldistance="70"
@@ -26,7 +26,7 @@
       tile="true"
       targetminmass="0"
       lerpforces="true"
-      increaseforceforescapingtargets="true"
+      increaseforceforescapingtargets="false"
       snapanimduration="1"
       breakfrommiddle="false">
       <Sprite name="tongue" texture="Content/Characters/Latcher/Latcher.png" sourcerect="16,0,480,256" depth="0.57" origin="0.5,0.5" />

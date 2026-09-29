@@ -67,7 +67,7 @@
     <AITarget sightrange="3000" soundrange="3500" fadeouttime="7" />
   </Item>
 
-  <Item name="" identifier="aic_foresight_nsg_nanite_smoke_emitter" category="Misc" scale="1" health="10" tags="gas" sonarsize="0" hideinmenus="true" isdangerous="true" noninteractable="true" depth="0.1" damagedbyexplosions="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyrepairtools="true">
+  <Item name="" identifier="aic_foresight_nsg_nanite_smoke_emitter" category="Misc" scale="1" health="10" tags="gas,aic_emp_shot_filter" sonarsize="0" hideinmenus="true" isdangerous="true" noninteractable="true" depth="0.1" damagedbyexplosions="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyrepairtools="true">
     <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,0,2,2" depth="0.55" origin="0.5,0.5" />
     <Body radius="50" density="15" gravityscale="0.1" lineardamping="0.5" />
     <ItemComponent>

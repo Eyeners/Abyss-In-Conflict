@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="慢速追踪榴弹（测试）" identifier="aic_slow_homing_grenade" category="Weapon" tags="smallitem,grenade,aic_interceptable_projectile" scale="0.5" maxstacksize="32" maxstacksizecharacterinventory="8" health="5" damagedbyprojectiles="true" impactsoundtag="impact_metal_light" description="可装入原版榴弹发射器和法槌的慢速追踪榴弹。动画需要启用 APNG Texture Support；未启用时显示静态贴图。">
+    <InventoryIcon texture="%ModDir%/Items/Weapons/slow_homing_grenade.png" sourcerect="0,0,64,68" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/Weapons/slow_homing_grenade.png" sourcerect="0,0,64,68" origin="0.5,0.5" depth="0.55" />
+    <Body width="38" height="15" density="30" gravityscale="0" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+    <Projectile characterusable="false" launchimpulse="2" removeonhit="true" sticktocharacters="false" friendlyfire="false" ignoreprojectileswhileactive="false">
+      <Attack structuredamage="40" penetration="1" severlimbsprobability="5">
+        <Affliction identifier="explosiondamage" strength="50" />
+      </Attack>
+      <StatusEffect type="OnActive" target="This">
+        <LuaHook name="aic_nano_swarm_guide" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="This" disabledeltatime="true">
+        <Sound file="Content/Items/Weapons/ExplosionDebris2.ogg" range="2000" />
+        <Explosion range="300" ballastfloradamage="80" structuredamage="20" levelwalldamage="120" itemdamage="400" force="5" severlimbsprobability="0.4" debris="true" decal="explosion" decalsize="0.3">
+          <Affliction identifier="burn" strength="100" />
+          <Affliction identifier="bleeding" strength="400" probability="0.05" />
+          <Affliction identifier="stun" strength="5" />
+        </Explosion>
+        <Remove />
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This"><Remove /></StatusEffect>
+      <StatusEffect type="OnActive" target="This" stackable="false" delay="12"><Remove /></StatusEffect>
+    </Projectile>
+  </Item>
+</Items>

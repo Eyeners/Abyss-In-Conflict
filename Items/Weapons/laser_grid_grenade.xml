@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="激光栅格手雷" identifier="aic_laser_grid_grenade" category="Weapon" tags="smallitem,grenade,explosive" health="100" scale="0.5" maxstacksize="8" maxstacksizecharacterinventory="4" cargocontaineridentifier="explosivecrate" impactsoundtag="impact_metal_light">
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="704,64,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="215,242,41,21" depth="0.55" origin="0.5,0.5" />
+    <Body width="40" height="22" density="20" />
+    <Throwable slots="Any,RightHand,LeftHand" holdpos="0,0" handle1="0,0" throwforce="4" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnSecondaryUse" target="This" condition="99" setvalue="true" disabledeltatime="true" />
+    </Throwable>
+  </Item>
+  <Item name="激光栅格发射器" identifier="aic_laser_grid_emitter" category="Weapon" hideinmenus="true" noninteractable="true" sonarsize="0" scale="0.5" health="100" tags="aic_laser_grid_emitter">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="215,242,41,21" depth="0.50" origin="0.5,0.5" />
+    <Body width="1" height="1" density="1" bodytype="static" gravityscale="0" />
+    <LaserGridEmitter lifetime="20" range="300" barrelpos="0,0" spread="0" unskilledspread="0" firedamage="60" structurefixamount="0" levelwallfixamount="0" targetforce="12" repairmultiple="true" repairmultiplewalls="false" repairthroughwalls="false" repairthroughholes="false" maxoverlappingwalldist="0" hititems="false">
+      <StatusEffect type="OnSuccess" target="Limb">
+        <Conditional entitytype="eq Limb" />
+        <Affliction identifier="burn" amount="90" />
+        <Affliction identifier="explosiondamage" amount="40" />
+        <Affliction identifier="aic_heat_buildup" amount="40" />
+      </StatusEffect>
+    </LaserGridEmitter>
+    <!-- Native custom light textures span twice Range; half-width gives a 300-unit beam. -->
+    <LightComponent lightcolor="90,210,255,255" range="300" powerconsumption="0" ison="true" castshadows="true" flicker="0">
+      <LightTexture texture="%ModDir%/Items/Weapons/laser_grid_beam.png" origin="0,0.5" size="0.5,0.12" />
+    </LightComponent>
+  </Item>
+</Items>

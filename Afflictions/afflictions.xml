@@ -85,13 +85,6 @@
   <AfflictionHusk name="束缚网" identifier="aic_net_entanglement" type="debuff" isbuff="false" limbspecific="false" targets="human" indicatorlimb="Torso" huskedspeciesname="[speciesname]_aic_net_entangled" needsair="true" causespeechimpediment="false" sendmessages="false" controlhusk="false" transferbuffs="false" dormantthreshold="0.01" activethreshold="0.01" transitionthreshold="1000" transformthresholdondeath="1000" treatmentthreshold="1000" maxstrength="1" healableinmedicalclinic="false" showiconthreshold="infinity" showicontoothersthreshold="infinity" showinhealthscannerthreshold="infinity">
     <Effect minstrength="0" maxstrength="1" strengthchange="-5" />
   </AfflictionHusk>
-  <Affliction name="束缚网挣扎" identifier="aic_net_struggle" type="debuff" isbuff="false" limbspecific="true" indicatorlimb="Head" maxstrength="100" treatmentthreshold="1000" healableinmedicalclinic="false" showiconthreshold="infinity" showicontoothersthreshold="infinity" showinhealthscannerthreshold="infinity">
-    <Effect minstrength="0" maxstrength="100" strengthchange="-1000">
-      <StatusEffect target="Limb">
-        <Explosion range="50" force="-0.1" shockwave="false" smoke="false" showeffects="false" flames="false" sparks="false" severlimbsprobability="0" decal="Blood" decalsize="0" />
-      </StatusEffect>
-    </Effect>
-  </Affliction>
   <Affliction name="夜视" identifier="aic_nightvision" type="none" isbuff="true" limbspecific="false" indicatorlimb="Head" maxstrength="100" showiconthreshold="infinity">
     <Effect minstrength="0" maxstrength="100" multiplybymaxvitality="true" graincolor="0,0,0,255" mingrainstrength="2.95" maxgrainstrength="3.05" minscreenblur="0.095" maxscreenblur="0.105" strengthchange="-50" />
   </Affliction>
@@ -140,7 +133,7 @@
     </Effect>
     <icon texture="%ModDir%/UI/数字矩阵N.png" sourcerect="0,0,128,128" color="255,255,255,255" origin="0,0" />
   </Affliction>
-  <Affliction name="骇入：系统锁死" identifier="aic_hacking_system_lock" description="动力辅助系统遭到强制锁死。" type="debuff" isbuff="false" limbspecific="false" indicatorlimb="Torso" duration="8" activationthreshold="0.1" showiconthreshold="0.1" showicontoothersthreshold="0.1" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" maxstrength="1" affectmachines="true">
+  <Affliction name="骇入：系统锁死" identifier="aic_hacking_system_lock" description="动力辅助系统遭到强制锁死。" type="debuff" isbuff="false" limbspecific="false" indicatorlimb="Torso" duration="20" activationthreshold="0.1" showiconthreshold="0.1" showicontoothersthreshold="0.1" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" maxstrength="1" affectmachines="true">
     <Effect minstrength="0" maxstrength="1" minspeedmultiplier="0" maxspeedmultiplier="0">
       <StatusEffect target="Character" lockhands="true" setvalue="true" stackable="false" disabledeltatime="true" />
       <StatusEffect target="Character" conditionalcomparison="And" disabledeltatime="true">
@@ -336,9 +329,12 @@
     <Effect minstrength="100" maxstrength="200" strengthchange="-0.06" multiplybymaxvitality="true" minbodytint="255,35,130,165" maxbodytint="255,60,190,255" minvitalitydecrease="1.0" maxvitalitydecrease="2.0" />
     <icon texture="%ModDir%/UI/纳米侵蚀.png" sourcerect="0,0,128,128" color="255,255,255,255" origin="0,0" />
   </Affliction>
-  <Affliction name="微小奇迹" identifier="aic_minor_miracle" description="经过敌我识别的纳米机械正在持续封闭伤口、清除异物并修复受损组织。" type="buff" isbuff="true" limbspecific="true" activationthreshold="0.1" showiconthreshold="0.1" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" maxstrength="500" affectmachines="true">
-    <Effect minstrength="0" maxstrength="500" strengthchange="-10">
-      <StatusEffect target="Limb">
+  <Affliction name="微小奇迹" identifier="aic_minor_miracle" description="纳米机械剂量在全身累加，持续封闭伤口、清除异物并修复所有肢体的受损组织。" type="buff" isbuff="true" limbspecific="false" indicatorlimb="Torso" activationthreshold="0.1" showiconthreshold="0.1" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" maxstrength="500" affectmachines="true">
+    <!-- Keep sub-0.2-second doses and the final tail continuous instead of dropping their healing. -->
+    <Effect minstrength="0" maxstrength="2" strengthchange="-10">
+      <StatusEffect target="Character">
+        <Conditional IsHusk="false" />
+        <Conditional aic_nanite_hostile_biology="lt 0.1" />
         <ReduceAffliction identifier="bleeding" amount="20" />
         <ReduceAffliction identifier="gunshotwound" amount="8" />
         <ReduceAffliction identifier="blunttrauma" amount="8" />
@@ -354,13 +350,48 @@
         <ReduceAffliction type="burn" amount="3" />
       </StatusEffect>
       <StatusEffect target="Character">
+        <Conditional IsHusk="false" />
+        <Conditional aic_nanite_hostile_biology="lt 0.1" />
         <ReduceAffliction identifier="organdamage" amount="6" />
         <ReduceAffliction identifier="bloodloss" amount="3.25" />
         <ReduceAffliction identifier="huskinfection" amount="10" />
         <ReduceAffliction type="poison" amount="10" />
       </StatusEffect>
     </Effect>
+    <Effect minstrength="2" maxstrength="500" strengthchange="-10" />
+    <!-- One whole-body timer; Character reductions share their budget across affected limbs. -->
+    <PeriodicEffect mininterval="0.2" maxinterval="0.2" minstrength="2" maxstrength="500">
+      <StatusEffect type="OnActive" target="Character" disabledeltatime="true">
+        <Conditional IsHusk="false" />
+        <Conditional aic_nanite_hostile_biology="lt 0.1" />
+        <ReduceAffliction identifier="bleeding" amount="4" />
+        <ReduceAffliction identifier="gunshotwound" amount="1.6" />
+        <ReduceAffliction identifier="blunttrauma" amount="1.6" />
+        <ReduceAffliction identifier="bitewounds" amount="1.6" />
+        <ReduceAffliction identifier="lacerations" amount="1.6" />
+        <ReduceAffliction identifier="burn" amount="2" />
+        <ReduceAffliction identifier="acidburn" amount="1" />
+        <ReduceAffliction identifier="explosiondamage" amount="1.6" />
+        <ReduceAffliction identifier="aic_nanite_erosion" amount="1.6" />
+        <ReduceAffliction identifier="aic_machine_structural_damage" amount="1.6" />
+        <ReduceAffliction identifier="aic_machine_component_damage" amount="1.2" />
+        <ReduceAffliction type="damage" amount="0.2" />
+        <ReduceAffliction type="burn" amount="0.6" />
+      </StatusEffect>
+      <StatusEffect type="OnActive" target="Character" disabledeltatime="true">
+        <Conditional IsHusk="false" />
+        <Conditional aic_nanite_hostile_biology="lt 0.1" />
+        <ReduceAffliction identifier="organdamage" amount="1.2" />
+        <ReduceAffliction identifier="bloodloss" amount="0.65" />
+        <ReduceAffliction identifier="huskinfection" amount="2" />
+        <ReduceAffliction type="poison" amount="2" />
+      </StatusEffect>
+    </PeriodicEffect>
     <icon texture="%ModDir%/UI/纳米治疗.png" sourcerect="0,0,128,128" color="255,255,255,255" origin="0,0" />
+  </Affliction>
+  <!-- Persistent opt-in marker for alien biology; apply strength 1 from a character's setup. -->
+  <Affliction name="纳米敌对生态标记" identifier="aic_nanite_hostile_biology" type="aic_biology_marker" isbuff="true" limbspecific="false" maxstrength="1" activationthreshold="0.1" showiconthreshold="2" showicontoothersthreshold="2" showinhealthscannerthreshold="2" affectmachines="true">
+    <Effect minstrength="0" maxstrength="1" />
   </Affliction>
   <Affliction name="纳米机械敌我识别码" identifier="aic_nanite_iff_code" description="受信任的纳米机械识别信号。武器化纳米机械将被重新编程并投入修复作业。" type="buff" isbuff="true" duration="2" limbspecific="false" indicatorlimb="Torso" activationthreshold="0.1" showiconthreshold="0.1" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" maxstrength="1" affectmachines="true">
     <Effect minstrength="0" maxstrength="1" resistancefor="aic_nanite_erosion" minresistance="1" maxresistance="1" />
@@ -381,5 +412,86 @@
       </StatusEffect>
     </Effect>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="896,0,128,128" color="160,235,255,255" origin="0,0" />
+  </Affliction>
+  <Affliction name="重荷" identifier="aic_heavy_load" type="debuff" isbuff="false" limbspecific="false" indicatorlimb="Torso" duration="0.75" activationthreshold="0.1" showiconthreshold="0.1" showicontoothersthreshold="0.1" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" maxstrength="1" affectmachines="true">
+    <Effect minstrength="0" maxstrength="1" minspeedmultiplier="0.25" maxspeedmultiplier="0.25">
+      <StatusEffect target="Character" conditionalcomparison="And">
+        <Conditional aic_heavy_load="gt 0.1" />
+        <Conditional IsHumanoid="true" />
+        <Conditional IsDead="false" />
+        <Conditional IsIncapacitated="false" />
+        <Conditional IsClimbing="false" />
+        <Conditional InWater="false" />
+        <TriggerAnimation Type="Crouch" path="%ModDir%/Characters/Human/Animations/AICProneCrouch.xml" priority="10" ExpectedSpecies="Human" />
+        <TriggerAnimation Type="Walk" path="%ModDir%/Characters/Human/Animations/AICProneWalk.xml" priority="10" ExpectedSpecies="Human" />
+        <TriggerAnimation Type="Run" path="%ModDir%/Characters/Human/Animations/AICProneRun.xml" priority="10" ExpectedSpecies="Human" />
+      </StatusEffect>
+      <StatusEffect target="Character" interval="1" disabledeltatime="true">
+        <Conditional ismachine="false" />
+        <Affliction identifier="organdamage" amount="0.5" penetration="1" />
+      </StatusEffect>
+    </Effect>
+    <icon texture="%ModDir%/UI/重力荷载.png" sourcerect="0,0,128,128" color="100,100,193,255" origin="0,0" />
+  </Affliction>
+  <Affliction name="时流紊乱" identifier="aic_temporal_disorder" description="连续短途跳跃造成时流紊乱。三级计数，不随时间逐点衰减；最后一次跳跃3秒后清除。已有一级时再跳造成20内脏损伤和20恶心；已有二级时再跳造成40内脏损伤、20恶心和20脑震荡；已有三级时再跳引发时流破裂。" type="debuff" limbspecific="false" indicatorlimb="Torso" duration="3" maxstrength="3" activationthreshold="0.1" showiconthreshold="0.1" showinhealthscannerthreshold="0.1" affectmachines="true">
+    <Effect minstrength="0" maxstrength="1" strengthchange="0" />
+    <Effect minstrength="1" maxstrength="2" strengthchange="0" />
+    <Effect minstrength="2" maxstrength="3" strengthchange="0" />
+    <icon texture="%ModDir%/UI/重力荷载.png" sourcerect="0,0,128,128" color="100,100,193,255" origin="0,0" />
+  </Affliction>
+  <!-- XCOM-style suppression, without faction-specific armor-breaking effects. -->
+  <Affliction name="火力压制" identifier="aic_suppression" type="debuff" isbuff="false" limbspecific="false" indicatorlimb="Torso" maxstrength="30" activationthreshold="0" showiconthreshold="0.1" showicontoothersthreshold="0.1" showinhealthscannerthreshold="0.1" affectmachines="false" resetbetweenrounds="true" healableinmedicalclinic="false">
+    <Effect minstrength="0" maxstrength="5" strengthchange="-1.5">
+      <StatValue stattype="RangedSpreadReduction" value="-0.35" />
+    </Effect>
+    <Effect minstrength="5" maxstrength="10" strengthchange="-1">
+      <StatValue stattype="RangedSpreadReduction" value="-0.6" />
+    </Effect>
+    <Effect minstrength="10" maxstrength="15" strengthchange="-1">
+      <StatValue stattype="RangedSpreadReduction" value="-0.85" />
+    </Effect>
+    <Effect minstrength="15" maxstrength="20" strengthchange="-1">
+      <StatValue stattype="RangedSpreadReduction" value="-1.1" />
+      <StatusEffect target="Character" conditionalcomparison="And">
+        <Conditional IsHumanoid="true" />
+        <Conditional aic_suppression="gte 20" />
+        <Conditional IsDead="false" />
+        <Conditional IsIncapacitated="false" />
+        <Conditional IsClimbing="false" />
+        <Conditional InWater="false" />
+        <TriggerAnimation Type="Crouch" path="%ModDir%/Characters/Human/Animations/AICProneCrouch.xml" priority="10" ExpectedSpecies="Human" />
+        <TriggerAnimation Type="Walk" path="%ModDir%/Characters/Human/Animations/AICProneWalk.xml" priority="10" ExpectedSpecies="Human" />
+        <TriggerAnimation Type="Run" path="%ModDir%/Characters/Human/Animations/AICProneRun.xml" priority="10" ExpectedSpecies="Human" />
+      </StatusEffect>
+    </Effect>
+    <Effect minstrength="20" maxstrength="25" strengthchange="-1">
+      <StatValue stattype="RangedSpreadReduction" value="-1.5" />
+      <StatusEffect target="Character" conditionalcomparison="And">
+        <Conditional IsHumanoid="true" />
+        <Conditional aic_suppression="gte 20" />
+        <Conditional IsDead="false" />
+        <Conditional IsIncapacitated="false" />
+        <Conditional IsClimbing="false" />
+        <Conditional InWater="false" />
+        <TriggerAnimation Type="Crouch" path="%ModDir%/Characters/Human/Animations/AICProneCrouch.xml" priority="10" ExpectedSpecies="Human" />
+        <TriggerAnimation Type="Walk" path="%ModDir%/Characters/Human/Animations/AICProneWalk.xml" priority="10" ExpectedSpecies="Human" />
+        <TriggerAnimation Type="Run" path="%ModDir%/Characters/Human/Animations/AICProneRun.xml" priority="10" ExpectedSpecies="Human" />
+      </StatusEffect>
+    </Effect>
+    <Effect minstrength="25" maxstrength="30" strengthchange="-1" minspeedmultiplier="0.2" maxspeedmultiplier="0.2">
+      <StatValue stattype="RangedSpreadReduction" value="-2" />
+      <StatusEffect target="Character" conditionalcomparison="And">
+        <Conditional IsHumanoid="true" />
+        <Conditional aic_suppression="gte 20" />
+        <Conditional IsDead="false" />
+        <Conditional IsIncapacitated="false" />
+        <Conditional IsClimbing="false" />
+        <Conditional InWater="false" />
+        <TriggerAnimation Type="Crouch" path="%ModDir%/Characters/Human/Animations/AICProneCrouch.xml" priority="10" ExpectedSpecies="Human" />
+        <TriggerAnimation Type="Walk" path="%ModDir%/Characters/Human/Animations/AICProneWalk.xml" priority="10" ExpectedSpecies="Human" />
+        <TriggerAnimation Type="Run" path="%ModDir%/Characters/Human/Animations/AICProneRun.xml" priority="10" ExpectedSpecies="Human" />
+      </StatusEffect>
+    </Effect>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="896,0,128,128" color="220,100,70,255" origin="0,0" />
   </Affliction>
 </Afflictions>

@@ -169,7 +169,7 @@ local function GetIgnoredBodies(character)
     return ignoredBodies
 end
 
-local function SpawnArc(projectileIdentifier, sourceCharacter, sourceSim, target, user, launcher, attacker)
+local function SpawnArc(projectileIdentifier, sourceCharacter, sourceSim, target, user, launcher, attacker, damageMultiplier)
     local prefab = ItemPrefab.GetItemPrefab(projectileIdentifier)
     if prefab == nil then
         print("[AIC] Missing oracle arc projectile prefab: " .. projectileIdentifier)
@@ -212,7 +212,7 @@ local function SpawnArc(projectileIdentifier, sourceCharacter, sourceSim, target
             math.atan2(direction.Y, direction.X),
             projectile.IgnoredBodies,
             true,
-            1,
+            damageMultiplier,
             0
         )
     end
@@ -238,9 +238,12 @@ local function EmitBranches(item, targets, worldPosition, projectileIdentifier, 
     local user = sourceProjectile ~= nil and sourceProjectile.User or nil
     local launcher = sourceProjectile ~= nil and sourceProjectile.Launcher or nil
     local attacker = sourceProjectile ~= nil and (sourceProjectile.Attacker or sourceProjectile.User) or nil
+    -- Carry the shot's multiplier forward unchanged; tier prefabs already contain damage falloff.
+    local damageMultiplier = sourceProjectile ~= nil and sourceProjectile.Attack ~= nil
+        and sourceProjectile.Attack.DamageMultiplier or 1
 
     for _, target in ipairs(selectedTargets) do
-        SpawnArc(projectileIdentifier, sourceCharacter, sourceSim, target, user, launcher, attacker)
+        SpawnArc(projectileIdentifier, sourceCharacter, sourceSim, target, user, launcher, attacker, damageMultiplier)
     end
 end
 

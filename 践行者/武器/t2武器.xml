@@ -161,8 +161,8 @@
 
       <Containable items="aic_practitioner_oracle_arc_bolt" />
 
-      <StatusEffect type="OnUse" target="This" condition="-20" disabledeltatime="true">
-        <SpawnItem identifiers="aic_practitioner_oracle_arc_bolt" spawnposition="ThisInventory" />
+      <StatusEffect type="OnUse" target="This" disabledeltatime="true">
+        <LuaHook name="aic_oracle_charge_ammo" />
       </StatusEffect>
     </ItemContainer>
 

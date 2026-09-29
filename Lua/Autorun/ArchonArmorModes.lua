@@ -111,7 +111,7 @@ local function SyncTags(item)
     end
 end
 
-local function SetModeTag(item, expectedIdentifier, tag, enabled)
+local function SetModeTag(item, expectedIdentifier, tag, enabled, synchronize)
     if not IsExpectedArmor(item, expectedIdentifier) then
         return false
     end
@@ -119,12 +119,12 @@ local function SetModeTag(item, expectedIdentifier, tag, enabled)
     if enabled then
         if not item.HasTag(tag) then
             item.AddTag(tag)
-            SyncTags(item)
+            if synchronize ~= false then SyncTags(item) end
             return true
         end
     elseif item.HasTag(tag) then
         item.RemoveTag(tag)
-        SyncTags(item)
+        if synchronize ~= false then SyncTags(item) end
         return true
     end
 
@@ -139,6 +139,15 @@ local function HasUsableBastionBattery(item)
     local battery = item.OwnInventory.GetItemAt(BASTION_BATTERY_SLOT)
     return battery ~= nil and battery.HasTag("mobilebattery") and battery.Condition > 0
 end
+
+-- OnSpawn runs before the spawner publishes the entity. Initial tags travel in spawn data.
+Hook.Add("aic_archon_shield_initialize", "aic_archon_shield_initialize", function(effect, deltaTime, item)
+    SetModeTag(item, ARCHON_IDENTIFIER, ARCHON_SHIELD_TAG, true, false)
+end)
+
+Hook.Add("aic_bastion_shield_initialize", "aic_bastion_shield_initialize", function(effect, deltaTime, item)
+    SetModeTag(item, BASTION_IDENTIFIER, BASTION_SHIELD_TAG, true, false)
+end)
 
 Hook.Add("aic_archon_shield_enable", "aic_archon_shield_enable", function(effect, deltaTime, item)
     SetModeTag(item, ARCHON_IDENTIFIER, ARCHON_SHIELD_TAG, true)

@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="Abyss In Conflict" modversion="0.1.26" corepackage="False" steamworkshopid="3724647577" gameversion="1.13.4.0">
+<contentpackage name="Abyss In Conflict" modversion="0.1.29" corepackage="False" steamworkshopid="3724647577" gameversion="1.13.4.0">
   <Item file="%ModDir%/Items/items_common.xml" />
   <Item file="%ModDir%/Items/active_backpacks.xml" />
+  <Item file="%ModDir%/Items/recall_backpack.xml" />
+  <Item file="%ModDir%/Items/Weapons/slow_homing_grenade.xml" />
+  <Item file="%ModDir%/Items/Weapons/acid_gun.xml" />
+  <Item file="%ModDir%/Items/Weapons/decoy_launcher.xml" />
   <Particles file="%ModDir%/Particles/ParticlePrefabs.xml" />
   <Item file="%ModDir%/材料/材料.xml" />
   <Item file="%ModDir%/Items/Medical/medical.xml" />
@@ -14,8 +18,13 @@
   <Item file="%ModDir%/Items/Weapons/projectiles.xml" />
   <Item file="%ModDir%/Items/Weapons/turret_ammoboxes.xml" />
   <Item file="%ModDir%/Items/Weapons/test_burn_weapon.xml" />
+  <Item file="%ModDir%/Items/Weapons/gravity_gun.xml" />
+  <Item file="%ModDir%/Items/Weapons/cluster_rocket_launcher.xml" />
   <Item file="%ModDir%/Items/Weapons/disintegration_field_device.xml" />
+  <Item file="%ModDir%/Items/Weapons/airburst_incendium_grenade.xml" />
+  <Item file="%ModDir%/Items/Weapons/airburst_incendiary_2.xml" />
   <Item file="%ModDir%/Items/Weapons/traction_beam.xml" />
+  <Item file="%ModDir%/Items/Weapons/grapple_gun.xml" />
   <Item file="%ModDir%/Items/Weapons/net_gun.xml" />
   <Item file="%ModDir%/卫戍者/武器/t1武器.xml" />
   <Item file="%ModDir%/卫戍者/武器/t2武器.xml" />
@@ -31,6 +40,7 @@
   <Item file="%ModDir%/外环工造/装备/装备物品.xml" />
   <Item file="%ModDir%/践行者/武器/t1武器.xml" />
   <Item file="%ModDir%/践行者/武器/t2武器.xml" />
+  <Item file="%ModDir%/践行者/武器/护教军武器.xml" />
   <Item file="%ModDir%/践行者/装备/t1护甲.xml" />
   <Item file="%ModDir%/践行者/装备/t3护甲.xml" />
   <Item file="%ModDir%/践行者/装备/装备物品.xml" />
@@ -43,6 +53,7 @@
   <Item file="%ModDir%/Characters/WardensRaiders/Weapons/AIWeapons.xml" />
   <Item file="%ModDir%/Characters/RevengeProtocol/RevengeProtocolWeapons.xml" />
   <Afflictions file="%ModDir%/Afflictions/afflictions.xml" />
+  <Afflictions file="%ModDir%/Afflictions/ground_adhesion_release.xml" />
   <Other file="%ModDir%/Characters/NetEntanglementAppendage.xml" />
   <Character file="%ModDir%/Characters/HumanNetEntangled.xml" />
   <Character file="%ModDir%/Characters/NanoclusterShield/HumanNanoClusterShield.xml" />
@@ -63,7 +74,15 @@
   <Text file="%ModDir%/Text/SimplifiedChinese.xml" />
   <Text file="%ModDir%/Text/English.xml" />
   <Submarine file="%ModDir%/Submarines/GDF护卫舰.sub" />
-  <Submarine file="%ModDir%/Submarines/静风级护卫舰.sub" />
   <Item file="%ModDir%/Characters/Humanbiodragger/PlagueDraggerTongue.xml" />
   <Character file="%ModDir%/Characters/Humanbiodragger/Humanbiodragger.xml" />
+  <Item file="%ModDir%/Items/Weapons/smart_sniper.xml" />
+  <Item file="%ModDir%/Items/test_shoulder_cannon_armor.xml" />
+  <Item file="%ModDir%/Items/Weapons/breaching_charge.xml" />
+  <Submarine file="%ModDir%/Submarines/静风级护卫舰.sub" />
+  <Item file="%ModDir%/Items/Weapons/laser_grid_grenade.xml" />
+  <Item file="%ModDir%/Items/Weapons/laser_tripwire_detonator.xml" />
+  <Item file="%ModDir%/Items/space_propulsion_backpack.xml" />
+  <Item file="%ModDir%/Items/magnetic_boots_armor.xml" />
+  <Wreck file="%ModDir%/静风级残骸.sub" />
 </contentpackage>

@@ -355,5 +355,34 @@
         <Item identifier="deusizine" amount="8" />
       </ItemSet>
     </npc>
+    <npc identifier="aic_foresight_research_knight_squire_space" tags="securitynpc,aic_foresight_research_knight_squire_space" faction="coalition" job="securityofficer" moduleflags="none" behavior="Patrol" healthmultiplier="1.2" aimspeed="15" aimaccuracy="1">
+      <Character speciesname="human" tags="male,head14" hairindex="3" beardindex="0" moustacheindex="0" faceattachmentindex="0" skincolor="210,168,130,255" haircolor="62,60,58,255" facialhaircolor="62,60,58,255" personality="professional">
+        <job identifier="securityofficer">
+          <skill identifier="weapons" level="90" />
+          <skill identifier="mechanical" level="60" />
+          <skill identifier="electrical" level="50" />
+          <skill identifier="medical" level="55" />
+          <skill identifier="helm" level="25" />
+        </job>
+      </Character>
+      <ItemSet commonness="1">
+        <Item identifier="idcard" equip="true" />
+        <Item identifier="headset" equip="true" showpreview="false" />
+        <Item identifier="aic_foresight_t3_armor" equip="true">
+          <Item identifier="oxygenitetank" />
+          <Item identifier="deusizine" />
+          <Item identifier="fulguriumbatterycell" />
+        </Item>
+        <Item identifier="aic_space_propulsion_backpack" equip="true" />
+        <Item identifier="aic_foresight_nsg_ai_thrower" equip="true" />
+        <Item identifier="aic_gdf_redstar_plasma_rifle" equip="true">
+          <Item identifier="aic_gdf_redstar_plasma_battery" />
+        </Item>
+        <Item identifier="aic_gdf_redstar_plasma_battery" amount="8" />
+        <Item identifier="aic_gdf_redstar_plasma_battery" amount="8" />
+        <Item identifier="antibleeding2" amount="8" />
+        <Item identifier="deusizine" amount="8" />
+      </ItemSet>
+    </npc>
   </npcset>
 </npcsets>

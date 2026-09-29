@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="激光绊雷雷管" identifier="aic_laser_tripwire_detonator" category="Equipment,Weapon" tags="smallitem,detonator" health="100" scale="0.5" maxstacksize="1" maxstacksizecharacterinventory="1" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbycontaineditemexplosions="true" explosiondamagemultiplier="0.3" cargocontaineridentifier="explosivecrate" impactsoundtag="impact_metal_light">
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="704,64,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="215,242,41,21" depth="0.5" origin="0.5,0.5" />
+    <Body width="40" height="22" density="20" />
+    <Throwable slots="Any,RightHand,LeftHand" holdpos="0,0" handle1="0,0" throwforce="4" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnSecondaryUse" target="This" condition="99" setvalue="true" disabledeltatime="true">
+        <Conditional condition="gt 0" />
+      </StatusEffect>
+    </Throwable>
+    <ItemContainer canbeselected="true" capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="explosive">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,384,64,64" origin="0.5,0.5" />
+      <GuiFrame relativesize="0.11,0.17" anchor="Center" minsize="140,170" maxsize="280,280" style="ItemUI" />
+      <Containable items="explosive" />
+    </ItemContainer>
+    <LaserTripwire armingdelay="1" range="300" barrelpos="0,0" spread="0" unskilledspread="0" firedamage="0" structurefixamount="0" levelwallfixamount="0" targetforce="0" repairmultiple="true" repairmultiplewalls="false" repairthroughwalls="false" repairthroughholes="false" maxoverlappingwalldist="0" hititems="false" />
+    <LightComponent lightcolor="90,210,255,255" range="300" powerconsumption="0" ison="false" castshadows="true" flicker="0">
+      <LightTexture texture="%ModDir%/Items/Weapons/laser_grid_beam.png" origin="0,0.5" size="0.5,0.12" />
+    </LightComponent>
+  </Item>
+</Items>

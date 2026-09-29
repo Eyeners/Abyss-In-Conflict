@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Afflictions>
+  <Affliction name="吸附取消" identifier="aic_ground_adhesion_release" type="aic_ground_adhesion_release" description="暂时解除人形角色站立时的速度与贴地修正，使其能随外力移动。不施加眩晕。" limbspecific="false" indicatorlimb="Torso" maxstrength="60" showiconthreshold="infinity" showicontoothersthreshold="infinity" showinhealthscannerthreshold="infinity" treatmentthreshold="infinity" healableinmedicalclinic="false" affectmachines="true">
+    <Effect minstrength="0" maxstrength="60" strengthchange="-1" />
+    <Icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" origin="0.5,0.5" />
+  </Affliction>
+</Afflictions>

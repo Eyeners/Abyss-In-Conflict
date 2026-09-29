@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="&#x7A7A;&#x7206;&#x71C3;&#x70E7;&#x5F39;" identifier="aic_airburst_incendium_grenade" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="8" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem,grenade" scale="0.5" impactsoundtag="impact_metal_heavy">
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="68,320,56,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="188,312,26,54" depth="0.55" origin="0.5,0.5" />
+    <!-- Keep the original incendiary grenade sprite, but use a compact launcher-projectile collider. -->
+    <Body width="18" height="12" density="30" friction="1" angulardamping="2" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+    <Projectile characterusable="false" launchimpulse="20" removeonhit="false" sticktocharacters="false" friendlyfire="true">
+      <Attack structuredamage="5" penetration="0.2">
+        <Affliction identifier="burn" strength="10" />
+      </Attack>
+      <Sound file="Content/Items/Weapons/FragGrenade40mmShot1.ogg" type="OnImpact" range="3000" selectionmode="Random" />
+      <Sound file="Content/Items/Weapons/FragGrenade40mmShot2.ogg" type="OnImpact" range="3000" />
+      <!-- Native proximity sensors cannot exclude the shooter, so arm only after the round has cleared the muzzle. -->
+      <StatusEffect type="OnUse" target="This" condition="99" setvalue="true" delay="0.2" disabledeltatime="true" checkconditionalalways="true">
+        <Conditional condition="gt 99" />
+      </StatusEffect>
+      <StatusEffect type="OnImpact" target="This" condition="0" setvalue="true" disabledeltatime="true" conditionalcomparison="And">
+        <Conditional condition="lte 99" />
+        <Conditional condition="gt 0" />
+      </StatusEffect>
+      <StatusEffect type="OnActive" target="This" condition="-100" delay="10" disabledeltatime="true" />
+      <StatusEffect type="OnBroken" target="This" disabledeltatime="true">
+        <Sound file="Content/Items/Weapons/ExplosionDebris2.ogg" range="2000" />
+        <Explosion range="250" ballastfloradamage="80" structuredamage="10" levelwalldamage="30" itemdamage="80" force="2" smoke="false" flames="false" sparks="false" underwaterbubble="true">
+          <Affliction identifier="burn" strength="30" dividebylimbcount="false" />
+          <Affliction identifier="burning" strength="10" dividebylimbcount="false" />
+        </Explosion>
+        <SpawnItem identifier="aic_airburst_incendium_field" spawnposition="This" />
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+    <TriggerComponent triggeredby="Human,Creature" ignoredead="true" force="0" width="260" height="280" bodyoffset="0,-140">
+      <StatusEffect type="OnActive" target="This" condition="0" setvalue="true" disabledeltatime="true" conditionalcomparison="And">
+        <Conditional condition="lte 99" />
+        <Conditional isactive="true" targetitemcomponent="Projectile" />
+        <Conditional triggeractive="true" targetitemcomponent="TriggerComponent" />
+        <Conditional condition="gt 0" />
+      </StatusEffect>
+    </TriggerComponent>
+  </Item>
+
+  <Item name="&#x7A7A;&#x7206;&#x71C3;&#x70E7;&#x533A;&#x57DF;" identifier="aic_airburst_incendium_field" scale="0.5" health="15" hideinmenus="true" noninteractable="true" isdangerous="true" sonarsize="0">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="1,1,1,1" depth="0.55" origin="0.5,0.5" />
+    <Body width="100" radius="25" density="20" friction="0.8" />
+    <LightComponent lightcolor="200,150,100,200" flicker="0.2" castshadows="true" range="350" ison="true">
+      <Sprite texture="Content/Items/Tools/tools.png" sourcerect="275,167,57,18" alpha="1" origin="0.5,0.5" />
+    </LightComponent>
+    <ItemComponent>
+      <StatusEffect type="Always" target="This" condition="-5">
+        <Conditional inwater="true" />
+      </StatusEffect>
+      <StatusEffect type="Always" target="This" condition="-1">
+        <ParticleEmitter particle="aic_liquid_incendium_flame" anglemin="-10" anglemax="10" distancemin="-150" distancemax="150" velocitymin="-200" velocitymax="200" scalemultiplier="0.5,0.5" particlespersecond="60" colormultiplier="255,255,255,255" />
+      </StatusEffect>
+      <StatusEffect type="Always" target="This" interval="0.5" disabledeltatime="true">
+        <Explosion range="300" ballastfloradamage="0" structuredamage="0" levelwalldamage="0" itemdamage="0" force="0" showeffects="false">
+          <Affliction identifier="oxygenlow" strength="20" />
+          <Affliction identifier="burn" strength="8" dividebylimbcount="false" />
+          <Affliction identifier="burning" strength="8" dividebylimbcount="false" />
+        </Explosion>
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </ItemComponent>
+  </Item>
+</Items>

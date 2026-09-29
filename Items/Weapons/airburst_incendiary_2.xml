@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="白磷空爆燃烧弹" identifier="aic_airburst_incendiary_2" category="Weapon" tags="smallitem,grenade" scale="0.5" maxstacksize="32" maxstacksizecharacterinventory="8" impactsoundtag="impact_metal_light">
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="68,320,56,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="188,312,26,54" depth="0.55" origin="0.5,0.5" />
+    <Body width="18" height="12" density="30" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+    <Projectile characterusable="false" launchimpulse="10" removeonhit="false" sticktocharacters="false">
+      <Attack structuredamage="0" />
+    </Projectile>
+    <AirburstIncendiary />
+  </Item>
+  <Item name="二号弹燃烧体" identifier="aic_airburst_incendiary_fragment_2" tags="aic_extinguishable_burn" category="Weapon" hideinmenus="true" noninteractable="true" isdangerous="true" scale="0.5" health="100">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,0,2,2" color="0,0,0,0" />
+    <Body width="12" height="12" density="14" />
+    <Projectile characterusable="false" launchimpulse="10" doesstick="true" sticktocharacters="true" sticktolighttargets="true" sticktodeflective="true" prismatic="false" removeonhit="false" friendlyfire="true">
+      <Attack structuredamage="0" targetforce="2">
+        <Affliction identifier="burn" strength="5" />
+        <Affliction identifier="slow" strength="22" />
+        <Affliction identifier="stun" strength="0.3" />
+      </Attack>
+    </Projectile>
+    <!-- Keep burning after impact even if Projectile becomes inactive. -->
+    <ItemComponent>
+      <StatusEffect type="OnNotContained" target="This" condition="-5" />
+      <StatusEffect type="OnNotContained" target="This" interval="0.5">
+        <Explosion range="30" force="0" structuredamage="0" itemdamage="0" severlimbsprobability="0.1" ballastfloradamage="1" showeffects="false">
+          <Affliction identifier="burn" strength="8" />
+          <Affliction identifier="slow" strength="8" />
+          <Affliction identifier="aic_heat_buildup" strength="2" />
+          <Affliction identifier="aic_suppression" strength="2" />
+        </Explosion>
+      </StatusEffect>
+      <StatusEffect type="OnNotContained" target="This">
+        <ParticleEmitter particle="weldsmoke" particlespersecond="5" lifetimemultiplier="0.5" anglemin="70" anglemax="100" velocitymin="5" velocitymax="50" />
+        <ParticleEmitter particle="flamethrower" particlespersecond="4" scalemin="0.2" scalemax="0.3" copyentityangle="false" />
+        <ParticleEmitter particle="spark" particlespersecond="12" scalemin="0.8" scalemax="1.2" lifetimemultiplier="0.2" anglemin="0" anglemax="360" colormultiplier="255,233,233,177" velocitymin="500" velocitymax="1000" />
+        <ParticleEmitter particle="FlareBubbles" particlespersecond="5" anglemin="70" anglemax="100" velocitymin="100" velocitymax="200" scalemin="0.8" scalemax="1.2" />
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This"><Remove /></StatusEffect>
+    </ItemComponent>
+    <LightComponent lightcolor="255,222,222,122" flicker="0.2" range="150" ison="true" castshadows="false" />
+  </Item>
+</Items>

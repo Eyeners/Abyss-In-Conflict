@@ -1,69 +1,64 @@
 if SERVER then return end
 
-local zoomProfiles = {
-    ["aic_scope_zoom2x"] = {
-        targetOffset = 620,
-        smooth = 0.2
-    },
-    ["aic_scope_zoom2x_builtin"] = {
-        targetOffset = 540,
-        smooth = 0.18
-    }
+local WHEEL_STEP = 0.07
+local TARGET_OFFSET = 900
+-- Ordered: an installed scope takes precedence over the built-in optic.
+local profiles = {
+    { tag = "aic_scope_zoom2x", min = 0, max = 0.4, default = 0.2 },
+    { tag = "aic_scope_zoom2x_builtin", min = 0, max = 0.35, default = 0.18 }
 }
+local zoomStates = setmetatable({}, { __mode = "k" })
 
-local function lerp(a, b, t)
-    return a + (b - a) * t
-end
-
-local function findZoomProfile(item)
-    if item == nil then
-        return nil, nil
-    end
-
-    for tag, profile in pairs(zoomProfiles) do
-        if item.HasTag(tag) then
-            return tag, profile
-        end
-
-        if item.ownInventory ~= nil and item.ownInventory.FindItemByTag(tag, true) ~= nil then
-            return tag, profile
+local function findProfile(item, includeContents)
+    if not item or item.Removed or item.Condition <= 0 then return nil end
+    for _, profile in ipairs(profiles) do
+        if item.HasTag(profile.tag) or (includeContents and item.ownInventory
+            and item.ownInventory.FindItemByTag(profile.tag, true)) then
+            return profile
         end
     end
-
-    return nil, nil
 end
 
-local function getHeldItem(character)
-    if character == nil or character.Inventory == nil then
-        return nil
+local function selectSource(character)
+    local inventory = character.Inventory
+    -- Grapple aiming reserves the wheel, including when a zoom helmet is equipped.
+    for _, slot in ipairs({ InvSlotType.RightHand, InvSlotType.LeftHand }) do
+        local item = inventory.GetItemInLimbSlot(slot)
+        if item and item.Prefab.Identifier.Value == "aic_grapple_gun" then return end
     end
-
-    local rightHand = character.Inventory.GetItemInLimbSlot(InvSlotType.RightHand)
-    local leftHand = character.Inventory.GetItemInLimbSlot(InvSlotType.LeftHand)
-    return rightHand or leftHand
+    -- Select one source only: weapon/accessory first, helmet as a fallback.
+    for _, slot in ipairs({ InvSlotType.RightHand, InvSlotType.LeftHand }) do
+        local item = inventory.GetItemInLimbSlot(slot)
+        local profile = findProfile(item, true)
+        if profile then return item, profile end
+    end
+    local helmet = inventory.GetItemInLimbSlot(InvSlotType.Head)
+    local profile = findProfile(helmet, false)
+    if profile then return helmet, profile end
 end
 
-Hook.Patch("Barotrauma.Character", "ControlLocalPlayer", function(instance, ptable)
-    if Screen.Selected == nil or Screen.Selected.Cam == nil then
-        return
+Hook.Patch("Barotrauma.Character", "ControlLocalPlayer", function(character)
+    if not character or character ~= Character.Controlled or character.Removed or character.IsDead
+        or not character.Inventory or not character.AnimController
+        or not character.AnimController.IsAiming or not Screen.Selected or not Screen.Selected.Cam then return end
+    local source, profile = selectSource(character)
+    if not source then return end
+    local state = zoomStates[source]
+    if not state then state = {}; zoomStates[source] = state end
+    local value = state[profile.tag] or profile.default
+    if GUI.KeyboardDispatcher.Subscriber == nil and not GUI.InputBlockingMenuOpen and not GUI.MouseOn then
+        if PlayerInput.MouseWheelUpClicked() then
+            value = value - WHEEL_STEP
+        elseif PlayerInput.MouseWheelDownClicked() then
+            value = value + WHEEL_STEP
+        end
     end
-
-    local character = instance
-    if character == nil
-        or character.AnimController == nil
-        or not character.AnimController.IsAiming then
-        return
-    end
-
-    local heldItem = getHeldItem(character)
-    if heldItem == nil then
-        return
-    end
-
-    local tag, profile = findZoomProfile(heldItem)
-    if tag == nil then
-        return
-    end
-
-    Screen.Selected.Cam.OffsetAmount = lerp(Screen.Selected.Cam.OffsetAmount, profile.targetOffset, profile.smooth)
+    value = math.max(profile.min, math.min(profile.max, value))
+    state[profile.tag] = value
+    local cam = Screen.Selected.Cam
+    cam.OffsetAmount = cam.OffsetAmount + (TARGET_OFFSET - cam.OffsetAmount) * value
 end, Hook.HookMethodType.After)
+
+Hook.Add("roundEnd", "AIC.ScopeZoom.Reset", function()
+    zoomStates = setmetatable({}, { __mode = "k" })
+end)

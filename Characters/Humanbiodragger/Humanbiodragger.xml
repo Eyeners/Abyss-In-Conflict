@@ -5,10 +5,10 @@
   haircolors="(#ded7cc, 100); (#d2a36f, 100); (#c77d52, 100); (#ac4934, 100); (#d8ba85, 100); (#cd975a, 100); (#a15837, 100); (#6a3b37, 100); (#bba981, 100); (#8b7e6c, 100); (#594349, 100); (#473637, 100); (#7b8478, 100); (#494e55, 100); (#3a3a3c, 100); (#343030, 100)"
   facialhaircolors="(#ded7cc, 100); (#d2a36f, 100); (#c77d52, 100); (#ac4934, 100); (#d8ba85, 100); (#cd975a, 100); (#a15837, 100); (#6a3b37, 100); (#bba981, 100); (#8b7e6c, 100); (#594349, 100); (#473637, 100); (#7b8478, 100); (#494e55, 100); (#3a3a3c, 100); (#343030, 100)"
   SpeciesName="aic_threat_plague_dragger"
-  Tags="husk,aic_threat"
+  Tags="husk,aic_threat,aic_biological"
   SpeciesTranslationOverride="灾疠拖拽者"
   DisplayName=""
-  Group="husk"
+  Group="aic_ivolo"
   Humanoid="True"
   HasInfo="False"
   CanInteract="True"
@@ -108,15 +108,37 @@
     <target tag="provocative" state="Attack" priority="100" ignoreifnotinsamesub="True" />
     <target tag="weapon" state="Attack" priority="100" ignoreifnotinsamesub="True" />
     <target tag="nasonov" state="Attack" priority="100" ignoreinside="True" />
-    <target tag="crawler" state="Attack" priority="100" ignoreincapacitated="True" />
-    <target tag="human" state="Attack" priority="80" ignoreincapacitated="True" />
     <target tag="sonar" state="Attack" priority="30" ignoreinside="True" />
     <target tag="room" state="Attack" priority="20" ignoreinside="True" />
     <target tag="door" state="Attack" priority="10" ignoreinside="True" />
     <target tag="turret" state="Attack" priority="1" ignoreinside="True" />
     <target tag="searchlight" state="Attack" priority="1" ignoreinside="True" />
-    <target tag="swarmfeeder" state="Idle" priority="0" ignoreinside="True" ignoreoutside="True" ignoreifnotinsamesub="True" ignoreincapacitated="True" />
-    <target tag="huskinfected" state="Idle" priority="0" ignoreinside="True" ignoreoutside="True" ignoreifnotinsamesub="True" ignoreincapacitated="True" threshold="1" />
+    <target Tag="aic_ivolo" State="Idle" Priority="0" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="True" AttackPattern="Straight" />
+    <target Tag="aic_vanguard" State="Attack" Priority="80" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="True" AttackPattern="Straight" />
+    <target Tag="human" State="Attack" Priority="200" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="True" AttackPattern="Straight">
+      <Conditional IsMachine="False" />
+    </target>
+    <target Tag="human" State="Attack" Priority="80" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="True" AttackPattern="Straight">
+      <Conditional IsMachine="True" />
+    </target>
+    <target Tag="stronger" State="Attack" Priority="200" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="True" AttackPattern="Straight">
+      <Conditional IsMachine="False" />
+    </target>
+    <target Tag="stronger" State="Attack" Priority="80" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="True" AttackPattern="Straight">
+      <Conditional IsMachine="True" />
+    </target>
+    <target Tag="equal" State="Attack" Priority="200" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="True" AttackPattern="Straight">
+      <Conditional IsMachine="False" />
+    </target>
+    <target Tag="equal" State="Attack" Priority="80" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="True" AttackPattern="Straight">
+      <Conditional IsMachine="True" />
+    </target>
+    <target Tag="weaker" State="Attack" Priority="200" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="True" AttackPattern="Straight">
+      <Conditional IsMachine="False" />
+    </target>
+    <target Tag="weaker" State="Attack" Priority="80" IgnoreIfNotInSameSub="False" IgnoreIncapacitated="True" AttackPattern="Straight">
+      <Conditional IsMachine="True" />
+    </target>
   </ai>
   <inventory arrowslot="9" Slots="Card, Headset, Head, InnerClothes, OuterClothes, LeftHand, RightHand, Bag, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, HealthInterface" AccessibleWhenAlive="True" Commonness="1" />
   <StatusEffect type="OnDeconstructed" target="Character">

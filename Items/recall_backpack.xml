@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="传送核心（测试）" identifier="aic_recall_core" category="Equipment" tags="smallitem,aic" maxstacksize="8" scale="0.5" health="9" description="传送背包能源，满耐久9点。回归或应急传送消耗6点，短途跳跃消耗3点。">
+    <InventoryIcon texture="%ModDir%/材料/贴图/材料.png" sourcerect="0,59,20,69" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/材料/贴图/材料.png" sourcerect="0,59,20,69" origin="0.5,0.5" depth="0.55" />
+    <Body width="18" height="65" density="20" />
+    <Holdable slots="Any,RightHand,LeftHand" holdpos="0,0" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+<Item name="传送背包（测试）" identifier="aic_recall_backpack" category="Equipment" tags="mediumitem,mobilecontainer,largemobilecontainer,tool,aic" scale="0.5" health="100" fireproof="true" damagedbyprojectiles="true" damagedbyexplosions="true" description="背包受损会产生传送偏移，最大偏移随损伤线性增加（50%耐久时4米）；首次降至10%会无消耗随机短跳5次，每次8米、间隔0.5秒，可传送至舱外，仍触发时流紊乱及反噬。按Q使用：回归模式消耗6点核心耐久返回己方主船医生出生点；勾选短途跳跃后消耗3点，向鼠标传送最多8米。AI穿戴时会自动沿任务或战斗路径短跳，冷却3秒，每次消耗3点核心耐久；无合适落点时正常寻路。短跳叠加持续3秒的时流紊乱，连续跳跃会反噬，三级时再次跳跃引发爆炸。两种模式均保留濒死血条降至一半时的应急回归，恢复正常生命值后重新解锁。只使用核心专用槽；无有效回归点或能量不足时不消耗。">
+    <InventoryIcon texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" origin="0.5,0.5" depth="0.6" />
+    <Body width="60" height="100" density="15" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" limb="Torso" depthlimb="Waist" inherittexturescale="true" origin="1.1,0.5" canbehiddenbyotherwearables="false" canbehiddenbyitem="deepdivinglarge" />
+    </Wearable>
+    <Holdable slots="RightHand+LeftHand,Any" holdpos="0,-70" handle1="-5,50" handle2="10,50" holdangle="0" msg="ItemMsgPickUpSelect" />
+    <!-- Slot 0 is the core socket; upward-opening backpack UI places it bottom-left. -->
+    <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" slotsperrow="4" allowuioverlap="true">
+      <Containable items="aic_recall_core" />
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="192,448,64,64" origin="0.5,0.5" />
+      <SubContainer capacity="15" maxstacksize="32">
+        <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,mobilecontainer,largemobilecontainer" />
+      </SubContainer>
+    </ItemContainer>
+    <RecallBackpack />
+    <CustomInterface canbeselected="false" drawhudwhenequipped="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.18,0.07" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.22" style="ItemUI" />
+      <TickBox text="短途跳跃（关闭为回归）" targetitemcomponent="RecallBackpack" propertyname="JumpMode" continuoussignal="false" getvalueinterval="0.1" />
+    </CustomInterface>
+  </Item>
+  <Item identifier="aic_recall_hum" name="传送嗡鸣" category="Misc" hideinmenus="true" noninteractable="true" sonarsize="0">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,0,1,1" color="255,255,255,0" />
+    <ItemComponent>
+      <StatusEffect type="OnSpawn" target="This" duration="0.6">
+        <sound file="Content/Items/Weapons/GRAVITYSHELLS_loop.ogg" volume="1" range="1500" loop="true" />
+      </StatusEffect>
+      <StatusEffect type="OnSpawn" target="This" delay="0.7"><Remove /></StatusEffect>
+    </ItemComponent>
+  </Item>
+  <Item identifier="aic_temporal_rupture" name="时流破裂" category="Misc" hideinmenus="true" noninteractable="true" sonarsize="0">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,0,1,1" color="255,255,255,0" />
+    <ItemComponent>
+      <StatusEffect type="OnSpawn" target="This">
+        <!-- Damage only; all backlash tiers use the separate gravity-flak particle burst below. -->
+        <Explosion range="60" structuredamage="0" itemdamage="0" levelwalldamage="0" ballastfloradamage="0" force="80" camerashake="80" camerashakerange="10000" severlimbsprobability="1" penetration="0.75" flames="false" smoke="false" sparks="false" underwaterbubble="false" shockwave="false" flash="false" debris="false">
+          <Affliction identifier="organdamage" strength="60" dividebylimbcount="false" />
+          <Affliction identifier="explosiondamage" strength="60" dividebylimbcount="false" />
+        </Explosion>
+      </StatusEffect>
+      <StatusEffect type="OnSpawn" target="This" delay="0.1"><Remove /></StatusEffect>
+    </ItemComponent>
+  </Item>
+  <Item identifier="aic_temporal_backlash_fx" name="时流反噬特效" category="Misc" hideinmenus="true" noninteractable="true" sonarsize="0">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,0,1,1" color="255,255,255,0" />
+    <ItemComponent>
+      <StatusEffect type="OnSpawn" target="This">
+        <!-- Exact terminal particle emitter from vanilla flakshrapnelgravity, without its damage. -->
+        <ParticleEmitter particle="cyborgammotracer" particleamount="150" anglemin="0" anglemax="360" distancemin="0" distancemax="150" scalemin="1" scalemax="3" velocitymin="-50" velocitymax="0" />
+        <sound file="Content/Items/Weapons/GRAVITYSHELLS_explosion.ogg" volume="2" dontmuffle="true" range="50000" />
+      </StatusEffect>
+      <StatusEffect type="OnSpawn" target="This" delay="0.1"><Remove /></StatusEffect>
+    </ItemComponent>
+  </Item>
+</Items>

@@ -27,7 +27,7 @@
       <Sound file="Content/Items/Weapons/HarpoonGun1.ogg" type="OnUse" range="800" volume="0.5" />
 
       <StatusEffect type="OnUse" target="This" condition="0" setvalue="true" disabledeltatime="true" />
-      <StatusEffect type="OnUse" target="This" condition="100" setvalue="true" delay="10" disabledeltatime="true">
+      <StatusEffect type="OnUse" target="This" condition="100" setvalue="true" delay="5" disabledeltatime="true">
         <SpawnItem identifiers="aic_traction_beam_anchor" spawnposition="ThisInventory" />
       </StatusEffect>
 
