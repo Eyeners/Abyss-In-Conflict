@@ -19,12 +19,12 @@ namespace AIC.Components
         private double refresh;
         private int nodeCount;
 
-        private void Refresh(Character user)
+        private void Refresh(Character user, Submarine searchSubmarine)
         {
-            Vector2 local = user.WorldPosition - (user.Submarine?.Position ?? Vector2.Zero);
-            if (submarine == user.Submarine && Timing.TotalTime < refresh
+            Vector2 local = user.WorldPosition - (searchSubmarine?.Position ?? Vector2.Zero);
+            if (submarine == searchSubmarine && Timing.TotalTime < refresh
                 && nodeCount == WayPoint.WayPointList.Count && Vector2.DistanceSquared(center, local) < 200 * 200) return;
-            submarine = user.Submarine; center = local; refresh = Timing.TotalTime + 2;
+            submarine = searchSubmarine; center = local; refresh = Timing.TotalTime + 2;
             nodeCount = WayPoint.WayPointList.Count;
             nodes.Clear(); edges.Clear();
             foreach (var node in WayPoint.WayPointList)
@@ -50,7 +50,7 @@ namespace AIC.Components
         internal bool HasNearbyConnection(Character user)
         {
             if (user.CurrentHull == null) return false;
-            Refresh(user);
+            Refresh(user, user.Submarine);
             int checks = 0;
             foreach (var edge in edges)
             {
@@ -70,9 +70,10 @@ namespace AIC.Components
         }
 
         // mode: 0 retreat, 1 behind enemy, 2 approach. No new enemy pathfinding is run.
-        internal bool TrySelect(Character user, Character enemy, int mode, Func<Vector2, bool> clear, out Vector2 result)
+        internal bool TrySelect(Character user, Character enemy, int mode, Func<Vector2, Vector2?> resolve,
+            out Vector2 result, Submarine searchSubmarine, Func<Vector2, bool> accept = null)
         {
-            Refresh(user);
+            Refresh(user, searchSubmarine);
             route.Clear();
             var steering = enemy.AIController is HumanAIController human ? human.PathSteering
                 : (enemy.AIController as EnemyAIController)?.PathSteering;
@@ -108,12 +109,13 @@ namespace AIC.Components
 
             void Add(Vector2 position)
             {
+                if (accept != null && !accept(position)) return;
                 float jump = Vector2.Distance(user.WorldPosition, position);
                 float remaining = Vector2.Distance(enemy.WorldPosition, position);
                 float score;
                 if (mode == 2)
                 {
-                    if (jump < 200 || jump > 800 || remaining < 300
+                    if (jump < 200 || jump > 800 || remaining < 600
                         || remaining >= Vector2.Distance(user.WorldPosition, enemy.WorldPosition) - 100) return;
                     score = remaining;
                 }
@@ -138,7 +140,22 @@ namespace AIC.Components
             bool Pick(int budget, out Vector2 selected)
             {
                 for (int i = 0; i < Math.Min(budget, ranked.Count); i++)
-                    if (clear(ranked[i].Position)) { selected = ranked[i].Position; return true; }
+                {
+                    var position = resolve(ranked[i].Position);
+                    if (!position.HasValue) continue;
+                    if (accept != null && !accept(position.Value)) continue;
+                    float jump = Vector2.Distance(user.WorldPosition, position.Value);
+                    float remaining = Vector2.Distance(enemy.WorldPosition, position.Value);
+                    if (mode == 2)
+                    {
+                        if (jump < 200 || jump > 800 || remaining < 600
+                            || remaining >= Vector2.Distance(user.WorldPosition, enemy.WorldPosition) - 100) continue;
+                    }
+                    else if (!float.IsFinite(RecallBackpack.CombatLandingScore(user.WorldPosition,
+                        enemy.WorldPosition, enemy.AnimController.Dir, position.Value, mode == 1))) continue;
+                    selected = position.Value;
+                    return true;
+                }
                 selected = default;
                 return false;
             }

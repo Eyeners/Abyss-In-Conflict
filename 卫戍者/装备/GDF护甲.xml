@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Items>
-  <Item name="GDF哨兵生物危害防护装甲" identifier="aic_wardens_gdf_sentinel_biohazard_armor" category="Equipment,Diving" subcategory="卫戍者护甲" tags="smallitem,armor,clothing,diving,divinggear_wearableindoors,human,aic_wardens_armor" scale="0.5" fireproof="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="3" cargocontaineridentifier="metalcrate" description="GDF部队在后感染时代使用的全封闭生物危害防护装甲，最初只搭载了常规的生化防护系统，在发生多次感染事件并重新深入研究灾疠传播机制后，增加了以铅钨为材料的辐射防护层，并具备有限深度的水下作业能力。">
+  <Item name="GDF哨兵生物危害防护装甲" identifier="aic_wardens_gdf_sentinel_biohazard_armor" category="Equipment,Diving" subcategory="卫戍者护甲" tags="smallitem,armor,clothing,diving,divinggear_wearableindoors,human,aic_wardens_armor,aic_fearless" scale="0.5" fireproof="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="3" cargocontaineridentifier="metalcrate" description="GDF部队在后感染时代使用的全封闭生物危害防护装甲，最初只搭载了常规的生化防护系统，在发生多次感染事件并重新深入研究灾疠传播机制后，增加了以铅钨为材料的辐射防护层，并具备有限深度的水下作业能力。">
     <PreferredContainer primary="locker,armcab" secondary="metalcrate" />
     <InventoryIcon texture="%ModDir%/卫戍者/贴图/卫戍者PMC白.png" sourcerect="0,0,1254,1254" scale="0.02" origin="0.5,0.5" />
     <Sprite texture="%ModDir%/卫戍者/贴图/卫戍者PMC实物贴图.png" sourcerect="0,0,64,64" depth="0.55" origin="0.5,0.5" />
@@ -23,12 +23,13 @@
       <sprite name="GDF Sentinel Inner Leg" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="LeftLeg" sourcerect="356,688,127,298" origin="0.5,0.5" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
       <sprite name="GDF Sentinel Outer Foot" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="RightFoot" sourcerect="872,906,173,113" origin="0.5,0.5" scale="0.36" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
       <sprite name="GDF Sentinel Inner Foot" texture="%ModDir%/卫戍者/贴图/GDF哨兵生物危害防护装甲.png" limb="LeftFoot" sourcerect="1170,906,173,113" origin="0.5,0.5" scale="0.36" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound" damagemultiplier="0.28" damagesound="LimbArmor" deflectprojectiles="true" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.16" damagesound="LimbArmor" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="explosiondamage" damagemultiplier="0.32" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound" damagemultiplier="0.28" damagesound="LimbArmor" deflectprojectiles="true" penetrationmultiplier="0.9" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_suppression" damagemultiplier="0.63" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.16" damagesound="LimbArmor" deflectprojectiles="true" penetrationmultiplier="0.3" penetrationoffset="-0.1" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="explosiondamage" damagemultiplier="0.32" damagesound="LimbArmor" deflectprojectiles="true" penetrationmultiplier="0.8" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bleeding" damagemultiplier="0.3" damagesound="LimbArmor" />
-      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.45" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_heat_buildup" damagemultiplier="0.45" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.45" deflectprojectiles="true" penetrationmultiplier="0.8" penetrationoffset="-0.1" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_heat_buildup" damagemultiplier="0.4" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="radiationsickness" damagemultiplier="0.1" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="electricshock" damagemultiplier="0.45" damagesound="LimbArmor" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="stun" damagemultiplier="0.4" damagesound="LimbArmor" />
@@ -61,10 +62,6 @@
       <StatusEffect type="OnWearing" target="Character" interval="1.5" disabledeltatime="true">
         <Affliction identifier="aic_wardens_assisted_exoskeleton" amount="1" />
       </StatusEffect>
-      <StatusEffect type="OnWearing" target="Character" interval="1.5" disabledeltatime="true">
-        <Affliction identifier="aic_wardens_military_protection" amount="1" />
-        <Affliction identifier="aic_wardens_military_protection_gunshot" amount="1" />
-      </StatusEffect>
       <StatusEffect type="OnWearing" target="Character,This" disabledeltatime="true">
         <Affliction identifier="aic_nightvision" amount="60" />
         <Conditional targetself="true" targetitemcomponent="LightComponent" IsOn="true" />
@@ -90,6 +87,125 @@
       <TickBox text="夜视">
         <StatusEffect type="OnUse" targettype="This" IsOn="true" HudTint="50,255,50,30" interval="0.1" />
         <StatusEffect type="OnSecondaryUse" targettype="This" IsOn="false" HudTint="0,0,0,0" interval="0.1" />
+      </TickBox>
+    </CustomInterface>
+    <Holdable slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+    <ItemContainer capacity="0" maxstacksize="0" hideitems="true" containedstateindicatorstyle="tank" containedstateindicatorslot="0">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="oxygensource" excludeditems="oxygenitetank" />
+        <Containable items="oxygensource">
+          <StatusEffect type="OnWearing" target="Character" OxygenAvailable="1000.0" UseHullOxygen="false" />
+        </Containable>
+      </SubContainer>
+      <SubContainer capacity="4" maxstacksize="8" slotsperrow="2">
+        <Containable items="smallitem,toolbelt,toolbox,bandolier" excludeditems="largemobilecontainer" />
+      </SubContainer>
+    </ItemContainer>
+  </Item>
+  <Item name="GDF焚风动力装甲" identifier="aic_wardens_gdf_foehn_powerarmor" category="Equipment,Diving" subcategory="卫戍者护甲" tags="smallitem,armor,clothing,diving,divinggear_wearableindoors,human,aic_wardens_armor,aic_fearless" scale="0.5" fireproof="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate">
+    <PreferredContainer primary="locker,armcab" secondary="metalcrate" />
+    <InventoryIcon texture="%ModDir%/卫戍者/贴图/GDF_Foehn_Item.png" sourcerect="0,0,264,988" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/卫戍者/贴图/GDF_Foehn_Item.png" sourcerect="0,0,264,988" scale="0.36" depth="0.55" origin="0.5,0.5" />
+    <Body width="80" height="300" density="24" />
+    <Wearable slots="OuterClothes+Head" msg="ItemMsgEquipSelect" displaycontainedstatus="true" canbepicked="true" pickkey="Select">
+      <sprite name="GDF Foehn Head" texture="%ModDir%/卫戍者/贴图/GDF焚风动力装甲.png" limb="Head" sourcerect="1415,108,190,171" origin="0.5,0.5" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" alphaclipotherwearables="true" hidewearablesoftype="Hair" hideotherwearables="true" depthlimb="RightThigh">
+        <!-- PSD assembled head pivot (1920,207.5), light bounds (1900,123); padded light texture 128x160. -->
+        <LightComponent LightColor="255,255,255,255" range="0" LightSpriteScale="0.36" powerconsumption="0" IsOn="true" DrawBehindSubs="false" castshadows="false" alphablend="true" allowingameediting="false">
+          <sprite texture="%ModDir%/卫戍者/贴图/GDF焚风头灯.png" origin="0.15625,0.528125" alpha="0.65" />
+        </LightComponent>
+        <LightComponent LightColor="220,220,220,120" range="5000" castshadows="false" powerconsumption="infinity" IsOn="true" flicker="0.1" flickerspeed="0.5" pulsefrequency="0.1" pulseamount="0.1" />
+      </sprite>
+      <sprite name="GDF Foehn Torso" texture="%ModDir%/卫戍者/贴图/GDF焚风动力装甲.png" limb="Torso" sourcerect="546,324,249,415" origin="0.56,0.55" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Foehn Waist" texture="%ModDir%/卫戍者/贴图/GDF焚风动力装甲.png" limb="Waist" sourcerect="600,867,177,145" origin="0.5,0.5" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Foehn Outer Arm" texture="%ModDir%/卫戍者/贴图/GDF焚风动力装甲.png" limb="RightArm" sourcerect="877,66,141,255" origin="0.47,0.56" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" depthlimb="Head" />
+      <sprite name="GDF Foehn Outer Forearm" texture="%ModDir%/卫戍者/贴图/GDF焚风动力装甲.png" limb="RightForearm" sourcerect="903,451,89,193" origin="0.42,0.45" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" depthlimb="RightArm" />
+      <sprite name="GDF Foehn Outer Hand" texture="%ModDir%/卫戍者/贴图/GDF焚风动力装甲.png" limb="RightHand" sourcerect="913,760,80,103" origin="0.3,0.42" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" depthlimb="RightForearm" />
+      <sprite name="GDF Foehn Inner Arm" texture="%ModDir%/卫戍者/贴图/GDF焚风动力装甲.png" limb="LeftArm" sourcerect="1176,66,141,255" origin="0.47,0.56" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Foehn Inner Forearm" texture="%ModDir%/卫戍者/贴图/GDF焚风动力装甲.png" limb="LeftForearm" sourcerect="1212,453,89,193" origin="0.42,0.45" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Foehn Inner Hand" texture="%ModDir%/卫戍者/贴图/GDF焚风动力装甲.png" limb="LeftHand" sourcerect="1218,760,80,103" origin="0.3,0.42" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Foehn Outer Thigh" texture="%ModDir%/卫戍者/贴图/GDF焚风动力装甲.png" limb="RightThigh" sourcerect="41,194,164,275" origin="0.5,0.5" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" depthlimb="RightLeg" />
+      <sprite name="GDF Foehn Outer Leg" texture="%ModDir%/卫戍者/贴图/GDF焚风动力装甲.png" limb="RightLeg" sourcerect="61,676,157,316" origin="0.5,0.58" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" depthlimb="RightThigh" />
+      <sprite name="GDF Foehn Inner Thigh" texture="%ModDir%/卫戍者/贴图/GDF焚风动力装甲.png" limb="LeftThigh" sourcerect="331,194,164,275" origin="0.5,0.5" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Foehn Inner Leg" texture="%ModDir%/卫戍者/贴图/GDF焚风动力装甲.png" limb="LeftLeg" sourcerect="353,676,157,316" origin="0.5,0.58" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <sprite name="GDF Foehn Outer Foot" texture="%ModDir%/卫戍者/贴图/GDF焚风动力装甲.png" limb="RightFoot" sourcerect="862,896,183,116" origin="0.5,0.55" scale="0.36" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" depthlimb="RightArm" />
+      <sprite name="GDF Foehn Inner Foot" texture="%ModDir%/卫戍者/贴图/GDF焚风动力装甲.png" limb="LeftFoot" sourcerect="1176,896,183,116" origin="0.5,0.55" scale="0.36" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound" damagemultiplier="0.05" damagesound="LimbArmor" deflectprojectiles="true" penetrationmultiplier="0.4" penetrationoffset="-0.2" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.04" damagesound="LimbArmor" deflectprojectiles="true" penetrationmultiplier="0.3" penetrationoffset="-0.2" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="explosiondamage" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" penetrationmultiplier="0.2" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bleeding" damagemultiplier="0.04" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_suppression" damagemultiplier="0.49" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.1" deflectprojectiles="true" penetrationmultiplier="0.4" penetrationoffset="-0.05" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_heat_buildup" damagemultiplier="0.1" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="acidburn" damagemultiplier="0.2" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="radiationsickness" damagemultiplier="0.08" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="electricshock" damagemultiplier="0.15" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="stun" damagemultiplier="0.15" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="concussion" damagemultiplier="0.0" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="alieninfection" probabilitymultiplier="0" damagemultiplier="0" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_nanite_infection" probabilitymultiplier="0.05" damagesound="LimbArmor" />
+      <StatusEffect type="OnWearing" target="Character" UseHullOxygen="true" PressureProtection="9500.0" setvalue="true" disabledeltatime="true" />
+      <StatusEffect type="OnContained" target="Contained" Condition="1.0" targetslot="0" interval="1" disabledeltatime="true">
+        <Conditional Voltage="gt 0.01" targetcontainer="true" targetgrandparent="true" targetitemcomponent="Powered" />
+        <RequiredItem items="refillableoxygensource" type="Contained" excludebroken="false" excludefullcondition="true" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained,Character" UseHullOxygen="false" OxygenAvailable="1000.0" comparison="And" targetslot="0">
+        <RequiredItem items="oxygensource" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained" UseHullOxygen="false" Condition="-0.3" comparison="And" targetslot="0">
+        <Conditional targetcontainer="true" targetgrandparent="true" IsDead="false" />
+        <Conditional targetcontainer="true" targetgrandparent="true" DecreasedOxygenConsumption="lt 99" />
+        <Conditional targetcontainer="true" targetgrandparent="true" HullOxygenPercentage="lt 50" />
+        <Conditional targetcontainer="true" targetgrandparent="true" NeedsAir="true" />
+        <Conditional InWater="false" />
+        <RequiredItem items="oxygensource" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Contained" UseHullOxygen="false" Condition="-0.3" comparison="And" targetslot="0">
+        <Conditional targetcontainer="true" targetgrandparent="true" IsDead="false" />
+        <Conditional targetcontainer="true" targetgrandparent="true" DecreasedOxygenConsumption="lt 99" />
+        <Conditional targetcontainer="true" targetgrandparent="true" NeedsAir="true" />
+        <Conditional InWater="true" />
+        <RequiredItem items="oxygensource" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Character" interval="1.5" disabledeltatime="true">
+        <Affliction identifier="aic_artificial_muscle_fiber_assistance" amount="1" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Character,This" disabledeltatime="true">
+        <Affliction identifier="aic_nightvision" amount="60" />
+        <Conditional targetself="true" targetitemcomponent="StatusHUD" thermalgoggles="true" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="This,Character" voltage="1.0" interval="0.1" setvalue="true" comparison="And">
+        <Conditional IsLocalPlayer="true" aic_nightvision="gt 0" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Character,This" SpeedMultiplier="1.45" setvalue="true" comparison="And">
+        <Conditional HasTag="eq aic_foehn_booster_on" />
+        <Conditional InWater="true" />
+        <sound file="Content/Items/Diving/ScooterLoop.ogg" range="500" loop="true" />
+        <ParticleEmitter particle="bubbles" ScaleMultiplier="0.3,0.3" EmitInterval="0.05" ParticleAmount="1" />
+      </StatusEffect>
+      <StatusEffect type="OnWearing" target="Character" stunresistance="12" setvalue="true" disabledeltatime="true" />
+      <StatValue stattype="MaximumHealthMultiplier" value="0.12" />
+      <StatValue stattype="WalkingSpeed" value="0.08" />
+      <StatValue stattype="SwimmingSpeed" value="0.05" />
+      <StatValue stattype="FlowResistance" value="0.35" />
+      <SkillModifier skillidentifier="weapons" skillvalue="15" />
+    </Wearable>
+    <StatusHUD drawhudwhenequipped="true" overlaycolor="0,0,0,0" range="500" thermalgoggles="false" showdeadcharacters="true" showtexts="true" />
+    <CustomInterface canbeselected="true" drawhudwhenequipped="true" allowuioverlap="true" elementstates="false,false">
+      <GuiFrame relativesize="0.12,0.11" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.16" style="ItemUI" />
+      <TickBox text="夜视/热成像">
+        <StatusEffect type="OnUse" target="This" targetitemcomponent="LightComponent" HudTint="50,255,50,30" interval="0.1" />
+        <StatusEffect type="OnSecondaryUse" target="This" targetitemcomponent="LightComponent" HudTint="0,0,0,0" interval="0.1" />
+        <StatusEffect type="OnUse" target="This" targetitemcomponent="StatusHUD" thermalgoggles="true" range="800" showdeadcharacters="false" setvalue="true" />
+        <StatusEffect type="OnSecondaryUse" target="This" targetitemcomponent="StatusHUD" thermalgoggles="false" range="500" showdeadcharacters="true" setvalue="true" />
+      </TickBox>
+      <TickBox text="水下推进">
+        <StatusEffect type="OnUse" target="This">
+          <LuaHook name="aic_foehn_booster_enable" />
+        </StatusEffect>
+        <StatusEffect type="OnSecondaryUse" target="This">
+          <LuaHook name="aic_foehn_booster_disable" />
+        </StatusEffect>
       </TickBox>
     </CustomInterface>
     <Holdable slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />

@@ -9,10 +9,10 @@
         <ParticleEmitter particle="aic_nanite_swirlysmoke" particlespersecond="2" scalemin="0.9" scalemax="1.3" anglemin="0" anglemax="360" velocitymin="0" velocitymax="20" copyentityangle="false" colormultiplier="255,255,255,255" />
       </StatusEffect>
       <StatusEffect type="Always" target="This" condition="-1" disabledeltatime="false" />
-      <StatusEffect type="Always" target="NearbyCharacters" range="100" interval="0.5" stackable="false" disabledeltatime="true">
+      <StatusEffect type="Always" target="NearbyCharacters" range="100" interval="0.5" stackable="false" disabledeltatime="true" aicsharednanitequery="true">
         <Affliction identifier="aic_nanite_infection" strength="0.05" probability="0.5" />
       </StatusEffect>
-      <StatusEffect type="Always" target="NearbyCharacters" range="100" interval="0.5" stackable="false" disabledeltatime="true">
+      <StatusEffect type="Always" target="NearbyCharacters" range="100" interval="0.5" stackable="false" disabledeltatime="true" aicsharednanitequery="true">
         <Conditional aic_nanite_iff_code="lt 0.1" />
         <Affliction identifier="aic_nanite_erosion" strength="0.1" />
       </StatusEffect>

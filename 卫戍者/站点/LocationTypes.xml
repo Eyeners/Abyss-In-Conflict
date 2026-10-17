@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<locationtypes>
+  <GDFBase identifier="aic_gdf_base" nameidentifiers="generic" hasoutpost="true"
+    ForceOutpostGenerationParams="aic_gdf_base" BiomeGate="Deny"
+    BackgroundMusicLocationType="military" IgnoreGenericEvents="true">
+    <!-- Reserved for explicit placement/events until campaign distribution is configured. -->
+    <AreaSettings zone="1" commonness="0" />
+    <AreaSettings zone="2" commonness="0" />
+    <AreaSettings zone="3" commonness="0" />
+    <AreaSettings zone="4" commonness="0" />
+    <AreaSettings zone="5" commonness="0" />
+    <AreaSettings zone="6" commonness="0" />
+    <Symbol texture="Content/Map/MapAtlas.png" sourcerect="640,512,128,128" color="128,206,175,255" />
+    <Portrait texture="Content/Map/LocationPortraits/Colony.png" sourcerect="0,0,2160,1080" premultiplyalpha="false" />
+  </GDFBase>
+</locationtypes>

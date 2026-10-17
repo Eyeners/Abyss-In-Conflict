@@ -562,8 +562,6 @@ local function GuideMissile(item, state, deltaTime)
                 state.turnSign = difference > 0 and 1 or -1
             end
             heading = heading + math.max(-TURN_RATE * dt, math.min(TURN_RATE * dt, difference))
-            local distance = math.sqrt(LengthSquared(ConvertUnits.ToSimUnits(toTarget)))
-            desiredSpeed = math.min(maxSpeed, math.max(1.5, distance * TURN_RATE * 0.65))
             if math.abs(difference) > math.pi / 2 then desiredSpeed = math.min(desiredSpeed, maxSpeed * 0.35) end
         end
     end

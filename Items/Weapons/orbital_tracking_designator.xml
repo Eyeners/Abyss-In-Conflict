@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="轨道追踪激光指示器" identifier="aic_orbital_tracking_designator" category="Weapon" tags="smallitem,weapon,gun" scale="0.068" impactsoundtag="impact_metal_light">
+    <InventoryIcon texture="%ModDir%/践行者/贴图/烙铁高热手枪.png" sourcerect="0,0,765,388" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/践行者/贴图/烙铁高热手枪.png" sourcerect="0,0,765,388" origin="0.5,0.5" depth="0.55" />
+    <Body width="52" height="26.4" density="25" />
+    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="70,5" handle1="-278,-52" msg="ItemMsgPickUpSelect" />
+    <AICOrbitalCooldown>
+      <sound file="Content/Items/WarningBeepSlow.ogg" type="OnUse" range="750" frequencymultiplier="2.0" volume="0.3" />
+    </AICOrbitalCooldown>
+    <RangedWeapon reload="6" maxchargetime="1.15" barrelpos="382,106" spread="0" unskilledspread="0" combatpriority="0" drawhudwhenequipped="true" crosshairscale="0.2">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <StatusEffect type="OnUse" target="Contained"><Use /></StatusEffect>
+      <RequiredItems items="aic_orbital_tracking_feed" type="Contained" />
+    </RangedWeapon>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" drawinventory="false" canbeselected="false" showcontainedstateindicator="false" spawnwithid="aic_orbital_tracking_feed">
+      <Containable items="aic_orbital_tracking_feed" />
+    </ItemContainer>
+    <LightComponent lightcolor="255,75,25,255" range="800" flicker="0.02" characterusable="true" powerconsumption="0" ison="true" castshadows="true">
+      <LightTexture texture="%ModDir%/Items/Weapons/faithguard_laser.png" origin="-0.012,0.503" size="1.0,0.12" />
+    </LightComponent>
+  </Item>
+  <Item name="指示器内部供弹" identifier="aic_orbital_tracking_feed" category="Weapon" hideinmenus="true" noninteractable="true" spritecolor="255,255,255,0">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" origin="0.5,0.5" depth="0.55" />
+    <Pickable slots="Any" />
+    <ItemContainer capacity="1" hideitems="true" drawinventory="false" canbeselected="false" showcontainedstateindicator="false" spawnwithid="aic_orbital_tracking_probe">
+      <Containable items="aic_orbital_tracking_probe" />
+      <StatusEffect type="OnUse" target="This"><SpawnItem identifiers="aic_orbital_tracking_probe" spawnposition="ThisInventory" /></StatusEffect>
+    </ItemContainer>
+  </Item>
+  <Item name="锁定射线" identifier="aic_orbital_tracking_probe" category="Weapon" hideinmenus="true" noninteractable="true" spritecolor="255,255,255,0">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" origin="0.5,0.5" depth="0.55" />
+    <Body width="1" height="1" density="1" />
+    <Pickable slots="Any" />
+    <Projectile characterusable="false" hitscan="true" maxtargetstohit="1" removeonhit="true" damagedoors="true">
+      <Attack structuredamage="0" itemdamage="0" targetforce="0" severlimbsprobability="0" />
+      <StatusEffect type="OnNotContained" target="This" delay="2"><Remove /></StatusEffect>
+    </Projectile>
+    <AICOrbitalDesignation markeridentifier="aic_orbital_tracking_marker" />
+  </Item>
+  <Item name="轨道锁定标记" identifier="aic_orbital_tracking_marker" category="Weapon" hideinmenus="true" noninteractable="true" sonarsize="0" scale="1" spritecolor="255,255,255,0">
+    <Sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="2816,0,128,128" origin="0.5,0.5" depth="0.001" />
+    <Body width="1" height="1" bodytype="static" gravityscale="0" />
+    <AICOrbitalEmitter ismarker="true" height="2500" horizontaloffset="400" tracktarget="true" lifetime="30" emitteridentifier="aic_orbital_tracking_emitter" />
+  </Item>
+  <Item name="轨道激光发射口" identifier="aic_orbital_tracking_emitter" category="Weapon" hideinmenus="true" noninteractable="true" sonarsize="0" spritecolor="255,255,255,0">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" origin="0.5,0.5" depth="0.55" />
+    <Body width="1" height="1" bodytype="static" gravityscale="0" />
+    <AICOrbitalEmitter lifetime="30" interval="0.1" seekenemies="true" tracktarget="true" turnspeed="1.5" trackingarc="15" searchradius="1000" shotlimit="200" projectileidentifier="aic_orbital_tracking_laser" />
+  </Item>
+  <Item name="轨道追踪激光" identifier="aic_orbital_tracking_laser" category="Weapon" hideinmenus="true" noninteractable="true" spritecolor="255,255,255,0">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" origin="0.5,0.5" depth="0.55" />
+    <Body width="1" height="1" density="1" />
+    <Projectile characterusable="false" hitscan="true" maxtargetstohit="3" removeonhit="true" damagedoors="true">
+      <ParticleEmitter particle="aic_orbital_beam" particleamount="1" velocitymin="0" velocitymax="0" />
+      <Attack structuredamage="10" itemdamage="100" targetforce="3" penetration="0.6" severlimbsprobability="0.3">
+        <Affliction identifier="burn" strength="40" />
+        <Affliction identifier="aic_heat_buildup" strength="15" />
+        <Affliction identifier="aic_suppression" strength="15" />
+        <Affliction identifier="slow" strength="4" />
+      </Attack>
+      <StatusEffect type="OnImpact" target="UseTarget">
+        <ParticleEmitter particle="aic_orbital_impact_white" anglemin="0" anglemax="360" particleamount="10" velocitymin="0" scalemin="0.5" scalemax="0.8" />
+      </StatusEffect>
+      <StatusEffect type="OnNotContained" target="This" delay="1"><Remove /></StatusEffect>
+    </Projectile>
+  </Item>
+</Items>

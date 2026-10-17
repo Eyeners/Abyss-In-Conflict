@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Talents>
+  <Talent identifier="aic_brutal_slaughter">
+    <Icon texture="%ModDir%/UI/Talents/brutal_slaughter.png" sourcerect="0,0,320,320" />
+    <Description tag="talentdescription.aic_brutal_slaughter" />
+  </Talent>
+</Talents>

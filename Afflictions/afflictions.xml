@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Afflictions>
+  <Affliction identifier="aic_clone_chamber_warning" type="debuff" limbspecific="false" maxstrength="2" activationthreshold="0" showiconthreshold="3" showicontoothersthreshold="3" showinhealthscannerthreshold="3" affectmachines="true" resetbetweenrounds="true" healableinmedicalclinic="false">
+    <Effect minstrength="0" maxstrength="2" strengthchange="-1" minafflictionoverlayalphamultiplier="0" maxafflictionoverlayalphamultiplier="1" />
+    <AfflictionOverlay texture="%ModDir%/UI/clone_chamber_warning.png" color="200,50,50,225" />
+  </Affliction>
   <Override>
     <Affliction name="Radiation sickness" identifier="radiationsickness" description="Burns and sores can be seen on patient's skin. They seem to be spreading." causeofdeathdescription="Died of radiation sickness." selfcauseofdeathdescription="You have died of radiation sickness." limbspecific="false" indicatorlimb="Torso" showiconthreshold="25" showinhealthscannerthreshold="5" karmachangeonapplied="-1" treatmentthreshold="25" maxstrength="200" affectmachines="true" grainburst="3" healcostmultiplier="4.0" MedicalSkillGain="1.0">
       <Description textidentifier="afflictiondescription.radiationsickness.low.self" target="Self" minstrength="0" maxstrength="75" />
@@ -162,43 +166,16 @@
     </Effect>
     <icon texture="Content/UI/CommandUIBackground.png" sourcerect="770,768,128,128" color="120,205,255,255" origin="0,0" />
   </Affliction>
-  <Affliction name="军用防护" identifier="aic_wardens_military_protection" description="标准军用护甲" type="buff" isbuff="true" limbspecific="false" indicatorlimb="Torso" hideiconafterdelay="true" maxstrength="1" duration="2" treatmentthreshold="1000" affectmachines="true" showiconthreshold="infinity" showicontoothersthreshold="infinity" showinhealthscannerthreshold="0.01">
-    <Effect minstrength="0" maxstrength="1" resistancefor="damage" minresistance="0.10" maxresistance="0.10" />
-    <Effect minstrength="0" maxstrength="1" resistancefor="aic_heat_buildup" minresistance="0.15" maxresistance="0.15" />
-    <icon texture="%ModDir%/卫戍者/贴图/卫戍者PMC白.png" sourcerect="0,0,1254,1254" color="155,175,185,255" origin="0.5,0.5" />
-  </Affliction>
-  <Affliction name="军用防护[枪伤]" identifier="aic_wardens_military_protection_gunshot" description="标准军用护甲的枪弹防护层。" type="buff" isbuff="true" limbspecific="false" indicatorlimb="Torso" hide="true" hideiconafterdelay="true" maxstrength="1" duration="2" treatmentthreshold="1000" affectmachines="true" showiconthreshold="infinity" showicontoothersthreshold="infinity" showinhealthscannerthreshold="infinity">
-    <Effect minstrength="0" maxstrength="1" resistancefor="gunshotwound" minresistance="0.10" maxresistance="0.10" />
-    <icon texture="%ModDir%/卫戍者/贴图/卫戍者PMC白.png" sourcerect="0,0,1254,1254" color="155,175,185,255" origin="0.5,0.5" />
-  </Affliction>
-  <Affliction name="先进防护" identifier="aic_wardens_advanced_protection" description="先进复合装甲" type="buff" isbuff="true" limbspecific="false" indicatorlimb="Torso" hideiconafterdelay="true" maxstrength="1" duration="2" treatmentthreshold="1000" affectmachines="true" showiconthreshold="infinity" showicontoothersthreshold="infinity" showinhealthscannerthreshold="0.01">
-    <Effect minstrength="0" maxstrength="1" resistancefor="damage" minresistance="0.2" maxresistance="0.2" />
-    <Effect minstrength="0" maxstrength="1" resistancefor="aic_heat_buildup" minresistance="0.30" maxresistance="0.30" />
-    <icon texture="%ModDir%/卫戍者/贴图/卫戍者PMC白.png" sourcerect="0,0,1254,1254" color="105,205,225,255" origin="0.5,0.5" />
-  </Affliction>
-  <Affliction name="先进防护[枪伤]" identifier="aic_wardens_advanced_protection_gunshot" description="先进复合装甲的枪弹防护层。" type="buff" isbuff="true" limbspecific="false" indicatorlimb="Torso" hide="true" hideiconafterdelay="true" maxstrength="1" duration="2" treatmentthreshold="1000" affectmachines="true" showiconthreshold="infinity" showicontoothersthreshold="infinity" showinhealthscannerthreshold="infinity">
-    <Effect minstrength="0" maxstrength="1" resistancefor="gunshotwound" minresistance="0.15" maxresistance="0.15" />
-    <icon texture="%ModDir%/卫戍者/贴图/卫戍者PMC白.png" sourcerect="0,0,1254,1254" color="105,205,225,255" origin="0.5,0.5" />
-  </Affliction>
-  <Affliction name="实验防护" identifier="aic_wardens_experimental_protection" description="实验型装甲" type="buff" isbuff="true" limbspecific="false" indicatorlimb="Torso" hideiconafterdelay="true" maxstrength="1" duration="2" treatmentthreshold="1000" affectmachines="true" showiconthreshold="infinity" showicontoothersthreshold="infinity" showinhealthscannerthreshold="0.01">
-    <Effect minstrength="0" maxstrength="1" resistancefor="damage" minresistance="0.3" maxresistance="0.3" />
-    <Effect minstrength="0" maxstrength="1" resistancefor="aic_heat_buildup" minresistance="0.50" maxresistance="0.50" />
-    <icon texture="%ModDir%/卫戍者/贴图/卫戍者PMC白.png" sourcerect="0,0,1254,1254" color="235,195,95,255" origin="0.5,0.5" />
-  </Affliction>
-  <Affliction name="实验防护[枪伤]" identifier="aic_wardens_experimental_protection_gunshot" description="实验型装甲的枪弹防护层。" type="buff" isbuff="true" limbspecific="false" indicatorlimb="Torso" hide="true" hideiconafterdelay="true" maxstrength="1" duration="2" treatmentthreshold="1000" affectmachines="true" showiconthreshold="infinity" showicontoothersthreshold="infinity" showinhealthscannerthreshold="infinity">
-    <Effect minstrength="0" maxstrength="1" resistancefor="gunshotwound" minresistance="0.40" maxresistance="0.40" />
-    <icon texture="%ModDir%/卫戍者/贴图/卫戍者PMC白.png" sourcerect="0,0,1254,1254" color="235,195,95,255" origin="0.5,0.5" />
-  </Affliction>
   <Affliction name="装甲破碎" identifier="aic_armorbreaker" description="防护结构遭到破坏，针对物理攻击的抗性正在下降。" type="armorbreaker" isbuff="false" limbspecific="false" indicatorlimb="Torso" hideiconafterdelay="true" showiconthreshold="1" showicontoothersthreshold="1" showinhealthscannerthreshold="1" treatmentthreshold="100" maxstrength="60" affectmachines="true">
-    <Effect minstrength="0" maxstrength="20" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-0.60" maxresistance="-0.60" />
-    <Effect minstrength="20" maxstrength="40" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-0.80" maxresistance="-0.80" />
-    <Effect minstrength="40" maxstrength="60" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-1.00" maxresistance="-1.00" />
+    <Effect minstrength="0" maxstrength="20" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-0.3" maxresistance="-0.3" />
+    <Effect minstrength="20" maxstrength="40" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-0.4" maxresistance="-0.4" />
+    <Effect minstrength="40" maxstrength="60" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-0.5" maxresistance="-0.5" />
     <icon texture="%ModDir%/UI/碎甲.png" sourcerect="0,0,128,128" color="225,155,80,255" origin="0,0" />
   </Affliction>
   <Affliction name="装甲破碎II" identifier="aic_armorbreaker2" description="防护结构遭到严重破坏，针对物理攻击的抗性大幅下降。" type="armorbreaker" isbuff="false" limbspecific="false" indicatorlimb="Torso" hideiconafterdelay="true" showiconthreshold="1" showicontoothersthreshold="1" showinhealthscannerthreshold="1" treatmentthreshold="100" maxstrength="60" affectmachines="true">
-    <Effect minstrength="0" maxstrength="20" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-1.10" maxresistance="-1.10" />
-    <Effect minstrength="20" maxstrength="40" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-1.25" maxresistance="-1.25" />
-    <Effect minstrength="40" maxstrength="60" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-1.50" maxresistance="-1.50" />
+    <Effect minstrength="0" maxstrength="20" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-0.55" maxresistance="-0.55" />
+    <Effect minstrength="20" maxstrength="40" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-0.625" maxresistance="-0.625" />
+    <Effect minstrength="40" maxstrength="60" strengthchange="-1" resistancefor="gunshotwound,lacerations,blunttrauma" minresistance="-0.75" maxresistance="-0.75" />
     <icon texture="%ModDir%/UI/碎甲.png" sourcerect="0,0,128,128" color="225,80,65,255" origin="0,0" />
   </Affliction>
   <Affliction name="机械结构损伤" identifier="aic_machine_structural_damage" description="机械体的传送结构和装甲内层受到深层破坏。" type="damage" limbspecific="true" maxstrength="200" damageoverlayalpha="1" showiconthreshold="1" showinhealthscannerthreshold="1" affectmachines="true">
@@ -493,5 +470,13 @@
       </StatusEffect>
     </Effect>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="896,0,128,128" color="220,100,70,255" origin="0,0" />
+  </Affliction>
+  <Affliction identifier="aic_berserk" name="狂暴" description="敌我识别混乱。" type="aic_berserk" isbuff="false" limbspecific="false" maxstrength="30" activationthreshold="0" showiconthreshold="0.1" showinhealthscannerthreshold="0.1" resetbetweenrounds="true">
+    <Effect minstrength="0" maxstrength="30" strengthchange="-1" />
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="896,0,128,128" color="240,65,45,255" origin="0,0" />
+  </Affliction>
+  <Affliction identifier="aic_panic" name="恐慌" type="aic_panic" isbuff="false" limbspecific="false" maxstrength="5" activationthreshold="0" showiconthreshold="0.1" showinhealthscannerthreshold="0.1" affectmachines="false" resetbetweenrounds="true">
+    <Effect minstrength="0" maxstrength="5" strengthchange="-1" />
+    <icon texture="%ModDir%/UI/Talents/brutal_slaughter.png" sourcerect="0,0,320,320" color="240,120,65,255" origin="0,0" />
   </Affliction>
 </Afflictions>

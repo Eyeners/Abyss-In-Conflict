@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Items>
-  <Item name="&#x7A7A;&#x7206;&#x71C3;&#x70E7;&#x5F39;" identifier="aic_airburst_incendium_grenade" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="8" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem,grenade" scale="0.5" impactsoundtag="impact_metal_heavy">
+  <Item name="空爆燃烧弹" identifier="aic_airburst_incendium_grenade" category="Weapon" maxstacksize="32" maxstacksizecharacterinventory="8" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem,grenade" scale="0.5" impactsoundtag="impact_metal_heavy">
     <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="68,320,56,64" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="188,312,26,54" depth="0.55" origin="0.5,0.5" />
     <!-- Keep the original incendiary grenade sprite, but use a compact launcher-projectile collider. -->
@@ -41,7 +41,7 @@
     </TriggerComponent>
   </Item>
 
-  <Item name="&#x7A7A;&#x7206;&#x71C3;&#x70E7;&#x533A;&#x57DF;" identifier="aic_airburst_incendium_field" scale="0.5" health="15" hideinmenus="true" noninteractable="true" isdangerous="true" sonarsize="0">
+  <Item name="空爆燃烧区域" identifier="aic_airburst_incendium_field" scale="0.5" health="15" hideinmenus="true" noninteractable="true" isdangerous="true" sonarsize="0">
     <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="1,1,1,1" depth="0.55" origin="0.5,0.5" />
     <Body width="100" radius="25" density="20" friction="0.8" />
     <LightComponent lightcolor="200,150,100,200" flicker="0.2" castshadows="true" range="350" ison="true">

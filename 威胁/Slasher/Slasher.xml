@@ -15,7 +15,7 @@
     <sound gender="None" File="%ModDir%/威胁/Slasher/机械体 1.ogg" State="Die" Range="1000" Volume="0.5" Tags="" />
     <sound gender="None" File="%ModDir%/威胁/Slasher/机械体 2.ogg" State="Die" Range="1000" Volume="0.5" Tags="" />
     <sound gender="None" File="%ModDir%/威胁/Slasher/机械体 3.ogg" State="Die" Range="1000" Volume="0.5" Tags="" />
-    <health Vitality="400" DoesBleed="False" CrushDepth="Infinity" UseHealthWindow="True" BleedingReduction="10" BurnReduction="5" ConstantHealthRegeneration="1" HealthRegenerationWhenEating="0" StunImmunity="True" PoisonImmunity="True" PoisonVulnerability="0" EmpVulnerability="3" ApplyMovementPenalties="False" DieFromBeheading="False" AllowSeveringLegs="False" ApplyAfflictionColors="False">
+    <health Vitality="400" DoesBleed="False" CrushDepth="Infinity" UseHealthWindow="True" BleedingReduction="10" BurnReduction="0" ConstantHealthRegeneration="0" HealthRegenerationWhenEating="0" StunImmunity="True" PoisonImmunity="True" PoisonVulnerability="0" EmpVulnerability="3" ApplyMovementPenalties="False" DieFromBeheading="False" AllowSeveringLegs="False" ApplyAfflictionColors="False">
       <Limb name="Head">
         <VitalityMultiplier type="damage" multiplier="1" />
       </Limb>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="闪避斗篷" identifier="aic_evasion_cloak" category="Equipment" tags="smallitem,clothing" fireproof="true" cargocontaineridentifier="metalcrate" description="" scale="0.5" impactsoundtag="impact_soft" subcategory="Abyss In Conflict">
+    <PreferredContainer primary="crewcab" />
+    <Deconstruct time="1">
+      <Item identifier="organicfiber" amount="2" />
+    </Deconstruct>
+    <InventoryIcon texture="%ModDir%/Items/Equipment/evasion_cloak.png" sourcerect="407,187,78,84" />
+    <Sprite texture="%ModDir%/Items/Equipment/evasion_cloak.png" sourcerect="419,19,76,57" depth="0.6" origin="0.5,0.5" />
+    <Body width="100" height="50" density="30" friction="0.8" restitution="0.01" />
+    <Wearable slots="Any,Bag" variants="1" msg="ItemMsgPickUpSelect">
+      <Sprite name="assassin" texture="%ModDir%/Items/Equipment/evasion_cloak.png" sourcerect="394,88,81,77" origin="0.5,0.415" scale="0.4" hidelimb="true" hideotherwearables="True" canbehiddenbyotherwearables="False" limb="Head" />
+      <sprite name="Cultist Torso" texture="%ModDir%/Items/Equipment/evasion_cloak.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="false" inheritsourcerect="false" sourcerect="86,27,117,237" origin="0.587,0.267" canbehiddenbyotherwearables="false" hideotherwearables="true" />
+      <sprite name="Cultist Right Hand" texture="%ModDir%/Items/Equipment/evasion_cloak.png" limb="RightHand" hidelimb="true" inherittexturescale="false" inheritorigin="false" inheritsourcerect="false" sourcerect="257,233,29,34" size="0,0" ignorelimbscale="true" hideotherwearables="true" canbehiddenbyotherwearables="false" compress="false" scale="0.45" origin="0.35,0.3" />
+      <sprite name="Cultist Left Hand" texture="%ModDir%/Items/Equipment/evasion_cloak.png" limb="LeftHand" hidelimb="true" inherittexturescale="false" inheritorigin="false" inheritsourcerect="false" sourcerect="316,234,29,34" size="0,0" ignorelimbscale="true" hideotherwearables="true" canbehiddenbyotherwearables="false" scale="0.45" origin="0.35,0.3" />
+      <sprite name="Cultist Right Lower Arm" texture="%ModDir%/Items/Equipment/evasion_cloak.png" limb="RightArm" hidelimb="true" inherittexturescale="true" inheritorigin="false" inheritsourcerect="false" sourcerect="248,40,33,91" hideotherwearables="true" canbehiddenbyotherwearables="false" origin="0.5,0.35" />
+      <sprite name="Cultist Left Lower Arm" texture="%ModDir%/Items/Equipment/evasion_cloak.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" inheritorigin="false" inheritsourcerect="false" canbehiddenbyotherwearables="false" hideotherwearables="true" sourcerect="308,40,32,92" origin="0.5,0.35" />
+      <sprite name="Cultist Right Upper Arm" texture="%ModDir%/Items/Equipment/evasion_cloak.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" inheritorigin="false" inheritsourcerect="false" sourcerect="252,144,28,81" origin="0.5,0.5" canbehiddenbyotherwearables="false" hideotherwearables="true" />
+      <sprite name="Cultist Left Upper Arm" texture="%ModDir%/Items/Equipment/evasion_cloak.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" inheritorigin="false" inheritsourcerect="false" sourcerect="311,146,29,80" canbehiddenbyotherwearables="false" hideotherwearables="true" />
+      <StatusEffect type="OnWearing" target="Character" HideFace="true" setvalue="true" />
+    </Wearable>
+  </Item>
+</Items>

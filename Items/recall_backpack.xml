@@ -6,7 +6,7 @@
     <Body width="18" height="65" density="20" />
     <Holdable slots="Any,RightHand,LeftHand" holdpos="0,0" handle1="0,0" msg="ItemMsgPickUpSelect" />
   </Item>
-<Item name="传送背包（测试）" identifier="aic_recall_backpack" category="Equipment" tags="mediumitem,mobilecontainer,largemobilecontainer,tool,aic" scale="0.5" health="100" fireproof="true" damagedbyprojectiles="true" damagedbyexplosions="true" description="背包受损会产生传送偏移，最大偏移随损伤线性增加（50%耐久时4米）；首次降至10%会无消耗随机短跳5次，每次8米、间隔0.5秒，可传送至舱外，仍触发时流紊乱及反噬。按Q使用：回归模式消耗6点核心耐久返回己方主船医生出生点；勾选短途跳跃后消耗3点，向鼠标传送最多8米。AI穿戴时会自动沿任务或战斗路径短跳，冷却3秒，每次消耗3点核心耐久；无合适落点时正常寻路。短跳叠加持续3秒的时流紊乱，连续跳跃会反噬，三级时再次跳跃引发爆炸。两种模式均保留濒死血条降至一半时的应急回归，恢复正常生命值后重新解锁。只使用核心专用槽；无有效回归点或能量不足时不消耗。">
+<Item name="传送背包（测试）" identifier="aic_recall_backpack" category="Equipment" tags="mediumitem,mobilecontainer,largemobilecontainer,tool,aic" scale="0.5" health="100" showhealthbar="false" shownameinhealthbar="false" fireproof="true" damagedbyprojectiles="true" damagedbyexplosions="true" description="背包受损会产生传送偏移，最大偏移随损伤线性增加（50%耐久时4米）；首次降至10%会无消耗随机短跳5次，每次8米、间隔0.5秒，可传送至舱外，仍触发时流紊乱及反噬。按Q使用：回归模式消耗6点核心耐久返回己方主船医生出生点；勾选短途跳跃后消耗3点，向鼠标传送最多8米。AI穿戴时会自动沿任务或战斗路径短跳，冷却3秒，每次消耗3点核心耐久；无合适落点时正常寻路。短跳叠加持续3秒的时流紊乱，连续跳跃会反噬，三级时再次跳跃引发爆炸。两种模式均保留濒死血条降至一半时的应急回归，恢复正常生命值后重新解锁。只使用核心专用槽；无有效回归点或能量不足时不消耗。">
     <InventoryIcon texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" origin="0.5,0.5" depth="0.6" />
     <Body width="60" height="100" density="15" />

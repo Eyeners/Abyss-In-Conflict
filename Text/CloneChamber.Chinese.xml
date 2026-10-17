@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<infotexts language="Simplified Chinese" nowhitespace="true" translatedname="中文(简体)">
+  <entityname.aic_clone_chamber>克隆舱</entityname.aic_clone_chamber>
+  <entitydescription.aic_clone_chamber>培育克隆并建立神经连接。操控克隆时按 F 返回本体。</entitydescription.aic_clone_chamber>
+  <entityname.aic_clone_substrate_standard>普通克隆素体</entityname.aic_clone_substrate_standard>
+  <entitydescription.aic_clone_substrate_standard>用于培育克隆的基础素体。</entitydescription.aic_clone_substrate_standard>
+  <entityname.aic_clone_substrate_enhanced>强化克隆素体</entityname.aic_clone_substrate_enhanced>
+  <entitydescription.aic_clone_substrate_enhanced>用于培育克隆的强化素体，具有更强的生命力。</entitydescription.aic_clone_substrate_enhanced>
+  <entityname.aic_exsequent_frame_hlf01_substrate>HLF-01 维勒斯素体箱</entityname.aic_exsequent_frame_hlf01_substrate>
+  <entitydescription.aic_exsequent_frame_hlf01_substrate>未部署的轻型人形机械素体，可通过克隆舱建立神经连接。</entitydescription.aic_exsequent_frame_hlf01_substrate>
+  <aic.clone.title>克隆舱 · 神经连接</aic.clone.title>
+  <aic.clone.connect>制造 / 连接克隆</aic.clone.connect>
+  <aic.clone.recycle>回收素体</aic.clone.recycle>
+  <aic.clone.recyclehint>请清空素体槽。回收后装备留在舱旁。</aic.clone.recyclehint>
+  <aic.clone.enter>请先进入克隆舱。</aic.clone.enter>
+  <aic.clone.material>放入素体后即可制造克隆。</aic.clone.material>
+  <aic.clone.restoring>等待本体就绪，恢复克隆中。</aic.clone.restoring>
+  <aic.clone.restorefailed>克隆恢复失败，请查看错误日志。</aic.clone.restorefailed>
+  <aic.clone.reconnect>已有存活克隆，可以连接。</aic.clone.reconnect>
+  <aic.clone.occupied>此舱已有其他船员的存活克隆。</aic.clone.occupied>
+  <aic.clone.pollution>污染</aic.clone.pollution>
+  <aic.clone.clean>净化素体</aic.clone.clean>
+  <aic.clone.cleanhint>使用疗素清除素体污染。</aic.clone.cleanhint>
+</infotexts>

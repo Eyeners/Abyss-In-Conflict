@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Items>
-<Item name="太空推进背包（测试）" identifier="aic_space_propulsion_backpack" category="Equipment" tags="mediumitem,mobilecontainer,largemobilecontainer,tool,aic,aic_space_propulsion_backpack" scale="0.5" health="100" fireproof="true" damagedbyprojectiles="true" damagedbyexplosions="true" impactsoundtag="impact_soft" description="推进效率随耐久线性下降。背部可被射弹击中；首次降至60%耐久时失控喷气4秒，首次降至10%时爆炸。零耐久停止推进，保留背包及储物。">
+<Item name="太空推进背包（测试）" identifier="aic_space_propulsion_backpack" category="Equipment" tags="mediumitem,mobilecontainer,largemobilecontainer,tool,aic,aic_space_propulsion_backpack" scale="0.5" health="100" showhealthbar="false" shownameinhealthbar="false" fireproof="true" damagedbyprojectiles="true" damagedbyexplosions="true" impactsoundtag="impact_soft" description="推进效率随耐久线性下降。背部可被射弹击中；首次降至60%耐久时失控喷气4秒，首次降至10%时爆炸。零耐久停止推进，保留背包及储物。">
     <InventoryIcon texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" origin="0.5,0.5" />
     <Sprite texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" depth="0.6" origin="0.5,0.5" />
     <Body width="60" height="100" density="15" />

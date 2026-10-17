@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="震波榴弹" identifier="aic_shockwave_grenade" category="Weapon" tags="smallitem,grenade" maxstacksize="32" maxstacksizecharacterinventory="8" scale="0.5" cargocontaineridentifier="metalcrate" impactsoundtag="impact_metal_heavy">
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="768,960,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="214,266,42,18" depth="0.55" origin="0.5,0.5" />
+    <Body width="18" height="12" density="30" friction="1" />
+    <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+    <Projectile characterusable="false" launchimpulse="20" removeonhit="false" sticktocharacters="false" friendlyfire="true">
+      <Attack structuredamage="0"><Affliction identifier="blunttrauma" strength="3" /></Attack>
+      <StatusEffect type="OnImpact" target="This" condition="0" setvalue="true" disabledeltatime="true" />
+      <StatusEffect type="OnBroken" target="This">
+        <Explosion range="90" force="1" structuredamage="5" itemdamage="5" flames="false" smoke="true" sparks="true" camerashake="2">
+          <Affliction identifier="blunttrauma" strength="8" />
+        </Explosion>
+      </StatusEffect>
+      <StatusEffect type="OnActive" target="This" delay="12"><Remove /></StatusEffect>
+    </Projectile>
+    <!-- Distances/speed in display units: 100 = 1 metre. Each side travels 6 metres. -->
+    <!-- wavedirection: Both / AwayFromAttacker / Left / Right / ProjectileDirection -->
+    <AICShockwaveGrenade debugwave="false" wavedirection="Both" waverange="600" wavespeed="400" camerashake="3" horizontalimpulse="30" upwardimpulse="15" maxvelocitychange="10" maxpushspeed="10">
+      <!-- Cached native Attack: limb and worn armor modifiers apply to each wave hit. -->
+      <Attack>
+        <Affliction identifier="blunttrauma" strength="30" />
+        <Affliction identifier="stun" strength="2" />
+        <Affliction identifier="concussion" strength="15" />
+        <Affliction identifier="aic_suppression" strength="10" />
+      </Attack>
+    </AICShockwaveGrenade>
+  </Item>
+</Items>

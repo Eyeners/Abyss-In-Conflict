@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Barotrauma;
@@ -12,7 +13,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace AIC.Components
 {
-    class RecallBackpack : ItemComponent, IClientSerializable
+    partial class RecallBackpack : ItemComponent, IClientSerializable
     {
         private sealed class RecallState { internal bool Locked; internal double NextUse; }
         private static readonly ConditionalWeakTable<Character, RecallState> States = new ConditionalWeakTable<Character, RecallState>();
@@ -26,6 +27,11 @@ namespace AIC.Components
         private double nextAICheck;
         private double nextSpotCheck;
         private readonly RecallLandingSelector landingSelector = new RecallLandingSelector();
+        private readonly Dictionary<Submarine, RecallLandingSelector> submarineSelectors = new();
+        private readonly List<Submarine> nearbyCombatSubs = new();
+        private Vector2 subScanPosition;
+        private Character subScanEnemy;
+        private double nextSubScan;
         private Character recoveryUser;
         private double nextRecoveryCheck;
         private double nextCoreCheck;
@@ -40,16 +46,7 @@ namespace AIC.Components
             var user = Item.ParentInventory?.Owner as Character;
             hitbox.Update(Item, user);
 #if CLIENT
-            bool q = Keyboard.GetState().IsKeyDown(Keys.Q);
-            bool pressed = q && !previousQ;
-            previousQ = q;
-            if (pressed && Worn(user) && user == Character.Controlled && !user.IsIncapacitated
-                && GUI.KeyboardDispatcher.Subscriber == null && !GUI.InputBlockingMenuOpen)
-            {
-                var cursor = cam.ScreenToWorld(PlayerInput.MousePosition);
-                if (GameMain.NetworkMember?.IsClient == true) Item.CreateClientEvent(this, new JumpRequest(cursor));
-                else Recall(user, false, cursor);
-            }
+            UpdateReleaseInput(user, deltaTime, cam);
 #endif
             if (GameMain.NetworkMember?.IsClient == true) return;
             if (UpdateFailure(user, deltaTime)) return;
@@ -84,6 +81,9 @@ namespace AIC.Components
 
         protected override void RemoveComponentSpecific()
         {
+#if CLIENT
+            CancelReleaseInput();
+#endif
             hitbox.Release();
             if (loadCore != null) loadCore.Abandon = true;
         }
@@ -212,9 +212,8 @@ namespace AIC.Components
             var controller = user.AIController as HumanAIController;
             var objective = controller?.ObjectiveManager?.CurrentObjective;
             // Follow the selected objective chain, not queued tasks or idle wandering.
-            if (objective == null || objective is AIObjectiveIdle) return;
             AIObjectiveGoTo goal = null;
-            AIObjectiveCombat combat = objective.SourceObjective as AIObjectiveCombat;
+            AIObjectiveCombat combat = objective?.SourceObjective as AIObjectiveCombat;
             for (var current = objective; current != null; current = current.CurrentSubObjective)
             {
                 if (current.Abandon || current.IsCompleted) return;
@@ -223,10 +222,24 @@ namespace AIC.Components
             }
             var core = Item.GetComponent<ItemContainer>()?.Inventory.GetItemAt(0);
             if (core == null || core.Removed || core.Condition < 3 || core.Prefab.Identifier != "aic_recall_core") return;
+            // Native combat may clear Weapon and switch to Retreat after ammunition runs
+            // out. The threat is still valid even while its escape subobjective is active.
+            var threat = combat ?? SpaceBackpackAI.ActiveCombat(user);
+            if (TryUnarmedEvasion(user, threat)) return;
+            if (objective == null || objective is AIObjectiveIdle) return;
             // Close ranged combat takes precedence over a GoTo subobjective used to back off.
             // A blocked tactical jump must not fall through to jumping towards the enemy.
             if (TryCombatJump(user, combat)) return;
-            if (TryCombatApproach(user, combat)) return;
+            bool rangedCombat = combat != null && !combat.Abandon && !combat.IsCompleted
+                && (combat.Weapon?.GetComponent<RangedWeapon>() != null
+                    || user.HeldItems.Any(item => item.GetComponent<RangedWeapon>() != null));
+            if (rangedCombat)
+            {
+                TryCombatApproach(user, combat);
+                // A failed/unneeded tactical jump must not use the generic GoTo fallback,
+                // which only optimizes distance to the enemy and ignores firing position.
+                return;
+            }
             ISpatialEntity target = goal?.Target;
             if (goal != null && (goal.IsCloseEnough || target == null || target == user)) return;
             if (target == null && combat != null && !combat.TargetEliminated
@@ -237,21 +250,23 @@ namespace AIC.Components
 
             float range = ConvertUnits.ToDisplayUnits(8f);
             float bestDistance = Vector2.Distance(user.WorldPosition, target.WorldPosition) - 100;
-            WayPoint best = null;
+            Vector2? best = null;
             for (int i = path.CurrentIndex; i < path.Nodes.Count; i++)
             {
                 var node = path.Nodes[i];
                 if (node.Removed || node.Submarine != user.Submarine || node.CurrentHull == null) continue;
                 float distance = Vector2.Distance(user.WorldPosition, node.WorldPosition);
                 if (distance < 200 || distance > range) continue;
-                float remaining = Vector2.Distance(node.WorldPosition, target.WorldPosition);
-                if (remaining >= bestDistance || !ClearLanding(user, node)) continue;
-                best = node;
+                var position = ResolveNavigableLanding(user, node.WorldPosition, node.Submarine);
+                if (!position.HasValue) continue;
+                float remaining = Vector2.Distance(position.Value, target.WorldPosition);
+                if (remaining >= bestDistance) continue;
+                best = position;
                 bestDistance = remaining;
             }
             if (best == null) return;
             Vector2 before = user.WorldPosition;
-            Recall(user, false, best.WorldPosition, aiJump: true);
+            Recall(user, false, best.Value, aiJump: true);
             if (Vector2.DistanceSquared(before, user.WorldPosition) < 1) return;
             controller.PathSteering.ResetPath();
             controller.PathSteering.findPathTimer = -0.01f;
@@ -264,8 +279,27 @@ namespace AIC.Components
 
         private bool TryRecoverNavigation(Character user)
         {
-            // Only recover our own teleports; do not interrupt ordinary swimming or outside jobs.
-            if (recoveryUser != user) { recoveryUser = null; return false; }
+            bool recovering = recoveryUser == user;
+            Submarine entrySubmarine = null;
+            if (!recovering)
+            {
+                recoveryUser = null;
+                // An explicit combat/GoTo objective inside a ship may also request entry.
+                // Ordinary swimming or outside work must not pull the wearer indoors.
+                if (user.CurrentHull != null) return false;
+                var objective = (user.AIController as HumanAIController)?.ObjectiveManager?.CurrentObjective;
+                for (var current = objective; current != null; current = current.CurrentSubObjective)
+                {
+                    if (current.Abandon || current.IsCompleted) return false;
+                    if (current is AIObjectiveCombat combat && !combat.TargetEliminated
+                        && (combat.Mode == AIObjectiveCombat.CombatMode.Offensive
+                            || combat.Mode == AIObjectiveCombat.CombatMode.Defensive))
+                        entrySubmarine = combat.Enemy?.CurrentHull?.Submarine;
+                    if (current is AIObjectiveGoTo goal && !goal.IsCloseEnough)
+                        entrySubmarine = goal.GetTargetHull()?.Submarine ?? entrySubmarine;
+                }
+                if (entrySubmarine == null) return false;
+            }
             if (!user.IsAIControlled || user.IsIncapacitated || user.IsRagdolled || user.SelectedBy != null)
                 return false;
             if (Timing.TotalTime < nextRecoveryCheck) return false;
@@ -277,7 +311,8 @@ namespace AIC.Components
             }
             var nearby = WayPoint.WayPointList.Where(NetworkNode)
                 .Select(node => new { Node = node, Distance = Vector2.DistanceSquared(user.WorldPosition, node.WorldPosition) })
-                .Where(candidate => candidate.Distance <= 800 * 800)
+                .Where(candidate => candidate.Distance <= 800 * 800
+                    && (recovering || candidate.Node.Submarine == entrySubmarine))
                 .OrderBy(candidate => candidate.Distance).ToArray();
             // A nearby visible network node lets native steering take over. A closed door or
             // wall must not make an isolated landing look connected just because it is close.
@@ -295,11 +330,17 @@ namespace AIC.Components
             }
             // Outside hulls the character's Submarine may be null. Search by world distance,
             // including nearby submarine interiors, instead of requiring the old submarine.
-            foreach (var candidate in nearby.Take(24))
+            // Prefer any submarine interior over world-space hulls (such as ruins).
+            // Submarine identity does not affect priority within either group.
+            for (int group = 0; group < 2; group++)
+            foreach (var candidate in nearby.Where(candidate =>
+                (candidate.Node.Submarine != null) == (group == 0)).Take(12))
             {
-                if (candidate.Distance < 1 || !ClearLanding(user, candidate.Node)) continue;
+                if (candidate.Distance < 1) continue;
+                var position = ResolveNavigableLanding(user, candidate.Node.WorldPosition, candidate.Node.Submarine);
+                if (!position.HasValue) continue;
                 Vector2 before = user.WorldPosition;
-                Recall(user, false, candidate.Node.WorldPosition, aiJump: true, navigationRecovery: true);
+                Recall(user, false, position.Value, aiJump: true, navigationRecovery: true);
                 return Vector2.DistanceSquared(before, user.WorldPosition) >= 1;
             }
             // No recovery destination is not a reason to disable normal combat jumps.
@@ -312,15 +353,15 @@ namespace AIC.Components
             if (combat == null || combat.Abandon || combat.IsCompleted || combat.TargetEliminated
                 || (combat.Mode != AIObjectiveCombat.CombatMode.Offensive
                     && combat.Mode != AIObjectiveCombat.CombatMode.Defensive)
-                || enemy == null || enemy.Removed || enemy.IsDead || enemy.Submarine != user.Submarine
+                || enemy == null || enemy.Removed || enemy.IsDead
                 || combat.Weapon == null || combat.Weapon.Removed
                 || !user.HasEquippedItem(combat.Weapon, predicate: CharacterInventory.IsHandSlotType)
                 || !(combat.Weapon.GetComponent<RangedWeapon>() is RangedWeapon weapon) || weapon.IsEmpty(user)) return false;
             float distance = Vector2.Distance(user.WorldPosition, enemy.WorldPosition);
-            if (distance <= 600) return false;
+            if (!ShouldApproach(distance, enemy.Submarine == user.Submarine
+                && ClearShot(user, enemy, user.WorldPosition, user.Submarine))) return false;
             // Search nearby connections even when aiming has stopped native walking.
-            if (!landingSelector.TrySelect(user, enemy, 2,
-                position => ClearCombatLanding(user, enemy, position), out Vector2 best)) return false;
+            if (!TryCombatDestination(user, enemy, approach: true, out Vector2 best)) return false;
             Vector2 before = user.WorldPosition;
             Recall(user, false, best, aiJump: true);
             if (Vector2.DistanceSquared(before, user.WorldPosition) < 1) return false;
@@ -328,24 +369,24 @@ namespace AIC.Components
             return true;
         }
 
+        internal static bool ShouldApproach(float distance, bool clearShot)
+            // Native ranged combat uses roughly 10 m as its unobstructed follow distance.
+            => distance > 300 && (distance > 1000 || !clearShot);
+
         private bool TryCombatJump(Character user, AIObjectiveCombat combat)
         {
             var enemy = combat?.Enemy;
             if (combat == null || combat.Abandon || combat.IsCompleted || combat.TargetEliminated
                 || (combat.Mode != AIObjectiveCombat.CombatMode.Offensive
                     && combat.Mode != AIObjectiveCombat.CombatMode.Defensive)
-                || enemy == null || enemy.Removed || enemy.IsDead || enemy.Submarine != user.Submarine
+                || enemy == null || enemy.Removed || enemy.IsDead
                 || Vector2.DistanceSquared(user.WorldPosition, enemy.WorldPosition) > 300 * 300
                 || combat.Weapon == null || combat.Weapon.Removed
                 || !user.HasEquippedItem(combat.Weapon, predicate: CharacterInventory.IsHandSlotType)
                 || combat.Weapon.GetComponent<RangedWeapon>() == null) return false;
 
-            // Retreat remains a strict priority over flanking; tactical weights rank
-            // positions within each group, never overriding collision or firing checks.
-            for (int group = 0; group < 2; group++)
+            if (TryCombatDestination(user, enemy, approach: false, out Vector2 destination))
             {
-                if (!landingSelector.TrySelect(user, enemy, group,
-                    position => ClearCombatLanding(user, enemy, position), out Vector2 destination)) continue;
                 Vector2 before = user.WorldPosition;
                 Recall(user, false, destination, aiJump: true);
                 if (Vector2.DistanceSquared(before, user.WorldPosition) >= 1)
@@ -354,6 +395,112 @@ namespace AIC.Components
             }
             nextAICheck = Timing.TotalTime + 1;
             return true;
+        }
+
+        private bool TryUnarmedEvasion(Character user, AIObjectiveCombat combat)
+        {
+            var enemy = combat?.Enemy;
+            if (combat == null || combat.Abandon || combat.IsCompleted || combat.TargetEliminated
+                || combat.Mode == AIObjectiveCombat.CombatMode.None || enemy == null || enemy.Removed || enemy.IsDead)
+                return false;
+            var available = user.Inventory?.FindItem(item =>
+            {
+                if (item.Removed || item.Condition <= 0 || !item.IsInteractable(user)) return false;
+                var weapon = AIObjectiveCombat.GetWeaponComponent(item);
+                return weapon != null && weapon.CombatPriority > 0
+                    && (weapon is RangedWeapon || weapon is MeleeWeapon || weapon is RepairTool)
+                    && (!weapon.IsEmpty(user) || RecallBackpackReloadAI.HasCarriedAmmo(user, weapon));
+            }, recursive: true);
+            if (available != null) return false;
+            float distance = Vector2.Distance(user.WorldPosition, enemy.WorldPosition);
+            // Keep existing cover at a safe distance; close pressure still warrants retreat.
+            if (!NeedsUnarmedEvasion(distance, distance <= 1000
+                && ClearShot(user, enemy, user.WorldPosition, user.Submarine))) return true;
+            if (TryCombatDestination(user, enemy, approach: false, out Vector2 destination, preferCover: true))
+            {
+                Vector2 before = user.WorldPosition;
+                Recall(user, false, destination, aiJump: true);
+                if (Vector2.DistanceSquared(before, user.WorldPosition) >= 1)
+                    (user.AIController as HumanAIController)?.SteeringManager.Reset();
+            }
+            else nextAICheck = Timing.TotalTime + 1;
+            // Never fall through to the generic approach jump while unarmed.
+            return true;
+        }
+
+        internal static bool NeedsUnarmedEvasion(float distance, bool exposed)
+            => distance <= 300 || (distance <= 1000 && exposed);
+
+        private bool TryCombatDestination(Character user, Character enemy, bool approach, out Vector2 destination,
+            bool preferCover = false)
+        {
+            RefreshCombatSubmarines(user, enemy);
+            var human = user.AIController as HumanAIController;
+            bool preferSafety = !approach && human != null
+                && !human.ObjectiveManager.CurrentOrders.Any(order =>
+                    order.Objective is AIObjectiveExtinguishFires || order.Objective is AIObjectiveFightIntruders);
+            // Read each hull's native, equipment-aware safety only once per selection.
+            var safety = preferSafety ? new Dictionary<Hull, float>() : null;
+            // Any submarine interior comes before world-space hulls. Within that tier,
+            // retreat still precedes flanking, without privileging the wearer's own ship.
+            for (int tier = 0; tier < 2; tier++)
+            for (int safetyPass = 0; safetyPass < (preferSafety ? 3 : 1); safetyPass++)
+            for (int coverPass = 0; coverPass < (preferCover ? 2 : 1); coverPass++)
+            for (int mode = approach ? 2 : 0; mode <= (approach ? 2 : 1); mode++)
+            {
+                int count = tier == 0 ? nearbyCombatSubs.Count : 1;
+                for (int index = 0; index < count; index++)
+                {
+                    var sub = tier == 0 ? nearbyCombatSubs[index] : null;
+                    if (sub?.Removed == true) continue;
+                    var selector = landingSelector;
+                    if (sub != null && !submarineSelectors.TryGetValue(sub, out selector))
+                        submarineSelectors[sub] = selector = new RecallLandingSelector();
+                    if (selector.TrySelect(user, enemy, mode,
+                        position => ResolveCombatLanding(user, enemy, position, sub,
+                            requireClearShot: !preferCover || coverPass == 1), out destination, sub,
+                        preferSafety && safetyPass < 2 ? position => AcceptSafety(position, safetyPass) : null)) return true;
+                }
+            }
+            destination = default;
+            return false;
+
+            bool AcceptSafety(Vector2 position, int pass)
+            {
+                var hull = Hull.FindHull(position, user.CurrentHull, useWorldCoordinates: true);
+                if (hull == null) return false;
+                if (!safety.TryGetValue(hull, out float value))
+                    safety[hull] = value = human.GetHullSafety(hull, user);
+                return value >= (pass == 0 ? 75 : 40);
+            }
+        }
+
+        private void RefreshCombatSubmarines(Character user, Character enemy)
+        {
+            if (Timing.TotalTime < nextSubScan && subScanEnemy == enemy
+                && Vector2.DistanceSquared(subScanPosition, user.WorldPosition) < 200 * 200) return;
+            nextSubScan = Timing.TotalTime + 2;
+            subScanPosition = user.WorldPosition; subScanEnemy = enemy;
+            var distances = new Dictionary<Submarine, float>();
+            foreach (var node in WayPoint.WayPointList)
+            {
+                if (node.Removed || node.SpawnType != SpawnType.Path || node.CurrentHull == null
+                    || node.Submarine == null || node.Submarine.Removed) continue;
+                float distance = Vector2.DistanceSquared(user.WorldPosition, node.WorldPosition);
+                if (distance > 1000 * 1000) continue;
+                if (!distances.TryGetValue(node.Submarine, out float previous) || distance < previous)
+                    distances[node.Submarine] = distance;
+            }
+            // Sparse long connections can pass nearby even when both endpoints are far.
+            Include(user.Submarine); Include(enemy.Submarine);
+            nearbyCombatSubs.Clear();
+            nearbyCombatSubs.AddRange(distances.OrderBy(entry => entry.Value).Select(entry => entry.Key));
+            foreach (var sub in submarineSelectors.Keys.Where(sub => sub.Removed || !distances.ContainsKey(sub)).ToArray())
+                submarineSelectors.Remove(sub);
+            void Include(Submarine sub)
+            {
+                if (sub != null && !sub.Removed && !distances.ContainsKey(sub)) distances[sub] = float.PositiveInfinity;
+            }
         }
 
         internal static float CombatLandingScore(Vector2 origin, Vector2 enemy, float facing,
@@ -377,46 +524,73 @@ namespace AIC.Components
             return -jumpDistance;
         }
 
-        private static bool ClearCombatLanding(Character user, Character enemy, Vector2 position)
+        private static Vector2? ResolveCombatLanding(Character user, Character enemy, Vector2 position, Submarine sub,
+            bool requireClearShot = true)
         {
-            var sub = user.Submarine;
+            var resolved = ResolveNavigableLanding(user, position, sub);
+            return resolved.HasValue && ClearShot(user, enemy, resolved.Value, sub) == requireClearShot ? resolved : null;
+        }
+
+        private static Vector2? ResolveNavigableLanding(Character user, Vector2 position, Submarine sub)
+        {
             var hull = Hull.FindHull(position, user.CurrentHull, useWorldCoordinates: true);
-            if (hull == null || hull.Submarine != sub || !ClearLanding(user, position, sub)) return false;
-            // Connections across ladders/shafts are not standing surfaces. Check support
-            // under both sides; keep swimming candidates usable without requiring a floor.
-            if (!user.InWater)
+            var anim = user.AnimController;
+            var collider = anim?.Collider;
+            if (hull == null || hull.Submarine != sub || collider == null) return null;
+            Vector2 half = collider.GetSize() * 0.5f;
+            bool submerged = hull.WaterVolume > 0
+                && position.Y + ConvertUnits.ToDisplayUnits(half.Y) < hull.WorldSurface;
+            if (!submerged)
             {
                 Vector2 center = ConvertUnits.ToSimUnits(position - (sub?.Position ?? Vector2.Zero));
-                Vector2 half = user.AnimController.Collider.GetSize() * 0.5f;
+                float floor = float.NaN;
                 for (int side = -1; side <= 1; side += 2)
                 {
-                    Vector2 foot = center + new Vector2(half.X * 0.7f * side, -half.Y + 0.05f);
-                    if (Submarine.PickBody(foot, foot - new Vector2(0, 0.6f),
+                    // Waypoints are navigation hints, not collider centers. Find a nearby
+                    // floor, then use the same standing offset as native ragdoll movement.
+                    Vector2 start = center + new Vector2(half.X * 0.7f * side, 0.25f);
+                    if (Submarine.PickBody(start, start - new Vector2(0, 2.25f),
                         collisionCategory: Physics.CollisionWall | Physics.CollisionPlatform | Physics.CollisionLevel,
                         customPredicate: fixture => !fixture.IsSensor && (fixture.Body.UserData is Entity entity
-                            ? entity.Submarine == sub : sub == null), allowInsideFixture: false) == null) return false;
+                            ? entity.Submarine == sub : sub == null), allowInsideFixture: false) == null
+                        || Submarine.LastPickedNormal.Y < 0.5f) return null;
+                    float hitY = Submarine.LastPickedPosition.Y;
+                    if (float.IsFinite(floor) && Math.Abs(floor - hitY) > 0.2f) return null;
+                    floor = float.IsFinite(floor) ? Math.Max(floor, hitY) : hitY;
                 }
+                float standingHeight = collider.Height * 0.5f + collider.Radius + anim.ColliderHeightFromFloor;
+                position.Y = ConvertUnits.ToDisplayUnits(floor + standingHeight) + (sub?.Position.Y ?? 0);
             }
-            return ClearShot(user, enemy, position, sub);
+            var destinationHull = Hull.FindHull(position, hull, useWorldCoordinates: true);
+            if (destinationHull == null || destinationHull.Submarine != sub
+                || Vector2.DistanceSquared(user.WorldPosition, position) > 800 * 800
+                || !ClearLanding(user, position, sub)) return null;
+            return position;
         }
 
         private static bool ClearShot(Character user, Character enemy, Vector2 position, Submarine sub)
         {
             Vector2 offset = user.AnimController.GetLimb(LimbType.Torso)?.WorldPosition - user.WorldPosition
                 ?? Vector2.Zero;
-            Vector2 subPosition = sub?.Position ?? Vector2.Zero;
-            Vector2 start = ConvertUnits.ToSimUnits(position + offset - subPosition);
-            Vector2 end = ConvertUnits.ToSimUnits(
-                (enemy.AnimController.GetLimb(LimbType.Torso)?.WorldPosition ?? enemy.WorldPosition) - subPosition);
+            Vector2 start = position + offset;
+            Vector2 end = enemy.AnimController.GetLimb(LimbType.Torso)?.WorldPosition ?? enemy.WorldPosition;
             // Test a direct firing line, including closed doors and projectile-blocking items.
             // Characters are excluded: this is cover prediction, not a guarantee of a hit.
-            return Submarine.PickBody(start, end,
+            if (!Clear(sub)) return false;
+            if (enemy.Submarine == sub) return true;
+            return Clear(enemy.Submarine) && (sub == null || enemy.Submarine == null || Clear(null));
+
+            // Different ships use different local physics coordinates. Check both hulls
+            // and the exterior instead of treating the enemy's hull as transparent.
+            bool Clear(Submarine raySub) => Submarine.PickBody(
+                ConvertUnits.ToSimUnits(start - (raySub?.Position ?? Vector2.Zero)),
+                ConvertUnits.ToSimUnits(end - (raySub?.Position ?? Vector2.Zero)),
                 collisionCategory: Physics.CollisionWall | Physics.CollisionRepairableWall
                     | Physics.CollisionLevel | Physics.CollisionItemBlocking,
                 customPredicate: fixture => !fixture.IsSensor && (fixture.Body.UserData is Entity entity
-                    ? entity.Submarine == sub
+                    ? entity.Submarine == raySub
                         && (!(entity is Item item) || item.ParentInventory == null)
-                    : sub == null), allowInsideFixture: true) == null;
+                    : raySub == null), allowInsideFixture: true) == null;
         }
 
         private static bool ClearLanding(Character user, WayPoint node)
@@ -491,16 +665,33 @@ namespace AIC.Components
 
         private void MoveUser(Character user, Vector2 destination)
         {
-            // Release world-space constraints before moving the complete character ragdoll.
-            var boots = MagneticBoots.Get(user);
-            if (boots != null) { boots.WallWalk.Reset(); boots.Release(); }
-            RecallRopeRegistry.SnapConnected(user);
-            user.TeleportTo(destination);
+            var carried = user.IsPlayer ? user.SelectedCharacter : null;
+            if (carried == user || carried?.Removed == true || carried?.AnimController == null
+                || !CanCarryMass(user.Mass, carried.Mass)) carried = null;
+            Vector2 carriedDestination = carried != null
+                ? destination + carried.WorldPosition - user.WorldPosition : default;
+            MoveCharacter(user, destination);
+            // Move both ragdolls in the same update without clearing SelectedCharacter.
+            // Leave the grabbing relationship intact for the native animation update.
+            if (carried != null) MoveCharacter(carried, carriedDestination);
             if (user.IsAIControlled)
             {
                 recoveryUser = user;
                 nextRecoveryCheck = Timing.TotalTime + 1;
             }
+        }
+
+        internal static bool CanCarryMass(float userMass, float targetMass)
+            => float.IsFinite(userMass) && float.IsFinite(targetMass)
+                && userMass > 0 && targetMass > 0 && targetMass <= userMass * 1.2f;
+
+        private static void MoveCharacter(Character user, Vector2 destination)
+        {
+            // Release world-space constraints before moving the complete character ragdoll.
+            var boots = MagneticBoots.Get(user);
+            if (boots != null) { boots.WallWalk.Reset(); boots.Release(); }
+            RecallRopeRegistry.SnapConnected(user);
+            user.TeleportTo(destination);
             var anim = user.AnimController;
             if (anim?.Collider != null) anim.Collider.LinearVelocity = Vector2.Zero;
             if (anim != null)
@@ -549,7 +740,6 @@ namespace AIC.Components
         }
 #if CLIENT
         private sealed record JumpRequest(Vector2 Cursor) : ItemComponent.IEventData;
-        private bool previousQ;
         public void ClientEventWrite(IWriteMessage msg, NetEntityEvent.IData extraData = null)
         {
             var cursor = extraData is Item.ComponentStateEventData data && data.ComponentData is JumpRequest request

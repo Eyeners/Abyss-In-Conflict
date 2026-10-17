@@ -34,10 +34,15 @@ namespace AIC.Components
                 || !weapon.Item.IsInteractable(user) || !weapon.IsEmpty(user)) return;
             var backpack = user.GetEquippedItem("aic_recall_backpack", InvSlotType.Bag);
             if (backpack == null || backpack.Condition <= 0) return;
-            if (!weapon.RequiredItems.TryGetValue(RelatedItem.RelationType.Contained, out var requirements)) return;
+            canSeekAmmo = HasCarriedAmmo(user, weapon);
+        }
+
+        internal static bool HasCarriedAmmo(Character user, ItemComponent weapon)
+        {
+            if (!weapon.RequiredItems.TryGetValue(RelatedItem.RelationType.Contained, out var requirements)) return false;
             foreach (var requirement in requirements)
             {
-                if (weapon.Item.OwnInventory == null) return;
+                if (weapon.Item.OwnInventory == null) return false;
                 bool satisfied = false;
                 foreach (var contained in weapon.Item.OwnInventory.AllItems)
                     if (contained.Condition > 0 && requirement.MatchesItem(contained)) { satisfied = true; break; }
@@ -47,9 +52,9 @@ namespace AIC.Components
                     && !(item.ParentInventory?.Owner is Item container && container.HasTag(Tags.MobileRadio)), recursive: true);
                 // This flag only affects weapon scoring. Native Reload still handles transfer,
                 // reload time and the separate permission to seek supplies outside inventory.
-                canSeekAmmo = ammunition != null;
-                return;
+                return ammunition != null;
             }
+            return false;
         }
 
         public void PreInitPatching() { }

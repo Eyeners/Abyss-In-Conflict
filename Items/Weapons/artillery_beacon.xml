@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="炮击信标" identifier="aic_artillery_beacon" category="Weapon" tags="smallitem" scale="0.5" maxstacksize="8" health="50" damagedbyexplosions="true" explosiondamagemultiplier="1">
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="640,0,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="227,204,54,18" depth="0.55" origin="0.5,0.5" />
+    <Body width="50" height="15" density="10" />
+    <Throwable slots="Any,RightHand,LeftHand" holdpos="0,0" handle1="0,0" holdangle="90" throwforce="4" aimpos="35,-10" msg="ItemMsgPickUpSelect" DisableWhenRangedWeaponEquipped="true">
+    </Throwable>
+    <LightComponent lightcolor="255,0,0,255" flicker="0.5" range="600" ison="false">
+      <StatusEffect type="OnActive" target="This" Condition="-0.125" />
+      <StatusEffect type="OnActive" target="This">
+        <ParticleEmitter particle="flare" emitinterval="2.1" particleamount="10" particlespersecond="60" anglemin="70" anglemax="100" velocitymin="100" velocitymax="200" />
+        <ParticleEmitter particle="FlareBubbles" particlespersecond="40" anglemin="70" anglemax="100" velocitymin="100" velocitymax="200" scalemin="0.8" scalemax="1.2" />
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This" IsOn="false"><Remove /></StatusEffect>
+      <sound file="Content/Items/Tools/FlareLoop.ogg" type="OnActive" range="800" loop="true" />
+    </LightComponent>
+    <AICArtilleryBeacon />
+  </Item>
+  <Item name="炮击范围警告" identifier="aic_artillery_area" category="Weapon" hideinmenus="true" noninteractable="true" sonarsize="0" spritecolor="255,255,255,0">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" origin="0.5,0.5" />
+    <Body width="1" height="1" bodytype="static" gravityscale="0" />
+    <AICArtilleryBeacon stage="area" />
+  </Item>
+  <Item name="炮击落点警告" identifier="aic_artillery_marker1" category="Weapon" hideinmenus="true" noninteractable="true" sonarsize="0" spritecolor="255,255,255,0">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" origin="0.5,0.5" />
+    <Body width="1" height="1" bodytype="static" gravityscale="0" />
+    <AICArtilleryBeacon stage="marker" warningsoundduration="1.12328125">
+      <sound file="%ModDir%/Sounds/Artillery/whistle1.ogg" type="OnUse" range="10000" volume="1" />
+    </AICArtilleryBeacon>
+  </Item>
+  <Item name="炮击落点警告" identifier="aic_artillery_marker2" category="Weapon" hideinmenus="true" noninteractable="true" sonarsize="0" spritecolor="255,255,255,0">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" origin="0.5,0.5" />
+    <Body width="1" height="1" bodytype="static" gravityscale="0" />
+    <AICArtilleryBeacon stage="marker" warningsoundduration="1.11965625">
+      <sound file="%ModDir%/Sounds/Artillery/whistle2.ogg" type="OnUse" range="10000" volume="1" />
+    </AICArtilleryBeacon>
+  </Item>
+  <Item name="炮击落点警告" identifier="aic_artillery_marker3" category="Weapon" hideinmenus="true" noninteractable="true" sonarsize="0" spritecolor="255,255,255,0">
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" origin="0.5,0.5" />
+    <Body width="1" height="1" bodytype="static" gravityscale="0" />
+    <AICArtilleryBeacon stage="marker" warningsoundduration="1.1153125">
+      <sound file="%ModDir%/Sounds/Artillery/whistle3.ogg" type="OnUse" range="10000" volume="1" />
+    </AICArtilleryBeacon>
+  </Item>
+  <Item name="炮击炮弹" identifier="aic_artillery_shell" category="Weapon" hideinmenus="true" noninteractable="true" scale="0.5">
+    <Sprite texture="Content/Items/Weapons/TurretsAndDepthCharges.png" sourcerect="2,91,215,33" origin="0.5,0.5" depth="0.55" />
+    <Body width="215" height="30" density="30" />
+    <Projectile characterusable="false" launchimpulse="80" maxtargetstohit="1" removeonhit="true" damagedoors="true">
+      <Attack structuredamage="75" itemdamage="50" severlimbsprobability="2.5" penetration="0.5" targetforce="200">
+        <Affliction identifier="explosiondamage" strength="100" />
+        <Affliction identifier="bleeding" strength="10" />
+        <Affliction identifier="stun" strength="5" />
+      </Attack>
+      <StatusEffect type="OnImpact" target="This" allowwhenbroken="true">
+        <Sound file="%ModDir%/Sounds/Artillery/explosion1.ogg" selectionmode="Random" range="50000" />
+        <Sound file="%ModDir%/Sounds/Artillery/explosion2.ogg" selectionmode="Random" range="50000" />
+        <Sound file="%ModDir%/Sounds/Artillery/explosion3.ogg" selectionmode="Random" range="50000" />
+        <Sound file="%ModDir%/Sounds/Artillery/explosion4.ogg" selectionmode="Random" range="50000" />
+        <ParticleEmitter particle="aic_artillery_explosion_flash" particleamount="1" velocitymin="0" velocitymax="0" />
+        <ParticleEmitter particle="aic_artillery_explosion_fire" particleamount="1" velocitymin="0" velocitymax="0" />
+        <ParticleEmitter particle="shockwavesmall" particleamount="1" velocitymin="0" velocitymax="0" scalemin="1.5" scalemax="1.5" />
+        <ParticleEmitter particle="shrapnel" particleamount="50" velocitymin="100" velocitymax="2000" anglemin="0" anglemax="360" />
+        <Explosion range="180" ballastfloradamage="200" structuredamage="400" itemdamage="200" force="100" severlimbsprobability="5" decal="explosion" decalsize="0.3" penetration="0" camerashake="3" camerashakerange="1000">
+          <Affliction identifier="explosiondamage" strength="350" />
+          <Affliction identifier="bleeding" strength="100" />
+          <Affliction identifier="stun" strength="15" />
+        </Explosion>
+      </StatusEffect>
+      <StatusEffect type="OnNotContained" target="This" delay="15"><Remove /></StatusEffect>
+    </Projectile>
+  </Item>
+</Items>

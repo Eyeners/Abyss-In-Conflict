@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Items>
-  <Item name="典范机动作战护甲" identifier="aic_foresight_t3_armor" category="Equipment,Diving" subcategory="预视科技护甲" tags="mobilecontainer,armor,clothing,diving,deepdiving,divinggear_wearableindoors,human,aic_foresight_armor,aic_foresight_nanocluster_shield_on" health="100" maxstacksize="1" scale="0.167" fireproof="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate">
+  <Item name="典范机动作战护甲" identifier="aic_foresight_t3_armor" category="Equipment,Diving" subcategory="预视科技护甲" tags="mobilecontainer,armor,clothing,diving,deepdiving,divinggear_wearableindoors,human,aic_foresight_armor,aic_foresight_nanocluster_shield_on,aic_fearless" health="100" maxstacksize="1" scale="0.167" fireproof="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate">
     <PreferredContainer primary="divingsuitcontainer,divingsuitlocker,steelcabinet" />
     <InventoryIcon texture="%ModDir%/预视科技/贴图/预视科技白.png" sourcerect="0,0,1254,1254" scale="0.05" origin="0.5,0.5" />
     <Sprite name="Foresight T3 Armor Item" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" sourcerect="1621,423,637,421" depth="0.55" origin="0.5,0.5" />
@@ -33,11 +33,12 @@
       <sprite name="Foresight T3 Inner Hand" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="LeftHand" sourcerect="1849,1032,183,214" origin="0.3,0.4" scale="0.22" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" hideotherwearables="true" />
       <sprite name="Foresight T3 Outer Foot" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="RightFoot" sourcerect="1133,2297,299,180" origin="0.5,0.5" scale="0.22" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" hideotherwearables="true" depthlimb="RightArm" />
       <sprite name="Foresight T3 Inner Foot" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="LeftFoot" sourcerect="1526,2298,319,189" origin="0.5,0.5" scale="0.22" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound" damagemultiplier="0.12" damagesound="LimbArmor" deflectprojectiles="true" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.12" damagesound="LimbArmor" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="explosiondamage" damagemultiplier="0.20" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound" damagemultiplier="0.12" damagesound="LimbArmor" deflectprojectiles="true" penetrationmultiplier="0.5" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_suppression" damagemultiplier="0.51" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.12" damagesound="LimbArmor" deflectprojectiles="true" penetrationmultiplier="0.3" penetrationoffset="-0.2" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="explosiondamage" damagemultiplier="0.20" damagesound="LimbArmor" deflectprojectiles="true" penetrationmultiplier="0.2"/>
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bleeding" damagemultiplier="0.12" damagesound="LimbArmor" />
-      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.25" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.25" deflectprojectiles="true" penetrationmultiplier="0.5" penetrationoffset="0.1"/>
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_heat_buildup" damagemultiplier="0.25" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="acidburn" damagemultiplier="0.25" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="radiationsickness" damagemultiplier="0.12" />
@@ -49,7 +50,7 @@
       <StatusEffect type="OnWearing" target="Character" UseHullOxygen="true" PressureProtection="9500.0" setvalue="true" disabledeltatime="true" />
       <StatusEffect type="OnContained" target="Contained" Condition="1.0" targetslot="0" interval="1" disabledeltatime="true">
         <Conditional Voltage="gt 0.01" targetcontainer="true" targetgrandparent="true" targetitemcomponent="Powered" />
-        <RequiredItem items="refillableoxygensource" type="Contained" excludebroken="false" />
+        <RequiredItem items="refilleoxygensource" type="Contained" excludebroken="false" />
       </StatusEffect>
       <StatusEffect type="OnWearing" target="Contained,Character" UseHullOxygen="false" OxygenAvailable="1000.0" comparison="And" targetslot="0">
         <RequiredItem items="oxygensource" type="Contained" />
@@ -122,7 +123,7 @@
             <LuaHook name="aic_foresight_shield_enable" />
           </StatusEffect>
           <StatusEffect type="OnSecondaryUse" target="This">
-            <LuaHook name="aic_foresight_shield_disable" />
+            <LuaHook name="aiclab_foresight_shield_disable" />
           </StatusEffect>
         </TickBox>
         <TickBox text="水下推进">

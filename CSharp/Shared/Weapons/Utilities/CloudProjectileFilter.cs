@@ -13,6 +13,7 @@ namespace AIC.Components
     {
         // Attach to the cloud emitter, not the grenade that creates it.
         private static readonly Identifier CloudTag = "aic_emp_shot_filter".ToIdentifier();
+        private static readonly Identifier PassThroughTag = "aic_cloud_shot_passthrough".ToIdentifier();
         // Explicit opt-in for projectiles whose electrical payload is scripted.
         private static readonly Identifier PayloadTag = "aic_cloud_electrical_payload".ToIdentifier();
         private static readonly Identifier Emp = "emp".ToIdentifier();
@@ -77,7 +78,7 @@ namespace AIC.Components
 
         private static bool IsCloud(Fixture fixture)
         {
-            return fixture?.Body?.UserData is Item item && item.HasTag(CloudTag);
+            return fixture?.Body?.UserData is Item item && (item.HasTag(CloudTag) || item.HasTag(PassThroughTag));
         }
 
         private static bool CollisionPrefix(Projectile __instance, Fixture target, ref bool __result)
@@ -100,7 +101,8 @@ namespace AIC.Components
                 __result = false;
                 return false;
             }
-            if (!IsCloud(target) || IsElectrical(__instance)) return true;
+            if (!IsCloud(target)) return true;
+            if (targetItem?.HasTag(PassThroughTag) != true && IsElectrical(__instance)) return true;
             __result = false;
             return false;
         }
@@ -120,6 +122,11 @@ namespace AIC.Components
                 var fixture = (fixtureField != null ? fixtureField.GetValue(hit)
                     : fixtureProperty.GetValue(hit)) as Fixture;
                 if (!IsCloud(fixture)) continue;
+                if (fixture.Body.UserData is Item cloud && cloud.HasTag(PassThroughTag))
+                {
+                    hits.RemoveAt(i);
+                    continue;
+                }
                 if (!electrical.HasValue) electrical = IsElectrical(__instance);
                 if (!electrical.Value) hits.RemoveAt(i);
             }

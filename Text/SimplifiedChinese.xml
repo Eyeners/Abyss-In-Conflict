@@ -109,4 +109,12 @@
   <entitydescription.aic_net_gun>发射电击束缚网的非致命武器。网弹命中人类目标后会限制其动作，并释放一次电击枪级别的电击。</entitydescription.aic_net_gun>
   <entityname.aic_net_round>电击网弹</entityname.aic_net_round>
   <entitydescription.aic_net_round>兜网枪使用的折叠式束缚网弹。碳纤维外壳仅为当前占位外观。</entitydescription.aic_net_round>
+  <locationname.aic_gdf_base>GDF基地</locationname.aic_gdf_base>
+  <locationdescription.aic_gdf_base>由停靠入口与主体设施组成的GDF基地。</locationdescription.aic_gdf_base>
+  <locationnameformat.aic_gdf_base>[name]GDF基地</locationnameformat.aic_gdf_base>
+  <talentname.aic_brutal_slaughter>残暴杀戮</talentname.aic_brutal_slaughter>
+  <talentdescription.aic_brutal_slaughter>击杀或击倒敌人时，震慑附近敌军：远程造成压制，近战引发恐慌。</talentdescription.aic_brutal_slaughter>
+  <afflictionname.aic_panic>恐慌</afflictionname.aic_panic>
+  <afflictiondescription.aic_panic>惊恐地逃离威胁。</afflictiondescription.aic_panic>
+  <entityname.aic_exsequent_frame_hlf01>HLF-01 维勒斯轻型人形机械素体</entityname.aic_exsequent_frame_hlf01>
 </infotexts>

@@ -4,6 +4,8 @@ local RELOAD = 0.3
 -- Display-unit offset for this armor's fixed 1.2x rig, not another scale operation.
 local SHOULDER_FORWARD = 12
 local SHOULDER_UP = 30
+-- Matches the client placeholder barrel in ShoulderCannonPreview.cs.
+local BARREL_LENGTH = 45
 local states = setmetatable({}, { __mode = "k" })
 local generation = 0
 
@@ -80,7 +82,9 @@ Hook.Add("aic_shoulder_cannon_update", "AIC.ShoulderCannon.Update", function(eff
         local cursor = owner.CursorWorldPosition
         local angle = math.atan2(cursor.Y - world.Y - offset.Y, cursor.X - world.X - offset.X)
         local basePosition = torso.SimPosition
-        local localOffset = ConvertUnits.ToSimUnits(offset)
+        local muzzleOffset = Vector2(offset.X + math.cos(angle) * BARREL_LENGTH,
+            offset.Y + math.sin(angle) * BARREL_LENGTH)
+        local localOffset = ConvertUnits.ToSimUnits(muzzleOffset)
         local muzzle = Vector2(basePosition.X + localOffset.X, basePosition.Y + localOffset.Y)
         projectile.Launcher = item
         projectile.Attacker = owner

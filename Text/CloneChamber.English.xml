@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<infotexts language="English" translatedname="English">
+  <entityname.aic_clone_chamber>Clone Chamber</entityname.aic_clone_chamber>
+  <entitydescription.aic_clone_chamber>Grows clones and establishes a neural link. Press F while controlling a clone to return to your original body.</entitydescription.aic_clone_chamber>
+  <entityname.aic_clone_substrate_standard>Standard Clone Substrate</entityname.aic_clone_substrate_standard>
+  <entitydescription.aic_clone_substrate_standard>A basic substrate for growing clones.</entitydescription.aic_clone_substrate_standard>
+  <entityname.aic_clone_substrate_enhanced>Enhanced Clone Substrate</entityname.aic_clone_substrate_enhanced>
+  <entitydescription.aic_clone_substrate_enhanced>An enhanced substrate for growing clones with greater vitality.</entitydescription.aic_clone_substrate_enhanced>
+  <entityname.aic_exsequent_frame_hlf01_substrate>HLF-01 Veles Frame Crate</entityname.aic_exsequent_frame_hlf01_substrate>
+  <entitydescription.aic_exsequent_frame_hlf01_substrate>An undeployed light humanoid mechanical frame. Supports neural linking through a clone chamber.</entitydescription.aic_exsequent_frame_hlf01_substrate>
+  <aic.clone.title>Clone Chamber · Neural Link</aic.clone.title>
+  <aic.clone.connect>Create / Connect</aic.clone.connect>
+  <aic.clone.recycle>Recover Frame</aic.clone.recycle>
+  <aic.clone.recyclehint>Empty the substrate slot. Equipment will be left beside the chamber.</aic.clone.recyclehint>
+  <aic.clone.enter>Enter the chamber first.</aic.clone.enter>
+  <aic.clone.material>Insert a substrate to create a clone.</aic.clone.material>
+  <aic.clone.restoring>Waiting for the original body to restore the clone.</aic.clone.restoring>
+  <aic.clone.restorefailed>Clone restoration failed. Check the error log.</aic.clone.restorefailed>
+  <aic.clone.reconnect>A living clone is ready to connect.</aic.clone.reconnect>
+  <aic.clone.occupied>This chamber is bound to another crew member's living clone.</aic.clone.occupied>
+  <aic.clone.pollution>Contamination</aic.clone.pollution>
+  <aic.clone.clean>Purify substrate</aic.clone.clean>
+  <aic.clone.cleanhint>Use stabilozine to remove substrate contamination.</aic.clone.cleanhint>
+</infotexts>

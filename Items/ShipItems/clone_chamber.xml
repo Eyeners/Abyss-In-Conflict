@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item identifier="aic_clone_chamber" name="" category="Machine" tags="aic_clone_chamber" scale="0.75" pickdistance="180" health="1000" damagedbyexplosions="true" damagedbymeleeweapons="true" damagedbyprojectiles="true" damagedbyrepairtools="true">
+    <Body width="140" height="390" density="15" />
+    <Holdable selectkey="Select" pickkey="Use" slots="RightHand+LeftHand" attachable="true" attachedbydefault="true" attachestofloor="false" allowattachinsidedoors="false" pickingtime="3" msg="ItemMsgDetach" msgwhendropped="ItemMsgPickupSelect" holdpos="30,-35" handle1="-45,0" handle2="45,0" aimable="false">
+      <RequiredItem items="crowbar" type="Equipped" />
+      <StatusEffect type="OnActive" target="Character" speedmultiplier="0.5" setvalue="true" />
+    </Holdable>
+    <Sprite texture="%ModDir%/Items/ShipItems/Textures/clone_chamber.png" sourcerect="0,0,203,456" origin="0.5,0.5" depth="0.8" />
+    <BrokenSprite texture="%ModDir%/Items/ShipItems/Textures/clone_chamber_damaged.png" sourcerect="0,0,203,456" origin="0.5,0.5" depth="0.8" maxcondition="30" />
+    <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" selectkey="Select" hideitems="true" msg="ItemMsgInteractSelect">
+      <GuiFrame relativesize="0.12,0.16" anchor="CenterLeft" relativeoffset="0.08,0" style="ItemUI" />
+      <Containable items="aic_clone_substrate" />
+    </ItemContainer>
+    <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0" repairthreshold="100" fixdurationhighskill="5" fixdurationlowskill="25" msg="ItemMsgRepairWrench" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,200" maxsize="480,280" anchor="Center" relativeoffset="0,0.27" style="ItemUI" />
+      <RequiredSkill identifier="mechanical" level="55" />
+      <RequiredItem items="wrench" type="Equipped" />
+    </Repairable>
+    <!-- Nonzero UserPos enables native UserInCorrectPosition, required by Ragdoll.GetDepthOffset. -->
+    <Controller userpos="-3,-40" direction="Right" canbeselected="true" selectkey="Use" hidehud="false" hideallitemcomponenthuds="false" drawuserbehind="true" forceusertostayattached="true" updatewheninactive="true" allowselectingwhenselectedbybot="false" allowselectingwhenselectedbyother="false" msg="ItemMsgGoInside">
+      <!-- Native controller anchors are measured from the sprite's top-left, before item scale. -->
+      <StatusEffect type="OnActive" target="Character" OxygenAvailable="1000" UseHullOxygen="false" PressureProtection="1000000" setvalue="true" disabledeltatime="true" />
+      <limbposition limb="Head" position="97,-186" />
+      <limbposition limb="Torso" position="97,-236" />
+      <limbposition limb="Waist" position="97,-281" />
+      <limbposition limb="LeftArm" position="72,-236" />
+      <limbposition limb="RightArm" position="122,-236" />
+      <limbposition limb="LeftForearm" position="67,-268" />
+      <limbposition limb="RightForearm" position="127,-268" />
+      <limbposition limb="LeftHand" position="72,-292" />
+      <limbposition limb="RightHand" position="122,-292" />
+      <limbposition limb="LeftThigh" position="85,-310" />
+      <limbposition limb="RightThigh" position="109,-310" />
+      <limbposition limb="LeftLeg" position="81,-351" />
+      <limbposition limb="RightLeg" position="113,-351" />
+      <limbposition limb="LeftFoot" position="85,-386" />
+      <limbposition limb="RightFoot" position="117,-386" />
+    </Controller>
+    <AICCloneChamber canbeselected="true" selectkey="Use" msg="">
+      <GuiFrame relativesize="0.3,0.25" minsize="360,210" anchor="CenterRight" relativeoffset="0.08,0" style="ItemUI" />
+    </AICCloneChamber>
+  </Item>
+
+  <Item identifier="aic_clone_substrate_standard" name="" category="Material" tags="aic_clone_substrate,researchmaterial" maxstacksize="1" scale="0.55" impactsoundtag="impact_soft">
+    <Sprite texture="%ModDir%/Items/ShipItems/Textures/clone_substrate_bag.png" sourcerect="0,0,160,317" origin="0.5,0.5" depth="0.7" />
+    <Body width="112" height="280" density="9.9" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite texture="%ModDir%/Items/ShipItems/Textures/clone_substrate_bag.png" sourcerect="0,0,160,317" limb="Torso" depthlimb="Waist" origin="1.05,0.4" scale="0.55" inheritscale="false" canbehiddenbyotherwearables="false" />
+    </Wearable>
+    <Holdable slots="RightHand+LeftHand" holdpos="25,-35" handle1="-35,15" handle2="35,15" holdangle="0" msg="ItemMsgPickUpSelect" />
+    <Deconstruct time="5" requireddeconstructor="geneticresearchstation">
+      <Item identifier="aic_clone_substrate_standard" requiredotheritem="stabilozine" copycondition="true" activatebuttontext="aic.clone.clean" infotext="aic.clone.cleanhint" infotextonotheritemmissing="researchstation.combine.missingitem" />
+    </Deconstruct>
+    <AICCloneSubstrate basevitality="100" deathpollutionchance="0.6" />
+  </Item>
+  <Item identifier="aic_clone_substrate_enhanced" name="" category="Material" tags="aic_clone_substrate,researchmaterial" maxstacksize="1" scale="0.55" spritecolor="160,220,255,255" impactsoundtag="impact_soft">
+    <Sprite texture="%ModDir%/Items/ShipItems/Textures/clone_substrate_bag.png" sourcerect="0,0,160,317" origin="0.5,0.5" depth="0.7" />
+    <Body width="112" height="280" density="9.9" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite texture="%ModDir%/Items/ShipItems/Textures/clone_substrate_bag.png" sourcerect="0,0,160,317" limb="Torso" depthlimb="Waist" origin="1.05,0.4" scale="0.55" inheritscale="false" canbehiddenbyotherwearables="false" />
+    </Wearable>
+    <Holdable slots="RightHand+LeftHand" holdpos="25,-35" handle1="-35,15" handle2="35,15" holdangle="0" msg="ItemMsgPickUpSelect" />
+    <Deconstruct time="5" requireddeconstructor="geneticresearchstation">
+      <Item identifier="aic_clone_substrate_enhanced" requiredotheritem="stabilozine" copycondition="true" activatebuttontext="aic.clone.clean" infotext="aic.clone.cleanhint" infotextonotheritemmissing="researchstation.combine.missingitem" />
+    </Deconstruct>
+    <AICCloneSubstrate basevitality="150" deathpollutionchance="0.6" />
+  </Item>
+  <Item identifier="aic_exsequent_frame_hlf01_substrate" name="" category="Material" tags="aic_clone_substrate,researchmaterial" maxstacksize="1" scale="0.65" impactsoundtag="impact_metal_heavy">
+    <Sprite texture="%ModDir%/Items/机械框架储存箱.png" sourcerect="0,0,200,100" origin="0.5,0.5" depth="0.7" />
+    <Body width="190" height="86" density="15" />
+    <Holdable slots="RightHand+LeftHand" holdpos="25,-35" handle1="-55,0" handle2="55,0" holdangle="0" msg="ItemMsgPickUpSelect" />
+    <Deconstruct time="5" requireddeconstructor="geneticresearchstation">
+      <Item identifier="aic_exsequent_frame_hlf01_substrate" requiredotheritem="stabilozine" copycondition="true" activatebuttontext="aic.clone.clean" infotext="aic.clone.cleanhint" infotextonotheritemmissing="researchstation.combine.missingitem" />
+    </Deconstruct>
+    <AICCloneSubstrate basevitality="150" speciesname="aic_exsequent_frame_hlf01" deathpollutionchance="0.6" />
+  </Item>
+</Items>

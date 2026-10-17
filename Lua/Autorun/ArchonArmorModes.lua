@@ -8,6 +8,8 @@ local BASTION_BATTERY_SLOT = 2
 local FORESIGHT_IDENTIFIER = "aic_foresight_t3_armor"
 local FORESIGHT_SHIELD_TAG = "aic_foresight_nanocluster_shield_on"
 local FORESIGHT_BOOSTER_TAG = "aic_foresight_booster_on"
+local FOEHN_IDENTIFIER = "aic_wardens_gdf_foehn_powerarmor"
+local FOEHN_BOOSTER_TAG = "aic_foehn_booster_on"
 local BASTION_SOUND_RANGE = 2000
 local BASTION_SOUND_EVENTS = {
     impact = "aic_bastion_shield_impact_sound",
@@ -130,6 +132,13 @@ local function SetModeTag(item, expectedIdentifier, tag, enabled, synchronize)
 
     return false
 end
+
+Hook.Add("aic_foehn_booster_enable", "aic_foehn_booster_enable", function(effect, deltaTime, item)
+    SetModeTag(item, FOEHN_IDENTIFIER, FOEHN_BOOSTER_TAG, true)
+end)
+Hook.Add("aic_foehn_booster_disable", "aic_foehn_booster_disable", function(effect, deltaTime, item)
+    SetModeTag(item, FOEHN_IDENTIFIER, FOEHN_BOOSTER_TAG, false)
+end)
 
 local function HasUsableBastionBattery(item)
     if not IsExpectedArmor(item, BASTION_IDENTIFIER) or item.OwnInventory == nil then

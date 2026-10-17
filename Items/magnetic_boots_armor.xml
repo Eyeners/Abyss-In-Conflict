@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Items>
-  <Item name="典范磁吸测试甲" identifier="aic_magnetic_boots_armor" category="Equipment,Diving" tags="armor,clothing,diving,deepdiving,divinggear_wearableindoors,aic_magnetic_boots_armor" health="100" maxstacksize="1" scale="0.167" fireproof="true">
+  <Item name="典范磁吸测试甲" identifier="aic_magnetic_boots_armor" category="Equipment,Diving" tags="armor,clothing,diving,deepdiving,divinggear_wearableindoors,aic_magnetic_boots_armor,aic_fearless" health="100" maxstacksize="1" scale="0.167" fireproof="true">
     <Sprite texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" sourcerect="1621,423,637,421" depth="0.55" origin="0.5,0.5" />
     <Body radius="45" width="34" density="20" />
     <Wearable slots="OuterClothes+Head" msg="ItemMsgEquipSelect" canbepicked="true" pickkey="Select">
@@ -22,9 +22,10 @@
       <sprite name="Foresight T3 Outer Foot" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="RightFoot" sourcerect="1133,2297,299,180" origin="0.5,0.5" scale="0.22" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" hideotherwearables="true" depthlimb="RightArm" />
       <sprite name="Foresight T3 Inner Foot" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" limb="LeftFoot" sourcerect="1526,2298,319,189" origin="0.5,0.5" scale="0.22" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" hideotherwearables="true" />
 
-      <damagemodifier armorsector="0,360" afflictionidentifiers="gunshotwound,bitewounds,lacerations,blunttrauma,bleeding" damagemultiplier="0.12" />
+      <damagemodifier armorsector="0,360" afflictionidentifiers="gunshotwound,bitewounds,lacerations,blunttrauma,bleeding" damagemultiplier="0.12" deflectprojectiles="true" />
+      <damagemodifier armorsector="0,360" afflictionidentifiers="aic_suppression" damagemultiplier="0.56" />
       <damagemodifier armorsector="0,360" afflictionidentifiers="explosiondamage" damagemultiplier="0.2" deflectprojectiles="true"/>
-      <damagemodifier armorsector="0,360" afflictiontypes="burn" damagemultiplier="0.25" />
+      <damagemodifier armorsector="0,360" afflictiontypes="burn" damagemultiplier="0.25" deflectprojectiles="true" />
       <StatusEffect type="OnWearing" target="Character" UseHullOxygen="true" PressureProtection="9500" setvalue="true" />
       <StatusEffect type="OnWearing" target="Contained,Character" targetslot="0" UseHullOxygen="false" OxygenAvailable="1000">
         <RequiredItem items="oxygensource" type="Contained" />

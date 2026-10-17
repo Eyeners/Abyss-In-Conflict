@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OutpostGenerationParameters>
+  <OutpostConfig identifier="aic_gdf_base" totalmodulecount="2"
+    appendtoreachtotalmodulecount="false" minhallwaylength="15" maxhallwaylength="25"
+    allowedlocationtypes="aic_gdf_base">
+    <!-- The first module provides the submarine docking entrance. -->
+    <modulecount flag="GDF_Base_Airlock" count="1" />
+    <modulecount flag="GDF_Base_Main" count="1" />
+  </OutpostConfig>
+</OutpostGenerationParameters>

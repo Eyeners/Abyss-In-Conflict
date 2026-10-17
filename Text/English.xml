@@ -109,4 +109,12 @@
   <entitydescription.aic_net_gun>A non-lethal weapon that fires electrified restraint nets. Human targets are entangled and struck by a stun-gun discharge on impact.</entitydescription.aic_net_gun>
   <entityname.aic_net_round>Electrified Net Round</entityname.aic_net_round>
   <entitydescription.aic_net_round>A folded restraint net for the net gun. Its carbon-fiber inventory icon is a temporary placeholder.</entitydescription.aic_net_round>
+  <locationname.aic_gdf_base>GDF Base</locationname.aic_gdf_base>
+  <locationdescription.aic_gdf_base>A GDF base with a docking entrance and main facility.</locationdescription.aic_gdf_base>
+  <locationnameformat.aic_gdf_base>[name] GDF Base</locationnameformat.aic_gdf_base>
+  <talentname.aic_brutal_slaughter>Brutal Slaughter</talentname.aic_brutal_slaughter>
+  <talentdescription.aic_brutal_slaughter>Killing or downing an enemy intimidates nearby enemies: ranged attacks suppress them, while melee attacks cause panic.</talentdescription.aic_brutal_slaughter>
+  <afflictionname.aic_panic>Panic</afflictionname.aic_panic>
+  <afflictiondescription.aic_panic>Fleeing in terror.</afflictiondescription.aic_panic>
+  <entityname.aic_exsequent_frame_hlf01>HLF-01 Veles Light Humanoid Frame</entityname.aic_exsequent_frame_hlf01>
 </infotexts>

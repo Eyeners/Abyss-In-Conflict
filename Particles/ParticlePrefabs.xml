@@ -1,5 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <prefabs>
+  <aic_groundwave_dust lifetime="0.7" lifetimemin="0.7" startsizemin="0.35,0.3" startsizemax="0.55,0.45" sizechangemin="0.2,0.3" sizechangemax="0.2,0.3" startrotationmin="0" startrotationmax="360" velocitychange="0,-20" velocitychangewater="0,-20" usecollision="false" startcolor="190,195,205,190" endcolor="190,195,205,0" drawtarget="Both" drawontop="true" draworder="Foreground" blendstate="AlphaBlend" priority="5">
+    <sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="256,128,128,128" />
+  </aic_groundwave_dust>
+  <aic_groundwave_ring lifetime="0.45" lifetimemin="0.45" startsizemin="0.35,0.12" startsizemax="0.35,0.12" sizechangemin="1.2,0.4" sizechangemax="1.2,0.4" startrotationmin="0" startrotationmax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" startcolor="210,225,255,210" endcolor="210,225,255,0" drawtarget="Both" drawontop="true" draworder="Foreground" blendstate="Additive" priority="5">
+    <sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="0,256,128,128" />
+  </aic_groundwave_ring>
+  <aic_orbital_tracking_beam lifetime="0.2" lifetimemin="0.2" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" drag="0" waterdrag="0" usecollision="false" canentersubs="true" startsizemin="1,54.4" startsizemax="1,54.4" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" drawalways="true" priority="10" blendstate="Additive">
+    <sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="106,75,1,1" origin="0.5,0.5" />
+  </aic_orbital_tracking_beam>
+  <aic_orbital_impact_wide lifetime="0.5" lifetimemin="0.5" startdelaymin="0" startdelaymax="0" angularvelocitymin="-100" angularvelocitymax="100" startrotationmin="0" startrotationmax="359" rotatetodirection="false" drag="0" waterdrag="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" startsizemin="0.125,0.125" startsizemax="0.375,0.375" sizechangemin="0,0" sizechangemax="0,0" growtime="0" startcolor="255,255,255,150" endcolor="255,255,255,0" drawtarget="Both" drawontop="true" draworder="Foreground" blendstate="Additive" priority="10">
+    <sprite texture="Content/Lights/pointlight_bright.png" sourcerect="0,0,1024,1024" origin="0.5,0.5" />
+  </aic_orbital_impact_wide>
+  <aic_orbital_beam_wide lifetime="0.5" lifetimemin="0.5" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" drag="0" waterdrag="0" usecollision="false" canentersubs="true" startsizemin="1,300" startsizemax="1,300" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" draworder="Foreground" priority="10" blendstate="Additive">
+    <sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="106,75,1,1" origin="0.5,0.5" />
+  </aic_orbital_beam_wide>
+  <aic_artillery_explosion_flash lifetime="0.4" lifetimemin="0.4" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="0.45,0.45" startsizemax="0.45,0.45" sizechangemin="0.2,0.2" sizechangemax="0.2,0.2" startcolor="255,240,210,230" endcolor="255,130,45,0" drawtarget="Both" drawontop="true" draworder="Foreground" blendstate="Additive" priority="10">
+    <sprite texture="Content/Lights/pointlight_bright.png" sourcerect="0,0,1024,1024" origin="0.5,0.5" />
+  </aic_artillery_explosion_flash>
+  <aic_artillery_explosion_fire lifetime="0.9" lifetimemin="0.9" animduration="0.9" loopanim="false" startrotationmin="0" startrotationmax="360" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="0.85,0.85" startsizemax="0.85,0.85" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,180,100,0" drawtarget="Both" drawontop="true" blendstate="Additive" priority="8">
+    <animatedsprite texture="Content/Particles/ExplosionAtlas.png" sourcerect="0,0,4096,4096" columns="8" rows="8" origin="0.5,0.5" premultiplyalpha="false" />
+  </aic_artillery_explosion_fire>
+  <aic_artillery_area_warning lifetime="5" lifetimemin="5" animduration="5" loopanim="false" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="2.181818,2.181818" startsizemax="2.181818,2.181818" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" drawalways="true" draworder="Foreground" blendstate="Additive" priority="25">
+    <animatedsprite texture="%ModDir%/Particles/artillery_area_warning.png" sourcerect="0,0,4950,3600" columns="9" rows="9" origin="0.5,0.85" premultiplyalpha="false" />
+  </aic_artillery_area_warning>
+  <aic_orbital_lock_0 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="0,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_0>
+  <aic_orbital_lock_1 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="128,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_1>
+  <aic_orbital_lock_2 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="256,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_2>
+  <aic_orbital_lock_3 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="384,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_3>
+  <aic_orbital_lock_4 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="512,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_4>
+  <aic_orbital_lock_5 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="640,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_5>
+  <aic_orbital_lock_6 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="768,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_6>
+  <aic_orbital_lock_7 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="896,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_7>
+  <aic_orbital_lock_8 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="1024,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_8>
+  <aic_orbital_lock_9 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="1152,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_9>
+  <aic_orbital_lock_10 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="1280,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_10>
+  <aic_orbital_lock_11 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="1408,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_11>
+  <aic_orbital_lock_12 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="1536,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_12>
+  <aic_orbital_lock_13 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="1664,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_13>
+  <aic_orbital_lock_14 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="1792,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_14>
+  <aic_orbital_lock_15 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="1920,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_15>
+  <aic_orbital_lock_16 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="2048,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_16>
+  <aic_orbital_lock_17 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="2176,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_17>
+  <aic_orbital_lock_18 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="2304,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_18>
+  <aic_orbital_lock_19 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="2432,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_19>
+  <aic_orbital_lock_20 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="2560,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_20>
+  <aic_orbital_lock_21 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="2688,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_21>
+  <aic_orbital_lock_22 lifetime="0.055" lifetimemin="0.055" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="2816,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_lock_22>
+  <aic_orbital_marker_glow lifetime="0.12" lifetimemin="0.12" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" canentersubs="true" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" blendstate="Additive" priority="10">
+    <sprite texture="%ModDir%/Particles/orbital_lock_frames.png" sourcerect="2816,0,128,128" origin="0.5,0.5" />
+  </aic_orbital_marker_glow>
+  <!-- White impact glow; scaled to the original pulse-laser flash's 128..384 pixel size. -->
+  <aic_orbital_impact_white lifetime="0.3" lifetimemin="0" startdelaymin="0" startdelaymax="0.1" angularvelocitymin="-100" angularvelocitymax="100" startrotationmin="0" startrotationmax="359" rotatetodirection="false" drag="0" waterdrag="0" velocitychange="0,0" velocitychangewater="0,0" usecollision="false" startsizemin="0.125,0.125" startsizemax="0.375,0.375" sizechangemin="0,0" sizechangemax="0,0" growtime="0" startcolor="255,255,255,150" endcolor="255,255,255,0" drawtarget="Both" drawontop="true" blendstate="Additive" priority="5">
+    <sprite texture="Content/Lights/pointlight_bright.png" origin="0.5,0.5" />
+  </aic_orbital_impact_white>
+  <aic_orbital_beam lifetime="0.15" lifetimemin="0.15" startrotationmin="0" startrotationmax="0" angularvelocitymin="0" angularvelocitymax="0" velocitychange="0,0" velocitychangewater="0,0" drag="0" waterdrag="0" usecollision="false" canentersubs="true" startsizemin="1,54.4" startsizemax="1,54.4" sizechangemin="0,0" sizechangemax="0,0" startcolor="255,255,255,255" endcolor="255,255,255,255" drawtarget="Both" drawontop="true" draworder="Foreground" priority="10" blendstate="Additive">
+    <sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="106,75,1,1" origin="0.5,0.5" />
+  </aic_orbital_beam>
   <!-- Dragon plasma trail: dense, longer-lived orange-red blobs; emitter scale narrows the trail. -->
   <aic_dragon_flame_trail
     lifetime="0.8" lifetimemin="0.7"

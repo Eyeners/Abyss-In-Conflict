@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Items>
-  <Item name="壁垒实验型动力装甲" identifier="aic_wardens_bastion_experimental_powerarmor" category="Equipment,Diving" subcategory="卫戍者护甲" tags="mobilecontainer,armor,clothing,diving,deepdiving,divinggear_wearableindoors,human,aic_wardens_armor" scale="0.167" fireproof="true" damagedbyprojectiles="true" indestructible="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate" description="地球防卫部队在后感染时期研发的实验型动力装甲，表层由超导物质层和护盾电容串联成迈斯纳护盾发生器，可防护金属实弹、荷电粒子、等离子团等各种带电攻击，其自身的材质和装甲则保障了对于激光等武器的防护能力。">
+  <Item name="壁垒实验型动力装甲" identifier="aic_wardens_bastion_experimental_powerarmor" category="Equipment,Diving" subcategory="卫戍者护甲" tags="mobilecontainer,armor,clothing,diving,deepdiving,divinggear_wearableindoors,human,aic_wardens_armor,aic_fearless" scale="0.167" fireproof="true" damagedbyprojectiles="true" indestructible="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate" description="地球防卫部队在后感染时期研发的实验型动力装甲，表层由超导物质层和护盾电容串联成迈斯纳护盾发生器，可防护金属实弹、荷电粒子、等离子团等各种带电攻击，其自身的材质和装甲则保障了对于激光等武器的防护能力。">
     <PreferredContainer primary="divingsuitcontainer,divingsuitlocker,steelcabinet" />
     <Fabricate suitablefabricators="fabricator" requiredtime="60">
       <RequiredSkill identifier="mechanical" level="70" />
@@ -33,12 +33,13 @@
       <sprite name="Bastion Experimental Left Leg" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightLeg" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="165,702,143,320" origin="0.5,0.5" depthlimb="Torso" />
       <sprite name="Bastion Experimental Left Foot" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="960,957,161,97" origin="0.5,0.5" depthlimb="RightArm" />
       <sprite name="Bastion Experimental Right Foot" texture="%ModDir%/卫戍者/贴图/壁垒总图.png" limb="LeftFoot" inheritlimbdepth="true" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="1264,955,161,97" origin="0.5,0.5" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound" damagemultiplier="0.08" damagesound="LimbArmor" deflectprojectiles="true" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.08" damagesound="LimbArmor" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="explosiondamage" damagemultiplier="0.15" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound" damagemultiplier="0.08" damagesound="LimbArmor" deflectprojectiles="true" penetrationmultiplier="0.5" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_suppression" damagemultiplier="0.49" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.08" damagesound="LimbArmor" deflectprojectiles="true" penetrationmultiplier="0.3" penetrationoffset="-0.2" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="explosiondamage" damagemultiplier="0.15" damagesound="LimbArmor" deflectprojectiles="true" penetrationmultiplier="0.2" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bleeding" damagemultiplier="0.08" damagesound="LimbArmor" />
-      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.2" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_heat_buildup" damagemultiplier="0.2" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.2" deflectprojectiles="true" penetrationmultiplier="0.4" penetrationoffset="-0.05" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_heat_buildup" damagemultiplier="0.1" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="acidburn" damagemultiplier="0.2" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="radiationsickness" damagemultiplier="0.08" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="electricshock" damagemultiplier="0.15" damagesound="LimbArmor" />
@@ -77,10 +78,6 @@
       </StatusEffect>
       <StatusEffect type="OnWearing" target="Character" interval="1.5" disabledeltatime="true">
         <Affliction identifier="aic_artificial_muscle_fiber_assistance" amount="1" />
-      </StatusEffect>
-      <StatusEffect type="OnWearing" target="Character" interval="1.5" disabledeltatime="true">
-        <Affliction identifier="aic_wardens_experimental_protection" amount="1" />
-        <Affliction identifier="aic_wardens_experimental_protection_gunshot" amount="1" />
       </StatusEffect>
       <StatusEffect type="OnWearing" target="Character,this" SpeedMultiplier="1.35" setvalue="true" comparison="And">
         <Conditional HasTag="eq aic_bastion_booster_on" />

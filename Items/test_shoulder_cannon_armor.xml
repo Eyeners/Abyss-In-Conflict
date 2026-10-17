@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Items>
-  <Item name="肩炮动力甲（测试）" identifier="aic_test_shoulder_cannon_armor" category="Equipment,Diving" subcategory="践行者护甲" tags="mobilecontainer,armor,clothing,diving,deepdiving,divinggear_wearableindoors,human,aic_practitioner_armor" scale="0.167" fireproof="true" damagedbyprojectiles="true" indestructible="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate" description="">
+  <Item name="肩炮动力甲（测试）" identifier="aic_test_shoulder_cannon_armor" category="Equipment,Diving" subcategory="践行者护甲" tags="mobilecontainer,armor,clothing,diving,deepdiving,divinggear_wearableindoors,human,aic_practitioner_armor,aic_fearless" scale="0.167" fireproof="true" damagedbyprojectiles="true" indestructible="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate" description="">
     <PreferredContainer primary="divingsuitcontainer,divingsuitlocker,steelcabinet" />
     <InventoryIcon texture="%ModDir%/践行者/贴图/执政官重型装甲.png" sourcerect="1354,65,328,312" scale="0.2" origin="0.5,0.5" />
     <Sprite name="Archon Heavy Armor Item" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" sourcerect="1548,437,586,739" depth="0.55" origin="0.5,0.5" />
@@ -23,11 +23,12 @@
       <sprite name="Archon Heavy Armor Inner Foot" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="LeftFoot" inheritlimbdepth="true" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="1175,925,161,97" origin="0.45,0.5" />
       <sprite name="Archon Heavy Armor Outer Foot" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inheritscale="true" ignoretexturescale="true" ignorelimbscale="true" ignoreragdollscale="false" scale="0.36" hideotherwearables="true" sourcerect="870,925,161,97" origin="0.4,0.5" depthlimb="RightArm" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound" damagemultiplier="0.04" damagesound="LimbArmor" deflectprojectiles="true" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.04" damagesound="LimbArmor" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_suppression" damagemultiplier="0.52" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.04" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="explosiondamage" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bleeding" damagemultiplier="0.10" damagesound="LimbArmor" />
-      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.07" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_heat_buildup" damagemultiplier="0.15" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.07" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_heat_buildup" damagemultiplier="0.1" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="acidburn" damagemultiplier="0.2" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="radiationsickness" damagemultiplier="0.15" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="electricshock" damagemultiplier="0.3" damagesound="LimbArmor" />
@@ -66,9 +67,6 @@
       </StatusEffect>
       <StatusEffect type="OnWearing" target="Character" interval="1.5" disabledeltatime="true">
         <Affliction identifier="aic_artificial_muscle_fiber_assistance" amount="1" />
-      </StatusEffect>
-      <StatusEffect type="OnWearing" target="Character" interval="1.5" disabledeltatime="true">
-        <Affliction identifier="aic_wardens_experimental_protection" amount="1" />
       </StatusEffect>
 
 

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Items>
-  <Item name="阵线外层空间作战护甲原型" identifier="aic_wardens_frontline_spacesuit_prototype" category="Equipment,Diving" subcategory="卫戍者护甲" tags="mediumitem,armor,clothing,diving,deepdiving,divinggear_wearableindoors,human,aic_wardens_armor" scale="0.5" fireproof="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate" description="卫戍者PMC列装的中重型护甲，以地球防卫部队轨道防御作战护甲改装设计而来，拥有全封闭的抗压系统，钨钢动力骨架和复合装甲在提供射击稳定的同时还能提供较好的辐射防护，可装载医用泡沫自动止血">
+  <Item name="阵线外层空间作战护甲原型" identifier="aic_wardens_frontline_spacesuit_prototype" category="Equipment,Diving" subcategory="卫戍者护甲" tags="mediumitem,armor,clothing,diving,deepdiving,divinggear_wearableindoors,human,aic_wardens_armor,aic_fearless" scale="0.5" fireproof="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate" description="卫戍者PMC列装的中重型护甲，以地球防卫部队轨道防御作战护甲改装设计而来，拥有全封闭的抗压系统，钨钢动力骨架和复合装甲在提供射击稳定的同时还能提供较好的辐射防护，可装载医用泡沫自动止血">
     <PreferredContainer primary="divingsuitcontainer,locker,divingsuitlocker,armcab" secondary="metalcrate" />
     <Price baseprice="1280" sold="false">
       <Price storeidentifier="merchantmilitary" multiplier="0.95" sold="false" />
@@ -44,12 +44,13 @@
       <sprite name="Bastion Suit Left Leg" texture="%ModDir%/卫戍者/贴图/阵线外层空间作战护甲原型.png" limb="LeftLeg" inheritscale="true" ignoreragdollscale="false" ignorelimbscale="true" ignoretexturescale="true" scale="1" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.5,0.54" sourcerect="102,131,45,112" />
       <sprite name="Bastion Suit Left Foot" texture="%ModDir%/卫戍者/贴图/阵线外层空间作战护甲原型.png" limb="LeftFoot" inheritscale="true" ignoreragdollscale="false" ignorelimbscale="true" ignoretexturescale="true" sound="footstep_armor_heavy" scale="1" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.5,0.5" sourcerect="343,214,62,34" />
       <sprite name="Bastion Suit Right Foot" texture="%ModDir%/卫戍者/贴图/阵线外层空间作战护甲原型.png" limb="RightFoot" inheritscale="true" ignoreragdollscale="false" ignorelimbscale="true" ignoretexturescale="true" depthlimb="RightHand" inheritlimbdepth="false" sound="footstep_armor_heavy" scale="1" hidelimb="true" inherittexturescale="true" hideotherwearables="true" origin="0.5,0.5" sourcerect="279,214,62,34" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound" damagemultiplier="0.13" damagesound="LimbArmor" deflectprojectiles="true" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.15" damagesound="LimbArmor" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="explosiondamage" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="gunshotwound" damagemultiplier="0.13" damagesound="LimbArmor" deflectprojectiles="true" penetrationmultiplier="0.65" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_suppression" damagemultiplier="0.53" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bitewounds,lacerations,blunttrauma" damagemultiplier="0.15" damagesound="LimbArmor" deflectprojectiles="true" penetrationmultiplier="0.4" penetrationoffset="-0.1" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="explosiondamage" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" penetrationmultiplier="0.5" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="bleeding" damagemultiplier="0.25" damagesound="LimbArmor" />
-      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.35" />
-      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_heat_buildup" damagemultiplier="0.35" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.35" deflectprojectiles="true" penetrationmultiplier="0.7" penetrationoffset="-0.05" />
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="aic_heat_buildup" damagemultiplier="0.25" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="acidburn" damagemultiplier="0.35" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="radiationsickness" damagemultiplier="0.2" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="electricshock" damagemultiplier="0.35" damagesound="LimbArmor" />
@@ -82,10 +83,6 @@
       </StatusEffect>
       <StatusEffect type="OnWearing" target="Character" interval="1.5" disabledeltatime="true">
         <Affliction identifier="aic_wardens_assisted_exoskeleton" amount="1" />
-      </StatusEffect>
-      <StatusEffect type="OnWearing" target="Character" interval="1.5" disabledeltatime="true">
-        <Affliction identifier="aic_wardens_advanced_protection" amount="1" />
-        <Affliction identifier="aic_wardens_advanced_protection_gunshot" amount="1" />
       </StatusEffect>
       <StatusEffect type="OnWearing" target="Character,This" disabledeltatime="true">
         <Affliction identifier="aic_nightvision" amount="60" />
