@@ -10,6 +10,10 @@
     scale="0.068"
     impactsoundtag="impact_metal_light"
     description="发射铝热弹的侦察步枪，命中后以黏附的燃烧体摧毁敌人的护甲和身体。">
+    <InsertionReload duration="1" peritem="false">
+      <Sound file="%ModDir%/Items/Weapons/gavel_shell_insert.ogg" type="OnUse" range="200" volume="0.7" />
+    </InsertionReload>
+
 
     <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
 
@@ -80,15 +84,10 @@
         setactive="true">
 
         <StatusEffect type="OnInserted" target="This" holdpos="6,-24" holdangle="58" setvalue="true">
-          <LuaHook name="aic_ammo_insertion_delay" />
           <Sound file="%ModDir%/卫戍者/音效/ReloadStart1.ogg" type="OnInserted" range="200" volume="0.8" />
         </StatusEffect>
 
         <StatusEffect type="OnInserted" target="This" holdpos="60,-10" holdangle="-35" delay="1" setvalue="true" disabledeltatime="true" />
-
-        <StatusEffect type="OnRemoved" target="This" disabledeltatime="true">
-          <LuaHook name="aic_ammo_insertion_delay" />
-        </StatusEffect>
       </Containable>
     </ItemContainer>
 
@@ -229,6 +228,10 @@
     scale="0.068"
     cargocontaineridentifier="metalcrate"
     impactsoundtag="impact_metal_light">
+    <InsertionReload duration="1" peritem="false">
+      <Sound file="%ModDir%/Items/Weapons/gavel_shell_insert.ogg" type="OnUse" range="200" volume="0.7" />
+    </InsertionReload>
+
 
     <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
     <InventoryIcon texture="%ModDir%/践行者/贴图/烙铁高热手枪.png" sourcerect="0,0,765,388" origin="0.5,0.5" />
@@ -284,13 +287,9 @@
         setactive="true">
 
         <StatusEffect type="OnInserted" target="This" holdpos="5,-20" holdangle="58" setvalue="true">
-          <LuaHook name="aic_ammo_insertion_delay" />
           <Sound file="%ModDir%/卫戍者/音效/ReloadStart1.ogg" type="OnInserted" range="200" volume="0.8" />
         </StatusEffect>
         <StatusEffect type="OnInserted" target="This" holdpos="0,0" holdangle="0" delay="1" setvalue="true" disabledeltatime="true" />
-        <StatusEffect type="OnRemoved" target="This" disabledeltatime="true">
-          <LuaHook name="aic_ammo_insertion_delay" />
-        </StatusEffect>
       </Containable>
     </ItemContainer>
 
@@ -445,6 +444,10 @@
     impactsoundtag="impact_metal_light"
     hideconditionbar="true"
     description="抛射炽热燃烧燃料的火焰喷射器，附着能力和抛射距离优秀。">
+    <InsertionReload duration="1" peritem="false" ammotag="weldingtoolfuel">
+
+    </InsertionReload>
+
 
     <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
     <InventoryIcon texture="%ModDir%/践行者/贴图/龙炎火焰喷射器.png" sourcerect="0,0,2005,544" origin="0.5,0.5" />
@@ -503,7 +506,6 @@
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
       <Containable items="weldingtoolfuel">
         <StatusEffect type="OnInserted" target="This" disabledeltatime="true">
-          <LuaHook name="aic_ammo_insertion_delay" />
           <Sound file="%ModDir%/践行者/音效/火焰喷射器Reload1.ogg" type="OnInserted" range="200" selectionmode="Random" />
           <Sound file="%ModDir%/践行者/音效/火焰喷射器Reload2.ogg" type="OnInserted" range="200" selectionmode="Random" />
           <Sound file="%ModDir%/践行者/音效/火焰喷射器Reload3.ogg" type="OnInserted" range="200" selectionmode="Random" />
@@ -512,9 +514,6 @@
           <Sound file="%ModDir%/践行者/音效/火焰喷射器ReloadEnd1.ogg" type="OnInserted" range="200" selectionmode="Random" />
           <Sound file="%ModDir%/践行者/音效/火焰喷射器ReloadEnd2.ogg" type="OnInserted" range="200" selectionmode="Random" />
           <Sound file="%ModDir%/践行者/音效/火焰喷射器ReloadEnd3.ogg" type="OnInserted" range="200" selectionmode="Random" />
-        </StatusEffect>
-        <StatusEffect type="OnRemoved" target="This" disabledeltatime="true">
-          <LuaHook name="aic_ammo_insertion_delay" />
         </StatusEffect>
       </Containable>
     </ItemContainer>
@@ -611,6 +610,15 @@
     hideconditionbar="true"
     impactsoundtag="impact_metal_heavy"
     description="将燃料压成易爆高热火团沿抛物线投射，可同时装载6罐燃料。">
+    <InsertionReload duration="0.3" peritem="true" ammotag="weldingtoolfuel" soundatstart="true" endsound="true" cancelsoundonremoval="true" minimumfuelcondition="50" fuelcost="50" fuelslots="6">
+      <Sound file="%ModDir%/践行者/音效/火焰喷射器Reload1.ogg" type="OnUse" range="200" volume="0.8" selectionmode="Random" />
+      <Sound file="%ModDir%/践行者/音效/火焰喷射器Reload2.ogg" type="OnUse" range="200" volume="0.8" selectionmode="Random" />
+      <Sound file="%ModDir%/践行者/音效/火焰喷射器Reload3.ogg" type="OnUse" range="200" volume="0.8" selectionmode="Random" />
+      <Sound file="%ModDir%/践行者/音效/火焰喷射器ReloadEnd1.ogg" type="OnSecondaryUse" range="200" volume="0.8" selectionmode="Random" />
+      <Sound file="%ModDir%/践行者/音效/火焰喷射器ReloadEnd2.ogg" type="OnSecondaryUse" range="200" volume="0.8" selectionmode="Random" />
+      <Sound file="%ModDir%/践行者/音效/火焰喷射器ReloadEnd3.ogg" type="OnSecondaryUse" range="200" volume="0.8" selectionmode="Random" />
+    </InsertionReload>
+
 
     <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
     <InventoryIcon texture="%ModDir%/践行者/贴图/熔流热能投掷器.png" sourcerect="0,0,1758,488" origin="0.5,0.5" />
@@ -650,7 +658,6 @@
 
       <!-- Charge exactly one fuel tank on a successful use; never drain every contained tank. -->
       <StatusEffect type="OnUse" target="This" disabledeltatime="true">
-        <LuaHook name="aic_thermal_launcher_fuel" />
         <SpawnItem identifier="aic_faithguard_molten_thermal_round" spawnposition="ThisInventory" />
       </StatusEffect>
       <RequiredItems items="weldingtoolfuel" type="Contained" msg="ItemMsgAmmoRequired" />
@@ -673,12 +680,6 @@
       <SlotIcon slotindex="4" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
       <SlotIcon slotindex="5" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
       <Containable items="weldingtoolfuel" hide="true">
-        <StatusEffect type="OnInserted" target="This" disabledeltatime="true">
-          <LuaHook name="aic_ammo_insertion_delay" />
-        </StatusEffect>
-        <StatusEffect type="OnRemoved" target="This" disabledeltatime="true">
-          <LuaHook name="aic_ammo_insertion_delay" />
-        </StatusEffect>
       </Containable>
     </ItemContainer>
 
@@ -727,5 +728,42 @@
       </StatusEffect>
     </Projectile>
     <LightComponent lightcolor="255,110,35,150" range="130" ison="true" castshadows="false" />
+  </Item>
+  <Item name="炽砂高热霰弹枪" identifier="aic_chisha_shotgun" category="Weapon" subcategory="护教军武器"
+        tags="largeitem,weapon,gun,mountableweapon" scale="0.0666667" maxstacksize="1" isshootable="true" requireaimtouse="true"
+        impactsoundtag="impact_metal_heavy" description="双膛近战霰弹枪。灼热的烟焰裹挟弹丸喷出，将狭窄舱道化作滚烫的砂炉。">
+    <InsertionReload duration="0.9" ammotag="shotgunammo" soundatstart="true" endsound="true">
+      <Sound file="%ModDir%/践行者/音效/炽砂/ReloadStart.ogg" type="OnUse" range="450" volume="0.7" />
+      <Sound file="%ModDir%/践行者/音效/炽砂/ReloadEnd.ogg" type="OnSecondaryUse" range="450" volume="0.7" />
+    </InsertionReload>
+
+    <InventoryIcon texture="%ModDir%/践行者/贴图/炽砂高热霰弹枪.png" sourcerect="0,0,1618,449" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/践行者/贴图/炽砂高热霰弹枪.png" sourcerect="0,0,1618,449" origin="0.5,0.5" depth="0.55" />
+    <Body width="1550" height="200" density="25" />
+    <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="65,-5" aimpos="65,-5"
+              handle1="-368,3" handle2="259,-19" holdangle="-30" msg="ItemMsgPickUpSelect" />
+    <RangedWeapon barrelpos="808,48" spread="2.5" unskilledspread="8" combatpriority="85" reload="0.4"
+                  drawhudwhenequipped="true" crosshairscale="0.2" weapondamagemodifier="1">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <ParticleEmitter particle="aic_chisha_flame" particleamount="9" anglemin="-12" anglemax="12" velocitymin="300" velocitymax="810" />
+      <ParticleEmitter particle="aic_chisha_ember" particleamount="8" anglemin="-17" anglemax="17" velocitymin="400" velocitymax="775" />
+      <ParticleEmitter particle="aic_chisha_smoke" particleamount="7" anglemin="-14" anglemax="14" velocitymin="250" velocitymax="600" />
+      <ParticleEmitter particle="spark" particleamount="12" anglemin="-16" anglemax="16" velocitymin="500" velocitymax="1125" />
+      <Sound file="%ModDir%/践行者/音效/炽砂/Shot1.ogg" type="OnUse" range="3000" volume="0.9" selectionmode="Random" />
+      <Sound file="%ModDir%/践行者/音效/炽砂/Shot2.ogg" type="OnUse" range="3000" volume="0.9" />
+      <Sound file="%ModDir%/践行者/音效/炽砂/Shot3.ogg" type="OnUse" range="3000" volume="0.9" />
+      <RequiredItems items="shotgunammo" type="Contained" msg="ItemMsgAmmoRequired" />
+      <RequiredSkill identifier="weapons" level="35" />
+    </RangedWeapon>
+    <ItemContainer capacity="1" maxstacksize="2" hideitems="false" containedstateindicatorstyle="bullet" containedstateindicatorslot="0">
+      <Containable items="shotgunammo" hide="true" />
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+    </ItemContainer>
+    <ChishaShotgun flamerange="4" flamespread="12">
+      <Attack penetration="0.5">
+        <Affliction identifier="burn" strength="50" />
+      </Attack>
+    </ChishaShotgun>
+    <aitarget sightrange="2500" soundrange="4000" fadeouttime="4" />
   </Item>
 </Items>

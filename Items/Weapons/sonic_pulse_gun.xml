@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="声波地面震波" identifier="aic_sonic_groundwave" category="Weapon" hideinmenus="true" noninteractable="true" spritecolor="255,255,255,0">
+    <Sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="106,75,1,1" />
+    <Body width="1" height="1" density="1" gravityscale="0" />
+    <AICShockwaveGrenade waverange="300" wavespeed="400" wavedirection="ProjectileDirection" distortionvisual="true" horizontalimpulse="30" upwardimpulse="15" maxvelocitychange="10" maxpushspeed="10">
+      <Attack targetforce="0" structuredamage="0" itemdamage="0">
+        <Affliction identifier="organdamage" strength="30" />
+        <Affliction identifier="explosiondamage" strength="5" />
+        <Affliction identifier="concussion" strength="5" />
+      </Attack>
+    </AICShockwaveGrenade>
+  </Item>
+  <Item name="回响涡环模块" identifier="aic_sonic_vortex_module" category="Equipment" subcategory="武器配件" tags="smallitem,aic_attachment,aic_sonic_vortex" scale="0.1" maxstacksize="1" description="将声脉冲整形成向前推进的涡环，环面扩张时产生强烈的光学扰动。">
+    <InventoryIcon texture="%ModDir%/Items/sonic_vortex_attachment.png" sourcerect="0,0,512,512" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/sonic_vortex_attachment.png" sourcerect="0,0,512,512" origin="0.5,0.5" />
+    <Body width="180" height="100" density="15" />
+    <Holdable slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+  <Item name="回响声波枪" identifier="aic_sonic_pulse_gun" category="Weapon" subcategory="特殊武器"
+        tags="largeitem,weapon,gun,mountableweapon" scale="0.16" maxstacksize="1" requireaimtouse="true"
+        impactsoundtag="impact_metal_heavy" description="以高频压缩波贯穿目标。波束进入水中后展开为宽幅脉冲，震击沿途浸水的组织。">
+    <InventoryIcon texture="%ModDir%/Items/Weapons/sonic_pulse_gun.png" sourcerect="0,0,912,318" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/Weapons/sonic_pulse_gun.png" sourcerect="0,0,912,318" origin="0.5,0.5" depth="0.55" />
+    <Body width="750" height="230" density="30" />
+    <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="55,-5" aimpos="55,-5"
+              handle1="-151,-52" handle2="136,-74" holdangle="-25" msg="ItemMsgPickUpSelect" />
+    <SonicProjector barrelpos="340,37" reload="1" spread="0" unskilledspread="0" holdtrigger="false"
+                    combatpriority="85" drawhudwhenequipped="true" crosshairscale="0.2"
+                    batterycost="20" airrange="20" airtargets="3" waterrange="20" waterangle="22"
+                    waterdamagemultiplier="0.33333334" bubblecount="96">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <Sound file="%ModDir%/Sounds/Sonic/Pulse1.ogg" type="OnUse" range="3000" volume="0.55" selectionmode="Random" />
+      <Sound file="%ModDir%/Sounds/Sonic/Pulse2.ogg" type="OnUse" range="3000" volume="0.55" />
+      <Sound file="%ModDir%/Sounds/Sonic/Pulse3.ogg" type="OnUse" range="3000" volume="0.55" />
+      <RequiredItems items="mobilebattery" type="Contained" msg="需要电池" />
+      <RequiredSkill identifier="weapons" level="40" />
+      <Attack penetration="0" structuredamage="0" itemdamage="0" targetforce="0" severlimbsprobability="0">
+        <Affliction identifier="organdamage" strength="30" />
+        <Affliction identifier="explosiondamage" strength="5" />
+        <Affliction identifier="concussion" strength="5" />
+      </Attack>
+    </SonicProjector>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="battery" containedstateindicatorslot="0">
+      <Containable items="mobilebattery" />
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
+      <SubContainer capacity="1" maxstacksize="1">
+        <SlotIcon slotindex="1" texture="%ModDir%/UI/瞄准框.png" sourcerect="0,0,64,64" origin="0.5,0.5" />
+        <Containable items="aic_sonic_vortex" hide="true" />
+      </SubContainer>
+    </ItemContainer>
+    <aitarget sightrange="2500" soundrange="3000" fadeouttime="4" />
+  </Item>
+</Items>

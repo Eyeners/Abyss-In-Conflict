@@ -4,6 +4,7 @@ local WHEEL_STEP = 0.07
 local TARGET_OFFSET = 900
 -- Ordered: an installed scope takes precedence over the built-in optic.
 local profiles = {
+    { tag = "aic_scope_zoom3x_builtin", min = 0, max = 0.55, default = 0.28 },
     { tag = "aic_scope_zoom2x", min = 0, max = 0.4, default = 0.2 },
     { tag = "aic_scope_zoom2x_builtin", min = 0, max = 0.35, default = 0.18 }
 }

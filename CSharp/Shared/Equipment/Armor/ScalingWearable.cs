@@ -15,9 +15,102 @@ namespace AIC.Components
 
         [Serialize(1.0f, IsPropertySaveable.Yes, description: "Scale multiplier (0.1-10.0)")]
         public float ScaleMultiplier { get; set; }
+        [Serialize(false, IsPropertySaveable.No)]
+        public bool InheritLightScale { get; set; }
+#if CLIENT
+        private readonly Dictionary<LightComponent, (float sprite, Vector2 offset, float range)> lightBases = new();
+        private static readonly System.Reflection.FieldInfo spritesField =
+            HarmonyLib.AccessTools.Field(typeof(Wearable), "wearableSprites");
+#endif
+        private void ScaleLights(float factor)
+        {
+#if CLIENT
+            if (!InheritLightScale || spritesField.GetValue(this) is not WearableSprite[] sprites) return;
+            foreach (var sprite in sprites)
+                foreach (var light in sprite.LightComponents)
+                {
+                    if (!lightBases.TryGetValue(light, out var original))
+                    {
+                        original = (light.LightSpriteScale, light.LightOffset, light.Range);
+                        lightBases.Add(light, original);
+                    }
+                    // Apply the armour's relative multiplier once. Head Params.Scale=0.5 is
+                    // already intentionally ignored by these hand-aligned wearable sprites.
+                    light.LightSpriteScale = original.sprite * factor;
+                    light.LightOffset = original.offset * factor;
+                    light.Range = original.range * factor;
+                    if (light.Light != null) light.Light.SpriteScale = Vector2.One * Item.Scale * light.LightSpriteScale;
+                    light.SetLightSourceTransform();
+                }
+#endif
+        }
 
         private HumanRagdollParams originalRagdoll;
         private bool hasModified = false;
+        private Character scaledCharacter;
+
+        // Item.Equip also runs for hand slots. A wearable callback alone is not proof of wearing.
+        private bool IsActuallyWorn(Character character)
+        {
+            if (character?.Inventory is not CharacterInventory inventory) return false;
+            const InvSlotType excluded = InvSlotType.Any | InvSlotType.LeftHand | InvSlotType.RightHand;
+            bool hasWearSlot = false;
+            foreach (var allowed in AllowedSlots)
+            {
+                var wearSlots = allowed & ~excluded;
+                foreach (InvSlotType slot in System.Enum.GetValues(typeof(InvSlotType)))
+                {
+                    if (slot == InvSlotType.None || (slot & excluded) != 0 || !wearSlots.HasFlag(slot)) continue;
+                    hasWearSlot = true;
+                    if (!inventory.IsInLimbSlot(Item, slot)) return false;
+                }
+            }
+            return hasWearSlot;
+        }
+
+        private void RebindSprites(Character character)
+        {
+            base.Equip(character);
+            ScaleLights(hasModified ? ScaleMultiplier : 1);
+        }
+
+        private static void RebindWearables(Character character, IEnumerable<Item> items)
+        {
+            // Recreate invalidates wearable limb caches, but does not require replaying every
+            // component's Equip callback (weapons, scaling components and other mod hooks).
+            foreach (var item in items.Distinct())
+            {
+                if (item == null || item.Removed) continue;
+                foreach (var wearable in item.GetComponents<Wearable>())
+                {
+                    if (wearable is ScalingWearable scaling)
+                    {
+                        if (scaling.IsActuallyWorn(character)) scaling.RebindSprites(character);
+                    }
+                    else wearable.Equip(character);
+                }
+            }
+        }
+
+        private static void Rebuild(Character character, HumanRagdollParams target, Item excluded = null)
+        {
+            var controller = character.AnimController;
+            var position = character.WorldPosition;
+            var velocity = controller.Collider.LinearVelocity;
+            var equipped = new HashSet<Item>();
+            for (int i = 0; i < character.Inventory.Capacity; i++)
+            {
+                var item = character.Inventory.GetItemAt(i);
+                if (item != null && item != excluded && character.HasEquippedItem(item)) equipped.Add(item);
+            }
+            if (character.Info != null) character.Info.Ragdoll = target;
+            // The shared collider lifecycle releases custom collider owners before
+            // native Recreate replaces limbs, joints and collider indices.
+            controller.Recreate(target);
+            character.TeleportTo(position);
+            controller.Collider.LinearVelocity = velocity;
+            RebindWearables(character, equipped);
+        }
 
         private static Dictionary<int, HumanRagdollParams> cloneCache =
             new Dictionary<int, HumanRagdollParams>();
@@ -29,6 +122,7 @@ namespace AIC.Components
 
         public override void Equip(Character character)
         {
+            if (!ValidateCharacter(character) || !IsActuallyWorn(character)) return;
             // 先挂上穿戴精灵。后面重建肢体会使旧肢体引用失效，需要再次绑定装备。
             base.Equip(character);
 
@@ -40,91 +134,36 @@ namespace AIC.Components
 
             // 重绑装备也会回调 Equip，必须先置位，防止递归重建。
             hasModified = true;
-
-            var position = character.WorldPosition;
-            var velocity = character.AnimController.Collider.LinearVelocity;
-
-            // 当前实现按槽收集，双手装备可能重复出现；这是待优化点，不在注释整理时改行为。
-            var equippedItems = new List<Item>();
-            for (int i = 0; i < character.Inventory.Capacity; i++)
-            {
-                var equippedItem = character.Inventory.GetItemAt(i);
-                if (equippedItem != null && character.HasEquippedItem(equippedItem))
-                {
-                    equippedItems.Add(equippedItem);
-                }
-            }
+            scaledCharacter = character;
 
             var cloned = GetOrCreateClonedRagdoll(originalRagdoll, ScaleMultiplier);
             if (cloned == null)
             {
                 hasModified = false;
+                scaledCharacter = null;
                 return;
             }
 
-            if (character.Info != null)
-            {
-                character.Info.Ragdoll = cloned;
-            }
-            // 真正重建碰撞体和关节，不是只放大贴图；客户端也需要相同的布娃娃参数。
-            character.AnimController.Recreate(cloned);
-
-            character.TeleportTo(position);
-            character.AnimController.Collider.LinearVelocity = velocity;
-
-            foreach (var equippedItem in equippedItems)
-            {
-                if (equippedItem != null && !equippedItem.Removed)
-                {
-                    equippedItem.Equip(character);
-                }
-            }
+            Rebuild(character, cloned);
 
         }
 
         public override void Unequip(Character character)
         {
+            // Detach from live limbs before rebuilding them, never from disposed old limbs.
+            base.Unequip(character);
+            ScaleLights(1);
             // 卸甲恢复原参数，并重绑其余装备；不能把正在卸下的甲再次装备。
-            if (hasModified && originalRagdoll != null && ValidateCharacter(character))
+            if (hasModified && scaledCharacter == character && originalRagdoll != null && ValidateCharacter(character))
             {
                 hasModified = false;
+                scaledCharacter = null;
 
-                var position = character.WorldPosition;
-                var velocity = character.AnimController.Collider.LinearVelocity;
-
-                var equippedItems = new List<Item>();
-                for (int i = 0; i < character.Inventory.Capacity; i++)
-                {
-                    var equippedItem = character.Inventory.GetItemAt(i);
-                    if (equippedItem != null
-                        && character.HasEquippedItem(equippedItem)
-                        && equippedItem != this.item)
-                    {
-                        equippedItems.Add(equippedItem);
-                    }
-                }
-
-                if (character.Info != null)
-                {
-                    character.Info.Ragdoll = originalRagdoll;
-                }
-                character.AnimController.Recreate(originalRagdoll);
-
-                character.TeleportTo(position);
-                character.AnimController.Collider.LinearVelocity = velocity;
-
-                foreach (var equippedItem in equippedItems)
-                {
-                    if (equippedItem != null && !equippedItem.Removed)
-                    {
-                        equippedItem.Equip(character);
-                    }
-                }
+                Rebuild(character, originalRagdoll, Item);
 
                 originalRagdoll = null;
             }
 
-            base.Unequip(character);
         }
 
         private bool ValidateCharacter(Character character)

@@ -98,39 +98,46 @@ namespace AIC.Components
         {
             if (GameMain.NetworkMember?.IsClient == true || Entity.Spawner == null
                 || !(tool.ExtinguishAmount > 0) || !(deltaTime > 0) || !float.IsFinite(deltaTime)
-                || tool.Item.Removed || tool.Item.CurrentHull == null || !float.IsFinite(endFraction)) return;
+                || tool.Item.Removed || tool.Item.CurrentHull == null || !float.IsFinite(endFraction)
+                || burns.Count == 0) return;
             var sub = tool.Item.CurrentHull.Submarine;
             Vector2 offset = sub?.Position ?? Vector2.Zero;
             Vector2 start = ConvertUnits.ToDisplayUnits(rayStart) + offset;
             Vector2 end = ConvertUnits.ToDisplayUnits(Vector2.Lerp(rayStart, rayEnd, MathHelper.Clamp(endFraction, 0, 1))) + offset;
             // Condition changes can remove items through status effects. Snapshot only the
             // registered burns so removal callbacks cannot invalidate this enumeration.
-            foreach (var burn in burns.ToArray())
+            var snapshot = ScratchLists<Item>.Rent();
+            try
             {
-                if (burn.Removed || burn.Condition <= 0 || burn.ParentInventory != null
-                    || burn.Submarine != sub || !burn.HasTag(BurnTag)) continue;
-                Vector2 target = burn.WorldPosition;
-                if (!TryGetSprayPoint(start, end, target, out Vector2 closest)) continue;
-                var hull = Hull.FindHull(closest, tool.Item.CurrentHull, useWorldCoordinates: true);
-                // A droplet embedded in a wall may have no CurrentHull; visibility still protects the far side.
-                if (hull == null) continue;
-
-                if (!tool.RepairThroughWalls && Vector2.DistanceSquared(target, closest) > SurfaceTolerance * SurfaceTolerance)
+                snapshot.AddRange(burns);
+                foreach (var burn in snapshot)
                 {
-                    var obstruction = Submarine.CheckVisibility(
-                        ConvertUnits.ToSimUnits(closest - offset), ConvertUnits.ToSimUnits(target - offset),
-                        ignoreLevel: sub != null, ignoreSubs: true,
-                        blocksVisibilityPredicate: fixture => fixture.Body.UserData is Entity entity
-                            ? entity != burn && entity.Submarine == sub : sub == null);
-                    // Attached droplets can sit a few pixels inside the surface they hit.
-                    if (obstruction != null && Vector2.DistanceSquared(
-                        ConvertUnits.ToDisplayUnits(Submarine.LastPickedPosition) + offset, target)
-                        > SurfaceTolerance * SurfaceTolerance) continue;
-                }
+                    if (burn.Removed || burn.Condition <= 0 || burn.ParentInventory != null
+                        || burn.Submarine != sub || !burn.HasTag(BurnTag)) continue;
+                    Vector2 target = burn.WorldPosition;
+                    if (!TryGetSprayPoint(start, end, target, out Vector2 closest)) continue;
+                    var hull = Hull.FindHull(closest, tool.Item.CurrentHull, useWorldCoordinates: true);
+                    // A droplet embedded in a wall may have no CurrentHull; visibility still protects the far side.
+                    if (hull == null) continue;
 
-                burn.Condition = Math.Max(0, burn.Condition - tool.ExtinguishAmount * deltaTime);
-                if (burn.Condition <= 0) Entity.Spawner.AddItemToRemoveQueue(burn);
+                    if (!tool.RepairThroughWalls && Vector2.DistanceSquared(target, closest) > SurfaceTolerance * SurfaceTolerance)
+                    {
+                        var obstruction = Submarine.CheckVisibility(
+                            ConvertUnits.ToSimUnits(closest - offset), ConvertUnits.ToSimUnits(target - offset),
+                            ignoreLevel: sub != null, ignoreSubs: true,
+                            blocksVisibilityPredicate: fixture => fixture.Body.UserData is Entity entity
+                                ? entity != burn && entity.Submarine == sub : sub == null);
+                        // Attached droplets can sit a few pixels inside the surface they hit.
+                        if (obstruction != null && Vector2.DistanceSquared(
+                            ConvertUnits.ToDisplayUnits(Submarine.LastPickedPosition) + offset, target)
+                            > SurfaceTolerance * SurfaceTolerance) continue;
+                    }
+
+                    burn.Condition = Math.Max(0, burn.Condition - tool.ExtinguishAmount * deltaTime);
+                    if (burn.Condition <= 0) Entity.Spawner.AddItemToRemoveQueue(burn);
+                }
             }
+            finally { ScratchLists<Item>.Return(snapshot); }
         }
 
         private static bool TryGetSprayPoint(Vector2 start, Vector2 end, Vector2 target, out Vector2 closest)

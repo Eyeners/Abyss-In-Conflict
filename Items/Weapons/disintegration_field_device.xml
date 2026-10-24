@@ -9,7 +9,6 @@
       <StatusEffect type="OnUse" target="This" stackable="false" setvalue="true" condition="15" />
       <StatusEffect type="Always" target="This,NearbyCharacters" delay="0.5" duration="0.5" stackable="false" range="600" checkconditionalalways="true">
         <Conditional condition="lt 30" />
-        <ParticleEmitter particle="aic_higgs_decoupling_wave" anglemin="0" anglemax="360" scalemin="4.5" scalemax="4.5" scalemultiplier="1,1" particlespersecond="1" colormultiplier="180,245,255,255" />
         <Affliction identifier="aic_higgs_field_decoupling" amount="2" />
       </StatusEffect>
       <StatusEffect type="Always" target="This" delay="30" checkconditionalalways="true">
@@ -22,6 +21,7 @@
         <Remove />
       </StatusEffect>
     </ItemComponent>
+    <DisintegrationRefraction />
     <Throwable slots="Any,RightHand,LeftHand" holdpos="0,0" handle1="0,0" throwforce="4" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnSecondaryUse" target="This" stackable="false" setvalue="true" condition="15" delay="3" />
     </Throwable>

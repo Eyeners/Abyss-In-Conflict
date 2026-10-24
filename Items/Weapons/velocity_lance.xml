@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="试制冲击骑戟" identifier="aic_velocity_lance" description="为高速冲锋打造的重型长戟，借助迎面相撞的力量撕开防线。按住攻击键架稳，松开收回。" category="Weapon" tags="largeitem,weapon" scale="0.5" maxstacksize="1" requireaimtouse="false" impactsoundtag="impact_metal_heavy">
+    <InventoryIcon texture="%ModDir%/Items/Weapons/pchba30_lance_test.png" sourcerect="288,3,171,125" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/Weapons/pchba30_lance_test.png" sourcerect="0,135,512,121" origin="0.47533256,0.47087398" depth="0.55" />
+    <Body width="161" height="20" density="15" />
+    <Holdable slots="Any,RightHand+LeftHand" controlpose="true" aimable="true" holdpos="55,-20" aimpos="60,-20" handle1="-30,0" handle2="-110,0" holdangle="0" aimangle="0" msg="ItemMsgPickUpSelect" />
+    <VelocityLance targetcooldown="1" speedrecovery="2" tipoffset="268" bladerange="0.4" sweepradius="0.1" armdelay="0" recovery="0" damagegainperspeed="0.6" maxdamagemultiplier="10" penetrationgainperspeed="0.15" maxpenetrationmultiplier="2.5" stungainperspeed="0.15" maxstunmultiplier="2.5" impulseperspeed="45" maximpulse="450" maxvelocitychange="5" recoilfraction="0.25" maxspeedloss="2">
+      <Attack penetration="0.3">
+        <Affliction identifier="lacerations" strength="25" />
+        <Affliction identifier="bleeding" strength="5" />
+        <Affliction identifier="stun" strength="0.5" />
+      </Attack>
+    </VelocityLance>
+  </Item>
+</Items>

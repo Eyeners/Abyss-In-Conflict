@@ -16,6 +16,7 @@ namespace AIC.Components
             internal readonly ConditionalWeakTable<Character, Decision> Targets = new();
         }
         private static ConditionalWeakTable<Projectile, Shot> shots = new();
+        private static readonly Identifier EvasionId = "aic_projectile_evasion".ToIdentifier();
         private Harmony harmony;
         internal static float Chance(float speed)
             => float.IsFinite(speed) ? MathHelper.Lerp(0.2f, 0.8f, MathHelper.Clamp(speed / 5f, 0, 1)) : 0.2f;
@@ -52,9 +53,13 @@ namespace AIC.Components
                 return;
             }
             var cloak = character.GetEquippedItem("aic_evasion_cloak", InvSlotType.Bag);
-            bool ignore = !character.IsDead && cloak != null && !cloak.Removed && cloak.Condition > 0
-                && character.AnimController?.Collider != null
-                && Rand.Range(0f, 1f) < Chance(character.AnimController.Collider.LinearVelocity.Length());
+            var attacker = __instance.User ?? __instance.Attacker;
+            float chance = MathHelper.Clamp((attacker?.CharacterHealth.GetAfflictionStrengthByIdentifier(EvasionId) ?? 0) * 0.02f, 0, 0.6f);
+            if (cloak != null && !cloak.Removed && cloak.Condition > 0 && character.AnimController?.Collider != null)
+                chance = Math.Max(chance, Chance(character.AnimController.Collider.LinearVelocity.Length()));
+            chance = Math.Max(chance, FoehnCharge.Equipped(character)?.EvasionChance(character) ?? 0);
+            // Multiple sources share one roll; use the strongest rather than stacking rerolls.
+            bool ignore = !character.IsDead && chance > 0 && Rand.Range(0f, 1f) < chance;
             shot.Targets.Add(character, new Decision { Ignore = ignore });
             __result = ignore;
         }

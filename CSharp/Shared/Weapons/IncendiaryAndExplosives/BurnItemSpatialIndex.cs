@@ -28,6 +28,7 @@ namespace AIC.Components
         private static readonly List<Entry> moving = new();
         private static readonly HashSet<Item> indexed = new();
         private static readonly Stack<List<Entry>> pool = new();
+        [ThreadStatic] private static Stack<List<Item>> queryFrames;
         private static double builtAt = double.NaN;
         private static int itemCount;
         private Harmony harmony;
@@ -40,7 +41,9 @@ namespace AIC.Components
                 Clear();
                 harmony.Patch(AccessTools.Method(typeof(Explosion), nameof(Explosion.Explode),
                     new[] { typeof(Vector2), typeof(Entity), typeof(Character) }),
-                    transpiler: new HarmonyMethod(typeof(BurnItemSpatialIndex), nameof(Inject)));
+                    prefix: new HarmonyMethod(typeof(BurnItemSpatialIndex), nameof(BeginQuery)),
+                    transpiler: new HarmonyMethod(typeof(BurnItemSpatialIndex), nameof(Inject)),
+                    finalizer: new HarmonyMethod(typeof(BurnItemSpatialIndex), nameof(EndQuery)));
                 harmony.Patch(AccessTools.Method(typeof(GameSession), "EndRound"),
                     postfix: new HarmonyMethod(typeof(BurnItemSpatialIndex), nameof(Clear)));
                 // Inventory and scripted transforms can change a static item's bucket
@@ -76,6 +79,18 @@ namespace AIC.Components
         {
             if (indexed.Contains(__instance)) builtAt = double.NaN;
         }
+        private static void BeginQuery(out bool __state)
+        {
+            queryFrames ??= new Stack<List<Item>>();
+            queryFrames.Push(null);
+            __state = true;
+        }
+        private static void EndQuery(bool __state)
+        {
+            // Finalizers also run if native damage or another mod's callback throws.
+            // A nested explosion has its own frame and cannot reuse its parent's list.
+            if (__state && queryFrames?.Count > 0) ScratchLists<Item>.Return(queryFrames.Pop());
+        }
 
         private static IEnumerable<CodeInstruction> Inject(IEnumerable<CodeInstruction> instructions)
         {
@@ -104,37 +119,49 @@ namespace AIC.Components
         {
             if (!(source is Item burn) || !burn.HasTag(BurnTag)
                 || !float.IsFinite(range) || range < 0 || range > 2000
-                || !float.IsFinite(position.X) || !float.IsFinite(position.Y)) return Item.ItemList;
+                || !float.IsFinite(position.X) || !float.IsFinite(position.Y)
+                || queryFrames == null || queryFrames.Count == 0 || queryFrames.Peek() != null) return Item.ItemList;
             if (builtAt != Timing.TotalTime || itemCount != Item.ItemList.Count) Rebuild();
-            var selected = new List<Entry>();
-            foreach (var grid in grids)
+            var selected = ScratchLists<Entry>.Rent();
+            List<Item> result = null;
+            bool committed = false;
+            try
             {
-                Vector2 local = position - (grid.Submarine?.Position ?? Vector2.Zero);
-                float reach = range + grid.Radius;
-                int left = Cell(local.X - reach), right = Cell(local.X + reach);
-                int bottom = Cell(local.Y - reach), top = Cell(local.Y + reach);
-                // Unusual huge modded bodies should never create an enormous grid walk.
-                if ((long)(right - left + 1) * (top - bottom + 1) > 4096) return Item.ItemList;
-                for (int x = left; x <= right; x++)
-                for (int y = bottom; y <= top; y++)
-                    if (grid.Cells.TryGetValue((x, y), out var entries))
-                        foreach (var entry in entries) Add(entry);
+                foreach (var grid in grids)
+                {
+                    Vector2 local = position - (grid.Submarine?.Position ?? Vector2.Zero);
+                    float reach = range + grid.Radius;
+                    int left = Cell(local.X - reach), right = Cell(local.X + reach);
+                    int bottom = Cell(local.Y - reach), top = Cell(local.Y + reach);
+                    // Unusual huge modded bodies should never create an enormous grid walk.
+                    if ((long)(right - left + 1) * (top - bottom + 1) > 4096) return Item.ItemList;
+                    for (int x = left; x <= right; x++)
+                    for (int y = bottom; y <= top; y++)
+                        if (grid.Cells.TryGetValue((x, y), out var entries))
+                            foreach (var entry in entries) AddCandidate(selected, entry, position, range);
+                }
+                // Dynamic bodies and inventories can move between explosions in one update.
+                foreach (var entry in moving) AddCandidate(selected, entry, position, range);
+                selected.Sort(static (a, b) => a.Order.CompareTo(b.Order));
+                result = ScratchLists<Item>.Rent();
+                foreach (var entry in selected) result.Add(entry.Item);
+                queryFrames.Pop(); queryFrames.Push(result);
+                committed = true;
+                return result;
             }
-            // Dynamic bodies and inventories can move between explosions in one update.
-            foreach (var entry in moving) Add(entry);
-            selected.Sort((a, b) => a.Order.CompareTo(b.Order));
-            var result = new List<Item>(selected.Count);
-            foreach (var entry in selected) result.Add(entry.Item);
-            return result;
-
-            void Add(Entry entry)
+            finally
             {
-                var item = entry.Item;
-                if (item.Removed) return;
-                float radius = item.body == null ? 0 : ConvertUnits.ToDisplayUnits(item.body.GetMaxExtent());
-                // Conservative box test; leave the exact native circle test untouched.
-                if (Overlaps(position, item.WorldPosition, range + radius)) selected.Add(entry);
+                ScratchLists<Entry>.Return(selected);
+                if (!committed) ScratchLists<Item>.Return(result);
             }
+        }
+        private static void AddCandidate(List<Entry> selected, Entry entry, Vector2 position, float range)
+        {
+            var item = entry.Item;
+            if (item.Removed) return;
+            float radius = item.body == null ? 0 : ConvertUnits.ToDisplayUnits(item.body.GetMaxExtent());
+            // Conservative box test; leave the exact native circle test untouched.
+            if (Overlaps(position, item.WorldPosition, range + radius)) selected.Add(entry);
         }
 
         internal static bool Overlaps(Vector2 center, Vector2 point, float reach)

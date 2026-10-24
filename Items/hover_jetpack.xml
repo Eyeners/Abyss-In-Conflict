@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="大气喷气背包" identifier="aic_hover_jetpack" category="Equipment"
+        tags="mediumitem,tool" scale="0.5" maxstacksize="1" fireproof="true"
+        description="短程机动喷气背包，可在空中重新点火。按住 W 向上推进，A/D 调整水平移动。">
+    <InventoryIcon texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" origin="0.5,0.5" depth="0.6" />
+    <Body width="60" height="100" density="15" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" limb="Torso"
+              depthlimb="Waist" inherittexturescale="true" origin="1.1,0.5" canbehiddenbyotherwearables="false" />
+    </Wearable>
+    <Holdable slots="RightHand+LeftHand,Any" holdpos="0,-70" handle1="-5,50" handle2="10,50" msg="ItemMsgPickUpSelect" />
+    <HoverJetpack ison="false" maxspeed="6" acceleration="5" braking="0.5" verticalspeed="8" maxliftacceleration="18">
+      <Sound file="%ModDir%/Sounds/Jetpack/Start.ogg" type="OnUse" range="650" volume="0.65" />
+      <Sound file="%ModDir%/Sounds/Jetpack/Loop.ogg" type="OnSuccess" loop="true" range="650" volume="0.45" />
+      <Sound file="%ModDir%/Sounds/Jetpack/End.ogg" type="OnFailure" range="500" volume="0.55" />
+    </HoverJetpack>
+    <FoehnJetJump />
+    <CustomInterface canbeselected="false" drawhudwhenequipped="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.15,0.06" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.22" style="ItemUI" />
+      <TickBox text="喷气推进" targetitemcomponent="HoverJetpack" propertyname="IsOn" continuoussignal="false" getvalueinterval="0.1" />
+    </CustomInterface>
+  </Item>
+</Items>

@@ -20,6 +20,18 @@ namespace AIC.Components
         [Serialize("Both", IsPropertySaveable.No)] public string WaveDirection { get; set; }
         [Serialize(3f, IsPropertySaveable.No)] public float CameraShake { get; set; }
         [Serialize(false, IsPropertySaveable.No)] public bool DebugWave { get; set; }
+        [Serialize(false, IsPropertySaveable.No)] public bool DistortionVisual { get; set; }
+        [Serialize(1f, IsPropertySaveable.No)] public float DistortionScale { get; set; }
+        [Serialize(1f, IsPropertySaveable.No)] public float DistortionStrength { get; set; }
+        internal void StartAt(Character user, int direction)
+        {
+            waveSub = Item.Submarine; attacker = user; projectileDirection = direction;
+            if (!Ground(Item.SimPosition + Vector2.UnitY * 0.5f, 1.7f, out var floor)) { Finish(); return; }
+            BeginWave(floor, direction);
+#if SERVER
+            Item.CreateServerEvent(this);
+#endif
+        }
         private int pulseCount, particlesCreated;
         private readonly Attack waveAttack;
         [Serialize(30f, IsPropertySaveable.No)] public float HorizontalImpulse { get; set; }
@@ -147,8 +159,18 @@ namespace AIC.Components
 #if CLIENT
             Vector2 visualPosition = world + Vector2.UnitY * 18;
             var visualHull = Hull.FindHull(visualPosition);
-            EmitWaveParticle("aic_groundwave_dust", visualPosition, Vector2.UnitY * 45, visualHull);
-            EmitWaveParticle("aic_groundwave_ring", visualPosition, Vector2.Zero, visualHull);
+            if (DistortionVisual)
+            {
+                if (Vector2.DistanceSquared(from, to) > 0.000001f)
+                    SonicRefraction.AddGroundWave(ConvertUnits.ToDisplayUnits(from) + (waveSub?.Position ?? Vector2.Zero) - Vector2.UnitY * 10,
+                        world - Vector2.UnitY * 10, Step / Math.Max(1, WaveSpeed), DistortionScale, DistortionStrength,
+                        new EffectAnchor(waveSub, waveSub?.Position ?? Vector2.Zero));
+            }
+            else
+            {
+                EmitWaveParticle("aic_groundwave_dust", visualPosition, Vector2.UnitY * 45, visualHull);
+                EmitWaveParticle("aic_groundwave_ring", visualPosition, Vector2.Zero, visualHull);
+            }
 #endif
             candidates.Clear();
             Vector2 lower = new Vector2(Math.Min(from.X, to.X) - 0.15f, Math.Min(from.Y, to.Y) - 0.08f);
@@ -157,7 +179,8 @@ namespace AIC.Components
             GameMain.World.QueryAABB(fixture =>
             {
                 if (fixture.Body.UserData is Limb limb && limb.character is Character character
-                    && !character.Removed && !character.IsDead && character.Submarine == waveSub && !hit.Contains(character))
+                    && !limb.Removed && !limb.IsSevered
+                    && !character.Removed && character.Submarine == waveSub && !hit.Contains(character))
                 {
 #if CLIENT
                     // Remote clients only query their controlled character for local feedback.
@@ -178,7 +201,9 @@ namespace AIC.Components
                     camera.Shake = Math.Max(camera.Shake, Math.Max(0, CameraShake));
 #endif
                 if (!Authority) continue;
-                waveAttack?.DoDamageToLimb(attacker, pair.Value, pair.Value.WorldPosition, 1f, playSound: true);
+                // Corpses still have physical ragdoll limbs, but need no living affliction effects.
+                if (!pair.Key.IsDead)
+                    waveAttack?.DoDamageToLimb(attacker, pair.Value, pair.Value.WorldPosition, 1f, playSound: true);
                 Push(pair.Key, to);
             }
         }
@@ -246,7 +271,7 @@ namespace AIC.Components
             }
             Include(anim.Collider?.FarseerBody);
             foreach (var limb in anim.Limbs)
-                if (!limb.IsSevered) Include(limb.body?.FarseerBody);
+                if (!limb.Removed && !limb.IsSevered) Include(limb.body?.FarseerBody);
             if (mass <= 0 || !float.IsFinite(mass)) return;
             float direction = Math.Sign(wavePosition.X - origin.X);
             if (direction == 0) direction = character.SimPosition.X < origin.X ? -1 : 1;

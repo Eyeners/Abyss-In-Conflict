@@ -5,7 +5,7 @@ local REDSTAR_BATTERY_TAG = "aic_gdf_redstar_plasma_battery"
 local ANY_INVENTORY_SLOT = { InvSlotType.Any }
 
 local function IsRedStar(item)
-    return item ~= nil and
+    return item ~= nil and not item.Removed and
         item.Prefab ~= nil and
         string.lower(tostring(item.Prefab.Identifier)) == REDSTAR_IDENTIFIER
 end
@@ -47,11 +47,22 @@ end
 
 local function TryReloadBot(item, owner, attemptsRemaining)
     if not IsRedStar(item) or item.OwnInventory == nil or
-        owner == nil or owner.Removed or owner.Inventory == nil or not owner.IsBot then
+        owner == nil or owner.Removed or owner.Inventory == nil or not owner.IsBot or
+        item.GetRootInventoryOwner() ~= owner then
         return
     end
 
-    if item.OwnInventory.GetItemAt(0) ~= nil then
+    local current = item.OwnInventory.GetItemAt(0)
+    if current ~= nil and current.HasTag(REDSTAR_BATTERY_TAG) then
+        if current.Condition > 0 then return end
+        -- Only replace a depleted battery when the bot actually has a usable spare.
+        if FindChargedBattery(owner.Inventory) == nil then return end
+        if not owner.Inventory.TryPutItem(current, owner, ANY_INVENTORY_SLOT, true, true) then
+            current.Drop(owner, true, true)
+        end
+        current = item.OwnInventory.GetItemAt(0)
+    end
+    if current ~= nil then
         if attemptsRemaining > 0 then
             Timer.Wait(function()
                 TryReloadBot(item, owner, attemptsRemaining - 1)
@@ -85,6 +96,25 @@ Hook.Add("aic_redstar_eject_battery", "aic_redstar_eject_battery", function(effe
     end
 
     battery.Drop(owner, true, true)
+end)
+
+-- Normal fire can exhaust a battery before the next beam cycle. Defer the inventory
+-- change until the current shot's contained-item effects have finished iterating.
+local pendingReload = setmetatable({}, { __mode = "k" })
+Hook.Add("aic_redstar_battery_used", "aic_redstar_battery_used", function(effect, deltaTime, battery)
+    -- Each shot costs 3; tolerate LuaHook running before the condition subtraction.
+    if battery == nil or battery.Removed or battery.Condition > 3 then return end
+    local item = battery.ParentInventory and battery.ParentInventory.Owner
+    if item == nil or not LuaUserData.IsTargetType(item, "Barotrauma.Item") or
+        not IsRedStar(item) or pendingReload[item] then return end
+    local owner = item.GetRootInventoryOwner()
+    if owner == nil or not LuaUserData.IsTargetType(owner, "Barotrauma.Character") or not owner.IsBot then return end
+    pendingReload[item] = true
+    Timer.Wait(function()
+        pendingReload[item] = nil
+        if battery.Removed or battery.Condition > 0 then return end
+        TryReloadBot(item, owner, 2)
+    end, 0)
 end)
 
 Hook.Add("aic_redstar_reload_after_beam", "aic_redstar_reload_after_beam", function(effect, deltaTime, item)

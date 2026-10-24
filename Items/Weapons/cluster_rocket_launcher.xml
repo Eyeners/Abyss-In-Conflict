@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Items>
   <Item name="集群火箭发射器" identifier="aic_gdf_cluster_rocket_launcher" category="Weapon" subcategory="GDF军用武器" cargocontaineridentifier="metalcrate" tags="bigitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_gdf_weapon,aic_wardens_weapon" scale="0.0952" impactsoundtag="impact_metal_light">
+    <InsertionReload duration="2" peritem="false">
+      <Sound file="%ModDir%/Items/Weapons/gavel_shell_insert.ogg" type="OnUse" range="200" volume="0.7" />
+    </InsertionReload>
+
     <InventoryIcon texture="%ModDir%/卫戍者/贴图/GDF法槌转轮榴弹发射器.png" sourcerect="0,0,1509,502" origin="0.5,0.5" />
     <Sprite texture="%ModDir%/卫戍者/贴图/GDF法槌转轮榴弹发射器.png" sourcerect="0,0,1509,502" depth="0.55" origin="0.5,0.5" />
     <Body width="144.2" height="47.6" density="40" />
@@ -18,10 +22,6 @@
     </RangedWeapon>
     <ItemContainer capacity="1" maxstacksize="1" slotsperrow="1" hideitems="true" showtotalstackcapacityincontainedstateindicator="true" containedstateindicatorstyle="bullet">
       <Containable items="aic_gdf_cluster_rocket_ammo" hide="true">
-        <StatusEffect type="OnInserted" target="This" disabledeltatime="true">
-          <LuaHook name="aic_ammo_insertion_delay" />
-        </StatusEffect>
-        <StatusEffect type="OnRemoved" target="This" disabledeltatime="true"><LuaHook name="aic_ammo_insertion_delay" /></StatusEffect>
       </Containable>
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="448,448,64,64" origin="0.5,0.5" />
     </ItemContainer>

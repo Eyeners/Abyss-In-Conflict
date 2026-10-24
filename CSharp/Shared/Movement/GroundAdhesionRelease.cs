@@ -39,6 +39,7 @@ namespace AIC.Components
         {
             // 磁吸开关优先于隐藏 aff；aff 不会被删除，只是在磁吸期间不执行解除效果。
             var character = controller.Character;
+            if (FoehnJetJump.Equipped(character)?.Flying == true) return true;
             return character != null && !character.Removed
                 && !MagneticBoots.EnabledFor(character)
                 && character.CharacterHealth?.GetAfflictionStrengthByIdentifier(AfflictionId) > 0;
@@ -69,6 +70,8 @@ namespace AIC.Components
             // 普通角色仍走原 setter，仅目标角色主碰撞体保留外力产生的速度。
             // Preserve the normal pose/IK update, only bypass the collider's locomotion velocity assignment.
             if (body == controller.Collider && IsReleased(controller)) return;
+            if (body == controller.Collider && FoehnSlide.Equipped(controller.Character)?.Sliding == true)
+                velocity.X = body.LinearVelocity.X;
             body.LinearVelocity = velocity;
         }
 

@@ -2,6 +2,10 @@
 <Items>
   <Item name="典范机动作战护甲" identifier="aic_foresight_t3_armor" category="Equipment,Diving" subcategory="预视科技护甲" tags="mobilecontainer,armor,clothing,diving,deepdiving,divinggear_wearableindoors,human,aic_foresight_armor,aic_foresight_nanocluster_shield_on,aic_fearless" health="100" maxstacksize="1" scale="0.167" fireproof="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate">
     <PreferredContainer primary="divingsuitcontainer,divingsuitlocker,steelcabinet" />
+    <AICShield enabledtag="aic_foresight_nanocluster_shield_on" batteryslot="2" drainmultiplier="0.8" />
+    <NanoShield radius="110" offset="0,-25" flashduration="0.25">
+      <sprite texture="%ModDir%/预视科技/贴图/纳米集群护盾.png" sourcerect="0,0,894,895" />
+    </NanoShield>
     <InventoryIcon texture="%ModDir%/预视科技/贴图/预视科技白.png" sourcerect="0,0,1254,1254" scale="0.05" origin="0.5,0.5" />
     <Sprite name="Foresight T3 Armor Item" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" sourcerect="1621,423,637,421" depth="0.55" origin="0.5,0.5" />
     <ContainedSprite name="Foresight T3 Armor In Diving Locker" allowedcontainertags="divingsuitcontainervertical,divingsuitcontainerwindow" texture="%ModDir%/预视科技/贴图/典范机动作战护甲.png" sourcerect="1182,1443,254,668" depth="0.55" origin="-0.12,-0.117" />
@@ -97,12 +101,6 @@
         <Conditional IsLocalPlayer="true" aic_nightvision="gt 0" />
       </StatusEffect>
       <StatusEffect type="OnWearing" target="Character" stunresistance="15" setvalue="true" disabledeltatime="true" />
-      <StatusEffect type="OnWearing" target="Character" interval="0.5" disabledeltatime="true">
-        <Affliction identifier="aic_nanocluster_shield_appendage" amount="10000" />
-      </StatusEffect>
-      <StatusEffect type="OnWearing" target="This" interval="1" disabledeltatime="true">
-        <LuaHook name="aic_nanocluster_shield_visual_maintain" />
-      </StatusEffect>
       <StatValue stattype="MaximumHealthMultiplier" value="0.14" />
       <StatValue stattype="WalkingSpeed" value="0.16" />
       <StatValue stattype="SwimmingSpeed" value="0.12" />
@@ -123,7 +121,7 @@
             <LuaHook name="aic_foresight_shield_enable" />
           </StatusEffect>
           <StatusEffect type="OnSecondaryUse" target="This">
-            <LuaHook name="aiclab_foresight_shield_disable" />
+            <LuaHook name="aic_foresight_shield_disable" />
           </StatusEffect>
         </TickBox>
         <TickBox text="水下推进">

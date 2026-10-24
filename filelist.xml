@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <contentpackage name="Abyss In Conflict" modversion="0.1.34" corepackage="False" steamworkshopid="3724647577" gameversion="1.13.4.0">
   <Character file="%ModDir%/Characters/MechanicalHumanoid/MechanicalHumanoid.xml" />
   <Talents file="%ModDir%/Talents/CombatTalents.xml" />
@@ -6,6 +6,8 @@
   <Item file="%ModDir%/Items/fusion_battery.xml" />
   <Item file="%ModDir%/Items/Equipment/evasion_cloak.xml" />
   <Item file="%ModDir%/Items/active_backpacks.xml" />
+  <Item file="%ModDir%/Items/hover_bike.xml" />
+  <Item file="%ModDir%/Items/hover_jetpack.xml" />
   <Item file="%ModDir%/Items/recall_backpack.xml" />
   <Item file="%ModDir%/Items/Weapons/slow_homing_grenade.xml" />
   <Item file="%ModDir%/Items/Weapons/acid_gun.xml" />
@@ -14,6 +16,8 @@
   <Item file="%ModDir%/Items/Weapons/orbital_pulse_designator.xml" />
   <Item file="%ModDir%/Items/Weapons/orbital_pulse2_designator.xml" />
   <Particles file="%ModDir%/Particles/ParticlePrefabs.xml" />
+  <Particles file="%ModDir%/Particles/CNC3/test_particles.xml" />
+  <Item file="%ModDir%/Items/Weapons/cnc_fx_test.xml" />
   <Item file="%ModDir%/材料/材料.xml" />
   <Item file="%ModDir%/Items/Medical/medical.xml" />
   <Item file="%ModDir%/Items/Environment/environment.xml" />
@@ -25,6 +29,10 @@
   <Item file="%ModDir%/Items/ShipItems/fixed_rope_harpoon.xml" />
   <Item file="%ModDir%/Items/Attachments/attachments.xml" />
   <Item file="%ModDir%/Items/Weapons/weapons_melee.xml" />
+  <Item file="%ModDir%/Items/Weapons/velocity_lance.xml" />
+  <Item file="%ModDir%/Items/Weapons/pinning_spear.xml" />
+  <Item file="%ModDir%/Items/Weapons/sonic_pulse_gun.xml" />
+  <Item file="%ModDir%/Items/Weapons/prism_sniper_rifle.xml" />
   <Item file="%ModDir%/Items/Weapons/projectiles.xml" />
   <Item file="%ModDir%/Items/Weapons/turret_ammoboxes.xml" />
   <Item file="%ModDir%/Items/Weapons/test_burn_weapon.xml" />
@@ -66,7 +74,6 @@
   <Afflictions file="%ModDir%/Afflictions/ground_adhesion_release.xml" />
   <Other file="%ModDir%/Characters/NetEntanglementAppendage.xml" />
   <Character file="%ModDir%/Characters/HumanNetEntangled.xml" />
-  <Character file="%ModDir%/Characters/NanoclusterShield/HumanNanoClusterShield.xml" />
   <Character file="%ModDir%/Characters/RevengeProtocol/RevengeProtocolUnit.xml" />
   <Character file="%ModDir%/Characters/WardensRaiders/WardensAssaulterRaider.xml" />
   <Character file="%ModDir%/Characters/WardensRaiders/WardensMarksmanRaider.xml" />

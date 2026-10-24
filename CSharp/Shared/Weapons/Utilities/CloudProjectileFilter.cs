@@ -76,9 +76,12 @@ namespace AIC.Components
             return false;
         }
 
+        internal static bool IsCloud(Item item)
+            => item.HasTag(CloudTag) || item.HasTag(PassThroughTag);
+
         private static bool IsCloud(Fixture fixture)
         {
-            return fixture?.Body?.UserData is Item item && (item.HasTag(CloudTag) || item.HasTag(PassThroughTag));
+            return fixture?.Body?.UserData is Item item && IsCloud(item);
         }
 
         private static bool CollisionPrefix(Projectile __instance, Fixture target, ref bool __result)

@@ -87,15 +87,7 @@
       <StatusEffect type="OnUse" targettype="Contained" targets="aic_gdf_redstar_mode_token" tags="aic_gdf_redstar_mode_beam" setvalue="true" disabledeltatime="true">
         <Conditional conditionpercentage="gte 99" targetcontainer="true" />
       </StatusEffect>
-      <StatusEffect type="OnUse" target="This">
-        <Conditional conditionpercentage="gte 99" />
-        <LuaHook name="aic_redstar_eject_battery" />
-      </StatusEffect>
-      <!-- 主电池槽不能留空，否则 NPC 会把同一物品上的 RepairTool 束流判定为空。 -->
-      <StatusEffect type="OnUse" target="This">
-        <Conditional conditionpercentage="gte 99" />
-        <SpawnItem identifier="aic_gdf_redstar_beam_capacitor" spawnposition="ThisInventory" />
-      </StatusEffect>
+      <!-- 束流模式保留原电池，避免退回只使用一发的弹匣；也满足 AI 非空槽检查。 -->
 
       <RequiredItems items="aic_gdf_redstar_mode_normal" type="Contained" />
       <RequiredItems items="aic_gdf_redstar_plasma_battery" type="Contained" msg="ItemMsgAmmoRequired" />
@@ -289,6 +281,7 @@
 
       <StatusEffect type="OnUse" target="This" condition="-3" disabledeltatime="true">
         <SpawnItem identifiers="aic_gdf_redstar_plasma_beam" spawnposition="ThisInventory" />
+        <LuaHook name="aic_redstar_battery_used" />
       </StatusEffect>
     </ItemContainer>
 
@@ -679,6 +672,10 @@
     scale="0.0952"
     impactsoundtag="impact_metal_light"
     description="GDF制式手提转轮榴弹发射器，内置十二发弹仓，可装填多种不同榴弹，自带弹道计算机，可以帮助士兵简单预测榴弹轨迹。">
+    <InsertionReload duration="0.2" peritem="true">
+      <Sound file="%ModDir%/Items/Weapons/gavel_shell_insert.ogg" type="OnUse" range="200" volume="0.7" />
+    </InsertionReload>
+
 
     <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
 
@@ -732,10 +729,6 @@
       containedstateindicatorstyle="bullet"
       containedspritedepth="0.56">
       <Containable items="grenade" hide="true">
-        <StatusEffect type="OnInserted" target="This" disabledeltatime="true">
-          <LuaHook name="aic_ammo_insertion_delay" />
-        </StatusEffect>
-        <StatusEffect type="OnRemoved" target="This" disabledeltatime="true"><LuaHook name="aic_ammo_insertion_delay" /></StatusEffect>
       </Containable>
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="448,448,64,64" origin="0.5,0.5" />
       <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="448,448,64,64" origin="0.5,0.5" />
@@ -1161,6 +1154,10 @@
     cargocontaineridentifier="metalcrate"
     impactsoundtag="impact_metal_light"
     description="单手持握的线圈加速霰弹枪，可容纳十二发霰弹，逐发装填。">
+    <InsertionReload duration="0.1" peritem="true">
+      <Sound file="%ModDir%/Items/Weapons/gavel_shell_insert.ogg" type="OnUse" range="200" volume="0.7" />
+    </InsertionReload>
+
 
     <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
     <InventoryIcon texture="%ModDir%/卫戍者/贴图/锻锤加速霰弹枪.png" sourcerect="0,0,1263,408" origin="0.5,0.5" />
@@ -1217,12 +1214,6 @@
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
       <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
       <Containable items="shotgunammo" hide="true">
-        <StatusEffect type="OnInserted" target="This" disabledeltatime="true">
-          <LuaHook name="aic_ammo_insertion_delay" />
-        </StatusEffect>
-        <StatusEffect type="OnRemoved" target="This" disabledeltatime="true">
-          <LuaHook name="aic_ammo_insertion_delay" />
-        </StatusEffect>
       </Containable>
     </ItemContainer>
     <AITarget sightrange="2100" soundrange="2000" fadeouttime="7" />

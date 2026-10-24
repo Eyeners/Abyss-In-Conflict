@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="试制悬浮摩托" identifier="aic_hover_bike" description="依靠双悬浮盘掠地行驶的轻型摩托，短促的喷气推力足以越过障碍。装备至背包位骑乘，A/D驾驶，W腾跃。"
+        category="Equipment" tags="largeitem,aic_hover_bike" scale="0.18" maxstacksize="1" fireproof="true" impactsoundtag="impact_metal_heavy">
+    <InventoryIcon texture="%ModDir%/Items/悬浮摩托.png" sourcerect="0,260,1448,570" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/悬浮摩托.png" sourcerect="0,0,1448,1086" origin="0.5,0.552486" depth="0.55" />
+    <Body width="1390" height="540" density="15" />
+    <Holdable slots="Bag" handle1="0,0" msg="ItemMsgPickUpSelect" />
+    <ItemContainer capacity="0" slotsperrow="4" hideitems="true" canbeselected="true" drawinventory="true" msg="ItemMsgInteractSelect">
+      <SubContainer capacity="2" maxstacksize="1">
+        <SlotIcon texture="Content/UI/CommandUIAtlas.png" sourcerect="639,926,128,80" origin="0.5,0.5" />
+        <Containable items="crate" />
+      </SubContainer>
+      <SubContainer capacity="1" maxstacksize="1">
+        <SlotIcon texture="Content/UI/CommandUIAtlas.png" sourcerect="639,926,128,80" origin="0.5,0.5" />
+        <Containable items="largemobilecontainer,backpack,aic_active_backpack,aic_hover_jetpack" excludeditems="crate,diving,aic_hover_bike" />
+      </SubContainer>
+      <SubContainer capacity="1" maxstacksize="1">
+        <SlotIcon texture="Content/UI/MainIconsAtlas.png" sourcerect="258,130,124,124" origin="0.5,0.5" />
+        <Containable items="diving" />
+      </SubContainer>
+      <SubContainer capacity="12" maxstacksize="8">
+        <Containable items="smallitem,mediumitem" excludeditems="crate,diving,largemobilecontainer,backpack,aic_active_backpack,aic_hover_jetpack,aic_hover_bike" />
+      </SubContainer>
+    </ItemContainer>
+    <LightComponent LightColor="0.8,0.8,0.8,1.0" Flicker="0" range="480" powerconsumption="0" IsOn="false" canbeselected="false" lightoffset="622,17">
+      <LightTexture texture="Content/Lights/lightcone.png" origin="-0.015,0.503" size="1.5,1.0" />
+    </LightComponent>
+    <CustomInterface canbeselected="true" drawhudwhenequipped="true" allowuioverlap="true" elementstates="false">
+      <GuiFrame relativesize="0.11,0.06" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.34" style="ItemUI" />
+      <TickBox text="车灯">
+        <StatusEffect type="OnUse" target="This" targetitemcomponent="LightComponent" IsOn="true" setvalue="true" />
+        <StatusEffect type="OnSecondaryUse" target="This" targetitemcomponent="LightComponent" IsOn="false" setvalue="true" />
+      </TickBox>
+    </CustomInterface>
+    <HoverBike maxslopeangle="22" slopesmoothing="6" slopeturnrate="60" slopesteptolerance="0.18" maxspeed="10" acceleration="6" braking="9" hoverheight="0.75" spring="35" damping="9"
+               colliderwidth="2" colliderradius="0.3" jumpspeed="6" boostacceleration="7" boosthold="0.7" boostfade="0.6"
+               jumpcooldown="3" fallspeedlimit="5" seat="-0.4,0.25" handlebar="0.22,0.48"
+               seatbreakdistance="1.2" seatbreakdelay="0.2"
+               rearexhaust="-0.9,-0.35" frontexhaust="0.9,-0.35">
+      <sprite texture="%ModDir%/Items/悬浮摩托.png" sourcerect="0,0,1448,1086" origin="0.5,0.552486" />
+    </HoverBike>
+  </Item>
+</Items>

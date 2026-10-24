@@ -2,6 +2,7 @@
 <Items>
   <Item name="壁垒实验型动力装甲" identifier="aic_wardens_bastion_experimental_powerarmor" category="Equipment,Diving" subcategory="卫戍者护甲" tags="mobilecontainer,armor,clothing,diving,deepdiving,divinggear_wearableindoors,human,aic_wardens_armor,aic_fearless" scale="0.167" fireproof="true" damagedbyprojectiles="true" indestructible="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate" description="地球防卫部队在后感染时期研发的实验型动力装甲，表层由超导物质层和护盾电容串联成迈斯纳护盾发生器，可防护金属实弹、荷电粒子、等离子团等各种带电攻击，其自身的材质和装甲则保障了对于激光等武器的防护能力。">
     <PreferredContainer primary="divingsuitcontainer,divingsuitlocker,steelcabinet" />
+    <AICShield enabledtag="aic_bastion_shield_on" batteryslot="2" burnweight="2" drainmultiplier="1" feedback="bastion" />
     <Fabricate suitablefabricators="fabricator" requiredtime="60">
       <RequiredSkill identifier="mechanical" level="70" />
       <RequiredSkill identifier="weapons" level="60" />

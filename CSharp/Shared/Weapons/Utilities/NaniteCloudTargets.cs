@@ -17,7 +17,8 @@ namespace AIC.Components
         private static readonly Dictionary<(int, int), List<(Character character, int order)>> cells = new();
         private static readonly Stack<List<(Character character, int order)>> pool = new();
         private static readonly Dictionary<(Vector2, float), List<Character>> queries = new();
-        private static readonly List<(Character character, int order)> selected = new();
+        private static readonly List<List<Character>> retired = new();
+        private static int readers;
         private static double builtAt = double.NaN;
         private static int characterCount;
         private const float CellSize = 200;
@@ -36,6 +37,8 @@ namespace AIC.Components
                     prefix: new HarmonyMethod(typeof(NaniteCloudTargets), nameof(AddTargets)));
                 harmony.Patch(AccessTools.Method(typeof(Character), nameof(Character.TeleportTo)),
                     postfix: new HarmonyMethod(typeof(NaniteCloudTargets), nameof(Invalidate)));
+                harmony.Patch(AccessTools.Method(typeof(GameSession), "EndRound"),
+                    postfix: new HarmonyMethod(typeof(NaniteCloudTargets), nameof(ClearCaches)));
             }
             catch (Exception error)
             {
@@ -48,8 +51,31 @@ namespace AIC.Components
         public void Dispose()
         {
             harmony?.UnpatchSelf(); harmony = null;
-            effects = new(); cells.Clear(); pool.Clear(); queries.Clear(); selected.Clear();
+            ClearCaches();
+            effects = new(); pool.Clear();
             builtAt = double.NaN;
+        }
+        private static void ClearCaches()
+        {
+            ClearQueries();
+            foreach (var entries in cells.Values) { entries.Clear(); pool.Push(entries); }
+            cells.Clear(); characterCount = 0;
+        }
+        private static void ClearQueries()
+        {
+            foreach (var list in queries.Values)
+            {
+                if (readers == 0) ScratchLists<Character>.Return(list);
+                else retired.Add(list);
+            }
+            queries.Clear();
+            builtAt = double.NaN;
+        }
+        private static void ReturnRetired()
+        {
+            if (readers != 0) return;
+            foreach (var list in retired) ScratchLists<Character>.Return(list);
+            retired.Clear();
         }
         private static void Register(StatusEffect __instance, ContentXElement element)
         {
@@ -68,28 +94,43 @@ namespace AIC.Components
             var key = (worldPosition, range);
             if (!queries.TryGetValue(key, out var nearby))
             {
-                selected.Clear();
-                for (int x = Cell(worldPosition.X - range); x <= Cell(worldPosition.X + range); x++)
-                for (int y = Cell(worldPosition.Y - range); y <= Cell(worldPosition.Y + range); y++)
-                    if (cells.TryGetValue((x, y), out var entries))
-                        foreach (var entry in entries)
-                            if (Vector2.DistanceSquared(entry.character.WorldPosition, worldPosition) < range * range)
-                                selected.Add(entry);
-                selected.Sort((a, b) => a.order.CompareTo(b.order));
-                nearby = new List<Character>(selected.Count);
-                foreach (var entry in selected) nearby.Add(entry.character);
-                queries.Add(key, nearby);
+                var selected = ScratchLists<(Character character, int order)>.Rent();
+                nearby = ScratchLists<Character>.Rent();
+                bool committed = false;
+                try
+                {
+                    for (int x = Cell(worldPosition.X - range); x <= Cell(worldPosition.X + range); x++)
+                    for (int y = Cell(worldPosition.Y - range); y <= Cell(worldPosition.Y + range); y++)
+                        if (cells.TryGetValue((x, y), out var entries))
+                            foreach (var entry in entries)
+                                if (Vector2.DistanceSquared(entry.character.WorldPosition, worldPosition) < range * range)
+                                    selected.Add(entry);
+                    selected.Sort(static (a, b) => a.order.CompareTo(b.order));
+                    foreach (var entry in selected) nearby.Add(entry.character);
+                    queries.Add(key, nearby);
+                    committed = true;
+                }
+                finally
+                {
+                    ScratchLists<(Character character, int order)>.Return(selected);
+                    if (!committed) ScratchLists<Character>.Return(nearby);
+                }
             }
-            foreach (var character in nearby)
-                if (character.Enabled && !character.Removed
-                    && Vector2.DistanceSquared(character.WorldPosition, worldPosition) < range * range
-                    && __instance.IsValidTarget(character)) targets.Add(character);
+            readers++;
+            try
+            {
+                foreach (var character in nearby)
+                    if (character.Enabled && !character.Removed
+                        && Vector2.DistanceSquared(character.WorldPosition, worldPosition) < range * range
+                        && __instance.IsValidTarget(character)) targets.Add(character);
+            }
+            finally { readers--; ReturnRetired(); }
             return false;
         }
         private static void Rebuild()
         {
             foreach (var entries in cells.Values) { entries.Clear(); pool.Push(entries); }
-            cells.Clear(); queries.Clear(); selected.Clear();
+            cells.Clear(); ClearQueries();
             int order = 0;
             foreach (var character in Character.CharacterList)
             {

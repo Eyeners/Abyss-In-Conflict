@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="试制贯穿投矛" identifier="aic_pinning_spear" category="Weapon" tags="weapon,largeitem"
+        description="沉重的投矛，足以带着猎物的躯体钉入舱壁。"
+        scale="0.55" maxstacksize="4" maxstacksizecharacterinventory="4" isshootable="true" requireaimtouse="true" impactsoundtag="impact_metal_light">
+    <InventoryIcon texture="%ModDir%/Items/Weapons/pinning_spear_icon.png" sourcerect="0,0,64,64" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/Weapons/pinning_spear.png" sourcerect="0,0,260,40" origin="0.5,0.5" depth="0.55" />
+    <Body width="120" height="22" density="20" />
+    <Holdable slots="Any,RightHand" controlpose="true" aimpos="25,40" handle1="10,0" aimangle="0"
+              msg="ItemMsgPickUpSelect" canBeCombined="true" />
+    <PinningSpear characterusable="true" maxtargets="1" pinduration="8" flightduration="8" breakdistance="5" tipoffset="130"
+                  carryspeed="8" carryacceleration="16" carryduration="1.5">
+      <Attack penetration="0.4">
+        <Affliction identifier="lacerations" strength="40" />
+        <Affliction identifier="bleeding" strength="12" />
+        <Affliction identifier="stun" strength="2" />
+      </Attack>
+    </PinningSpear>
+  </Item>
+</Items>

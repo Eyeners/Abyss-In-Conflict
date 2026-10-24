@@ -74,6 +74,7 @@ namespace AIC.Components
             }
 #endif
             Vector2 direction = Vector2.Zero;
+            if (FoehnJetJump.Equipped(user)?.Flying == true) return;
             if (user.IsKeyDown(InputType.Up)) direction.Y += 1;
             if (user.IsKeyDown(InputType.Down)) direction.Y -= 1;
             if (user.IsKeyDown(InputType.Left)) direction.X -= 1;

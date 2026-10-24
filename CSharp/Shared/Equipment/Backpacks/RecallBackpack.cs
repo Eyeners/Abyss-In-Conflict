@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace AIC.Components
 {
-    partial class RecallBackpack : ItemComponent, IClientSerializable
+    partial class RecallBackpack : ItemComponent, IClientSerializable, IServerSerializable
     {
         private sealed class RecallState { internal bool Locked; internal double NextUse; }
         private static readonly ConditionalWeakTable<Character, RecallState> States = new ConditionalWeakTable<Character, RecallState>();
@@ -22,6 +22,8 @@ namespace AIC.Components
         [Serialize(false, IsPropertySaveable.Yes)] public bool FailureTriggered { get; set; }
         [Serialize(0, IsPropertySaveable.Yes)] public int FailureJumpsRemaining { get; set; }
         private float failureTimer;
+        private Action pendingTeleport;
+        private double teleportAt;
         private readonly BackpackHitbox hitbox = new BackpackHitbox();
         private float timer;
         private double nextAICheck;
@@ -49,6 +51,13 @@ namespace AIC.Components
             UpdateReleaseInput(user, deltaTime, cam);
 #endif
             if (GameMain.NetworkMember?.IsClient == true) return;
+            if (pendingTeleport != null)
+            {
+                if (Timing.TotalTime < teleportAt) return;
+                var complete = pendingTeleport; pendingTeleport = null;
+                complete();
+                return;
+            }
             if (UpdateFailure(user, deltaTime)) return;
             UpdateCoreLoading(user);
             if (!Worn(user)) { recoveryUser = null; return; }
@@ -85,6 +94,7 @@ namespace AIC.Components
             CancelReleaseInput();
 #endif
             hitbox.Release();
+            pendingTeleport = null;
             if (loadCore != null) loadCore.Abandon = true;
         }
 
@@ -621,7 +631,7 @@ namespace AIC.Components
         private void Recall(Character user, bool automatic, Vector2 cursor = default, bool aiJump = false,
             bool navigationRecovery = false)
         {
-            if (!Worn(user) || FailureJumpsRemaining > 0 || (!FailureTriggered && Item.ConditionPercentage <= 10)
+            if (pendingTeleport != null || !Worn(user) || FailureJumpsRemaining > 0 || (!FailureTriggered && Item.ConditionPercentage <= 10)
                 || GameMain.NetworkMember?.IsClient == true || (!automatic && user.IsIncapacitated)) return;
             var state = States.GetValue(user, _ => new RecallState());
             if ((!navigationRecovery && Timing.TotalTime < state.NextUse) || (automatic && state.Locked)) return;
@@ -653,18 +663,34 @@ namespace AIC.Components
             var blast = ItemPrefab.Find(null, "aic_temporal_rupture".ToIdentifier());
             if (Entity.Spawner == null || sound == null || (jump && blast == null)) return;
             destination = ApplyDrift(user, destination, jump);
-
-            MoveUser(user, destination);
+            PublishVisual(user.WorldPosition, destination, 1);
+            teleportAt = Timing.TotalTime + 0.3;
+            pendingTeleport = () =>
+            {
+            if (!Worn(user) || core.Removed || core.Condition < cost
+                || Item.GetComponent<ItemContainer>()?.Inventory.GetItemAt(0) != core) return;
+            MoveUser(user, destination, true);
             hitbox.Update(Item, user);
             core.Condition -= cost;
             if (core.Condition <= 0) Entity.Spawner.AddItemToRemoveQueue(core);
             Entity.Spawner.AddItemToSpawnQueue(sound, destination);
             if (jump) ApplyJumpDisorder(user, blast, destination);
             if (automatic || user.Vitality <= 0) state.Locked = true;
+            };
         }
 
-        private void MoveUser(Character user, Vector2 destination)
+        private void PublishVisual(Vector2 departure, Vector2 destination, byte stage)
         {
+#if CLIENT
+            SonicRefraction.AddTeleport(departure, destination, stage);
+#endif
+#if SERVER
+            Item.CreateServerEvent(this, new TeleportVisual(departure, destination, stage));
+#endif
+        }
+        private void MoveUser(Character user, Vector2 destination, bool prepared = false)
+        {
+            Vector2 departure = user.WorldPosition;
             var carried = user.IsPlayer ? user.SelectedCharacter : null;
             if (carried == user || carried?.Removed == true || carried?.AnimController == null
                 || !CanCarryMass(user.Mass, carried.Mass)) carried = null;
@@ -674,6 +700,7 @@ namespace AIC.Components
             // Move both ragdolls in the same update without clearing SelectedCharacter.
             // Leave the grabbing relationship intact for the native animation update.
             if (carried != null) MoveCharacter(carried, carriedDestination);
+            PublishVisual(departure, destination, prepared ? (byte)2 : (byte)0);
             if (user.IsAIControlled)
             {
                 recoveryUser = user;
@@ -738,7 +765,11 @@ namespace AIC.Components
                     health.ApplyAffliction(null, prefab.Instantiate(strength, user));
             }
         }
+        private sealed record TeleportVisual(Vector2 Departure, Vector2 Arrival, byte Stage = 0) : ItemComponent.IEventData;
 #if CLIENT
+        public void ClientEventRead(IReadMessage msg, float sendingTime)
+            => SonicRefraction.AddTeleport(new Vector2(msg.ReadSingle(), msg.ReadSingle()),
+                new Vector2(msg.ReadSingle(), msg.ReadSingle()), msg.ReadByte());
         private sealed record JumpRequest(Vector2 Cursor) : ItemComponent.IEventData;
         public void ClientEventWrite(IWriteMessage msg, NetEntityEvent.IData extraData = null)
         {
@@ -749,6 +780,14 @@ namespace AIC.Components
         }
 #endif
 #if SERVER
+        public void ServerEventWrite(IWriteMessage msg, Client client, NetEntityEvent.IData extraData = null)
+        {
+            var visual = extraData is Item.ComponentStateEventData data && data.ComponentData is TeleportVisual v
+                ? v : new TeleportVisual(Item.WorldPosition, Item.WorldPosition);
+            msg.WriteSingle(visual.Departure.X); msg.WriteSingle(visual.Departure.Y);
+            msg.WriteSingle(visual.Arrival.X); msg.WriteSingle(visual.Arrival.Y);
+            msg.WriteByte(visual.Stage);
+        }
         public void ServerEventRead(IReadMessage msg, Client client)
         {
             var cursor = new Vector2(msg.ReadSingle(), msg.ReadSingle());

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Particles>
+  <aic_cnc_vortex_glow lifetime="0.8" startsizemin="0.07,0.14" startsizemax="0.07,0.14" sizechangemin="0,0.29" sizechangemax="0,0.29" startcolor="190,210,255,220" endcolor="120,150,255,0" drag="0" waterdrag="0" velocitychange="0,0" velocitychangewater="0,0" blendstate="Additive" usecollision="false" drawtarget="Both" drawontop="true" draworder="Foreground" priority="5">
+    <sprite texture="%ModDir%/Particles/CNC3/FXNukeMarkA.png" sourcerect="0,0,512,512" origin="0.5,0.5" />
+  </aic_cnc_vortex_glow>
+  <aic_cnc_vortex_halo lifetime="0.8" startsizemin="0.22,0.55" startsizemax="0.22,0.55" sizechangemin="0,1.15" sizechangemax="0,1.15" startcolor="150,170,255,100" endcolor="100,130,255,0" drag="0" waterdrag="0" velocitychange="0,0" velocitychangewater="0,0" blendstate="Additive" usecollision="false" drawtarget="Both" drawontop="true" draworder="Foreground" priority="5">
+    <sprite texture="%ModDir%/Particles/CNC3/FXLenzFlare02.png" sourcerect="0,0,128,128" origin="0.5,0.5" />
+  </aic_cnc_vortex_halo>
+  <aic_cnc_rail lifetime="0.75" startsizemin="1,0.1" startsizemax="1,0.1" startcolor="220,240,255,255" endcolor="70,120,255,0" blendstate="Additive" usecollision="false" drawtarget="Both">
+    <sprite texture="%ModDir%/Particles/CNC3/FXRailgunThread_horizontal.png" sourcerect="0,0,256,64" origin="0.5,0.5" />
+  </aic_cnc_rail>
+  <aic_cnc_sonic lifetime="0.18" startsizemin="0.07,0.14" startsizemax="0.07,0.14" sizechangemin="0.1,0.9" sizechangemax="0.1,0.9" startcolor="150,170,255,120" endcolor="150,170,255,0" blendstate="Additive" usecollision="false" drawtarget="Both">
+    <sprite texture="%ModDir%/Particles/CNC3/FXNukeMarkA.png" sourcerect="0,0,512,512" origin="0.5,0.5" />
+  </aic_cnc_sonic>
+</Particles>

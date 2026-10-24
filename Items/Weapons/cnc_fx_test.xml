@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="CNC轨道炮测试燃料棒" identifier="aic_cnc_rail_test" category="Fuel" tags="smallitem,aic_test_ammo" scale="0.5" indestructible="true">
+    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="410,1,19,68" depth="0.55" />
+    <Body radius="6" height="55" density="20" />
+    <Holdable slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+    <ItemContainer capacity="1" hideitems="true" drawinventory="false" canbeselected="false" spawnwithid="aic_cnc_rail_bolt">
+      <Containable items="aic_cnc_rail_bolt" />
+      <StatusEffect type="OnUse" target="This" condition="-25" disabledeltatime="true"><SpawnItem identifiers="aic_cnc_rail_bolt" spawnposition="ThisInventory" /></StatusEffect>
+    </ItemContainer>
+  </Item>
+  <Item name="CNC声波测试燃料棒" identifier="aic_cnc_sonic_test" category="Fuel" tags="smallitem,aic_test_ammo" scale="0.5" indestructible="true">
+    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="410,1,19,68" depth="0.55" />
+    <Body radius="6" height="55" density="20" />
+    <Holdable slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+    <ItemContainer capacity="1" hideitems="true" drawinventory="false" canbeselected="false" spawnwithid="aic_cnc_sonic_bolt">
+      <Containable items="aic_cnc_sonic_bolt" />
+      <StatusEffect type="OnUse" target="This" condition="-25" disabledeltatime="true"><SpawnItem identifiers="aic_cnc_sonic_bolt" spawnposition="ThisInventory" /></StatusEffect>
+    </ItemContainer>
+  </Item>
+  <Item name="CNC轨道束" identifier="aic_cnc_rail_bolt" category="Weapon" hideinmenus="true">
+    <Sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="106,75,1,1" />
+    <Body width="1" height="1" density="1" />
+    <Projectile hitscan="true" removeonhit="true" maxtargetstohit="1">
+      <Attack><Affliction identifier="burn" strength="10" /></Attack>
+      <StatusEffect type="OnNotContained" target="This" delay="1"><Remove /></StatusEffect>
+    </Projectile>
+    <RailThreadVisual threadspergroup="3" threadamplitude="28" corehalfwidth="12" threadhalfwidth="2">
+      <sprite texture="%ModDir%/Particles/CNC3/FXRailgunThread_horizontal.png" sourcerect="0,0,256,64" origin="0.5,0.5" />
+    </RailThreadVisual>
+  </Item>
+  <Item name="CNC声波弹" identifier="aic_cnc_sonic_bolt" category="Weapon" hideinmenus="true" spritecolor="255,255,255,0">
+    <Sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="106,75,1,1" />
+    <Body width="4" height="4" density="10" gravityscale="0" />
+    <Projectile launchimpulse="15" removeonhit="true" maxtargetstohit="1">
+      <Attack><Affliction identifier="internaldamage" strength="10" /></Attack>
+      <StatusEffect type="OnNotContained" target="This"><ParticleEmitter particle="aic_cnc_sonic" particlespersecond="10" copyentityangle="true" copyentitydir="false" /></StatusEffect>
+      <StatusEffect type="OnNotContained" target="This" delay="1.5"><Remove /></StatusEffect>
+    </Projectile>
+  </Item>
+  <Item name="裂隙洪流测试燃料棒" identifier="aic_rift_test" category="Fuel" tags="smallitem,aic_test_ammo" scale="0.5" indestructible="true">
+    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="410,1,19,68" depth="0.55" color="160,90,255,255" />
+    <Body radius="6" height="55" density="20" />
+    <Holdable slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+    <ItemContainer capacity="1" hideitems="true" drawinventory="false" canbeselected="false" spawnwithid="aic_rift_test_bolt">
+      <Containable items="aic_rift_test_bolt" />
+      <StatusEffect type="OnUse" target="This" condition="-25" disabledeltatime="true"><SpawnItem identifiers="aic_rift_test_bolt" spawnposition="ThisInventory" /></StatusEffect>
+    </ItemContainer>
+  </Item>
+  <Item name="裂隙洪流测试束" identifier="aic_rift_test_bolt" category="Weapon" hideinmenus="true" spritecolor="255,255,255,0">
+    <Sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="106,75,1,1" />
+    <Body width="1" height="1" density="1" gravityscale="0" />
+    <Projectile hitscan="true" removeonhit="false" maxtargetstohit="1">
+      <Attack><Affliction identifier="burn" strength="1" /></Attack>
+      <StatusEffect type="OnNotContained" target="This" delay="2"><Remove /></StatusEffect>
+    </Projectile>
+    <RiftCascadeTest />
+  </Item>
+  <Item name="裂隙测试节点" identifier="aic_rift_test_node" category="Weapon" hideinmenus="true" spritecolor="255,255,255,0">
+    <Sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="106,75,1,1" />
+    <RiftCascadeTest node="true">
+      <StatusEffect type="OnActive" target="This" stackable="false">
+        <Explosion range="120" force="0" camerashake="0" structuredamage="0" itemdamage="0" levelwalldamage="0" flames="false" smoke="false" sparks="false" shockwave="false" underwaterbubble="false">
+          <Affliction identifier="burn" strength="5" />
+        </Explosion>
+      </StatusEffect>
+      <StatusEffect type="OnActive" target="This" delay="3" stackable="false"><Remove /></StatusEffect>
+    </RiftCascadeTest>
+  </Item>
+</Items>

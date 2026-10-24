@@ -17,7 +17,7 @@
     </Projectile>
     <!-- Distances/speed in display units: 100 = 1 metre. Each side travels 6 metres. -->
     <!-- wavedirection: Both / AwayFromAttacker / Left / Right / ProjectileDirection -->
-    <AICShockwaveGrenade debugwave="false" wavedirection="Both" waverange="600" wavespeed="400" camerashake="3" horizontalimpulse="30" upwardimpulse="15" maxvelocitychange="10" maxpushspeed="10">
+    <AICShockwaveGrenade debugwave="false" distortionvisual="true" distortionscale="1.2" distortionstrength="1.25" wavedirection="Both" waverange="600" wavespeed="400" camerashake="3" horizontalimpulse="30" upwardimpulse="15" maxvelocitychange="10" maxpushspeed="10">
       <!-- Cached native Attack: limb and worn armor modifiers apply to each wave hit. -->
       <Attack>
         <Affliction identifier="blunttrauma" strength="30" />

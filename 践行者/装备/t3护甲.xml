@@ -2,6 +2,7 @@
 <Items>
   <Item name="执政官重型装甲" identifier="aic_practitioner_archon_heavy_armor" category="Equipment,Diving" subcategory="践行者护甲" tags="mobilecontainer,armor,clothing,diving,deepdiving,divinggear_wearableindoors,human,aic_practitioner_armor,aic_fearless" scale="0.167" fireproof="true" damagedbyprojectiles="true" indestructible="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate" description="践行者为高威胁正面作战制造的一体式重型装甲。厚重的复合防护层覆盖全身，并为穿戴者提供实验级战场防护。">
     <PreferredContainer primary="divingsuitcontainer,divingsuitlocker,steelcabinet" />
+    <AICShield enabledtag="aic_archon_shield_on" batteryslot="2" minimumdamage="20" minimumpenetration="0.2" fixeddrain="25" onceperprojectile="true" feedback="archon" />
     <InventoryIcon texture="%ModDir%/践行者/贴图/执政官重型装甲.png" sourcerect="1354,65,328,312" scale="0.2" origin="0.5,0.5" />
     <Sprite name="Archon Heavy Armor Item" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" sourcerect="1548,437,586,739" depth="0.55" origin="0.5,0.5" />
     <ContainedSprite name="Archon Heavy Armor In Diving Locker" allowedcontainertags="divingsuitcontainervertical,divingsuitcontainerwindow" texture="%ModDir%/践行者/贴图/执政官重型装甲.png" sourcerect="2158,29,238,652" depth="0.55" origin="-0.12,-0.117" />

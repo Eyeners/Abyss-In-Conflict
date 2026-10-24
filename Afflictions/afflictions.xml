@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Afflictions>
+  <!-- Glare affects the afflicted shooter's outgoing projectiles, not incoming attacks. -->
+  <Affliction name="眩光" identifier="aic_projectile_evasion" description="使自身射出的射弹发生射失并增加散布。每点强度增加2%射失概率，最高30点、60%；每秒衰减2点。散布惩罚为同强度压制的三分之一。" type="debuff" isbuff="false" limbspecific="false" indicatorlimb="Head" maxstrength="30" activationthreshold="0" showiconthreshold="0.1" showicontoothersthreshold="0.1" showinhealthscannerthreshold="0.1" affectmachines="true" resetbetweenrounds="true" healableinmedicalclinic="false">
+    <Effect minstrength="0" maxstrength="5" strengthchange="-2"><StatValue stattype="RangedSpreadReduction" value="-0.11666667" /></Effect>
+    <Effect minstrength="5" maxstrength="10" strengthchange="-2"><StatValue stattype="RangedSpreadReduction" value="-0.2" /></Effect>
+    <Effect minstrength="10" maxstrength="15" strengthchange="-2"><StatValue stattype="RangedSpreadReduction" value="-0.28333333" /></Effect>
+    <Effect minstrength="15" maxstrength="20" strengthchange="-2"><StatValue stattype="RangedSpreadReduction" value="-0.36666667" /></Effect>
+    <Effect minstrength="20" maxstrength="25" strengthchange="-2"><StatValue stattype="RangedSpreadReduction" value="-0.5" /></Effect>
+    <Effect minstrength="25" maxstrength="30" strengthchange="-2"><StatValue stattype="RangedSpreadReduction" value="-0.66666667" /></Effect>
+    <icon texture="%ModDir%/UI/glare.png" sourcerect="0,0,128,128" color="255,255,255,255" origin="0,0" />
+  </Affliction>
   <Affliction identifier="aic_clone_chamber_warning" type="debuff" limbspecific="false" maxstrength="2" activationthreshold="0" showiconthreshold="3" showicontoothersthreshold="3" showinhealthscannerthreshold="3" affectmachines="true" resetbetweenrounds="true" healableinmedicalclinic="false">
     <Effect minstrength="0" maxstrength="2" strengthchange="-1" minafflictionoverlayalphamultiplier="0" maxafflictionoverlayalphamultiplier="1" />
     <AfflictionOverlay texture="%ModDir%/UI/clone_chamber_warning.png" color="200,50,50,225" />
@@ -92,9 +102,6 @@
   <Affliction name="夜视" identifier="aic_nightvision" type="none" isbuff="true" limbspecific="false" indicatorlimb="Head" maxstrength="100" showiconthreshold="infinity">
     <Effect minstrength="0" maxstrength="100" multiplybymaxvitality="true" graincolor="0,0,0,255" mingrainstrength="2.95" maxgrainstrength="3.05" minscreenblur="0.095" maxscreenblur="0.105" strengthchange="-50" />
   </Affliction>
-  <AfflictionHusk name="纳米集群护盾附肢" identifier="aic_nanocluster_shield_appendage" type="buff" isbuff="true" limbspecific="false" indicatorlimb="Torso" targets="human" huskedspeciesname="[speciesname]_aic_nanocluster_shield" needsair="true" causespeechimpediment="false" sendmessages="false" controlhusk="false" transferbuffs="false" dormantthreshold="0.01" activethreshold="0.01" transitionthreshold="1000" transformthresholdondeath="1000" maxstrength="1" duration="0.75" treatmentthreshold="1000" healableinmedicalclinic="false" showiconthreshold="infinity" showicontoothersthreshold="infinity" showinhealthscannerthreshold="infinity">
-    <Effect minstrength="0" maxstrength="1" />
-  </AfflictionHusk>
   <Affliction name="助力外骨骼" identifier="aic_wardens_assisted_exoskeleton" type="talentbuff" isbuff="true" limbspecific="false" indicatorlimb="Torso" hideiconafterdelay="true" maxstrength="1" duration="2" treatmentthreshold="1000" iconcolors="33,75,78;126,211,224;126,211,224;227,247,249" showiconthreshold="infinity" showicontoothersthreshold="infinity" showinhealthscannerthreshold="0.01">
     <Effect minstrength="0" maxstrength="1">
       <StatValue stattype="MeleeAttackMultiplier" value="0.4" />
@@ -270,8 +277,8 @@
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" color="220,140,70,255" origin="0,0" />
   </Affliction>
   <Affliction name="纳米机械感染" identifier="aic_nanite_infection" description="纳米机械正在沿着受创肢体持续增殖。" type="none" limbspecific="true" activationthreshold="1.0" showiconthreshold="1" showinhealthscannerthreshold="1" treatmentthreshold="1000" maxstrength="100" affectmachines="true">
-    <Effect minstrength="0" maxstrength="30" strengthchange="0.5" minbodytint="255,20,80,90" maxbodytint="255,30,120,140" />
-    <Effect minstrength="30" maxstrength="60" strengthchange="1" minbodytint="255,30,120,140" maxbodytint="255,60,170,190">
+    <Effect minstrength="0" maxstrength="30" strengthchange="0.5" />
+    <Effect minstrength="30" maxstrength="60" strengthchange="1">
       <StatusEffect target="Limb" disabledeltatime="true" interval="1">
         <Affliction identifier="aic_nanite_erosion" amount="1" />
       </StatusEffect>
@@ -279,7 +286,7 @@
         <Affliction identifier="aic_nanite_diffusion" amount="1" />
       </StatusEffect>
     </Effect>
-    <Effect minstrength="60" maxstrength="100" strengthchange="3" minbodytint="255,60,170,190" maxbodytint="255,90,220,255">
+    <Effect minstrength="60" maxstrength="100" strengthchange="3">
       <StatusEffect target="Limb" disabledeltatime="true" interval="1">
         <Affliction identifier="aic_nanite_erosion" amount="2" />
       </StatusEffect>
@@ -301,9 +308,9 @@
     </Effect>
   </Affliction>
   <Affliction name="纳米机械侵蚀" identifier="aic_nanite_erosion" description="失控的纳米机械正在侵蚀组织和器材表层。" type="damage" limbspecific="true" activationthreshold="0.1" showiconthreshold="0.1" showinhealthscannerthreshold="0.1" maxstrength="200" healcostmultiplier="1.0" MedicalSkillGain="1.0" affectmachines="true">
-    <Effect minstrength="0" maxstrength="50" strengthchange="-0.02" multiplybymaxvitality="true" minbodytint="255,0,0,0" maxbodytint="255,20,90,110" minvitalitydecrease="0" maxvitalitydecrease="0.5" />
-    <Effect minstrength="50" maxstrength="100" strengthchange="-0.04" multiplybymaxvitality="true" minbodytint="255,20,90,110" maxbodytint="255,35,130,165" minvitalitydecrease="0.5" maxvitalitydecrease="1.0" />
-    <Effect minstrength="100" maxstrength="200" strengthchange="-0.06" multiplybymaxvitality="true" minbodytint="255,35,130,165" maxbodytint="255,60,190,255" minvitalitydecrease="1.0" maxvitalitydecrease="2.0" />
+    <Effect minstrength="0" maxstrength="50" strengthchange="-0.02" multiplybymaxvitality="true" minvitalitydecrease="0" maxvitalitydecrease="0.5" />
+    <Effect minstrength="50" maxstrength="100" strengthchange="-0.04" multiplybymaxvitality="true" minvitalitydecrease="0.5" maxvitalitydecrease="1.0" />
+    <Effect minstrength="100" maxstrength="200" strengthchange="-0.06" multiplybymaxvitality="true" minvitalitydecrease="1.0" maxvitalitydecrease="2.0" />
     <icon texture="%ModDir%/UI/纳米侵蚀.png" sourcerect="0,0,128,128" color="255,255,255,255" origin="0,0" />
   </Affliction>
   <Affliction name="微小奇迹" identifier="aic_minor_miracle" description="纳米机械剂量在全身累加，持续封闭伤口、清除异物并修复所有肢体的受损组织。" type="buff" isbuff="true" limbspecific="false" indicatorlimb="Torso" activationthreshold="0.1" showiconthreshold="0.1" showinhealthscannerthreshold="0.1" treatmentthreshold="1000" maxstrength="500" affectmachines="true">
@@ -478,5 +485,17 @@
   <Affliction identifier="aic_panic" name="恐慌" type="aic_panic" isbuff="false" limbspecific="false" maxstrength="5" activationthreshold="0" showiconthreshold="0.1" showinhealthscannerthreshold="0.1" affectmachines="false" resetbetweenrounds="true">
     <Effect minstrength="0" maxstrength="5" strengthchange="-1" />
     <icon texture="%ModDir%/UI/Talents/brutal_slaughter.png" sourcerect="0,0,320,320" color="240,120,65,255" origin="0,0" />
+  </Affliction>
+  <Affliction identifier="aic_active_crawl" name="主动匍匐" type="buff" isbuff="true" limbspecific="false" maxstrength="1" activationthreshold="0.1" showiconthreshold="2" showicontoothersthreshold="2" showinhealthscannerthreshold="2" affectmachines="true">
+    <Effect minstrength="0" maxstrength="1">
+      <StatusEffect target="Character">
+        <Conditional IsHumanoid="true" />
+        <Conditional IsDead="false" />
+        <Conditional IsIncapacitated="false" />
+        <Conditional IsClimbing="false" />
+        <Conditional InWater="false" />
+        <TriggerAnimation Type="Crouch" path="%ModDir%/Characters/Human/Animations/AICProneCrouch.xml" priority="9" ExpectedSpecies="Human" />
+      </StatusEffect>
+    </Effect>
   </Affliction>
 </Afflictions>

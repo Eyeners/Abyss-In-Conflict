@@ -39,6 +39,13 @@ namespace AIC.Components
         private static bool cachedShowDead, reportedError;
         private static double nextRefresh;
         private static Vector2 viewCenter, viewSize;
+        private const float FoehnCandidateInterval = 0.1f, FoehnCandidatePadding = 512;
+        private static readonly List<Character> foehnCandidates = new();
+        private static Character foehnUser;
+        private static GameSession foehnSession;
+        private static Vector2 foehnOrigin;
+        private static int foehnCharacterCount;
+        private static double foehnNextRefresh;
         private Harmony harmony;
 
         public void Initialize()
@@ -53,6 +60,8 @@ namespace AIC.Components
                     prefix: new HarmonyMethod(typeof(ForesightGridThermal), nameof(DrawGrid)));
                 harmony.Patch(AccessTools.Method(typeof(GameSession), "EndRound"),
                     postfix: new HarmonyMethod(typeof(ForesightGridThermal), nameof(Clear)));
+                harmony.Patch(AccessTools.Method(typeof(Character), nameof(Character.TeleportTo)),
+                    postfix: new HarmonyMethod(typeof(ForesightGridThermal), nameof(InvalidateFoehn)));
             }
             catch (Exception error)
             {
@@ -71,6 +80,26 @@ namespace AIC.Components
                 : __instance.Item.Prefab.Identifier == "aic_wardens_gdf_foehn_powerarmor" ? (byte)2 : (byte)0;
         }
         private static void EndHud(byte __state) { replacingThermal = __state; }
+        private static void InvalidateFoehn() => foehnUser = null;
+
+        private static void RefreshFoehnCandidates(Character user)
+        {
+            Vector2 origin = user.WorldPosition;
+            if (foehnUser == user && foehnSession == GameMain.GameSession
+                && foehnCharacterCount == Character.CharacterList.Count && Timing.TotalTime < foehnNextRefresh
+                && Vector2.DistanceSquared(origin, foehnOrigin) <= 256 * 256) return;
+            foehnCandidates.Clear();
+            float reach = Range + FoehnCandidatePadding;
+            foreach (var target in Character.CharacterList)
+                if (target != user && !target.Removed
+                    && Vector2.DistanceSquared(origin, target.WorldPosition) <= reach * reach)
+                    foehnCandidates.Add(target);
+            // Cache character references only. Limbs, teams, alive state and draw
+            // positions remain live, including after armour recreates a ragdoll.
+            foehnUser = user; foehnSession = GameMain.GameSession; foehnOrigin = origin;
+            foehnCharacterCount = Character.CharacterList.Count;
+            foehnNextRefresh = Timing.TotalTime + FoehnCandidateInterval;
+        }
 
         private static bool DrawGrid(SpriteBatch spriteBatch, Character user, bool showDeadCharacters)
         {
@@ -131,28 +160,37 @@ namespace AIC.Components
 
         private static bool DrawFoehn(SpriteBatch spriteBatch, Character user, bool showDead)
         {
+            RefreshFoehnCandidates(user);
+            var camera = Screen.Selected.Cam;
+            var view = camera.WorldView;
+            Vector2 viewHalf = new Vector2(view.Width, view.Height) * 0.5f;
+            Vector2 viewCenter = new Vector2(view.X + viewHalf.X, view.Y - viewHalf.Y);
             spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, transformMatrix: Screen.Selected.Cam.Transform);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, transformMatrix: camera.Transform);
             try
             {
                 var sprite = GUIStyle.UIThermalGlow.Value.Sprite;
-                foreach (var target in Character.CharacterList)
+                foreach (var target in foehnCandidates)
                 {
                     // Deliberately include HideInThermalGoggles targets, as with the Foresight scanner.
                     if (target == user || target.Removed || !target.Enabled || target.AnimController == null
                         || (!showDead && target.IsDead)
                         || Vector2.DistanceSquared(user.WorldPosition, target.WorldPosition) > Range * Range) continue;
                     Color color = user.TeamID != CharacterTeamType.None && user.TeamID == target.TeamID
-                        ? Color.LimeGreen : user.IsOnFriendlyTeam(target) ? Color.Cyan : Color.OrangeRed;
+                        ? new Color(100, 190, 255, 90)
+                        : user.IsOnFriendlyTeam(target) ? new Color(235, 245, 255, 80) : new Color(255, 75, 75, 95);
                     foreach (var limb in target.AnimController.Limbs)
                     {
-                        if (limb.body == null || !limb.body.Enabled
+                        if (limb.Removed || limb.body == null || !limb.body.Enabled
                             || (limb != target.AnimController.MainLimb && limb.Mass < 0.5f)) continue;
                         Vector2 size = ConvertUnits.ToDisplayUnits(limb.body.GetSize()) / sprite.size;
                         Vector2 pos = limb.body.DrawPosition;
                         if (!MathUtils.IsValid(pos) || !MathUtils.IsValid(size)) continue;
-                        sprite.Draw(spriteBatch, new Vector2(pos.X, -pos.Y), color * 0.45f,
-                            0f, Math.Max(size.X, size.Y) * 2f);
+                        float scale = Math.Max(size.X, size.Y) * 2f;
+                        if (scale <= 0 || !float.IsFinite(scale)
+                            || !ThermalView.Intersects(pos, sprite.size * (scale * 0.5f), viewCenter, viewHalf)) continue;
+                        sprite.Draw(spriteBatch, new Vector2(pos.X, -pos.Y), color,
+                            0f, scale);
                     }
                 }
             }
@@ -188,8 +226,7 @@ namespace AIC.Components
                     var shape = new Shape(position, half, rotation, relation);
                     float extentX = Math.Abs(shape.Cosine) * half.X + Math.Abs(shape.Sine) * half.Y;
                     float extentY = Math.Abs(shape.Sine) * half.X + Math.Abs(shape.Cosine) * half.Y;
-                    if (Math.Abs(position.X - center.X) > halfView.X + extentX
-                        || Math.Abs(position.Y - center.Y) > halfView.Y + extentY) continue;
+                    if (!ThermalView.Intersects(position, new Vector2(extentX, extentY), center, halfView)) continue;
                     if (targetLayer == null)
                     {
                         foreach (var layer in layers)
@@ -246,6 +283,8 @@ namespace AIC.Components
         {
             foreach (var layer in layers) layer.Dispose();
             layers.Clear(); cachedUser = null; session = null; nextRefresh = 0;
+            foehnCandidates.Clear(); foehnUser = null; foehnSession = null;
+            foehnNextRefresh = 0; foehnCharacterCount = 0;
         }
     }
 }

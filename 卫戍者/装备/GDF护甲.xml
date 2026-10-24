@@ -103,15 +103,29 @@
       </SubContainer>
     </ItemContainer>
   </Item>
-  <Item name="GDF焚风动力装甲" identifier="aic_wardens_gdf_foehn_powerarmor" category="Equipment,Diving" subcategory="卫戍者护甲" tags="smallitem,armor,clothing,diving,divinggear_wearableindoors,human,aic_wardens_armor,aic_fearless" scale="0.5" fireproof="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate">
+  <Item name="GDF焚风动力装甲" identifier="aic_wardens_gdf_foehn_powerarmor" category="Equipment,Diving" subcategory="卫戍者护甲" tags="largeitem,armor,clothing,diving,divinggear_wearableindoors,human,aic_wardens_armor,aic_fearless" scale="0.20" fireproof="true" allowasextracargo="true" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy" botpriority="5" cargocontaineridentifier="metalcrate">
     <PreferredContainer primary="locker,armcab" secondary="metalcrate" />
-    <InventoryIcon texture="%ModDir%/卫戍者/贴图/GDF_Foehn_Item.png" sourcerect="0,0,264,988" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/卫戍者/贴图/GDF_Foehn_Item.png" sourcerect="0,0,264,988" scale="0.36" depth="0.55" origin="0.5,0.5" />
-    <Body width="80" height="300" density="24" />
-    <Wearable slots="OuterClothes+Head" msg="ItemMsgEquipSelect" displaycontainedstatus="true" canbepicked="true" pickkey="Select">
+    <InventoryIcon texture="%ModDir%/卫戍者/贴图/GDF焚风动力装甲.png" sourcerect="1415,108,190,171" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/卫戍者/贴图/焚风精灵图.png" sourcerect="0,0,653,564" depth="0.55" origin="0.5,0.5" />
+    <FoehnCharge runmultiplier="2" accelerationtime="1.6" minimumhitspeed="5" impactreferencespeed="7" targetcooldown="1" horizontalimpulse="450" upwardimpulse="160" maxvelocitychange="9" impactgainperspeed="0.2" maximpactmultiplier="2" controlgainperspeed="0.1" maxcontrolmultiplier="1.5" hitradiusx="0.85" hitradiusy="1" forwardoffset="0.15">
+      <sprite texture="%ModDir%/卫戍者/贴图/GDF_Foehn_ChargeShield.png" sourcerect="0,0,288,836" />
+      <Attack>
+        <Affliction identifier="blunttrauma" strength="30" />
+        <Affliction identifier="stun" strength="2" />
+      </Attack>
+    </FoehnCharge>
+    <FoehnSlide duration="0.85" cooldown="1.2" deceleration="4" minimumspeed="3" hipdrop="0.08" />
+    <FoehnJetJump cooldown="3" jumpspeed="6" forwardspeed="5" boostacceleration="6" boostholdduration="1" boostduration="0.6" fallspeedlimit="5" landingduration="0.3">
+      <Nozzle limb="Torso" offset="-17,20" amount="2" />
+      <Nozzle limb="LeftLeg" offset="-10,-4" />
+      <Nozzle limb="RightLeg" offset="-10,-4" />
+    </FoehnJetJump>
+    <Body width="653" height="564" density="20" />
+    <ScalingWearable slots="OuterClothes+Head" scalemultiplier="1.1" inheritlightscale="true" msg="ItemMsgEquipSelect" displaycontainedstatus="true" canbepicked="true" pickkey="Select">
       <sprite name="GDF Foehn Head" texture="%ModDir%/卫戍者/贴图/GDF焚风动力装甲.png" limb="Head" sourcerect="1415,108,190,171" origin="0.5,0.5" scale="0.36" hidelimb="true" inheritscale="true" ignoreragdollscale="false" ignoretexturescale="true" ignorelimbscale="true" inheritlimbdepth="true" alphaclipotherwearables="true" hidewearablesoftype="Hair" hideotherwearables="true" depthlimb="RightThigh">
         <!-- PSD assembled head pivot (1920,207.5), light bounds (1900,123); padded light texture 128x160. -->
-        <LightComponent LightColor="255,255,255,255" range="0" LightSpriteScale="0.36" powerconsumption="0" IsOn="true" DrawBehindSubs="false" castshadows="false" alphablend="true" allowingameediting="false">
+        <!-- Preserve worn lamp size: 0.9 * item scale 0.20 = previous 0.36 * 0.5. -->
+        <LightComponent LightColor="255,255,255,255" range="0" LightSpriteScale="0.9" powerconsumption="0" IsOn="true" DrawBehindSubs="false" castshadows="false" alphablend="true" allowingameediting="false">
           <sprite texture="%ModDir%/卫戍者/贴图/GDF焚风头灯.png" origin="0.15625,0.528125" alpha="0.65" />
         </LightComponent>
         <LightComponent LightColor="220,220,220,120" range="5000" castshadows="false" powerconsumption="infinity" IsOn="true" flicker="0.1" flickerspeed="0.5" pulsefrequency="0.1" pulseamount="0.1" />
@@ -185,14 +199,14 @@
       </StatusEffect>
       <StatusEffect type="OnWearing" target="Character" stunresistance="12" setvalue="true" disabledeltatime="true" />
       <StatValue stattype="MaximumHealthMultiplier" value="0.12" />
-      <StatValue stattype="WalkingSpeed" value="0.08" />
+      <StatValue stattype="WalkingSpeed" value="0.1" />
       <StatValue stattype="SwimmingSpeed" value="0.05" />
       <StatValue stattype="FlowResistance" value="0.35" />
       <SkillModifier skillidentifier="weapons" skillvalue="15" />
-    </Wearable>
+    </ScalingWearable>
     <StatusHUD drawhudwhenequipped="true" overlaycolor="0,0,0,0" range="500" thermalgoggles="false" showdeadcharacters="true" showtexts="true" />
-    <CustomInterface canbeselected="true" drawhudwhenequipped="true" allowuioverlap="true" elementstates="false,false">
-      <GuiFrame relativesize="0.12,0.11" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.16" style="ItemUI" />
+    <CustomInterface canbeselected="true" drawhudwhenequipped="true" allowuioverlap="true" elementstates="false,false,true">
+      <GuiFrame relativesize="0.12,0.15" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.16" style="ItemUI" />
       <TickBox text="夜视/热成像">
         <StatusEffect type="OnUse" target="This" targetitemcomponent="LightComponent" HudTint="50,255,50,30" interval="0.1" />
         <StatusEffect type="OnSecondaryUse" target="This" targetitemcomponent="LightComponent" HudTint="0,0,0,0" interval="0.1" />
@@ -207,8 +221,11 @@
           <LuaHook name="aic_foehn_booster_disable" />
         </StatusEffect>
       </TickBox>
+      <TickBox text="冲锋盾">
+        <StatusEffect type="OnUse" target="This" targetitemcomponent="FoehnCharge" DisableImpact="false" setvalue="true" />
+        <StatusEffect type="OnSecondaryUse" target="This" targetitemcomponent="FoehnCharge" DisableImpact="true" setvalue="true" />
+      </TickBox>
     </CustomInterface>
-    <Holdable slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
     <ItemContainer capacity="0" maxstacksize="0" hideitems="true" containedstateindicatorstyle="tank" containedstateindicatorslot="0">
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
       <SubContainer capacity="1" maxstacksize="1">

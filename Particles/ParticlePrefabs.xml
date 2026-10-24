@@ -1,5 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <prefabs>
+  <aic_prism_gold_flash lifetime="0.25" startsizemin="0.35,0.35" startsizemax="0.35,0.35" startcolor="255,220,90,255" endcolor="255,170,30,0" usecollision="false" canentersubs="true" drawtarget="Both" drawontop="true" blendstate="Additive" priority="5">
+    <sprite texture="Content/Lights/pointlight_bright.png" origin="0.5,0.5" />
+  </aic_prism_gold_flash>
+  <aic_teleport_microarc lifetime="0.12" startdelaymin="0" startdelaymax="0.16" startsizemin="0.25,0.12" startsizemax="0.5,0.22" startcolor="170,100,255,220" endcolor="110,150,255,0" usecollision="false" blendstate="Additive" drawtarget="Both" drawontop="true" priority="5">
+    <sprite texture="%ModDir%/Particles/电弧样式2.png" sourcerect="0,0,90,15" origin="0.5,0.5" />
+  </aic_teleport_microarc>
+  <aic_prism_white_beam lifetime="0.2" lifetimemin="0.2" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" drag="0" waterdrag="0" usecollision="false" canentersubs="true" startcolor="255,255,255,255" endcolor="255,255,255,0" drawtarget="Both" drawontop="true" blendstate="Additive" priority="5">
+    <sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="106,75,1,1" origin="0.5,0.5" />
+  </aic_prism_white_beam>
+  <aic_prism_white_impact lifetime="0.15" lifetimemin="0.15" startsizemin="0.05,0.05" startsizemax="0.08,0.08" sizechangemin="0,0" sizechangemax="0,0" usecollision="false" canentersubs="true" startcolor="255,255,255,200" endcolor="255,255,255,0" drawtarget="Both" blendstate="Additive" priority="4">
+    <sprite texture="Content/Lights/pointlight_bright.png" origin="0.5,0.5" />
+  </aic_prism_white_impact>
+  <aic_sonic_ribbon lifetime="0.3" lifetimemin="0.3" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" growtime="0.02" drag="0" waterdrag="0" usecollision="false" startcolor="255,255,255,210" endcolor="255,255,255,0" drawtarget="Both" drawontop="true" blendstate="Additive" priority="5">
+    <sprite texture="%ModDir%/Particles/sonic_ribbon_1.png" sourcerect="0,0,1888,368" origin="0.5,0.5" />
+    <sprite texture="%ModDir%/Particles/sonic_ribbon_2.png" sourcerect="0,0,1888,368" origin="0.5,0.5" />
+    <sprite texture="%ModDir%/Particles/sonic_ribbon_3.png" sourcerect="0,0,1888,368" origin="0.5,0.5" />
+    <sprite texture="%ModDir%/Particles/sonic_ribbon_4.png" sourcerect="0,0,1888,368" origin="0.5,0.5" />
+  </aic_sonic_ribbon>
+  <aic_sonic_ribbon_water lifetime="0.3" lifetimemin="0.3" startsizemin="1,1" startsizemax="1,1" sizechangemin="0,0" sizechangemax="0,0" drag="0" waterdrag="0" usecollision="false" startcolor="0,0,0,0" middlecolor="0,0,0,0" endcolor="0,0,0,0" drawtarget="Both" blendstate="AlphaBlend" priority="5">
+    <sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="106,75,1,1" origin="0.5,0.5" />
+  </aic_sonic_ribbon_water>
+  <aic_sonic_bubbles lifetime="0.8" lifetimemin="0.8" animduration="0.8" loopanim="false" startsizemin="0.5,0.5" startsizemax="0.9,0.9" sizechangemin="0,0" sizechangemax="0,0" growtime="0.08" drag="0.4" waterdrag="0.4" velocitychange="0,0" velocitychangewater="0,1" usecollision="false" canentersubs="true" startcolor="255,255,255,255" endcolor="255,255,255,0" drawtarget="Water" blendstate="Additive" priority="2">
+    <animatedsprite texture="Content/Particles/RisingBubbleSheet.png" sourcerect="0,0,1024,512" columns="8" rows="4" origin="0.5,0.5" premultiplyalpha="false" />
+  </aic_sonic_bubbles>
+  <aic_chisha_flame lifetime="0.95" lifetimemin="0.7" animduration="0.95" loopanim="false" startsizemin="0.18,0.09" startsizemax="0.36,0.18" sizechangemin="0.12,0.06" sizechangemax="0.2,0.1" startrotationmin="-30" startrotationmax="30" drag="0.2" velocitychange="0,0" usecollision="true" deleteoncollision="false" collisionradius="6" invariantcollisionsize="true" friction="0.35" restitution="0.05" startcolor="255,255,220,255" middlecolor="255,190,65,240" usemiddlecolor="true" endcolor="220,65,15,0" drawtarget="Both" blendstate="Additive" priority="3">
+    <animatedsprite texture="Content/Particles/FlameRoundParticleSheet.png" sourcerect="0,0,2048,2048" columns="10" rows="5" origin="0.5,0.5" premultiplyalpha="false" />
+  </aic_chisha_flame>
+  <aic_chisha_ember lifetime="1.2" lifetimemin="0.7" animduration="1.2" loopanim="false" startsizemin="0.06,0.03" startsizemax="0.14,0.07" sizechangemin="-0.02,-0.01" sizechangemax="0,0" drag="0.25" velocitychange="0,-40" usecollision="true" deleteoncollision="false" collisionradius="3" invariantcollisionsize="true" friction="0.5" restitution="0.1" startcolor="255,245,160,255" middlecolor="255,145,25,240" usemiddlecolor="true" endcolor="180,45,0,0" drawtarget="Both" blendstate="Additive" priority="2">
+    <animatedsprite texture="Content/Particles/FlameRoundParticleSheet.png" sourcerect="0,0,2048,2048" columns="10" rows="5" origin="0.5,0.5" premultiplyalpha="false" />
+  </aic_chisha_ember>
+  <aic_chisha_smoke lifetime="1.6" lifetimemin="1.1" animduration="1.6" loopanim="false" startsizemin="0.22,0.22" startsizemax="0.35,0.35" sizechangemin="0.12,0.12" sizechangemax="0.2,0.2" drag="0.4" velocitychange="0,0" usecollision="true" deleteoncollision="false" collisionradius="5" invariantcollisionsize="true" friction="0.4" restitution="0.05" startcolor="110,90,65,60" middlecolor="85,75,65,150" usemiddlecolor="true" endcolor="55,50,45,0" drawtarget="Both" blendstate="AlphaBlend" priority="2">
+    <animatedsprite texture="Content/Particles/SmokeParticleSheet.png" sourcerect="0,0,1024,1024" columns="5" rows="5" origin="0.5,0.5" />
+  </aic_chisha_smoke>
+  <aic_atmos_jet_trail lifetime="0.09" lifetimemin="0.05" startsizemin="0.32,0.075" startsizemax="0.56,0.12" usecollision="false" startcolor="255,255,187,255" endcolor="255,220,0,0" drawtarget="Both" blendstate="Additive" priority="3">
+    <sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="256,128,128,128" origin="0.5,0.5" />
+  </aic_atmos_jet_trail>
+  <aic_atmos_jet_smoke lifetime="0.25" lifetimemin="0.15" startsizemin="0.14,0.14" startsizemax="0.24,0.24" sizechangemin="0.2,0.2" sizechangemax="0.4,0.4" drag="0.2" usecollision="false" startcolor="200,195,170,130" endcolor="160,160,155,0" drawtarget="Both" blendstate="AlphaBlend" priority="2">
+    <sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="256,128,128,128" origin="0.5,0.5" />
+  </aic_atmos_jet_smoke>
+  <aic_foehn_jet_steam lifetime="0.6" lifetimemin="0.5" startsizemin="0.15,0.15" startsizemax="0.24,0.24" sizechangemin="0.3,0.3" sizechangemax="0.5,0.5" startrotationmin="0" startrotationmax="360" drag="0.2" waterdrag="0.2" velocitychange="0,10" velocitychangewater="0,10" usecollision="false" startcolor="220,235,245,210" endcolor="220,235,245,0" drawtarget="Both" drawontop="true" blendstate="AlphaBlend" priority="3">
+    <sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="256,128,128,128" origin="0.5,0.5" />
+  </aic_foehn_jet_steam>
   <aic_groundwave_dust lifetime="0.7" lifetimemin="0.7" startsizemin="0.35,0.3" startsizemax="0.55,0.45" sizechangemin="0.2,0.3" sizechangemax="0.2,0.3" startrotationmin="0" startrotationmax="360" velocitychange="0,-20" velocitychangewater="0,-20" usecollision="false" startcolor="190,195,205,190" endcolor="190,195,205,0" drawtarget="Both" drawontop="true" draworder="Foreground" blendstate="AlphaBlend" priority="5">
     <sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="256,128,128,128" />
   </aic_groundwave_dust>
