@@ -105,7 +105,7 @@ namespace AIC.Components
         private static bool CanUse(RangedWeapon __instance, ref bool __result)
         {
             if (__instance.Item.GetComponent<AICOrbitalCooldown>() == null || AICOrbitalCooldown.Remaining <= 0) return true;
-            __instance.currentChargeTime = 0;
+            __instance.CurrentChargeTime = 0;
             __instance.tryingToCharge = false;
             __result = false;
             return false;
@@ -157,7 +157,7 @@ namespace AIC.Components
             var user = Item.ParentInventory?.Owner as Character;
             if (weapon != null && (cooling || user == null || !user.IsKeyDown(InputType.Shoot) || !user.IsKeyDown(InputType.Aim)))
             {
-                weapon.currentChargeTime = 0;
+                weapon.CurrentChargeTime = 0;
                 weapon.tryingToCharge = false;
             }
             if (light != null)
@@ -182,7 +182,7 @@ namespace AIC.Components
         {
             var weapon = Item.GetComponent<RangedWeapon>();
             var user = Item.ParentInventory?.Owner as Character;
-            if (cooling || weapon == null || weapon.currentChargeTime <= 0 || user == null
+            if (cooling || weapon == null || weapon.CurrentChargeTime <= 0 || user == null
                 || !user.IsKeyDown(InputType.Shoot) || !user.IsKeyDown(InputType.Aim))
             { previewTimer = 0; beepTimer = 0; return; }
             beepTimer -= deltaTime;
@@ -220,7 +220,7 @@ namespace AIC.Components
             Cast(null);
             foreach (var sub in Submarine.Loaded) Cast(sub);
             if (nearest == float.MaxValue) return;
-            int frame = Math.Clamp((int)(weapon.currentChargeTime / 0.05f), 0, 22);
+            int frame = Math.Clamp((int)(weapon.CurrentChargeTime / 0.05f), 0, 22);
             GameMain.ParticleManager?.CreateParticle("aic_orbital_lock_" + frame,
                 ConvertUnits.ToDisplayUnits(target), Vector2.Zero, 0);
         }
@@ -233,7 +233,7 @@ namespace AIC.Components
             {
                 if (component.Item.Removed) continue;
                 var weapon = component.Item.GetComponent<RangedWeapon>();
-                if (weapon != null) { weapon.currentChargeTime = 0; weapon.tryingToCharge = false; }
+                if (weapon != null) { weapon.CurrentChargeTime = 0; weapon.tryingToCharge = false; }
                 component.Sync();
             }
             return true;
@@ -244,7 +244,7 @@ namespace AIC.Components
             Item.CreateServerEvent(this);
 #endif
         }
-        protected override void RemoveComponentSpecific()
+        public override void RemoveComponentSpecific()
         {
             instances.Remove(this);
             base.RemoveComponentSpecific();

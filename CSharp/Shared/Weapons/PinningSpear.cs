@@ -256,7 +256,7 @@ namespace AIC.Components
             thrower = null;
         }
         public override void UpdateBroken(float dt, Camera cam) => Release();
-        protected override void RemoveComponentSpecific() => Release();
+        public override void RemoveComponentSpecific() => Release();
     }
 
 }

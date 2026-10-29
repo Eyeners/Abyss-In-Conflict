@@ -26,7 +26,7 @@ namespace AIC.Components
                 foreach (var token in container.Inventory.AllItems)
                 {
                     if (token.Prefab.Identifier != "aic_gdf_redstar_mode_token".ToIdentifier()) continue;
-                    bool beam = token.HasTag("aic_gdf_redstar_mode_beam");
+                    bool beam = token.HasTag("aic_gdf_redstar_mode_beam".ToIdentifier());
                     if (!beam && item.ConditionPercentage < 99) return true;
                     // Do not refill charge here: remaining beam energy belongs to the XML cycle.
                     if (!beam) token.Tags = "aic_gdf_redstar_mode_token,aic_gdf_redstar_mode_beam";

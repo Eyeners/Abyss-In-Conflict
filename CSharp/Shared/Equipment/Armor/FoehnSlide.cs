@@ -33,7 +33,7 @@ namespace AIC.Components
         internal bool Sliding => pilot != null && Valid(pilot);
         private static bool Authority => GameMain.NetworkMember?.IsClient != true;
         internal static FoehnSlide Equipped(Character c) => c?.GetEquippedItem(
-            "aic_wardens_gdf_foehn_powerarmor", InvSlotType.OuterClothes)?.GetComponent<FoehnSlide>();
+            "aic_wardens_gdf_foehn_powerarmor".ToIdentifier(), InvSlotType.OuterClothes)?.GetComponent<FoehnSlide>();
         public FoehnSlide(Item item, ContentXElement element) : base(item, element) { IsActive = true; }
         private bool Valid(Character c) => MovementState.ActiveOnLand(c) && !MovementState.SelectingLadder(c)
             && Item.Condition > 0 && Equipped(c) == this
@@ -170,7 +170,7 @@ namespace AIC.Components
                 if (!limb.Removed && !limb.IsSevered && limb.body != null && limb.body != body)
                     limb.body.LinearVelocity -= new Vector2(direction*loss, 0);
         }
-        protected override void RemoveComponentSpecific() { Stop(); base.RemoveComponentSpecific(); }
+        public override void RemoveComponentSpecific() { Stop(); base.RemoveComponentSpecific(); }
 #if CLIENT
         private bool previousDown, releasePending;
         private readonly struct SlideInput : IEventData

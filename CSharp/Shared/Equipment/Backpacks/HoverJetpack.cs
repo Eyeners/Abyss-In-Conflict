@@ -58,7 +58,7 @@ namespace AIC.Components
 #endif
         }
         public override void UpdateBroken(float dt, Camera cam) => Update(dt, cam);
-        protected override void RemoveComponentSpecific()
+        public override void RemoveComponentSpecific()
         {
 #if CLIENT
             StopSounds(ActionType.OnSuccess);

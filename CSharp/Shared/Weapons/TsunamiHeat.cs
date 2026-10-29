@@ -43,7 +43,7 @@ namespace AIC.Components
                 ventTime = Math.Max(0, ventTime - dt);
                 if (ventTime == 0) heat = 0;
             }
-            else if (Item.GetComponent<RangedWeapon>()?.currentChargeTime > 0)
+            else if (Item.GetComponent<RangedWeapon>()?.CurrentChargeTime > 0)
             {
                 coolingDelay = 0.8f;
             }
@@ -113,7 +113,7 @@ namespace AIC.Components
         private static bool CanFire(RangedWeapon __instance, ref bool __result)
         {
             if (__instance.Item.GetComponent<TsunamiCharge>()?.Overheated != true) return true;
-            __instance.currentChargeTime = 0;
+            __instance.CurrentChargeTime = 0;
             __result = false;
             return false;
         }

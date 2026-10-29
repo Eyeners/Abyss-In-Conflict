@@ -54,7 +54,7 @@ namespace AIC.Components
             && (Hovering || Flying && pilot == anim.Character && Usable(anim.Character) && !anim.OnGround);
         internal static FoehnJetJump Equipped(Character c) => HoverJetpack.Flying(c)
             ? HoverJetpack.Equipped(c).Item.GetComponent<FoehnJetJump>()
-            : c?.GetEquippedItem("aic_wardens_gdf_foehn_powerarmor", InvSlotType.OuterClothes)?.GetComponent<FoehnJetJump>();
+            : c?.GetEquippedItem("aic_wardens_gdf_foehn_powerarmor".ToIdentifier(), InvSlotType.OuterClothes)?.GetComponent<FoehnJetJump>();
         private static bool Authority => GameMain.NetworkMember?.IsClient != true;
         public FoehnJetJump(Item item, ContentXElement element) : base(item, element)
         {
@@ -167,7 +167,7 @@ namespace AIC.Components
             limb.PullJointEnabled = true;
             limb.body.SmoothRotate(angle, Math.Max(1, limb.Mass)*Math.Max(0, LegPoseTorque)*blend);
         }
-        protected override void RemoveComponentSpecific()
+        public override void RemoveComponentSpecific()
         { ReleaseLegPose(); base.RemoveComponentSpecific(); }
         public override void Update(float deltaTime, Camera cam)
         {

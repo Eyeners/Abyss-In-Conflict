@@ -1,4 +1,4 @@
-﻿using Barotrauma;
+using Barotrauma;
 using Barotrauma.Items.Components;
 #if CLIENT
 using System;
@@ -19,7 +19,7 @@ namespace AIC.Components
             Visible.Add(this);
 #endif
         }
-        protected override void RemoveComponentSpecific()
+        public override void RemoveComponentSpecific()
         {
 #if CLIENT
             Visible.Remove(this);
@@ -40,10 +40,10 @@ namespace AIC.Components
             // Rendering must not write input-dependent state back into the weapon.
             bool active = held && !user.IsDead && !user.IsIncapacitated && Item.Condition > 0;
 #if CLIENT
-            bool charging = active && weapon != null && weapon.currentChargeTime > 0;
+            bool charging = active && weapon != null && weapon.CurrentChargeTime > 0;
             if (charging)
             {
-                coreProgress = MathHelper.Clamp(weapon.currentChargeTime / Math.Max(0.01f, weapon.MaxChargeTime), 0, 1);
+                coreProgress = MathHelper.Clamp(weapon.CurrentChargeTime / Math.Max(0.01f, weapon.MaxChargeTime), 0, 1);
                 coreOpacity = Math.Min(1, coreOpacity + deltaTime * 12);
             }
             else coreOpacity = Math.Max(0, coreOpacity - deltaTime * 8);

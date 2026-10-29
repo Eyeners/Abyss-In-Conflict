@@ -28,7 +28,7 @@ namespace AIC.Components
             var user = __instance.character;
             if (user == null || user.Removed || __instance.Removed || __instance.IsSevered
                 || __instance.body == null || user.AnimController.GetLimb(LimbType.Torso) != __instance) return;
-            var armor = user.GetEquippedItem("aic_test_shoulder_cannon_armor", InvSlotType.OuterClothes);
+            var armor = user.GetEquippedItem("aic_test_shoulder_cannon_armor".ToIdentifier(), InvSlotType.OuterClothes);
             if (armor == null || armor.Removed || armor.Condition <= 0) return;
             var rotation = Matrix.CreateRotationZ(__instance.body.Rotation);
             Vector2 offset = Vector2.Transform(new Vector2(Forward * user.AnimController.Dir, Up), rotation);

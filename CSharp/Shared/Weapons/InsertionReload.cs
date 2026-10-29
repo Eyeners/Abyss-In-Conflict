@@ -53,7 +53,7 @@ namespace AIC.Components
             current.Clear(); added.Clear();
             if (Item.OwnInventory != null)
                 foreach (var ammo in Item.OwnInventory.AllItems)
-                    if (!ammo.Removed && (string.IsNullOrEmpty(AmmoTag) || ammo.HasTag(AmmoTag)))
+                    if (!ammo.Removed && (string.IsNullOrEmpty(AmmoTag) || ammo.HasTag(AmmoTag.ToIdentifier())))
                     {
                         if (!current.Add(ammo)) continue;
                         if (!previous.Contains(ammo)) added.Add(ammo);
@@ -85,7 +85,7 @@ namespace AIC.Components
             for (int i = 0; i < Math.Min(FuelSlots, Item.OwnInventory.Capacity); i++)
             {
                 var fuel = Item.OwnInventory.GetItemAt(i);
-                if (fuel != null && !fuel.Removed && fuel.HasTag(AmmoTag)
+                if (fuel != null && !fuel.Removed && fuel.HasTag(AmmoTag.ToIdentifier())
                     && fuel.Condition >= MinimumFuelCondition) return fuel;
             }
             return null;

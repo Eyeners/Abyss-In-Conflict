@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Barotrauma;
 using Barotrauma.LuaCs;
@@ -37,7 +37,7 @@ namespace AIC.Components
             }
             c.HealthUpdateInterval = 0;
 #if SERVER
-            GameMain.Server?.CreateEntityEvent(c, new Character.CharacterStatusEventData(forceAfflictionData: true));
+            GameMain.Server?.CreateEntityEvent(c, new Character.CharacterStatusEventData(forceAfflictionData: true, forceLimbSeveringData: false, disableSeverEffects: false));
 #endif
         }
         private static void Input(Character c, bool blocked)

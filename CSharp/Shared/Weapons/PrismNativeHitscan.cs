@@ -27,12 +27,12 @@ namespace AIC.Components
             string projectileId = ProjectileIdentifier;
             if (!string.IsNullOrEmpty(AlternateAttachmentTag) && Item.OwnInventory != null)
                 foreach (var attachment in Item.OwnInventory.AllItems)
-                    if (attachment.HasTag(AlternateAttachmentTag)) { projectileId = AlternateProjectile; break; }
+                    if (attachment.HasTag(AlternateAttachmentTag.ToIdentifier())) { projectileId = AlternateProjectile; break; }
             var prefab = ItemPrefab.Find(null, projectileId.ToIdentifier());
             if (prefab == null || Item.OwnInventory == null) return false;
             Item battery = null;
             foreach (var cell in Item.OwnInventory.AllItems)
-                if (!cell.Removed && cell.HasTag("mobilebattery") && cell.Condition >= Math.Max(0, BatteryCost)) { battery = cell; break; }
+                if (!cell.Removed && cell.HasTag("mobilebattery".ToIdentifier()) && cell.Condition >= Math.Max(0, BatteryCost)) { battery = cell; break; }
             if (battery == null || !base.Use(dt, character)) return false;
             battery.Condition = Math.Max(0, battery.Condition - Math.Max(0, BatteryCost));
             var sub = Item.Submarine;
@@ -98,7 +98,7 @@ namespace AIC.Components
             if (launcher != null)
                 foreach (var container in launcher.GetComponents<ItemContainer>())
                     foreach (var attachment in container.Inventory.AllItems)
-                        if (attachment.HasTag("aic_prism_focus")) focused = true;
+                        if (attachment.HasTag("aic_prism_focus".ToIdentifier())) focused = true;
             float multiplier = source.Attack?.DamageMultiplier ?? 1;
             var sub = Item.Submarine;
             Vector2 point = Item.Position;

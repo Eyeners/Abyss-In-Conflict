@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Barotrauma;
 using Barotrauma.Items.Components;
@@ -53,7 +53,7 @@ namespace AIC.Components
         private static bool Authority => GameMain.NetworkMember?.IsClient != true;
         internal float SpeedMultiplier => 1 + ramp * (Math.Max(1, RunMultiplier) - 1);
         internal static FoehnCharge Equipped(Character c) => c?.GetEquippedItem(
-            "aic_wardens_gdf_foehn_powerarmor", InvSlotType.OuterClothes)?.GetComponent<FoehnCharge>();
+            "aic_wardens_gdf_foehn_powerarmor".ToIdentifier(), InvSlotType.OuterClothes)?.GetComponent<FoehnCharge>();
         internal float EvasionChance(Character wearer)
         {
             if (Dashing && DashValid(wearer)) return 0.8f;
@@ -76,7 +76,7 @@ namespace AIC.Components
             if (spriteElement != null) shield = new Sprite(spriteElement);
 #endif
         }
-        protected override void RemoveComponentSpecific()
+        public override void RemoveComponentSpecific()
         {
             ReleaseDashPose();
 #if CLIENT

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Barotrauma;
 using Barotrauma.Items.Components;
@@ -189,7 +189,7 @@ namespace AIC.Components
 #endif
         }
         public override void UpdateBroken(float dt, Camera cam) => Update(dt, cam);
-        protected override void RemoveComponentSpecific()
+        public override void RemoveComponentSpecific()
         {
             Guns.Remove(this);
 #if CLIENT

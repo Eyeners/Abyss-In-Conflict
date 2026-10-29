@@ -215,7 +215,7 @@ namespace AIC.Components
             }
         }
         public override void UpdateBroken(float dt, Camera cam) => Update(dt, cam);
-        protected override void RemoveComponentSpecific()
+        public override void RemoveComponentSpecific()
         {
             Release();
 #if CLIENT
@@ -595,9 +595,9 @@ namespace AIC.Components
                     prefix: new HarmonyMethod(typeof(HoverBikeSystem), nameof(Animate)) { priority = Priority.First });
                 harmony.Patch(AccessTools.PropertySetter(typeof(Ragdoll), "ColliderIndex"),
                     prefix: new HarmonyMethod(typeof(HoverBikeSystem), nameof(Collider)));
-                harmony.Patch(AccessTools.Method(typeof(Inventory), "CanBePutInSlot", new[] { typeof(Item), typeof(int), typeof(bool) }),
+                harmony.Patch(AccessTools.Method(typeof(Inventory), "CanBePutInSlot", new[] { typeof(Item), typeof(int), typeof(bool), typeof(bool) }),
                     prefix: new HarmonyMethod(typeof(HoverBikeSystem), nameof(Slot)));
-                harmony.Patch(AccessTools.Method(typeof(ItemInventory), "CanBePutInSlot", new[] { typeof(Item), typeof(int), typeof(bool) }),
+                harmony.Patch(AccessTools.Method(typeof(ItemInventory), "CanBePutInSlot", new[] { typeof(Item), typeof(int), typeof(bool), typeof(bool) }),
                     prefix: new HarmonyMethod(typeof(HoverBikeSystem), nameof(Slot)));
                 harmony.Patch(AccessTools.Method(typeof(GameSession), "EndRound"),
                     prefix: new HarmonyMethod(typeof(HoverBike), nameof(HoverBike.Clear)));

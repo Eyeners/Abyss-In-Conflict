@@ -51,7 +51,7 @@ namespace AIC.Components
             }
         }
         public MagneticBoots(Item item, ContentXElement element) : base(item, element) { IsActive = true; }
-        internal static MagneticBoots Get(Character user) => user?.GetEquippedItem("aic_magnetic_boots_armor", InvSlotType.OuterClothes)
+        internal static MagneticBoots Get(Character user) => user?.GetEquippedItem("aic_magnetic_boots_armor".ToIdentifier(), InvSlotType.OuterClothes)
             ?.GetComponent<MagneticBoots>();
         internal static bool EnabledFor(Character user) => Get(user)?.IsOn == true && !SpaceBackpackDamage.IsFailing(user);
         // Ordinary stun is separate from IsIncapacitated and voluntary ragdoll.
@@ -179,7 +179,7 @@ namespace AIC.Components
             anim.Collider.ApplyForce(new Vector2(0, ay * anim.Collider.Mass));
         }
         public override void UpdateBroken(float deltaTime, Camera cam) => Update(deltaTime, cam);
-        protected override void RemoveComponentSpecific() { WallWalk.Reset(); Release(); base.RemoveComponentSpecific(); }
+        public override void RemoveComponentSpecific() { WallWalk.Reset(); Release(); base.RemoveComponentSpecific(); }
     }
 
     public sealed class MagneticBootsAnimation : IAssemblyPlugin

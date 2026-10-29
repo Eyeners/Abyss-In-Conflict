@@ -32,7 +32,7 @@ namespace AIC.Components
             if (user == null || user.Removed || user.IsDead || user.IsIncapacitated || user.LockHands
                 || user.Inventory == null || weapon.Item.Removed || !weapon.Item.IsOwnedBy(user)
                 || !weapon.Item.IsInteractable(user) || !weapon.IsEmpty(user)) return;
-            var backpack = user.GetEquippedItem("aic_recall_backpack", InvSlotType.Bag);
+            var backpack = user.GetEquippedItem("aic_recall_backpack".ToIdentifier(), InvSlotType.Bag);
             if (backpack == null || backpack.Condition <= 0) return;
             canSeekAmmo = HasCarriedAmmo(user, weapon);
         }

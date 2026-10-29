@@ -13,7 +13,7 @@ namespace AIC.Components
         [Serialize(false, IsPropertySaveable.Yes)] public bool VentTriggered { get; set; }
         [Serialize(false, IsPropertySaveable.Yes)] public bool ExplosionTriggered { get; set; }
         internal bool Failing => ventTime > 0;
-        internal static bool IsFailing(Character user) => user?.GetEquippedItem("aic_space_propulsion_backpack", InvSlotType.Bag)
+        internal static bool IsFailing(Character user) => user?.GetEquippedItem("aic_space_propulsion_backpack".ToIdentifier(), InvSlotType.Bag)
             ?.GetComponent<SpaceBackpackDamage>()?.Failing == true;
 
         public SpaceBackpackDamage(Item item, ContentXElement element) : base(item, element)
@@ -34,7 +34,7 @@ namespace AIC.Components
         {
             var user = Item.ParentInventory?.Owner as Character;
             bool worn = user != null && !user.Removed
-                && user.GetEquippedItem("aic_space_propulsion_backpack", InvSlotType.Bag) == Item;
+                && user.GetEquippedItem("aic_space_propulsion_backpack".ToIdentifier(), InvSlotType.Bag) == Item;
             var torso = worn ? user.AnimController?.GetLimb(LimbType.Torso) : null;
             hitbox.Update(Item, user);
 
@@ -87,7 +87,7 @@ namespace AIC.Components
             if (authority && ventTime <= 0) Sync();
         }
 
-        protected override void RemoveComponentSpecific() { hitbox.Release(); }
+        public override void RemoveComponentSpecific() { hitbox.Release(); }
         private void Sync()
         {
 #if SERVER

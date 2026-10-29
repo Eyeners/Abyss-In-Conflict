@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Barotrauma;
@@ -86,11 +86,11 @@ namespace AIC.Components
         public void Initialize()
         {
             harmony = new Harmony("aic.human.jump.climb");
-            harmony.Patch(AccessTools.Method(typeof(CharacterInventory), "TryPutItem", new[] { typeof(Item), typeof(Character), typeof(IEnumerable<InvSlotType>), typeof(bool), typeof(bool), typeof(bool) }),
+            harmony.Patch(AccessTools.Method(typeof(CharacterInventory), "TryPutItem", new[] { typeof(Item), typeof(Character), typeof(IEnumerable<InvSlotType>), typeof(bool), typeof(bool), typeof(bool), typeof(bool), typeof(bool) }),
                 prefix: new HarmonyMethod(typeof(HumanJumpClimb), nameof(EquipSlots)));
-            harmony.Patch(AccessTools.Method(typeof(CharacterInventory), "TryPutItem", new[] { typeof(Item), typeof(int), typeof(bool), typeof(bool), typeof(Character), typeof(bool), typeof(bool), typeof(bool) }),
+            harmony.Patch(AccessTools.Method(typeof(CharacterInventory), "TryPutItem", new[] { typeof(Item), typeof(int), typeof(bool), typeof(bool), typeof(Character), typeof(bool), typeof(bool), typeof(bool), typeof(bool), typeof(bool) }),
                 prefix: new HarmonyMethod(typeof(HumanJumpClimb), nameof(EquipIndex)));
-            harmony.Patch(AccessTools.Method(typeof(CharacterInventory), "CanBePutInSlot", new[] { typeof(Item), typeof(int), typeof(bool) }),
+            harmony.Patch(AccessTools.Method(typeof(CharacterInventory), "CanBePutInSlot", new[] { typeof(Item), typeof(int), typeof(bool), typeof(bool) }),
                 prefix: new HarmonyMethod(typeof(HumanJumpClimb), nameof(EquipIndex)));
             var before = new HarmonyMethod(typeof(HumanJumpClimb), nameof(Begin)) { priority = Priority.First };
             harmony.Patch(AccessTools.Method(typeof(HumanoidAnimController), "UpdateAnim"), prefix: before,

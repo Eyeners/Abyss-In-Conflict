@@ -35,7 +35,7 @@ namespace AIC.Components
 
         public SpacePropulsionBackpack(Item item, ContentXElement element) : base(item, element) { IsActive = true; }
         private bool IsWornBy(Character user) => user != null && !user.Removed && !user.IsDead
-            && !user.IsIncapacitated && user.GetEquippedItem("aic_space_propulsion_backpack", InvSlotType.Bag) == Item;
+            && !user.IsIncapacitated && user.GetEquippedItem("aic_space_propulsion_backpack".ToIdentifier(), InvSlotType.Bag) == Item;
 
         private void SetBrake(bool value)
         {

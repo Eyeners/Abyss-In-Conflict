@@ -18,7 +18,7 @@ namespace AIC.Components
             && !user.Removed && !user.IsDead && !user.IsIncapacitated
             && !user.IsRagdolled && !user.InWater && user.AnimController is HumanoidAnimController
             && GameMain.World.Gravity.LengthSquared() < 0.01f
-            && user.GetEquippedItem("aic_space_propulsion_backpack", InvSlotType.Bag)
+            && user.GetEquippedItem("aic_space_propulsion_backpack".ToIdentifier(), InvSlotType.Bag)
                 ?.GetComponent<SpacePropulsionBackpack>() is SpacePropulsionBackpack backpack
             && backpack.IsOn && backpack.Item.Condition > 0;
 
@@ -101,7 +101,7 @@ namespace AIC.Components
             var user = __instance.character;
             bool magnetic = MagneticChainPack.FreeNavigation(user);
             if ((!Applies(user) && !magnetic) || GameMain.NetworkMember?.IsClient == true) return true;
-            var backpack = user.GetEquippedItem("aic_space_propulsion_backpack", InvSlotType.Bag)
+            var backpack = user.GetEquippedItem("aic_space_propulsion_backpack".ToIdentifier(), InvSlotType.Bag)
                 ?.GetComponent<SpacePropulsionBackpack>();
             var chain = magnetic ? MagneticChainPack.Equipped(user) : null;
             var navigation = chain?.Navigation ?? backpack?.Navigation;
@@ -134,7 +134,7 @@ namespace AIC.Components
             float speed = desired.Length();
             if (speed < 0.01f) return Vector2.Zero;
             float limit = 2f;
-            bool recovering = user.GetEquippedItem("aic_space_propulsion_backpack", InvSlotType.Bag)
+            bool recovering = user.GetEquippedItem("aic_space_propulsion_backpack".ToIdentifier(), InvSlotType.Bag)
                 ?.GetComponent<SpacePropulsionBackpack>()?.Navigation.IsRecovering == true
                 || MagneticChainPack.Equipped(user)?.Navigation.IsRecovering == true;
             var path = (user.AIController as HumanAIController)?.PathSteering?.CurrentPath;

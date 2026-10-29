@@ -196,7 +196,7 @@ namespace AIC.Components
         {
             if (Item.OwnInventory == null) return null;
             foreach (var cell in Item.OwnInventory.AllItems)
-                if (!cell.Removed && cell.HasTag("mobilebattery") && cell.Condition >= Math.Max(0, BatteryCost)) return cell;
+                if (!cell.Removed && cell.HasTag("mobilebattery".ToIdentifier()) && cell.Condition >= Math.Max(0, BatteryCost)) return cell;
             return null;
         }
         public override bool Use(float dt, Character character = null)
@@ -210,7 +210,7 @@ namespace AIC.Components
             shooter = character;
             vortexShot = false;
             foreach (var attachment in Item.OwnInventory.AllItems)
-                if (attachment.HasTag("aic_sonic_vortex")) { vortexShot = true; break; }
+                if (attachment.HasTag("aic_sonic_vortex".ToIdentifier())) { vortexShot = true; break; }
             try
             {
                 var pulse = Fire(character);

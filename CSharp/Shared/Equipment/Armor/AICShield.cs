@@ -34,11 +34,11 @@ namespace AIC.Components
 
         internal bool TryBlock(Character wearer, Limb limb, IEnumerable<Affliction> afflictions, float penetration)
         {
-            if (!protectedLimbs.Contains(limb.type) || !Item.HasTag(EnabledTag)) return false;
+            if (!protectedLimbs.Contains(limb.type) || !Item.HasTag(EnabledTag.ToIdentifier())) return false;
             var payments = OncePerProjectile ? AICShieldSystem.ActivePayments : null;
             bool paid = payments?.Contains(this) == true;
             var battery = Item.OwnInventory?.GetItemAt(BatterySlot);
-            bool powered = battery != null && battery.HasTag(BatteryTag) && battery.Condition > 0;
+            bool powered = battery != null && battery.HasTag(BatteryTag.ToIdentifier()) && battery.Condition > 0;
             if (!paid && !powered) return false;
             float damage = 0;
             foreach (var affliction in afflictions)

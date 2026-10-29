@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Barotrauma;
@@ -232,7 +232,7 @@ namespace AIC.Components
             }
             shots.Clear();
         }
-        protected override void RemoveComponentSpecific()
+        public override void RemoveComponentSpecific()
         {
 #if CLIENT
             SonicRefraction.CancelNPCStasisPreview(Item.ID);

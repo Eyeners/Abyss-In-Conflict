@@ -66,7 +66,7 @@ namespace AIC.Components
                 __result = cached.Ignore;
                 return;
             }
-            var cloak = character.GetEquippedItem("aic_evasion_cloak", InvSlotType.Bag);
+            var cloak = character.GetEquippedItem("aic_evasion_cloak".ToIdentifier(), InvSlotType.Bag);
             var attacker = __instance.User ?? __instance.Attacker;
             float hitChance = 1 - MathHelper.Clamp((attacker?.CharacterHealth.GetAfflictionStrengthByIdentifier(EvasionId) ?? 0) * 0.02f, 0, 0.6f);
             if (cloak != null && !cloak.Removed && cloak.Condition > 0 && character.AnimController?.Collider != null)

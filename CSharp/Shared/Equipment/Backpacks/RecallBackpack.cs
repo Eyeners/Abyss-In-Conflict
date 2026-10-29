@@ -41,7 +41,7 @@ namespace AIC.Components
         private AIObjectiveContainItem loadCore;
         public RecallBackpack(Item item, ContentXElement element) : base(item, element) { IsActive = true; }
         private bool Worn(Character user) => user != null && !user.Removed && !user.IsDead
-            && Item.Condition > 0 && user.GetEquippedItem("aic_recall_backpack", InvSlotType.Bag) == Item;
+            && Item.Condition > 0 && user.GetEquippedItem("aic_recall_backpack".ToIdentifier(), InvSlotType.Bag) == Item;
 
         public override void Update(float deltaTime, Camera cam)
         {
@@ -88,7 +88,7 @@ namespace AIC.Components
 
         public override void UpdateBroken(float deltaTime, Camera cam) => Update(deltaTime, cam);
 
-        protected override void RemoveComponentSpecific()
+        public override void RemoveComponentSpecific()
         {
 #if CLIENT
             CancelReleaseInput();
@@ -100,7 +100,7 @@ namespace AIC.Components
 
         private bool UpdateFailure(Character user, float deltaTime)
         {
-            if (user == null || user.Removed || user.GetEquippedItem("aic_recall_backpack", InvSlotType.Bag) != Item) return false;
+            if (user == null || user.Removed || user.GetEquippedItem("aic_recall_backpack".ToIdentifier(), InvSlotType.Bag) != Item) return false;
             CheckFailureThreshold(Item.ConditionPercentage);
             if (FailureJumpsRemaining <= 0) return false;
             if (loadCore != null) { loadCore.Abandon = true; loadCore = null; }
@@ -211,7 +211,7 @@ namespace AIC.Components
                 ItemCount = 1,
                 MoveWholeStack = false,
                 AllowStealing = false,
-                GetItemPriority = item => item.ConditionPercentage
+                GetItemFetchPriority = item => item.ConditionPercentage
             };
             manager.AddObjective(loadCore);
         }

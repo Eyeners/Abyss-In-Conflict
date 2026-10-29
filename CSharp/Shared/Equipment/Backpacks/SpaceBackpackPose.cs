@@ -56,7 +56,7 @@ namespace AIC.Components
                 && !user.IsRagdolled && !user.IsClimbing && !user.InWater
                 && !anim.AnimationTestPose && anim.Collider != null
                 && GameMain.World.Gravity.LengthSquared() < 0.01f
-                && user.GetEquippedItem("aic_space_propulsion_backpack", InvSlotType.Bag)
+                && user.GetEquippedItem("aic_space_propulsion_backpack".ToIdentifier(), InvSlotType.Bag)
                     ?.GetComponent<SpacePropulsionBackpack>()?.IsOn == true;
         }
 

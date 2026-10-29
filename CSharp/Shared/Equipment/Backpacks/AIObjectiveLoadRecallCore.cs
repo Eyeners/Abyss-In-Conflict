@@ -5,13 +5,13 @@ namespace AIC.Components
 {
     internal sealed class AIObjectiveLoadRecallCore : AIObjectiveContainItem
     {
-        protected override bool AllowInAnySub => true;
-        protected override bool AllowOutsideSubmarine => true;
+        public override bool AllowInAnySub => true;
+        public override bool AllowOutsideSubmarine => true;
 
         internal AIObjectiveLoadRecallCore(Character character, ItemContainer container, AIObjectiveManager manager)
             : base(character, "aic_recall_core".ToIdentifier(), container, manager) { }
 
-        protected override void Act(float deltaTime)
+        public override void Act(float deltaTime)
         {
             base.Act(deltaTime);
             // ContainItem checks percentage, but GetItem checks absolute condition.

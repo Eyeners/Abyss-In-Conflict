@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -331,7 +331,7 @@ namespace AIC.Components
             Clone = null;
         }
 
-        protected override void RemoveComponentSpecific()
+        public override void RemoveComponentSpecific()
         {
             ReleaseDeploymentBody();
             Release();
@@ -354,7 +354,7 @@ namespace AIC.Components
         private GUIButton connectButton;
         private sealed record RequestData(bool Disconnect, bool Recycle) : ItemComponent.IEventData;
 
-        protected override void CreateGUI()
+        public override void CreateGUI()
         {
             if (GuiFrame == null) return;
             var layout = new GUILayoutGroup(new RectTransform(new Vector2(0.9f, 0.9f), GuiFrame.RectTransform, Anchor.Center))
