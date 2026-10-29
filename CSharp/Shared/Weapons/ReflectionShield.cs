@@ -131,7 +131,7 @@ namespace AIC.Components
 #endif
             return false;
         }
-        public override void RemoveComponentSpecific()
+        protected override void RemoveComponentSpecific()
         { Shields.Remove(this); base.RemoveComponentSpecific(); }
 #if SERVER
         public void ServerEventRead(IReadMessage msg, Client client) { }

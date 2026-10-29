@@ -170,7 +170,7 @@ namespace AIC.Components
                 if (!limb.Removed && !limb.IsSevered && limb.body != null && limb.body != body)
                     limb.body.LinearVelocity -= new Vector2(direction*loss, 0);
         }
-        public override void RemoveComponentSpecific() { Stop(); base.RemoveComponentSpecific(); }
+        protected override void RemoveComponentSpecific() { Stop(); base.RemoveComponentSpecific(); }
 #if CLIENT
         private bool previousDown, releasePending;
         private readonly struct SlideInput : IEventData

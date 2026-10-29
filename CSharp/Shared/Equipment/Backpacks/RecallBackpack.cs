@@ -88,7 +88,7 @@ namespace AIC.Components
 
         public override void UpdateBroken(float deltaTime, Camera cam) => Update(deltaTime, cam);
 
-        public override void RemoveComponentSpecific()
+        protected override void RemoveComponentSpecific()
         {
 #if CLIENT
             CancelReleaseInput();

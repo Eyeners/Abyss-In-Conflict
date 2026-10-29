@@ -73,7 +73,7 @@ namespace AIC.Components
                 new Color(220,224,224,210)*MathHelper.Clamp(flash/Math.Max(0.01f,FlashDuration),0,1));
         }
 #endif
-        public override void RemoveComponentSpecific()
+        protected override void RemoveComponentSpecific()
         {
             Live.Remove(this);
 #if CLIENT

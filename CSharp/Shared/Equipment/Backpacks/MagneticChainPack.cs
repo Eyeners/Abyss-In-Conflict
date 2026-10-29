@@ -396,7 +396,7 @@ namespace AIC.Components
             }
             tipsReady = true;
         }
-        public override void RemoveComponentSpecific()
+        protected override void RemoveComponentSpecific()
         { link?.Remove(); claw?.Remove(); blade?.Remove(); blueBlade?.Remove(); base.RemoveComponentSpecific(); }
 #endif
     }

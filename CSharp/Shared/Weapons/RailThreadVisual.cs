@@ -28,7 +28,7 @@ namespace AIC.Components
             ThreadSprite = new Sprite(element.GetChildElement("sprite"));
 #endif
         }
-        public override void RemoveComponentSpecific()
+        protected override void RemoveComponentSpecific()
         {
 #if CLIENT
             // Queued beams own their reference until the short visual lifetime ends.

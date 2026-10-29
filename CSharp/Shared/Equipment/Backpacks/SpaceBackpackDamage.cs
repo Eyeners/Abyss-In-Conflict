@@ -87,7 +87,7 @@ namespace AIC.Components
             if (authority && ventTime <= 0) Sync();
         }
 
-        public override void RemoveComponentSpecific() { hitbox.Release(); }
+        protected override void RemoveComponentSpecific() { hitbox.Release(); }
         private void Sync()
         {
 #if SERVER

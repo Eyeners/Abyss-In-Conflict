@@ -20,7 +20,8 @@ namespace AIC.Components
         private static readonly Dictionary<Character, Pose> frozen = new();
         private static readonly List<Character> released = new();
         private static readonly List<DurationListElement> pausedEffects = new();
-        private static readonly List<DelayedListElement> pausedDelayed = new();
+        // DelayedListElement is internal in 1.15; keep it out of our field metadata.
+        private static readonly List<object> pausedDelayed = new();
         internal static bool Frozen(Character c) => c != null && frozen.ContainsKey(c);
         private static Character Owner(Item item)
         {
@@ -146,7 +147,8 @@ namespace AIC.Components
         private static void RestoreEffects()
         {
             StatusEffect.DurationList.AddRange(pausedEffects); pausedEffects.Clear();
-            DelayedEffect.DelayList.AddRange(pausedDelayed); pausedDelayed.Clear();
+            foreach (var entry in pausedDelayed) DelayedEffect.DelayList.Add((DelayedListElement)entry);
+            pausedDelayed.Clear();
         }
         internal static void Install(Harmony harmony)
         {

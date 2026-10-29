@@ -215,7 +215,7 @@ namespace AIC.Components
             }
         }
         public override void UpdateBroken(float dt, Camera cam) => Update(dt, cam);
-        public override void RemoveComponentSpecific()
+        protected override void RemoveComponentSpecific()
         {
             Release();
 #if CLIENT

@@ -167,7 +167,7 @@ namespace AIC.Components
             limb.PullJointEnabled = true;
             limb.body.SmoothRotate(angle, Math.Max(1, limb.Mass)*Math.Max(0, LegPoseTorque)*blend);
         }
-        public override void RemoveComponentSpecific()
+        protected override void RemoveComponentSpecific()
         { ReleaseLegPose(); base.RemoveComponentSpecific(); }
         public override void Update(float deltaTime, Camera cam)
         {

@@ -179,7 +179,7 @@ namespace AIC.Components
             anim.Collider.ApplyForce(new Vector2(0, ay * anim.Collider.Mass));
         }
         public override void UpdateBroken(float deltaTime, Camera cam) => Update(deltaTime, cam);
-        public override void RemoveComponentSpecific() { WallWalk.Reset(); Release(); base.RemoveComponentSpecific(); }
+        protected override void RemoveComponentSpecific() { WallWalk.Reset(); Release(); base.RemoveComponentSpecific(); }
     }
 
     public sealed class MagneticBootsAnimation : IAssemblyPlugin

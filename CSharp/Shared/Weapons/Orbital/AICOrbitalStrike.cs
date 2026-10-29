@@ -244,7 +244,7 @@ namespace AIC.Components
             Item.CreateServerEvent(this);
 #endif
         }
-        public override void RemoveComponentSpecific()
+        protected override void RemoveComponentSpecific()
         {
             instances.Remove(this);
             base.RemoveComponentSpecific();

@@ -76,7 +76,7 @@ namespace AIC.Components
             if (spriteElement != null) shield = new Sprite(spriteElement);
 #endif
         }
-        public override void RemoveComponentSpecific()
+        protected override void RemoveComponentSpecific()
         {
             ReleaseDashPose();
 #if CLIENT

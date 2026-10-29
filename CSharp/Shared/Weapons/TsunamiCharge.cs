@@ -19,7 +19,7 @@ namespace AIC.Components
             Visible.Add(this);
 #endif
         }
-        public override void RemoveComponentSpecific()
+        protected override void RemoveComponentSpecific()
         {
 #if CLIENT
             Visible.Remove(this);

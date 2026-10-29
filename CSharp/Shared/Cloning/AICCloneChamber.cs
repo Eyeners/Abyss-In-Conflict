@@ -331,7 +331,7 @@ namespace AIC.Components
             Clone = null;
         }
 
-        public override void RemoveComponentSpecific()
+        protected override void RemoveComponentSpecific()
         {
             ReleaseDeploymentBody();
             Release();
@@ -354,7 +354,7 @@ namespace AIC.Components
         private GUIButton connectButton;
         private sealed record RequestData(bool Disconnect, bool Recycle) : ItemComponent.IEventData;
 
-        public override void CreateGUI()
+        protected override void CreateGUI()
         {
             if (GuiFrame == null) return;
             var layout = new GUILayoutGroup(new RectTransform(new Vector2(0.9f, 0.9f), GuiFrame.RectTransform, Anchor.Center))

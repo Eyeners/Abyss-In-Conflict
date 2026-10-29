@@ -232,7 +232,7 @@ namespace AIC.Components
             }
             shots.Clear();
         }
-        public override void RemoveComponentSpecific()
+        protected override void RemoveComponentSpecific()
         {
 #if CLIENT
             SonicRefraction.CancelNPCStasisPreview(Item.ID);

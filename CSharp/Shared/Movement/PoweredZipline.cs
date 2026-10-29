@@ -189,7 +189,7 @@ namespace AIC.Components
 #endif
         }
         public override void UpdateBroken(float dt, Camera cam) => Update(dt, cam);
-        public override void RemoveComponentSpecific()
+        protected override void RemoveComponentSpecific()
         {
             Guns.Remove(this);
 #if CLIENT
