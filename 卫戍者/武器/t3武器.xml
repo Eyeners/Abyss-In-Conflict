@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item
+    name="海啸重粒子炮"
+    identifier="aic_wardens_tsunami"
+    category="Weapon"
+    subcategory="卫戍者军备"
+    tags="largeitem,weapon,gun,aic_wardens_weapon,aic_wardens_t3,gunsmith,provocativetohumanai,mountableweapon,aic_scope_zoom3x_builtin"
+    scale="0.075"
+    impactsoundtag="impact_metal_heavy"
+    description="将微量的的铋金属在高温高压中转化为等离子态，通过大功率的脉冲电磁加速轨道将之收束为拥有不错穿透力的重粒子束，重力子束会对命中肢体相邻肢体造成连带伤害。由于每次射击所需的铋金属质量极低，该武器可视为无限弹药，但需要考虑散热问题。"
+    cargocontaineridentifier="metalcrate"
+    maxstacksize="1"
+    requireaimtouse="true">
+    <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
+
+    <InventoryIcon texture="%ModDir%/卫戍者/贴图/海啸重粒子武器.png" sourcerect="0,0,1920,480" origin="0.5,0.5" />
+
+    <Sprite texture="%ModDir%/卫戍者/贴图/海啸重粒子武器.png" sourcerect="0,0,1920,480" depth="0.55" origin="0.5,0.5" />
+
+    <Body width="1880" height="400" density="25" />
+
+    <Holdable
+      slots="RightHand+LeftHand,Any"
+      controlpose="true"
+      holdpos="60,-15"
+      aimpos="70,4"
+      handle1="-604,-124"
+      handle2="64,-100"
+      holdangle="-25"
+      cameraaimoffset="650"
+      msg="ItemMsgPickUpSelect" />
+
+    <RangedWeapon
+      reload="0.2"
+      maxchargetime="1.5"
+      holdtrigger="true"
+      barrelpos="960,-9"
+      spread="0"
+      unskilledspread="0"
+      combatpriority="100"
+      drawhudwhenequipped="true"
+      crosshairscale="0.65"
+      ChargeSoundWindupPitchSlide="0.5,1.5">
+      <Crosshair texture="%ModDir%/卫戍者/贴图/海啸准星.png" sourcerect="0,0,256,256" origin="0.5,0.5" />
+      <CrosshairPointer texture="%ModDir%/卫戍者/贴图/海啸准星指针.png" sourcerect="0,0,256,256" origin="0.5,0.5" />
+
+      <Sound file="%ModDir%/卫戍者/音效/海啸重粒子炮1.ogg" type="OnUse" range="3500" selectionmode="Random" />
+      <Sound file="%ModDir%/卫戍者/音效/海啸重粒子炮2.ogg" type="OnUse" range="3500" selectionmode="Random" />
+      <Sound file="%ModDir%/卫戍者/音效/海啸重粒子炮3.ogg" type="OnUse" range="3500" selectionmode="Random" />
+      <ChargeSound file="Content/Items/JobGear/Engineer/WEAPONS_rapidFissileAcceleratorStartLoop.ogg" range="1000" />
+
+      <RequiredItems items="aic_wardens_tsunami_bolt" type="Contained" msg="ItemMsgAmmoRequired" />
+    </RangedWeapon>
+
+    <TsunamiCharge drawhudwhenequipped="true">
+      <StatusEffect type="OnUse" target="This">
+        <Sound file="%ModDir%/践行者/音效/炽砂/ReloadStart.ogg" range="1200" />
+      </StatusEffect>
+      <StatusEffect type="OnActive" target="This">
+        <ParticleEmitter particle="aic_foehn_jet_steam" particlespersecond="7" velocitymin="10" velocitymax="25" anglemin="70" anglemax="110" scalemin="0.45" scalemax="0.65" />
+      </StatusEffect>
+    </TsunamiCharge>
+
+    <LightComponent lightcolor="255,255,255,255" range="0" castshadows="false" powerconsumption="0" IsOn="false" lightspritescale="1" allowingameediting="false">
+      <Sprite texture="%ModDir%/卫戍者/贴图/海啸灯光.png" sourcerect="0,0,1920,480" origin="0.5,0.5" />
+    </LightComponent>
+
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" drawinventory="false" canbeselected="false" spawnwithid="aic_wardens_tsunami_bolt" removecontaineditemsondeconstruct="true">
+      <Containable items="aic_wardens_tsunami_bolt" />
+    </ItemContainer>
+
+    <AITarget sightrange="3500" soundrange="5000" fadeouttime="5" />
+
+    <Quality>
+      <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+    </Quality>
+  </Item>
+
+
+
+  <Item
+    name="海啸重粒子束"
+    identifier="aic_wardens_tsunami_bolt"
+    category="Weapon"
+    hideinmenus="true"
+    noninteractable="true"
+    spritecolor="255,255,255,0"
+    tags="smallitem,aic_wardens_round">
+    <Sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="106,75,1,1" />
+
+    <Body width="1" height="1" density="1" />
+
+    <Projectile hitscan="true" removeonhit="true" maxtargetstohit="1" characterusable="true" damagedoors="true">
+      <Attack structuredamage="20" targetforce="24" itemdamage="100" severlimbsprobability="2" penetration="0.8">
+        <Affliction identifier="aic_armorbreaker" strength="60" />
+        <Affliction identifier="aic_armorbreaker2" strength="10" />
+        <Affliction identifier="explosiondamage" strength="100" />
+        <Affliction identifier="burn" strength="20" />
+        <Affliction identifier="aic_suppression" strength="15" />
+        <Affliction identifier="stun" strength="0.5" probability="0.8" />
+      </Attack>
+
+      <StatusEffect type="OnNotContained" target="This" delay="1" stackable="false">
+        <Remove />
+      </StatusEffect>
+    </Projectile>
+
+    <TsunamiConduction>
+      <Attack penetration="0.8" structuredamage="0" itemdamage="0" targetforce="0" severlimbsprobability="0">
+        <Affliction identifier="explosiondamage" strength="60" />
+        <Affliction identifier="burn" strength="10" />
+      </Attack>
+    </TsunamiConduction>
+
+    <RailThreadVisual threadspergroup="3" threadamplitude="28" corehalfwidth="12" threadhalfwidth="2">
+      <sprite texture="%ModDir%/Particles/CNC3/FXRailgunThread_horizontal.png" sourcerect="0,0,256,64" origin="0.5,0.5" />
+    </RailThreadVisual>
+  </Item>
+</Items>

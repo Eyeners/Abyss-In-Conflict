@@ -1,4 +1,4 @@
-#if CLIENT
+﻿#if CLIENT
 using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
@@ -19,7 +19,7 @@ namespace AIC.Components
         private sealed record Wave(Vector2 Start, Vector2 End, double Born, bool Ring = false,
             int ShieldDirection = 0, float ShieldStrength = 0, float RingLifetime = 0.9f, float RingStrength = 90f,
             float[] FanReach = null, Vector2? VortexEnd = null, bool Ground = false, bool Teleport = false,
-            float GroundScale = 1f, float GroundStrength = 1f, EffectAnchor Anchor = default, bool Rift = false, bool VortexGlow = false)
+            float GroundScale = 1f, float GroundStrength = 1f, EffectAnchor Anchor = default, bool Rift = false, bool VortexGlow = false, bool Stasis = false, bool Freeze = false, bool Preview = false, bool Mirror = false, int PreviewOwner = 0)
         {
             internal Vector2 WorldStart => Start + Anchor.DrawOffset;
             internal Vector2 WorldEnd => End + Anchor.DrawOffset;
@@ -62,9 +62,38 @@ namespace AIC.Components
         internal static void AddImpactRing(Vector2 centre)
             => waves.Add(new Wave(centre, new Vector2(85f, 0), Timing.TotalTime, true,
                 RingLifetime: 0.25f, RingStrength: 10f));
+        internal static void AddChrononBurst(Vector2 centre)
+            => waves.Add(new Wave(centre, new Vector2(140f, 0), Timing.TotalTime, true,
+                RingLifetime: 0.4f, RingStrength: 32f));
+        internal static void PreviewStasis(Vector2 centre, float radius)
+        {
+            waves.RemoveAll(w => w.Preview && w.PreviewOwner == 0);
+            waves.Add(new Wave(centre, new Vector2(radius, 0), Timing.TotalTime, true,
+                RingLifetime: 0.1f, RingStrength: 8f, Anchor: EffectAnchor.At(centre), Stasis: true, Preview: true));
+        }
+        internal static void CancelNPCStasisPreview(int owner)
+            => waves.RemoveAll(w => w.Preview && w.PreviewOwner == owner);
+        internal static void AddNPCStasisPreview(int owner, Vector2 centre, float radius, float duration)
+        {
+            CancelNPCStasisPreview(owner);
+            waves.Add(new Wave(centre, new Vector2(radius, 0), Timing.TotalTime, true,
+                RingLifetime: duration, RingStrength: 8f, Anchor: EffectAnchor.At(centre),
+                Stasis: true, Preview: true, PreviewOwner: owner));
+        }
+        internal static void AddStasis(Vector2 centre, float radius, float duration, bool freeze = false)
+        {
+            waves.RemoveAll(w => w.Preview && w.PreviewOwner == 0);
+            if (freeze)
+                waves.Add(new Wave(centre, new Vector2(radius * 1.06f, 0), Timing.TotalTime, true,
+                    RingLifetime: 0.22f, RingStrength: 40f, Anchor: EffectAnchor.At(centre)));
+            waves.Add(new Wave(centre, new Vector2(radius, 0), Timing.TotalTime, true,
+                RingLifetime: duration + 0.45f, RingStrength: 32f, Anchor: EffectAnchor.At(centre), Stasis: true, Freeze: freeze));
+        }
         internal static void AddShield(Vector2 centre, Vector2 radii, int direction, float speed)
             => waves.Add(new Wave(centre, radii, Timing.TotalTime, true, direction,
                 6f + 24f * Math.Clamp(speed / 10f, 0f, 1f)));
+        internal static void AddMirrorSurface(Vector2 start, Vector2 end)
+            => waves.Add(new Wave(start, end, Timing.TotalTime, Mirror: true));
         internal static void AddRing(Vector2 centre, float radius)
             => waves.Add(new Wave(centre, new Vector2(radius, 0), Timing.TotalTime, true));
         internal static void AddRiftExplosion(Vector2 centre)
@@ -96,6 +125,7 @@ namespace AIC.Components
         public void Dispose()
         {
             VortexTextureVisual.Clear();
+            FoehnDashAfterimages.Clear();
             harmony?.UnpatchSelf(); waves.Clear(); effect?.Dispose(); effect = null;
             composite?.Dispose(); composite = null; copyBatch?.Dispose(); copyBatch = null;
         }
@@ -117,11 +147,14 @@ namespace AIC.Components
         }
         private static void Draw(GameScreen __instance, GraphicsDevice graphics)
         {
-            waves.RemoveAll(w => w.ShieldDirection != 0 || Timing.TotalTime - w.Born >= (w.Ring ? w.RingLifetime : Lifetime) || Timing.TotalTime < w.Born);
+            waves.RemoveAll(w => w.Mirror || w.ShieldDirection != 0 || Timing.TotalTime - w.Born >= (w.Ring ? w.RingLifetime : Lifetime) || Timing.TotalTime < w.Born);
             foreach (var charge in FoehnCharge.Visible) charge.QueueShieldRefraction();
+            ReflectionShield.QueueSurfaces();
             bool railBeams = RailThreadRenderer.HasBeams;
+            bool dashTrails = FoehnDashAfterimages.Active;
+            bool tsunamiCharge = TsunamiCharge.Visible.Exists(c => c.HasSparks);
             bool riftNodes = RiftCascadeDrawing.Active;
-            if (waves.Count == 0 && !railBeams && !riftNodes) return;
+            if (waves.Count == 0 && !railBeams && !riftNodes && !tsunamiCharge && !dashTrails && !ChrononStasis.Visible && !ReflectionShield.Visible) return;
             var texture = sceneField.GetValue(__instance) as Texture2D;
             if (texture == null) return;
             long started = System.Diagnostics.Stopwatch.GetTimestamp();
@@ -142,6 +175,7 @@ namespace AIC.Components
             var sampler = graphics.SamplerStates[0];
             try
             {
+                if (dashTrails) FoehnDashAfterimages.PrepareMasks();
                 graphics.SetRenderTarget(composite);
                 copyBatch.Begin(SpriteSortMode.Deferred, BlendState.Opaque);
                 copyBatch.Draw(texture, new Rectangle(0, 0, texture.Width, texture.Height), Color.White);
@@ -164,6 +198,11 @@ namespace AIC.Components
                         DrawGroundWave(wave, __instance, graphics, viewport);
                         continue;
                     }
+                    if (wave.Mirror)
+                    {
+                        DrawMirrorSurface(wave, __instance, graphics, viewport);
+                        continue;
+                    }
                     if (wave.FanReach != null)
                     {
                         DrawFan(wave, __instance, graphics, viewport);
@@ -172,6 +211,7 @@ namespace AIC.Components
                     if (wave.Ring)
                     {
                         DrawRing(wave, __instance, graphics, viewport);
+                        if (wave.Freeze) DrawStasisFacets(wave, __instance, graphics, viewport);
                         continue;
                     }
                     Vector2 start = __instance.Cam.WorldToScreen(wave.WorldStart);
@@ -233,6 +273,21 @@ namespace AIC.Components
                             __instance, graphics, effect, viewport, true);
                 if (railBeams) RailThreadRenderer.Draw(__instance, graphics, effect);
                 if (riftNodes) RiftCascadeDrawing.Draw(__instance, graphics, effect);
+                if (dashTrails || ChrononStasis.Visible || ReflectionShield.Visible)
+                {
+                    copyBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
+                    FoehnDashAfterimages.Draw(copyBatch, __instance.Cam);
+                    ChrononStasis.DrawAll(copyBatch, __instance.Cam);
+                    ReflectionShield.DrawImpacts(copyBatch, __instance.Cam);
+                    copyBatch.End();
+                }
+                if (tsunamiCharge)
+                {
+                    copyBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
+                    foreach (var charge in TsunamiCharge.Visible)
+                        if (charge.HasSparks) charge.Draw(copyBatch, __instance.Cam);
+                    copyBatch.End();
+                }
             }
             finally
             {
@@ -333,6 +388,74 @@ namespace AIC.Components
                 graphics.DrawUserPrimitives(PrimitiveType.TriangleList, vertices, 0, count / 3);
             }
         }
+        private static void DrawMirrorSurface(Wave wave, GameScreen screen, GraphicsDevice graphics, Viewport viewport)
+        {
+            Vector2 start = screen.Cam.WorldToScreen(wave.Start), end = screen.Cam.WorldToScreen(wave.End);
+            Vector2 axis = end - start;
+            if (axis.LengthSquared() < 1) return;
+            axis.Normalize();
+            Vector2 normal = new Vector2(-axis.Y, axis.X);
+            float zoom = screen.Cam.Zoom;
+            const int rows = 24, columns = 8;
+            int count = rows * columns * 6;
+            if (vertices.Length < count) vertices = new VertexPositionColorTexture[count];
+            VertexPositionColorTexture Vertex(int x, int y)
+            {
+                float u = (float)y / rows, v = 2f * x / columns - 1;
+                Vector2 pos = Vector2.Lerp(start, end, u) + normal * (v * 6 * zoom);
+                float envelope = (1 - v * v) * (float)Math.Sin(MathHelper.Pi * u);
+                float shimmer = 0.75f + 0.25f * (float)Math.Sin(u * 19 - Timing.TotalTime * 4);
+                Vector2 sample = pos + normal * (3 * zoom * envelope * shimmer);
+                return new VertexPositionColorTexture(new Vector3(pos, 0), Color.White,
+                    new Vector2(sample.X / viewport.Width, sample.Y / viewport.Height));
+            }
+            int gridCount = (rows + 1) * (columns + 1);
+            if (grid.Length < gridCount) grid = new VertexPositionColorTexture[gridCount];
+            for (int y = 0; y <= rows; y++)
+                for (int x = 0; x <= columns; x++) grid[y * (columns + 1) + x] = Vertex(x, y);
+            int index = 0;
+            for (int y = 0; y < rows; y++)
+                for (int x = 0; x < columns; x++)
+                {
+                    int at = y * (columns + 1) + x, next = at + columns + 1;
+                    var a = grid[at]; var b = grid[at + 1];
+                    var c = grid[next]; var d = grid[next + 1];
+                    vertices[index++] = a; vertices[index++] = b; vertices[index++] = c;
+                    vertices[index++] = c; vertices[index++] = b; vertices[index++] = d;
+                }
+            foreach (var pass in effect.CurrentTechnique.Passes)
+            { pass.Apply(); graphics.DrawUserPrimitives(PrimitiveType.TriangleList, vertices, 0, count / 3); }
+        }
+        private static void DrawStasisFacets(Wave wave, GameScreen screen, GraphicsDevice graphics, Viewport viewport)
+        {
+            const int pieces = 42;
+            float elapsed = (float)(Timing.TotalTime - wave.Born);
+            float fade = Math.Clamp(elapsed / 0.18f, 0, 1) * Math.Clamp((wave.RingLifetime - elapsed) / 0.45f, 0, 1);
+            float zoom = screen.Cam.Zoom;
+            float radius = wave.End.X * zoom;
+            Vector2 centre = screen.Cam.WorldToScreen(wave.WorldStart);
+            if (vertices.Length < pieces * 3) vertices = new VertexPositionColorTexture[pieces * 3];
+            for (int i = 0; i < pieces; i++)
+            {
+                float angle = i * 2.399963f;
+                float distance = (float)Math.Sqrt((i + 0.5f) / pieces) * radius * 0.87f;
+                Vector2 pos = centre + new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * distance;
+                float size = (10 + 12 * (0.5f + 0.5f * (float)Math.Sin(i * 7.1f))) * zoom;
+                Vector2 shift = new Vector2((float)Math.Sin(i * 3 + elapsed * 1.3f), (float)Math.Cos(i * 5 - elapsed)) * (7 * zoom * fade);
+                for (int j = 0; j < 3; j++)
+                {
+                    float a = angle + j * MathHelper.TwoPi / 3 + 0.22f * (float)Math.Sin(i + j * 2);
+                    Vector2 p = pos + new Vector2((float)Math.Cos(a), (float)Math.Sin(a)) * size;
+                    Vector2 uv = p + shift;
+                    vertices[i * 3 + j] = new VertexPositionColorTexture(new Vector3(p, 0), Color.White,
+                        new Vector2(uv.X / viewport.Width, uv.Y / viewport.Height));
+                }
+            }
+            foreach (var pass in effect.CurrentTechnique.Passes)
+            {
+                pass.Apply(); graphics.DrawUserPrimitives(PrimitiveType.TriangleList, vertices, 0, pieces);
+            }
+        }
         private static void DrawRing(Wave wave, GameScreen screen, GraphicsDevice graphics, Viewport viewport)
         {
             Vector2 centre = screen.Cam.WorldToScreen(wave.WorldStart);
@@ -348,6 +471,8 @@ namespace AIC.Components
                 vortexSide = new Vector2(-vortexAxis.Y, vortexAxis.X);
             }
             float radius = wave.End.X * (0.2f + 0.8f * age) * zoom;
+            if (wave.Stasis)
+                radius = wave.End.X * (wave.Preview ? 1 : MathHelper.SmoothStep(0, 1, Math.Min(1, age * wave.RingLifetime / 0.18f))) * zoom;
             if (wave.Rift)
                 radius = wave.End.X * (age < 0.1f ? MathHelper.Lerp(0.45f, 1f, age / 0.1f)
                     : MathHelper.Lerp(1f, 0.65f, (age - 0.1f) / 0.9f)) * zoom;
@@ -376,7 +501,7 @@ namespace AIC.Components
                 float t = (float)band / bands;
                 Vector2 radial = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
                 float r = radius * (0.35f + 0.65f * t);
-                if (wave.Teleport) r = radius * t;
+                if (wave.Teleport || wave.Stasis) r = radius * t;
                 // Single smooth outer crest with a long inward falloff; no periodic ripples.
                 float crest = t * t * (1 - t) * 6.75f;
                 float strength = crest * (1 - age * age);
@@ -403,6 +528,24 @@ namespace AIC.Components
                     strength *= 1f + 0.3f * turbulence;
                 }
                 Vector2 pos = centre + radial * r;
+                if (wave.Stasis)
+                {
+                    float elapsed = age * wave.RingLifetime;
+                    float fade = wave.Preview ? 1 : Math.Clamp((wave.RingLifetime - elapsed) / 0.45f, 0, 1);
+                    float shell = (float)Math.Exp(-Math.Pow((t - 0.92f) / 0.065f, 2));
+                    float edge = MathHelper.SmoothStep(0, 1, Math.Clamp((1 - t) / 0.05f, 0, 1));
+                    float lens = (wave.Freeze ? 0.65f : 0.28f) * t * (float)Math.Sqrt(Math.Max(0, 1 - t * t));
+                    if (wave.Freeze || wave.Preview)
+                    {
+                        float phase = (float)Timing.TotalTime;
+                        float warp = (float)(Math.Sin(angle * 7 + phase * 3) * Math.Sin(angle * 11 - phase * 2));
+                        pos += radial * (warp * 5 * zoom * t * t * edge);
+                        lens *= 1 + 0.3f * (float)Math.Sin(angle * 3 + t * 8 - phase * 2);
+                    }
+                    float ripple = 1 + 0.18f * (float)(Math.Sin(angle * 9 + elapsed * 7)
+                        * Math.Sin(angle * 5 - elapsed * 11));
+                    strength = (shell * 1.8f * ripple + lens) * edge * fade;
+                }
                 if (wave.VortexEnd != null)
                 {
                     float shell = 0.35f + 0.65f * t;
@@ -457,3 +600,4 @@ namespace AIC.Components
     }
 }
 #endif
+

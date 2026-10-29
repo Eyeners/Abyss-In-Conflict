@@ -75,6 +75,7 @@ namespace AIC.Components
             { Release(); owner = user; submarine = user.Submarine; scanTimer = 0; }
             var anim = user.AnimController as HumanoidAnimController;
             if (anim == null) { Release(); return; }
+            if (HumanJumpClimb.Controlling(user)) { WallWalk.Reset(); Release(); return; }
             if (WallWalk.Update(user, WallWalkEnabled, deltaTime)) { Release(); return; }
             bool limp = NeedsFootAnchors(user);
             if (user.IsClimbing && !limp) { Release(); return; }
@@ -217,6 +218,7 @@ namespace AIC.Components
             // 仅在本次动画调用内伪装成站立；不是把角色永久改成不在水中。
             __state = default;
             var user = __instance.Character;
+            if (HumanJumpClimb.Controlling(user)) return;
             var boots = MagneticBoots.Get(user);
             if (boots?.IsOn == true && boots.WallWalkEnabled && boots.WallWalk.Active && MagneticBoots.NeedsFootAnchors(user))
                 boots.WallWalk.PreserveLimp(__instance);

@@ -1,57 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Items>
-  <Item name="流明增幅器" identifier="aic_prism_lumen_module" category="Equipment" subcategory="武器配件" tags="smallitem,aic_attachment,aic_prism_lumen" maxstacksize="1" scale="0.025" description="取消棱镜光束的反射与折射，命中时释放范围200的金色闪光，施加30点眩光。">
+  <Item
+    name="流明增幅器"
+    identifier="aic_prism_lumen_module"
+    category="Equipment"
+    subcategory="武器配件"
+    tags="smallitem,aic_attachment,aic_prism_lumen"
+    maxstacksize="1"
+    scale="0.1"
+    description="使光束的能量在单次冲击中释放，产生妨碍射击的眩光。">
     <InventoryIcon texture="%ModDir%/Items/prism_lumen_attachment.png" sourcerect="0,0,512,512" origin="0.5,0.5" />
+
     <Sprite texture="%ModDir%/Items/prism_lumen_attachment.png" sourcerect="0,0,512,512" origin="0.5,0.5" depth="0.55" />
+
     <Body width="180" height="100" density="15" />
+
     <Holdable slots="Any,RightHand,LeftHand" holdpos="0,0" handle1="0,0" msg="ItemMsgPickUpSelect" />
   </Item>
-  <Item name="棱镜定向折射模块" identifier="aic_prism_focus_module" category="Equipment" subcategory="武器配件" tags="smallitem,aic_attachment,aic_prism_focus" maxstacksize="1" scale="0.1" description="收束裂解光束的传播方向，使反射束沿镜面反射方向聚集，贯体后的光束继续向前散射。">
+
+  <Item
+    name="棱镜定向折射模块"
+    identifier="aic_prism_focus_module"
+    category="Equipment"
+    subcategory="武器配件"
+    tags="smallitem,aic_attachment,aic_prism_focus"
+    maxstacksize="1"
+    scale="0.1"
+    description="收束裂解光束的传播方向，使反射束沿镜面反射方向聚集，同时减小光束的散射。">
     <InventoryIcon texture="%ModDir%/Items/prism_focus_attachment.png" sourcerect="0,0,512,512" origin="0.5,0.5" />
+
     <Sprite texture="%ModDir%/Items/prism_focus_attachment.png" sourcerect="0,0,512,512" origin="0.5,0.5" depth="0.55" />
+
     <Body width="180" height="100" density="15" />
+
     <Holdable slots="Any,RightHand,LeftHand" holdpos="0,0" handle1="0,0" msg="ItemMsgPickUpSelect" />
   </Item>
-  <Item name="棱镜光能狙击枪" identifier="aic_prism_sniper_rifle" category="Weapon" subcategory="特殊武器" tags="largeitem,weapon,gun,mountableweapon,aic_scope_zoom3x_builtin" scale="0.16" maxstacksize="1" requireaimtouse="true" impactsoundtag="impact_metal_heavy" cargocontaineridentifier="metalcrate" description="将蓄电池中的能量压缩为高热光束。聚焦束命中后逐级裂解，在周围交织成致命的白色光网。">
+
+  <Item
+    name="棱镜光能狙击枪"
+    identifier="aic_prism_sniper_rifle"
+    category="Weapon"
+    subcategory="特殊武器"
+    tags="largeitem,weapon,gun,mountableweapon,aic_scope_zoom3x_builtin,gunsmith,provocativetohumanai"
+    scale="0.16"
+    maxstacksize="1"
+    requireaimtouse="true"
+    impactsoundtag="impact_metal_heavy"
+    cargocontaineridentifier="metalcrate"
+    description="将蓄电池中的能量压缩为高能光束，聚焦光束束命中后逐级裂解。">
     <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
+
     <InventoryIcon texture="%ModDir%/Items/棱镜光能狙击枪.png" sourcerect="0,0,870,282" origin="0.5,0.5" />
+
     <Sprite texture="%ModDir%/Items/棱镜光能狙击枪.png" sourcerect="0,0,870,282" origin="0.5,0.5" depth="0.55" />
+
     <Body width="800" height="230" density="30" />
-    <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="65,-5" aimpos="65,-5" handle1="-237,-69" handle2="19,-73" holdangle="-30" cameraaimoffset="650" msg="ItemMsgPickUpSelect" />
-    <BatteryHitscanWeapon barrelpos="432,33" reload="3" spread="0" unskilledspread="0" holdtrigger="false" batterycost="40" combatpriority="90" drawhudwhenequipped="true" crosshairscale="0.2" projectileidentifier="aic_prism_primary" alternateprojectile="aic_prism_lumen_primary" alternateattachmenttag="aic_prism_lumen">
+
+    <Holdable
+      slots="Any,RightHand+LeftHand"
+      controlpose="true"
+      holdpos="65,-5"
+      aimpos="65,-5"
+      handle1="-237,-69"
+      handle2="19,-73"
+      holdangle="-30"
+      cameraaimoffset="650"
+      msg="ItemMsgPickUpSelect" />
+
+    <BatteryHitscanWeapon
+      barrelpos="432,33"
+      reload="1.5"
+      spread="0"
+      unskilledspread="0"
+      holdtrigger="false"
+      batterycost="40"
+      combatpriority="90"
+      drawhudwhenequipped="true"
+      crosshairscale="0.2"
+      projectileidentifier="aic_prism_primary"
+      alternateprojectile="aic_prism_lumen_primary"
+      alternateattachmenttag="aic_prism_lumen">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+
       <Sound file="%ModDir%/Sounds/IC-1 Starbeam.ogg" type="OnUse" range="3500" volume="0.8" />
+
       <RequiredItems items="mobilebattery" type="Contained" msg="需要电池" />
       <RequiredSkill identifier="weapons" level="50" />
     </BatteryHitscanWeapon>
+
     <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="battery" containedstateindicatorslot="0">
       <Containable items="mobilebattery" />
+
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
+
       <SubContainer capacity="1" maxstacksize="1">
         <SlotIcon slotindex="1" texture="%ModDir%/UI/瞄准框.png" sourcerect="0,0,64,64" origin="0.5,0.5" />
+
         <Containable items="aic_prism_focus,aic_prism_lumen" hide="true" />
       </SubContainer>
     </ItemContainer>
+
     <AITarget sightrange="3000" soundrange="3500" fadeouttime="5" />
+
     <SkillRequirementHint identifier="weapons" level="50" />
+
+    <Quality>
+      <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+    </Quality>
   </Item>
+
   <Item name="棱镜流明束" identifier="aic_prism_lumen_primary" category="Weapon" hideinmenus="true" noninteractable="true" spritecolor="255,255,255,0">
     <Sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="106,75,1,1" origin="0.5,0.5" />
+
     <Body width="1" height="1" density="1" />
+
     <Projectile characterusable="false" hitscan="true" maxtargetstohit="1" removeonhit="true" damagedoors="true">
       <ParticleEmitter particle="aic_prism_white_beam" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="1,4" />
+
       <Attack penetration="0" structuredamage="0" itemdamage="0" targetforce="0" severlimbsprobability="0">
         <Affliction identifier="burn" strength="60" />
         <Affliction identifier="aic_heat_buildup" strength="20" />
         <Affliction identifier="aic_armorbreaker" strength="5" />
       </Attack>
+
       <StatusEffect type="OnImpact" target="This">
         <Explosion range="200" force="0" camerashake="0" structuredamage="0" itemdamage="0" levelwalldamage="0" flames="false" smoke="false" sparks="false" shockwave="false" underwaterbubble="false" flash="true" flashcolor="255,210,65,255">
           <Affliction identifier="aic_projectile_evasion" strength="30" />
         </Explosion>
         <ParticleEmitter particle="aic_prism_gold_flash" particleamount="1" velocitymin="0" velocitymax="0" />
       </StatusEffect>
+
       <StatusEffect type="OnImpact" target="UseTarget">
         <Conditional entitytype="eq Character" />
         <Sound file="%ModDir%/践行者/音效/HeadImpact1.ogg" range="1200" selectionmode="Random" />
@@ -62,22 +141,31 @@
         <Sound file="%ModDir%/践行者/音效/HeadImpact6.ogg" range="1200" selectionmode="Random" />
         <Sound file="%ModDir%/践行者/音效/HeadImpact7.ogg" range="1200" selectionmode="Random" />
       </StatusEffect>
-      <StatusEffect type="OnNotContained" target="This" delay="1" stackable="false"><Remove /></StatusEffect>
+
+      <StatusEffect type="OnNotContained" target="This" delay="1" stackable="false">
+        <Remove />
+      </StatusEffect>
     </Projectile>
   </Item>
+
   <Item name="棱镜聚焦束" identifier="aic_prism_primary" category="Weapon" hideinmenus="true" noninteractable="true" spritecolor="255,255,255,0">
     <Sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="106,75,1,1" origin="0.5,0.5" />
+
     <Body width="1" height="1" density="1" />
+
     <Projectile characterusable="false" hitscan="true" maxtargetstohit="1" removeonhit="true" damagedoors="true">
       <ParticleEmitter particle="aic_prism_white_beam" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="1,4" />
+
       <Attack penetration="0" structuredamage="0" itemdamage="0" targetforce="0" severlimbsprobability="0">
         <Affliction identifier="burn" strength="60" />
         <Affliction identifier="aic_heat_buildup" strength="20" />
         <Affliction identifier="aic_armorbreaker" strength="5" />
       </Attack>
+
       <StatusEffect type="OnImpact" target="UseTarget">
         <ParticleEmitter particle="aic_prism_white_impact" particleamount="1" velocitymin="0" velocitymax="0" />
       </StatusEffect>
+
       <StatusEffect type="OnImpact" target="UseTarget">
         <Conditional entitytype="eq Character" />
         <Sound file="%ModDir%/践行者/音效/HeadImpact1.ogg" range="1200" selectionmode="Random" />
@@ -88,24 +176,32 @@
         <Sound file="%ModDir%/践行者/音效/HeadImpact6.ogg" range="1200" selectionmode="Random" />
         <Sound file="%ModDir%/践行者/音效/HeadImpact7.ogg" range="1200" selectionmode="Random" />
       </StatusEffect>
+
       <StatusEffect type="OnNotContained" target="This" delay="1" stackable="false">
         <Remove />
       </StatusEffect>
     </Projectile>
+
     <PrismSplit childprojectile="aic_prism_secondary" branchcount="3" />
   </Item>
+
   <Item name="棱镜次级束" identifier="aic_prism_secondary" category="Weapon" hideinmenus="true" noninteractable="true" spritecolor="255,255,255,0">
     <Sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="106,75,1,1" origin="0.5,0.5" />
+
     <Body width="1" height="1" density="1" />
+
     <Projectile characterusable="false" hitscan="true" maxtargetstohit="1" removeonhit="true" damagedoors="true">
       <ParticleEmitter particle="aic_prism_white_beam" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="1,2.5" />
+
       <Attack penetration="0" structuredamage="0" itemdamage="0" targetforce="0" severlimbsprobability="0">
         <Affliction identifier="burn" strength="30" />
         <Affliction identifier="aic_heat_buildup" strength="10" />
       </Attack>
+
       <StatusEffect type="OnImpact" target="UseTarget">
         <ParticleEmitter particle="aic_prism_white_impact" particleamount="1" velocitymin="0" velocitymax="0" />
       </StatusEffect>
+
       <StatusEffect type="OnImpact" target="UseTarget">
         <Conditional entitytype="eq Character" />
         <Sound file="%ModDir%/践行者/音效/HeadImpact1.ogg" range="1200" selectionmode="Random" />
@@ -116,24 +212,32 @@
         <Sound file="%ModDir%/践行者/音效/HeadImpact6.ogg" range="1200" selectionmode="Random" />
         <Sound file="%ModDir%/践行者/音效/HeadImpact7.ogg" range="1200" selectionmode="Random" />
       </StatusEffect>
+
       <StatusEffect type="OnNotContained" target="This" delay="1" stackable="false">
         <Remove />
       </StatusEffect>
     </Projectile>
+
     <PrismSplit childprojectile="aic_prism_tertiary" branchcount="2" />
   </Item>
+
   <Item name="棱镜散射束" identifier="aic_prism_tertiary" category="Weapon" hideinmenus="true" noninteractable="true" spritecolor="255,255,255,0">
     <Sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="106,75,1,1" origin="0.5,0.5" />
+
     <Body width="1" height="1" density="1" />
+
     <Projectile characterusable="false" hitscan="true" maxtargetstohit="1" removeonhit="true" damagedoors="true">
       <ParticleEmitter particle="aic_prism_white_beam" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="1,1.5" />
+
       <Attack penetration="0" structuredamage="0" itemdamage="0" targetforce="0" severlimbsprobability="0">
         <Affliction identifier="burn" strength="20" />
         <Affliction identifier="aic_heat_buildup" strength="5" />
       </Attack>
+
       <StatusEffect type="OnImpact" target="UseTarget">
         <ParticleEmitter particle="aic_prism_white_impact" particleamount="1" velocitymin="0" velocitymax="0" />
       </StatusEffect>
+
       <StatusEffect type="OnImpact" target="UseTarget">
         <Conditional entitytype="eq Character" />
         <Sound file="%ModDir%/践行者/音效/HeadImpact1.ogg" range="1200" selectionmode="Random" />
@@ -144,6 +248,7 @@
         <Sound file="%ModDir%/践行者/音效/HeadImpact6.ogg" range="1200" selectionmode="Random" />
         <Sound file="%ModDir%/践行者/音效/HeadImpact7.ogg" range="1200" selectionmode="Random" />
       </StatusEffect>
+
       <StatusEffect type="OnNotContained" target="This" delay="1" stackable="false">
         <Remove />
       </StatusEffect>

@@ -32,6 +32,10 @@ namespace AIC.Components
                 Patch(typeof(IndoorsSteeringManager), "Wander");
                 Patch(typeof(AIObjectiveCombat), "Attack");
                 Patch(typeof(AIObjectiveCombat), "UseWeapon");
+                Patch(typeof(AIObjectiveCombat), "Move");
+                Patch(typeof(AIObjectiveIdle), "Act");
+                Patch(typeof(AIObjectiveIdle), "Wander");
+                Patch(typeof(AIObjectiveGoTo), "Act");
                 harmony.Patch(AccessTools.Method(typeof(HumanAIController), "SpotEnemies"),
                     transpiler: new HarmonyMethod(typeof(SpaceBackpackAI), nameof(SpaceSpotting)));
                 harmony.Patch(AccessTools.Method(typeof(AIObjectiveGoTo), "Act"),
@@ -68,9 +72,9 @@ namespace AIC.Components
                 yield return instruction;
             }
         }
-        private static bool NavigatesFreely(Ragdoll anim) => anim.InWater || Applies(anim.Character);
-        private static bool HeadNavigatesFreely(Ragdoll anim) => anim.HeadInWater || Applies(anim.Character);
-        private static bool NeedsLadder(Character user) => !Applies(user) && user.CanClimb;
+        private static bool NavigatesFreely(Ragdoll anim) => anim.InWater || Applies(anim.Character) || MagneticChainPack.FreeNavigation(anim.Character);
+        private static bool HeadNavigatesFreely(Ragdoll anim) => anim.HeadInWater || Applies(anim.Character) || MagneticChainPack.FreeNavigation(anim.Character);
+        private static bool NeedsLadder(Character user) => !Applies(user) && !MagneticChainPack.FreeNavigation(user) && user.CanClimb;
 
         private static IEnumerable<CodeInstruction> SpaceSpotting(IEnumerable<CodeInstruction> source)
         {
@@ -90,15 +94,19 @@ namespace AIC.Components
             if (!matched) throw new InvalidOperationException("Space spotting: native 70-degree cone not found.");
         }
         private static float SpottingAngle(float original, HumanAIController controller)
-            => Applies(controller.Character) ? 180f : original;
+            => Applies(controller.Character) || MagneticChainPack.FreeNavigation(controller.Character) ? 180f : original;
 
         private static bool RecoverGoTo(AIObjectiveGoTo __instance)
         {
             var user = __instance.character;
-            if (!Applies(user) || GameMain.NetworkMember?.IsClient == true) return true;
+            bool magnetic = MagneticChainPack.FreeNavigation(user);
+            if ((!Applies(user) && !magnetic) || GameMain.NetworkMember?.IsClient == true) return true;
             var backpack = user.GetEquippedItem("aic_space_propulsion_backpack", InvSlotType.Bag)
                 ?.GetComponent<SpacePropulsionBackpack>();
-            if (backpack == null || !backpack.Navigation.TryMove(user, __instance, out var desired)) return true;
+            var chain = magnetic ? MagneticChainPack.Equipped(user) : null;
+            var navigation = chain?.Navigation ?? backpack?.Navigation;
+            if (navigation == null || !navigation.TryMove(user, __instance, out var desired)) return true;
+            if (chain != null) desired = chain.ConstrainRecovery(user, desired);
             // Keep the objective alive while bypassing the unreachable-path timeout, not its completion checks.
             user.AIController.SteeringManager.Reset();
             user.AIController.SteeringManager.SteeringManual(1, desired);
@@ -127,7 +135,8 @@ namespace AIC.Components
             if (speed < 0.01f) return Vector2.Zero;
             float limit = 2f;
             bool recovering = user.GetEquippedItem("aic_space_propulsion_backpack", InvSlotType.Bag)
-                ?.GetComponent<SpacePropulsionBackpack>()?.Navigation.IsRecovering == true;
+                ?.GetComponent<SpacePropulsionBackpack>()?.Navigation.IsRecovering == true
+                || MagneticChainPack.Equipped(user)?.Navigation.IsRecovering == true;
             var path = (user.AIController as HumanAIController)?.PathSteering?.CurrentPath;
             if (!recovering && path != null && !path.Unreachable && !path.Finished && path.CurrentNode != null)
             {

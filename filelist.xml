@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <contentpackage name="Abyss In Conflict" modversion="0.1.34" corepackage="False" steamworkshopid="3724647577" gameversion="1.13.4.0">
   <Character file="%ModDir%/Characters/MechanicalHumanoid/MechanicalHumanoid.xml" />
   <Talents file="%ModDir%/Talents/CombatTalents.xml" />
@@ -43,9 +43,11 @@
   <Item file="%ModDir%/Items/Weapons/airburst_incendiary_2.xml" />
   <Item file="%ModDir%/Items/Weapons/traction_beam.xml" />
   <Item file="%ModDir%/Items/Weapons/grapple_gun.xml" />
+  <Item file="%ModDir%/Items/Weapons/powered_zipline.xml" />
   <Item file="%ModDir%/Items/Weapons/net_gun.xml" />
   <Item file="%ModDir%/卫戍者/武器/t1武器.xml" />
   <Item file="%ModDir%/卫戍者/武器/t2武器.xml" />
+  <Item file="%ModDir%/卫戍者/武器/t3武器.xml" />
   <Item file="%ModDir%/卫戍者/武器/GDF军用武器.xml" />
   <Item file="%ModDir%/卫戍者/装备/t1护甲.xml" />
   <Item file="%ModDir%/卫戍者/装备/GDF护甲.xml" />
@@ -108,4 +110,7 @@
   <Item file="%ModDir%/Items/Weapons/artillery_beacon.xml" />
   <Item file="%ModDir%/Items/Weapons/orbital_tracking_designator.xml" />
   <Item file="%ModDir%/Items/Weapons/shockwave_grenade.xml" />
+  <Item file="%ModDir%/Items/magnetic_chain_pack.xml" />
+  <Item file="%ModDir%/Items/reflection_shield.xml" />
+  <Item file="%ModDir%/Items/chronon_pack.xml" />
 </contentpackage>

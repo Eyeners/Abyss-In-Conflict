@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Barotrauma;
 using Barotrauma.Items.Components;
@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AIC.Components
 {
-    class FoehnCharge : ItemComponent, IServerSerializable
+    partial class FoehnCharge : ItemComponent, IServerSerializable, IClientSerializable
     {
         [Serialize(1.6f, IsPropertySaveable.No)] public float RunMultiplier { get; set; }
         [Serialize(false, IsPropertySaveable.Yes)] public bool DisableImpact { get; set; }
@@ -37,6 +37,7 @@ namespace AIC.Components
         internal float SpeedPenalty { get; private set; }
 #if CLIENT
         private readonly Sprite shield;
+        private float afterimageTimer;
         internal static readonly HashSet<FoehnCharge> Visible = new();
 #endif
         private readonly Attack chargeAttack;
@@ -55,6 +56,7 @@ namespace AIC.Components
             "aic_wardens_gdf_foehn_powerarmor", InvSlotType.OuterClothes)?.GetComponent<FoehnCharge>();
         internal float EvasionChance(Character wearer)
         {
+            if (Dashing && DashValid(wearer)) return 0.8f;
             if (DisableImpact || direction == 0 || !Valid(wearer)) return 0;
             float speed = wearer.AnimController.Collider.LinearVelocity.X * direction;
             if (speed < MinimumHitSpeed || speed < 5f) return 0;
@@ -76,13 +78,16 @@ namespace AIC.Components
         }
         protected override void RemoveComponentSpecific()
         {
+            ReleaseDashPose();
 #if CLIENT
             Visible.Remove(this);
+            FoehnDashAfterimages.Remove(Item);
             shield?.Remove();
 #endif
             base.RemoveComponentSpecific();
         }
-        private bool Valid(Character c) => MovementState.ActiveOnLand(c) && Item.Condition > 0
+        private bool Valid(Character c) => (Dashing && DashValid(c)) || NormalValid(c);
+        private bool NormalValid(Character c) => MovementState.ActiveOnLand(c) && Item.Condition > 0
             && c.AnimController is HumanoidAnimController anim && anim.OnGround && !anim.Crouching
             && !HoverBike.Riding(c) && !HoverJetpack.Flying(c) && Equipped(c) == this && Item.GetComponent<FoehnJetJump>()?.Flying != true
             && Item.GetComponent<FoehnJetJump>()?.Landing != true
@@ -92,6 +97,16 @@ namespace AIC.Components
         {
             SpeedPenalty = Math.Max(0, SpeedPenalty - Math.Max(0, SpeedRecovery) * dt);
             var c = Item.ParentInventory?.Owner as Character;
+            UpdateDash(c, dt);
+#if CLIENT
+            afterimageTimer -= dt;
+            if (Dashing && DashValid(c) && afterimageTimer <= 0)
+            {
+                afterimageTimer = 0.03f;
+                FoehnDashAfterimages.Capture(Item, c);
+            }
+            if (!Dashing) afterimageTimer = 0;
+#endif
             bool valid = Valid(c);
 #if CLIENT
             Visible.Remove(this);
@@ -103,8 +118,8 @@ namespace AIC.Components
 #endif
             if (calculate)
             {
-                int wanted = 0;
-                if (valid && c.CanRun && (c.IsKeyDown(InputType.Run) || c.ForceRun))
+                int wanted = Dashing ? dashDirection : 0;
+                if (!Dashing && valid && c.CanRun && (c.IsKeyDown(InputType.Run) || c.ForceRun))
                 {
                     if (c.IsKeyDown(InputType.Left)) wanted--;
                     if (c.IsKeyDown(InputType.Right)) wanted++;
@@ -169,9 +184,10 @@ namespace AIC.Components
                         : f.Body.UserData is Item obstacle ? obstacle.Submarine == c.Submarine && obstacle.GetComponent<Door>() != null
                         : c.Submarine == null, allowInsideFixture: true) != null) continue;
                 hitUntil[target] = Timing.TotalTime + Math.Max(0.1f, TargetCooldown);
-                float extraSpeed = hitSpeed - ImpactReferenceSpeed;
+                float extraSpeed = (Dashing ? 10f : hitSpeed) - ImpactReferenceSpeed;
                 float impact = SpeedScale(extraSpeed, ImpactGainPerSpeed, MaxImpactMultiplier);
                 float control = SpeedScale(extraSpeed, ControlGainPerSpeed, MaxControlMultiplier);
+                if (Dashing) { impact *= 1.5f; control *= 1.5f; }
                 Hit(c, candidate.Value, impact, control);
 #if CLIENT
                 SonicRefraction.AddImpactRing(candidate.Value.WorldPosition);
@@ -180,7 +196,7 @@ namespace AIC.Components
                 Item.CreateServerEvent(this, new ImpactVisual(candidate.Value.WorldPosition));
 #endif
                 Push(target, impact, control);
-                SlowWearer(c);
+                if (!Dashing) SlowWearer(c);
             }
         }
         private static float SpeedScale(float extraSpeed, float gain, float maximum)
@@ -253,6 +269,7 @@ namespace AIC.Components
         }
         public void ClientEventRead(IReadMessage msg, float sendingTime)
         {
+            ReadDash(msg);
             direction = msg.ReadInt32(); ramp = msg.ReadSingle(); SpeedPenalty = msg.ReadSingle(); DisableImpact = msg.ReadBoolean();
             if (msg.ReadBoolean()) SonicRefraction.AddImpactRing(new Vector2(msg.ReadSingle(), msg.ReadSingle()));
         }
@@ -260,6 +277,7 @@ namespace AIC.Components
 #if SERVER
         public void ServerEventWrite(IWriteMessage msg, Client client, NetEntityEvent.IData extraData = null)
         {
+            WriteDash(msg);
             msg.WriteInt32(direction); msg.WriteSingle(ramp); msg.WriteSingle(SpeedPenalty); msg.WriteBoolean(DisableImpact);
             var visual = extraData is Item.ComponentStateEventData data ? data.ComponentData as ImpactVisual : null;
             msg.WriteBoolean(visual != null);

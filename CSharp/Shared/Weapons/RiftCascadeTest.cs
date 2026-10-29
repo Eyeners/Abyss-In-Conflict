@@ -24,6 +24,9 @@ namespace AIC.Components
         private Item lastNode;
         private float elapsed, next;
         private bool started;
+#if CLIENT
+        private bool windupPlayed;
+#endif
         private Submarine anchor;
         public RiftCascadeTest(Item item, ContentXElement element) : base(item, element) { IsActive = true; }
         internal void Hit(Fixture target, Vector2 normal)
@@ -80,6 +83,13 @@ namespace AIC.Components
                 if (!started) { started = true; RiftCascadeDrawing.Add(Item); }
 #endif
                 elapsed += deltaTime;
+#if CLIENT
+                if (!windupPlayed && elapsed >= 0.2f)
+                {
+                    windupPlayed = true;
+                    ApplyStatusEffects(ActionType.OnUse, deltaTime);
+                }
+#endif
                 if (elapsed >= 0.5f)
                 {
 #if CLIENT

@@ -15,6 +15,8 @@ namespace AIC.Components
     {
         [Serialize(1f, IsPropertySaveable.No)]
         public float GravityMultiplier { get; set; }
+        [Serialize(false, IsPropertySaveable.Yes)]
+        public bool WinchMode { get; set; }
         public GrappleForceControl(Item item, ContentXElement element) : base(item, element) { IsActive = true; }
 
         private bool IsHeldBy(Character character) => character != null && !character.Removed
@@ -65,7 +67,7 @@ namespace AIC.Components
         {
             if (character != Character.Controlled || !IsHeldBy(character)) return;
             GUI.DrawString(spriteBatch, new Vector2(40, 180),
-                $"钩锁拉力 {GravityMultiplier:0.00} × 重力", Color.Cyan);
+                $"钩锁拉力 {GravityMultiplier:0.00} × 重力 · {(WinchMode ? "收放绳：W/S" : "持续牵引")}", Color.Cyan);
         }
         public void ClientEventWrite(IWriteMessage msg, NetEntityEvent.IData extraData = null)
             => msg.WriteByte((byte)MathHelper.Clamp((int)Math.Round(GravityMultiplier * 4), 1, 12));
@@ -91,6 +93,7 @@ namespace AIC.Components
     class GrapplePullAssist : ItemComponent
     {
         private static readonly Identifier ReleaseId = "aic_ground_adhesion_release".ToIdentifier();
+        private float paidOutLength = -1;
         public GrapplePullAssist(Item item, ContentXElement element) : base(item, element) { IsActive = true; }
         public override void Update(float deltaTime, Camera cam)
         {
@@ -104,15 +107,30 @@ namespace AIC.Components
             if (rope.Snapped || !rope.IsActive || !projectile.IsStuckToTarget
                 || user == null || user.Removed || user.IsDead || user.IsIncapacitated
                 || !user.IsKeyDown(InputType.Aim)
-                || projectile.Launcher?.ParentInventory?.Owner != user) return;
+                || projectile.Launcher?.ParentInventory?.Owner != user)
+            { paidOutLength = -1; return; }
             var collider = user.AnimController.Collider;
             if (collider == null) return;
             Vector2 difference = Item.WorldPosition - user.WorldPosition;
             float distance = difference.Length();
-            if (distance <= 80 || distance > rope.MaxLength) return;
+            if (distance > rope.MaxLength) return;
+            bool winch = projectile.Launcher.GetComponent<GrappleForceControl>()?.WinchMode == true;
+            if (!winch) paidOutLength = -1;
+            if (paidOutLength < 0) paidOutLength = MathHelper.Clamp(distance, 80, Math.Max(80, rope.MaxLength));
+            int reel = (user.IsKeyDown(InputType.Down) ? 1 : 0) - (user.IsKeyDown(InputType.Up) ? 1 : 0);
+            paidOutLength = MathHelper.Clamp(paidOutLength + reel * 200f * MathHelper.Clamp(deltaTime, 0, 0.1f),
+                80, Math.Max(80, rope.MaxLength));
+            // MaxLength is the native break distance, not a winch setting. Keep
+            // it unchanged: shortening it would immediately snap a taut rope.
+            if ((winch && distance < paidOutLength - 3) || distance < (winch ? 1 : 80)) return;
             float multiplier = MathHelper.Clamp(projectile.Launcher.GetComponent<GrappleForceControl>()?.GravityMultiplier ?? 1f, 0.25f, 3f);
-            Vector2 acceleration = difference / distance
-                * Math.Max(GameMain.World.Gravity.Length(), 9.82f) * multiplier;
+            Vector2 direction = difference / distance;
+            float approachingSpeed = Vector2.Dot(collider.LinearVelocity - (Item.body?.LinearVelocity ?? Vector2.Zero), direction);
+            float support = Math.Max(0, -Vector2.Dot(GameMain.World.Gravity, direction));
+            float tension = MathHelper.Clamp((distance - paidOutLength) * 0.01f * 18f - approachingSpeed * 7f + support,
+                0, support + Math.Max(GameMain.World.Gravity.Length(), 9.82f) * multiplier);
+            if (!winch) { paidOutLength = -1; tension = Math.Max(GameMain.World.Gravity.Length(), 9.82f) * multiplier; }
+            Vector2 acceleration = direction * tension;
             // Equal acceleration on the rig avoids dragging only the capsule while the limbs lag behind.
             if (collider.Enabled) collider.ApplyForce(acceleration * collider.Mass, maxVelocity: 5f);
             foreach (var limb in user.AnimController.Limbs)

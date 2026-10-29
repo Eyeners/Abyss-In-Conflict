@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="动力滑索枪（测试）" identifier="aic_powered_zipline" description="单机测试：每两个成功固定的锚点独立连成一条滑索（同一潜艇，间距1至30米），继续射击保留旧滑索。靠近绳索按E挂上，再按E脱离；A/D选择方向，以3米/秒滑行。攻击任一端点可破坏滑索。" category="Equipment" tags="smallitem,weapon,gun" scale="1" health="100" damagedbyexplosions="false" damagedbyprojectiles="false">
+    <Sprite texture="%ModDir%/Items/Equipment/HiddenDeepZipline/hr_gun2a.png" sourcerect="0,0,69,34" depth="0.55" origin="0.5,0.5" />
+    <Body width="50" height="22" density="15" />
+    <Holdable slots="Any,RightHand+LeftHand" controlpose="true" aimpos="45,0" handle1="-18,-6" handle2="14,-6" msg="ItemMsgPickUpSelect" />
+
+    <PoweredZipline>
+      <Sound file="%ModDir%/Sounds/HiddenDeepZipline/rope_motor2_start.ogg" type="OnUse" range="650" volume="0.55" />
+      <Sound file="%ModDir%/Sounds/HiddenDeepZipline/rope_motor2_loop.ogg" type="OnSuccess" loop="true" range="650" volume="0.45" />
+      <Sound file="%ModDir%/Sounds/HiddenDeepZipline/rope_motor2_stop.ogg" type="OnFailure" range="500" volume="0.5" />
+      <PulleySprite texture="%ModDir%/Items/Equipment/HiddenDeepZipline/zip_pulley.png" sourcerect="0,0,60,34" origin="0.5,0.5" depth="0.2" />
+      <WheelSprite texture="%ModDir%/Items/Equipment/HiddenDeepZipline/zip_pulley_wheel.png" sourcerect="0,0,28,28" origin="0.5,0.5" depth="0.19" />
+    </PoweredZipline>
+
+    <RangedWeapon reload="0.7" launchimpulse="20" barrelpos="32,3" spread="0" unskilledspread="0" combatpriority="0" drawhudwhenequipped="true" crosshairscale="0.2">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <Sound file="Content/Items/Weapons/HarpoonGun1.ogg" type="OnUse" range="800" volume="0.5" />
+      <StatusEffect type="OnUse" target="This" delay="0.5" disabledeltatime="true">
+        <SpawnItem identifiers="aic_zipline_anchor" spawnposition="ThisInventory" />
+      </StatusEffect>
+      <RequiredItems items="aic_zipline_anchor" type="Contained" msg="ItemMsgAmmoRequired" />
+    </RangedWeapon>
+
+    <ItemContainer hideitems="true" capacity="1" maxstacksize="1" drawinventory="false" canbeselected="false" spawnwithid="aic_zipline_anchor" removecontaineditemsondeconstruct="true">
+      <Containable items="aic_zipline_anchor" />
+    </ItemContainer>
+  </Item>
+
+  <Item name="滑索锚钉" identifier="aic_zipline_anchor" category="Equipment" hideinmenus="true" noninteractable="true" tags="smallitem" scale="0.5" health="1" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyexplosions="true">
+    <Sprite texture="%ModDir%/Items/Equipment/HiddenDeepZipline/ropehook.png" sourcerect="0,0,20,37" origin="0.5,0.5" depth="0.5" />
+    <Body radius="5" density="2" />
+    <Projectile characterusable="false" launchimpulse="20" doesstick="false" sticktocharacters="false" sticktoitems="false" sticktostructures="true" sticktodeflective="true" sticktodoors="true" sticktolighttargets="true" maxtargetstohit="1" prismatic="false">
+      <Attack structuredamage="0" itemdamage="0" targetforce="0" severlimbsprobability="0" />
+    </Projectile>
+    <ZiplineAnchor />
+  </Item>
+</Items>

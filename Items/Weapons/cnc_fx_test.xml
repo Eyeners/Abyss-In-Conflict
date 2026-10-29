@@ -59,7 +59,17 @@
   <Item name="裂隙测试节点" identifier="aic_rift_test_node" category="Weapon" hideinmenus="true" spritecolor="255,255,255,0">
     <Sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="106,75,1,1" />
     <RiftCascadeTest node="true">
+      <StatusEffect type="OnUse" target="This">
+        <Sound file="%ModDir%/Sounds/RiftCascade/rift_explosion_windup_01.ogg" selectionmode="Random" range="1200" volume="0.5" />
+        <Sound file="%ModDir%/Sounds/RiftCascade/rift_explosion_windup_02.ogg" selectionmode="Random" range="1200" volume="0.5" />
+        <Sound file="%ModDir%/Sounds/RiftCascade/rift_explosion_windup_03.ogg" selectionmode="Random" range="1200" volume="0.5" />
+        <Sound file="%ModDir%/Sounds/RiftCascade/rift_explosion_windup_04.ogg" selectionmode="Random" range="1200" volume="0.5" />
+        <Sound file="%ModDir%/Sounds/RiftCascade/rift_explosion_windup_05.ogg" selectionmode="Random" range="1200" volume="0.5" />
+      </StatusEffect>
       <StatusEffect type="OnActive" target="This" stackable="false">
+        <Sound file="%ModDir%/Sounds/RiftCascade/rift_explosion_01.ogg" selectionmode="Random" range="1800" volume="1" frequencymultiplier="0.9,1.1" />
+        <Sound file="%ModDir%/Sounds/RiftCascade/rift_explosion_02.ogg" selectionmode="Random" range="1800" volume="1" frequencymultiplier="0.9,1.1" />
+        <Sound file="%ModDir%/Sounds/RiftCascade/rift_explosion_03.ogg" selectionmode="Random" range="1800" volume="1" frequencymultiplier="0.9,1.1" />
         <Explosion range="120" force="0" camerashake="0" structuredamage="0" itemdamage="0" levelwalldamage="0" flames="false" smoke="false" sparks="false" shockwave="false" underwaterbubble="false">
           <Affliction identifier="burn" strength="5" />
         </Explosion>

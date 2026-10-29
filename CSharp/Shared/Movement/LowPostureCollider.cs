@@ -33,7 +33,7 @@ namespace AIC.Components
             var c = a.Character;
             return !restoring && MovementState.ActiveOnLand(c)
                 && !HoverBike.Riding(c) && !HoverJetpack.Flying(c) && a.TryGetCollider(1, out var small) && small != null
-                && (Suppressed(c) || ActiveCrawl.IsCrawling(c) || FoehnSlide.Equipped(c)?.Sliding == true);
+                && (Suppressed(c) || ActiveCrawl.Level(c) == 2 || FoehnSlide.Equipped(c)?.Sliding == true);
         }
         public void Initialize()
         {
@@ -59,6 +59,9 @@ namespace AIC.Components
         }
         private static void SelectCollider(Ragdoll __instance, ref int value)
         {
+            if (!restoring && (value == 0 || value == 1) && __instance is HumanoidAnimController kneeling
+                && MovementState.ActiveOnLand(kneeling.Character) && ActiveCrawl.Level(kneeling.Character) == 1
+                && !NeedsSmall(kneeling)) { value = 1; return; }
             if (!restoring && (value == 0 || value == 1) && __instance is HumanoidAnimController a
                 && NeedsSmall(a) && saved.TryGetValue(a, out var low) && Registered(a, low)) value = low.Index;
         }
@@ -75,6 +78,8 @@ namespace AIC.Components
         }
         private static void FloorClearance(Ragdoll __instance, ref float __result)
         {
+            if (__instance is HumanoidAnimController kneeling && ActiveCrawl.Level(kneeling.Character) == 1
+                && MovementState.ActiveOnLand(kneeling.Character) && kneeling.ColliderIndex == 1) __result = 0.03f;
             if (__instance is HumanoidAnimController a && saved.TryGetValue(a, out var low)
                 && a.Collider == low.Body) __result = 0.03f;
         }
@@ -93,6 +98,16 @@ namespace AIC.Components
         {
             __state = default;
             if (__instance.Frozen) return;
+            var oldBody = __instance.Collider;
+            float oldX = oldBody.SimPosition.X;
+            bool grounded = __instance.OnGround;
+            float floorY = __instance.FloorY;
+            bool kneeling = ActiveCrawl.Level(__instance.Character) == 1 && MovementState.ActiveOnLand(__instance.Character);
+            if (kneeling)
+            {
+                __state = new PoseState { Changed = true, Crouching = __instance.Crouching };
+                __instance.Crouching = true;
+            }
             if (NeedsSmall(__instance))
             {
                 var low = GetLowCollider(__instance);
@@ -110,9 +125,18 @@ namespace AIC.Components
             {
                 Restore(__instance, previous);
             }
+            if (kneeling && !NeedsSmall(__instance)) __instance.ColliderIndex = 1;
+            if (kneeling && grounded && __instance.Collider != oldBody && __instance.ColliderIndex == 1)
+            {
+                // Changing capsule size must not leave the crouched body suspended
+                // at standing height or move it toward the old hand anchors.
+                var body = __instance.Collider;
+                body.SetTransformIgnoreContacts(new Vector2(oldX,
+                    floorY + body.Radius + body.Height * 0.5f + 0.03f), 0);
+            }
             if (saved.TryGetValue(__instance, out var active) && __instance.Collider == active.Body)
             {
-                __state = new PoseState { Changed = true, Crouching = __instance.Crouching };
+                if (!__state.Changed) __state = new PoseState { Changed = true, Crouching = __instance.Crouching };
                 __instance.Crouching = true;
             }
         }

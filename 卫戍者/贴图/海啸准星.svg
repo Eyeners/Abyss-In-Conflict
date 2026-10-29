@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <g id="reticle" fill="none" stroke-linejoin="miter" stroke-linecap="butt">
+      <polyline points="36,98 36,84 44,76 80,76 86,72 170,72 176,76 212,76 220,84 220,98" />
+      <polyline points="36,158 36,172 44,180 80,180 86,184 170,184 176,180 212,180 220,172 220,158" />
+      <polyline class="centre" points="118,128 138,128" />
+      <polyline class="centre" points="128,118 128,138" />
+    </g>
+  </defs>
+  <use href="#reticle" stroke="#e1e1e1" stroke-width="1.8" opacity="0.9" />
+</svg>

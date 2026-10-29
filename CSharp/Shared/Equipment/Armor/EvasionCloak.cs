@@ -8,6 +8,14 @@ using Microsoft.Xna.Framework;
 
 namespace AIC.Components
 {
+    // A reusable equipment modifier: 0.5 means half the incoming hit probability.
+    internal sealed class ProjectileEvasion : ItemComponent
+    {
+        [Serialize(1f, IsPropertySaveable.No)] public float HitMultiplier { get; set; }
+        [Serialize(false, IsPropertySaveable.No)] public bool TorsoOnly { get; set; }
+        public ProjectileEvasion(Item item, ContentXElement element) : base(item, element) { }
+    }
+
     public sealed class EvasionCloak : IAssemblyPlugin
     {
         private sealed class Decision { internal bool Ignore; }
@@ -47,6 +55,12 @@ namespace AIC.Components
             // Multiplayer damage decisions belong to the server; no client-side rerolls.
             if (__result || GameMain.NetworkMember?.IsClient == true || character == null || character.Removed) return;
             var shot = shots.GetValue(__instance, _ => new Shot());
+            if (ChrononPack.Equipped(character)?.Dashing == true)
+            {
+                shot.Targets.GetValue(character, _ => new Decision()).Ignore = true;
+                __result = true;
+                return;
+            }
             if (shot.Targets.TryGetValue(character, out var cached))
             {
                 __result = cached.Ignore;
@@ -54,13 +68,32 @@ namespace AIC.Components
             }
             var cloak = character.GetEquippedItem("aic_evasion_cloak", InvSlotType.Bag);
             var attacker = __instance.User ?? __instance.Attacker;
-            float chance = MathHelper.Clamp((attacker?.CharacterHealth.GetAfflictionStrengthByIdentifier(EvasionId) ?? 0) * 0.02f, 0, 0.6f);
+            float hitChance = 1 - MathHelper.Clamp((attacker?.CharacterHealth.GetAfflictionStrengthByIdentifier(EvasionId) ?? 0) * 0.02f, 0, 0.6f);
             if (cloak != null && !cloak.Removed && cloak.Condition > 0 && character.AnimController?.Collider != null)
-                chance = Math.Max(chance, Chance(character.AnimController.Collider.LinearVelocity.Length()));
-            chance = Math.Max(chance, FoehnCharge.Equipped(character)?.EvasionChance(character) ?? 0);
-            // Multiple sources share one roll; use the strongest rather than stacking rerolls.
+                hitChance *= 1 - Chance(character.AnimController.Collider.LinearVelocity.Length());
+            hitChance *= 1 - (FoehnCharge.Equipped(character)?.EvasionChance(character) ?? 0);
+            var chronon = ChrononPack.Equipped(character);
+            // HandleProjectileCollision sets lastTarget before this filter. Keep the
+            // passive dodge torso-only, then cache it for the entire projectile/target.
+            bool chrononEligible = __instance.lastTarget?.Body.UserData is Limb hit
+                && hit.character == character && hit.type == LimbType.Torso
+                && chronon?.CanEvadeTorso(character) == true;
+            if (chrononEligible) hitChance *= 0.5f;
+            if (character.Inventory != null)
+                foreach (var item in character.Inventory.AllItems)
+                {
+                    var modifier = item.GetComponent<ProjectileEvasion>();
+                    if (modifier == null || item.Removed || item.Condition <= 0 || !character.HasEquippedItem(item)) continue;
+                    if (modifier.TorsoOnly && !(__instance.lastTarget?.Body.UserData is Limb limb
+                        && limb.character == character && limb.type == LimbType.Torso)) continue;
+                    hitChance *= MathHelper.Clamp(modifier.HitMultiplier, 0, 1);
+                }
+            // One roll for all sources; cache the result for this projectile/character.
+            float chance = 1 - MathHelper.Clamp(hitChance, 0, 1);
             bool ignore = !character.IsDead && chance > 0 && Rand.Range(0f, 1f) < chance;
             shot.Targets.Add(character, new Decision { Ignore = ignore });
+            if (ignore && chronon != null && chronon.Item.Condition > 0 && !chronon.Dashing)
+                chronon.ShowEvasion(character);
             __result = ignore;
         }
     }

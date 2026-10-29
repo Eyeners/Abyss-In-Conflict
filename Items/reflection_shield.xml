@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="方阵反射盾" identifier="aic_reflection_shield" category="Weapon" scale="0.25" tags="weapon,mediumitem" impactsoundtag="impact_metal_light" health="950" damagedbyprojectiles="true" damagedbyexplosions="true" damagedbyrepairtools="true" damagedbymeleeweapons="true" explosiondamagemultiplier="0.2"
+        description="双手竖直持握的反射盾。安装电池后，正面镜面反射射弹，每次消耗20电。电量不足时按普通方阵盾承受物品伤害；背面、盾边、近战和爆炸仍由实体盾承受。">
+    <InventoryIcon texture="%ModDir%/Items/ReflectionShield/atlas.png" sourcerect="892,16,98,602" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/ReflectionShield/atlas.png" sourcerect="892,16,98,602" origin="0.5,0.5" depth="0.55" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite texture="%ModDir%/Items/ReflectionShield/atlas.png" canbehiddenbyotherwearables="false" rotation="180" sourcerect="892,16,98,602" inheritlimbdepth="false" depth="0.58" limb="Torso" scale="0.25" origin="-0.2,0.5" />
+    </Wearable>
+    <Body width="65" height="600" density="15" />
+    <Holdable slots="Any,LeftHand+RightHand" aimable="false" aimpos="65,-30" holdpos="65,-30" holdangle="0" aimangle="0" handle1="-40,0" handle2="-40,0" controlpose="true" blocksplayers="true" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.75" setvalue="true" />
+      <StatusEffect type="OnDamaged" target="This" forceplaysounds="true">
+        <ParticleEmitter particle="shrapnel" drawontop="true" particleamount="2" velocitymin="50" velocitymax="400" anglemin="0" anglemax="360" distancemin="0" distancemax="20" scalemin="0.5" scalemax="1" highqualitycollisiondetection="false" />
+        <ParticleEmitter particle="weldspark" drawontop="true" particleamount="5" velocitymin="100" velocitymax="500" anglemin="0" anglemax="360" distancemin="0" distancemax="20" scalemin="0.1" scalemax="0.35" />
+        <Sound file="%ModDir%/Items/ReflectionShield/impact1.ogg" range="800" selectionmode="Random" />
+        <Sound file="%ModDir%/Items/ReflectionShield/impact2.ogg" range="800" />
+        <Sound file="%ModDir%/Items/ReflectionShield/impact3.ogg" range="800" />
+        <Sound file="%ModDir%/Items/ReflectionShield/impact4.ogg" range="800" />
+        <Sound file="%ModDir%/Items/ReflectionShield/impact5.ogg" range="800" />
+        <Sound file="%ModDir%/Items/ReflectionShield/impact6.ogg" range="800" />
+        <Explosion range="100" force="1" showeffects="false" camerashake="1" />
+      </StatusEffect>
+      <StatusEffect type="OnBroken" target="This" disabledeltatime="true">
+        <ParticleEmitter particle="shrapnel" drawontop="true" particleamount="10" velocitymin="50" velocitymax="400" anglemin="0" anglemax="360" distancemin="0" distancemax="20" scalemin="1" scalemax="2" highqualitycollisiondetection="false" />
+        <Sound file="Content/Items/Door/DoorBreak1.ogg" range="800" selectionmode="Random" />
+        <Sound file="Content/Items/Door/DoorBreak2.ogg" range="800" />
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+    <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" allowuioverlap="true">
+      <Containable items="mobilebattery" />
+    </ItemContainer>
+    <ReflectionShield energyperShot="20" />
+    <Quality>
+      <QualityStat stattype="Condition" value="0.15" />
+    </Quality>
+  </Item>
+</Items>

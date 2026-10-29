@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="时元背包" identifier="aic_chronon_pack" category="Equipment" tags="mediumitem,backpack" scale="0.23" maxstacksize="1" fireproof="true" description="双击 A/D 向左右闪避6米，冷却1.5秒。Q展开半径3米的时间凝滞区域，边界截留来袭射弹，3秒后碎裂并恢复射弹。勾选时间凝滞后，按住Q在鼠标处预览，松开冻结半径3米内其他单位3秒，并截留射弹。">
+    <InventoryIcon texture="%ModDir%/Items/时元背包.png" sourcerect="0,0,265,354" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Items/时元背包.png" sourcerect="0,0,265,354" origin="0.5,0.5" depth="0.6" />
+    <Body width="240" height="330" density="15" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite texture="%ModDir%/Items/时元背包.png" sourcerect="0,0,265,354" limb="Torso" inheritlimbdepth="true" inherittexturescale="false" origin="0.73,0.55" scale="0.232" canbehiddenbyotherwearables="false" />
+    </Wearable>
+    <Holdable slots="RightHand+LeftHand,Any" holdpos="0,-70" handle1="-5,0" handle2="10,-20" msg="ItemMsgPickUpSelect" />
+    <ChrononPack />
+    <ChrononStasis radius="3" duration="3" />
+    <CustomInterface canbeselected="false" drawhudwhenequipped="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.18,0.07" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.22" style="ItemUI" />
+      <TickBox text="时间凝滞" targetitemcomponent="ChrononStasis" propertyname="FreezeMode" continuoussignal="false" getvalueinterval="0.1" />
+    </CustomInterface>
+  </Item>
+</Items>
+

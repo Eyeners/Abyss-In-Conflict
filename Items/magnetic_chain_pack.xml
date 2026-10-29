@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="磁链攀附背包（雏形）" identifier="aic_magnetic_chain_pack" category="Equipment" tags="mediumitem,tool" scale="0.5" maxstacksize="1" fireproof="true"
+        description="磁链背包。磁链攀附：WASD移动，Shift加速至5米/秒。攻击模式：Q向鼠标发射抓握臂，再按释放；右键瞄准并按左键交替穿刺，射程8米。电池充足时每次穿刺消耗5电，蓝刃附加烧伤。">
+    <InventoryIcon texture="%ModDir%/Items/MagneticChain/claw.png" sourcerect="0,0,64,44" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" origin="0.5,0.5" depth="0.6" />
+    <Body width="60" height="100" density="15" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite texture="Content/Items/Tools/tools.png" sourcerect="3,259,68,110" limb="Torso" depthlimb="Waist" inherittexturescale="true" origin="1.1,0.5" canbehiddenbyotherwearables="false" />
+    </Wearable>
+    <Holdable slots="RightHand+LeftHand,Any" holdpos="0,-70" handle1="-5,50" handle2="10,50" msg="ItemMsgPickUpSelect" />
+    <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" allowuioverlap="true">
+      <Containable items="mobilebattery" />
+    </ItemContainer>
+    <MagneticChainPack ison="false" attackmode="false" reach="400" movespeed="2" sprintspeed="5">
+      <Attack penetration="0.3">
+        <Affliction identifier="lacerations" strength="30" />
+        <Affliction identifier="explosiondamage" strength="3" />
+        <Affliction identifier="bleeding" strength="8" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character" />
+          <Sound file="Content/Sounds/Damage/LimbSlash1.ogg" selectionmode="Random" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash2.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash3.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash4.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash5.ogg" range="500" />
+          <Sound file="Content/Sounds/Damage/LimbSlash6.ogg" range="500" />
+        </StatusEffect>
+      </Attack>
+      <PoweredAttack penetration="0.3">
+        <Affliction identifier="lacerations" strength="30" />
+        <Affliction identifier="explosiondamage" strength="8" />
+        <Affliction identifier="bleeding" strength="3" />
+        <Affliction identifier="burn" strength="15" />
+        <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character" />
+          <Sound file="%ModDir%/践行者/音效/HeadImpact1.ogg" selectionmode="Random" range="1200" />
+          <Sound file="%ModDir%/践行者/音效/HeadImpact2.ogg" range="1200" />
+          <Sound file="%ModDir%/践行者/音效/HeadImpact3.ogg" range="1200" />
+          <Sound file="%ModDir%/践行者/音效/HeadImpact4.ogg" range="1200" />
+          <Sound file="%ModDir%/践行者/音效/HeadImpact5.ogg" range="1200" />
+          <Sound file="%ModDir%/践行者/音效/HeadImpact6.ogg" range="1200" />
+          <Sound file="%ModDir%/践行者/音效/HeadImpact7.ogg" range="1200" />
+        </StatusEffect>
+      </PoweredAttack>
+      <bladesprite texture="%ModDir%/Items/MagneticChain/blade.png" sourcerect="0,0,92,20" origin="0.5,0.5" />
+      <bluebladesprite texture="%ModDir%/Items/MagneticChain/blade_blue.png" sourcerect="0,0,97,20" origin="0.5,0.5" />
+      <linksprite texture="%ModDir%/Items/MagneticChain/link.png" sourcerect="0,0,47,34" origin="0.5,0.5" />
+      <clawsprite texture="%ModDir%/Items/MagneticChain/claw.png" sourcerect="0,0,64,44" origin="0.5,0.5" />
+    </MagneticChainPack>
+    <CustomInterface canbeselected="false" drawhudwhenequipped="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.18,0.10" anchor="CenterRight" pivot="CenterRight" relativeoffset="-0.02,0.22" style="ItemUI" />
+      <TickBox text="磁链攀附" targetitemcomponent="MagneticChainPack" propertyname="IsOn" continuoussignal="false" getvalueinterval="0.1" />
+      <TickBox text="磁链攻击" targetitemcomponent="MagneticChainPack" propertyname="AttackMode" continuoussignal="false" getvalueinterval="0.1" />
+    </CustomInterface>
+  </Item>
+</Items>

@@ -39,6 +39,8 @@ namespace AIC.Components
         {
             // 磁吸开关优先于隐藏 aff；aff 不会被删除，只是在磁吸期间不执行解除效果。
             var character = controller.Character;
+            if (HumanJumpClimb.Controlling(character)) return true;
+            if (ChrononPack.Equipped(character)?.Dashing == true) return true;
             if (FoehnJetJump.Equipped(character)?.Flying == true) return true;
             return character != null && !character.Removed
                 && !MagneticBoots.EnabledFor(character)

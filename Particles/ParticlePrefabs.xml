@@ -39,6 +39,9 @@
   <aic_atmos_jet_smoke lifetime="0.25" lifetimemin="0.15" startsizemin="0.14,0.14" startsizemax="0.24,0.24" sizechangemin="0.2,0.2" sizechangemax="0.4,0.4" drag="0.2" usecollision="false" startcolor="200,195,170,130" endcolor="160,160,155,0" drawtarget="Both" blendstate="AlphaBlend" priority="2">
     <sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="256,128,128,128" origin="0.5,0.5" />
   </aic_atmos_jet_smoke>
+  <aic_foehn_dash_steam lifetime="0.65" lifetimemin="0.4" startsizemin="0.23,0.23" startsizemax="0.4,0.4" sizechangemin="0.4,0.4" sizechangemax="0.7,0.7" startrotationmin="0" startrotationmax="360" drag="0.5" velocitychange="0,15" usecollision="false" startcolor="230,240,245,235" endcolor="220,235,245,0" drawtarget="Both" drawontop="true" blendstate="AlphaBlend" priority="3">
+    <sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="256,128,128,128" origin="0.5,0.5" />
+  </aic_foehn_dash_steam>
   <aic_foehn_jet_steam lifetime="0.6" lifetimemin="0.5" startsizemin="0.15,0.15" startsizemax="0.24,0.24" sizechangemin="0.3,0.3" sizechangemax="0.5,0.5" startrotationmin="0" startrotationmax="360" drag="0.2" waterdrag="0.2" velocitychange="0,10" velocitychangewater="0,10" usecollision="false" startcolor="220,235,245,210" endcolor="220,235,245,0" drawtarget="Both" drawontop="true" blendstate="AlphaBlend" priority="3">
     <sprite texture="Content/Particles/ParticleAtlas.png" sourcerect="256,128,128,128" origin="0.5,0.5" />
   </aic_foehn_jet_steam>

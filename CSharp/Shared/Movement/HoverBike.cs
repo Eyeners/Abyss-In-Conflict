@@ -175,6 +175,20 @@ namespace AIC.Components
             UpdateHeadlight();
 #endif
         }
+        internal static void DismountForGrab(Character character)
+        {
+            if (!Authority || Equipped(character) is not HoverBike bike) return;
+            var waist = bike.anim?.GetLimb(LimbType.Waist) ?? bike.anim?.MainLimb;
+            if (bike.rider == character && bike.collider != null && !bike.collider.Removed
+                && waist != null && !waist.Removed && waist.body != null)
+                bike.Eject(waist);
+            else
+            {
+                // The item may have just been equipped, before its riding collider was created.
+                bike.Item.Drop(character);
+                bike.Release();
+            }
+        }
         private void Eject(Limb waist)
         {
             var owner = rider;

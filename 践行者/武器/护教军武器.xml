@@ -9,7 +9,7 @@
     tags="mediumitem,weapon,gun,gunsmith,provocativetohumanai,mountableweapon,aic_faithguard_weapon,aic_rifle,aic_scope_zoom2x"
     scale="0.068"
     impactsoundtag="impact_metal_light"
-    description="发射铝热弹的侦察步枪，命中后以黏附的燃烧体摧毁敌人的护甲和身体。">
+    description="发射铝热弹的侦察步枪，命中后在敌人的护甲和身体上留下灼烧团块。">
     <InsertionReload duration="1" peritem="false">
       <Sound file="%ModDir%/Items/Weapons/gavel_shell_insert.ogg" type="OnUse" range="200" volume="0.7" />
     </InsertionReload>
@@ -227,7 +227,8 @@
     tags="smallitem,weapon,gun,pistolitem,gunsmith,provocativetohumanai,mountableweapon,aic_faithguard_weapon"
     scale="0.068"
     cargocontaineridentifier="metalcrate"
-    impactsoundtag="impact_metal_light">
+    impactsoundtag="impact_metal_light"
+    description="发射铝热弹的手枪，以镭射来防止误伤友军，命中后在敌人的护甲和身体上留下灼烧团块。">
     <InsertionReload duration="1" peritem="false">
       <Sound file="%ModDir%/Items/Weapons/gavel_shell_insert.ogg" type="OnUse" range="200" volume="0.7" />
     </InsertionReload>
@@ -731,7 +732,7 @@
   </Item>
   <Item name="炽砂高热霰弹枪" identifier="aic_chisha_shotgun" category="Weapon" subcategory="护教军武器"
         tags="largeitem,weapon,gun,mountableweapon" scale="0.0666667" maxstacksize="1" isshootable="true" requireaimtouse="true"
-        impactsoundtag="impact_metal_heavy" description="双膛近战霰弹枪。灼热的烟焰裹挟弹丸喷出，将狭窄舱道化作滚烫的砂炉。">
+        impactsoundtag="impact_metal_heavy" description="双膛近战霰弹枪。射击时灼热的火焰喷流会裹挟弹丸射出，造成额外灼伤。">
     <InsertionReload duration="0.9" ammotag="shotgunammo" soundatstart="true" endsound="true">
       <Sound file="%ModDir%/践行者/音效/炽砂/ReloadStart.ogg" type="OnUse" range="450" volume="0.7" />
       <Sound file="%ModDir%/践行者/音效/炽砂/ReloadEnd.ogg" type="OnSecondaryUse" range="450" volume="0.7" />

@@ -1,6 +1,7 @@
 if CLIENT and Game.IsMultiplayer then return end
 
 local EMP_IDENTIFIER = "emp"
+local SHOCK_IDENTIFIER = "electricshock"
 local INFECTION_IDENTIFIER = "aic_nanite_infection"
 local DIFFUSION_IDENTIFIER = "aic_nanite_diffusion"
 local MINOR_MIRACLE_IDENTIFIER = "aic_minor_miracle"
@@ -14,6 +15,9 @@ local nextIffUpdateTime = 0
 local nextDiscoveryTime = 0
 local candidates = setmetatable({}, { __mode = "k" })
 local converting = setmetatable({}, { __mode = "k" })
+local deathHandled = setmetatable({}, { __mode = "k" })
+local deathClouds = {}
+local nextCloudUpdate = 0
 
 local function ClearNaniteStages(character)
     if character == nil or character.Removed or character.CharacterHealth == nil then
@@ -47,6 +51,8 @@ local function ProcessNaniteDamageEvent(targetCharacter, afflictions)
             if identifier == EMP_IDENTIFIER then
                 ClearEmpSensitiveAfflictions(targetCharacter)
                 return
+            elseif identifier == SHOCK_IDENTIFIER and affliction.Strength > 0 then
+                ClearNaniteStages(targetCharacter)
             end
         end
     end
@@ -62,6 +68,10 @@ end
 
 local function ConvertNaniteInfection(character)
     if character == nil or character.Removed or character.CharacterHealth == nil then return end
+    if character.IsDead then
+        ClearNaniteStages(character)
+        return
+    end
     local health = character.CharacterHealth
     if character.IsHusk or health.GetAfflictionStrengthByIdentifier(HOSTILE_BIOLOGY_IDENTIFIER, false) > 0 then
         local miracle = health.GetAffliction(MINOR_MIRACLE_IDENTIFIER)
@@ -121,8 +131,86 @@ local function ConvertNaniteInfection(character)
     end
 end
 
+Hook.Add("character.death", "AIC_NaniteDeathCloud", function(character)
+    if character == nil or character.Removed or deathHandled[character] then return end
+    deathHandled[character] = true
+    local health = character.CharacterHealth
+    local release = false
+    if health ~= nil and character.AnimController ~= nil then
+        for limb in character.AnimController.Limbs do
+            local infection = health.GetAffliction(INFECTION_IDENTIFIER, limb)
+            if infection ~= nil and infection.Strength > 80 then
+                release = true
+                break
+            end
+        end
+    end
+    -- Capture the per-region threshold before clearing; never sum different limbs.
+    ClearNaniteStages(character)
+    candidates[character] = nil
+    if not release then return end
+    local prefab = ItemPrefab.Prefabs["aic_nanite_death_cloud"]
+    if prefab == nil then return end
+    local submarine = character.Submarine
+    local world = character.WorldPosition
+    local position = submarine ~= nil
+        and Vector2(world.X - submarine.Position.X, world.Y - submarine.Position.Y) or world
+    local function Spawned(item)
+        if item ~= nil and not item.Removed then
+            deathClouds[item] = { expires = Timer.GetTime() + 10 }
+        end
+    end
+    if submarine ~= nil then
+        Entity.Spawner.AddItemToSpawnQueue(prefab, position, submarine, nil, nil, Spawned)
+    else
+        Entity.Spawner.AddItemToSpawnQueue(prefab, position, nil, nil, Spawned)
+    end
+end)
+
+Hook.Add("think", "AIC_NaniteDeathCloudGuidance", function()
+    local now = Timer.GetTime()
+    if now < nextCloudUpdate then return end
+    nextCloudUpdate = now + 0.1
+    for cloud, state in pairs(deathClouds) do
+        if cloud.Removed then
+            deathClouds[cloud] = nil
+        elseif now >= state.expires then
+            Entity.Spawner.AddEntityToRemoveQueue(cloud)
+            deathClouds[cloud] = nil
+        elseif cloud.body ~= nil then
+            local origin = cloud.WorldPosition
+            local nearest, distanceSquared = nil, 1000 * 1000
+            for target in Character.CharacterList do
+                if not target.Removed and not target.IsDead and target.Enabled then
+                    local point = target.WorldPosition
+                    local dx, dy = point.X - origin.X, point.Y - origin.Y
+                    local distance = dx * dx + dy * dy
+                    if distance < distanceSquared then
+                        nearest, distanceSquared = target, distance
+                    end
+                end
+            end
+            if nearest ~= nil then
+                local point = nearest.WorldPosition
+                local distance = math.sqrt(distanceSquared)
+                -- Slow near the target, instead of repeatedly overshooting it.
+                local speed = math.min(2, distance / 100)
+                if distance > 1 then
+                    cloud.body.LinearVelocity = Vector2((point.X - origin.X) / distance * speed,
+                        (point.Y - origin.Y) / distance * speed)
+                else
+                    cloud.body.LinearVelocity = Vector2(0, 0)
+                end
+            else
+                cloud.body.LinearVelocity = Vector2(0, 0)
+            end
+        end
+    end
+end)
+
 local function RefreshCandidate(character)
     if character == nil then return end
+    if not character.IsDead then deathHandled[character] = nil end
     local health = not character.Removed and character.CharacterHealth or nil
     candidates[character] = health ~= nil and (
         health.GetAfflictionStrengthByIdentifier(INFECTION_IDENTIFIER, true) > 0
@@ -154,6 +242,12 @@ end
 -- Convert after insertion, before the next health update can consume a tiny spray dose.
 -- Conversion's own affliction writes are guarded against re-entry.
 Hook.Patch("aic_nanite_miracle_after_affliction", "Barotrauma.CharacterHealth", "ApplyAffliction", function(health, parameters)
+    local affliction = parameters["affliction"]
+    if affliction ~= nil and affliction.Prefab ~= nil
+        and tostring(affliction.Prefab.Identifier.Value):lower() == SHOCK_IDENTIFIER
+        and affliction.Strength > 0 then
+        ClearNaniteStages(health.Character)
+    end
     ObserveAffliction(health.Character, parameters["affliction"])
 end, Hook.HookMethodType.After)
 
@@ -196,4 +290,7 @@ Hook.Add("roundEnd", "AIC_NaniteIffReset", function()
     nextDiscoveryTime = 0
     candidates = setmetatable({}, { __mode = "k" })
     converting = setmetatable({}, { __mode = "k" })
+    deathHandled = setmetatable({}, { __mode = "k" })
+    deathClouds = {}
+    nextCloudUpdate = 0
 end)

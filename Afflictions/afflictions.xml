@@ -498,4 +498,16 @@
       </StatusEffect>
     </Effect>
   </Affliction>
+  <Affliction identifier="aic_active_kneel" name="主动跪行" type="buff" isbuff="true" limbspecific="false" maxstrength="1" activationthreshold="0.1" showiconthreshold="2" showicontoothersthreshold="2" showinhealthscannerthreshold="2" affectmachines="true">
+    <Effect minstrength="0" maxstrength="1">
+      <StatusEffect target="Character">
+        <Conditional IsHumanoid="true" />
+        <Conditional IsDead="false" />
+        <Conditional IsIncapacitated="false" />
+        <Conditional IsClimbing="false" />
+        <Conditional InWater="false" />
+        <TriggerAnimation Type="Crouch" path="%ModDir%/Characters/Human/Animations/AICKneelCrouch.xml" priority="9" ExpectedSpecies="Human" />
+      </StatusEffect>
+    </Effect>
+  </Affliction>
 </Afflictions>

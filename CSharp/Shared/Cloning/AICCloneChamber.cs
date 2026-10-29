@@ -149,6 +149,32 @@ namespace AIC.Components
             return true;
         }
 
+        private static void GiveCloneIdCard(Character clone, Character original)
+        {
+            if (!Authority || clone?.Inventory == null || Entity.Spawner == null) return;
+            var prefab = ItemPrefab.Prefabs.Find(p => p.Identifier == "idcard");
+            if (prefab == null) return;
+            var sourceItem = original?.Inventory?.GetItemInLimbSlot(InvSlotType.Card);
+            var sourceCard = sourceItem?.GetComponent<IdCard>();
+            // Copy access tags, not the original's name/job/appearance metadata.
+            var accessTags = sourceCard == null ? Array.Empty<string>() : sourceItem.Tags.Split(',')
+                .Select(t => t.Trim()).Where(t => t.Length > 0 && !t.Contains(':')).ToArray();
+            int submarineId = sourceCard?.SubmarineSpecificID ?? 0;
+            Entity.Spawner.AddItemToSpawnQueue(prefab, clone.Inventory, onSpawned: cardItem =>
+            {
+                if (clone.Removed)
+                {
+                    Entity.Spawner?.AddItemToRemoveQueue(cardItem);
+                    return;
+                }
+                var card = cardItem.GetComponent<IdCard>();
+                if (card == null) return;
+                card.Initialize(null, clone);
+                card.SubmarineSpecificID = submarineId;
+                foreach (string tag in accessTags) cardItem.AddTag(tag);
+            }, slot: InvSlotType.Card);
+        }
+
         private void Connect(Character user)
         {
             if (!Authority || !CanConnect(user)) return;
@@ -201,6 +227,7 @@ namespace AIC.Components
                     MarkOriginal(user);
                     Bodies[Original] = this;
                     Clones[Clone] = this;
+                    GiveCloneIdCard(spawned, user);
                     material.Condition = 0;
                     Entity.Spawner.AddItemToRemoveQueue(material);
                 }

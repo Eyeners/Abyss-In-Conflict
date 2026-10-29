@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Barotrauma;
 using Barotrauma.LuaCs;
@@ -31,6 +32,8 @@ namespace AIC.Components
                 prefix: new HarmonyMethod(typeof(AICCloneAI), nameof(KeepCloneOutOfCrew)));
             harmony.Patch(AccessTools.PropertySetter(typeof(Character), nameof(Character.Controlled)),
                 prefix: new HarmonyMethod(typeof(AICCloneAI), nameof(SelectProxy)));
+            harmony.Patch(AccessTools.Method(typeof(CrewManager), "TryAdjustIndex"),
+                transpiler: new HarmonyMethod(typeof(AICCloneAI), nameof(CycleFromOriginal)));
 #endif
 #if SERVER
             harmony.Patch(AccessTools.Method(typeof(GameServer), nameof(GameServer.SetClientCharacter)),
@@ -84,6 +87,26 @@ namespace AIC.Components
 #if CLIENT
         private static bool KeepCloneOutOfCrew(Character __0)
             => __0 == null || !AICCloneChamber.Clones.ContainsKey(__0);
+
+        // Resolve only the list lookup, without changing control or selection state.
+        private static Character ControlledCrewEntry()
+        {
+            var controlled = Character.Controlled;
+            return controlled != null && AICCloneChamber.Clones.TryGetValue(controlled, out var chamber)
+                && chamber.Connected && AICCloneChamber.Alive(chamber.Original)
+                ? chamber.Original : controlled;
+        }
+
+        private static IEnumerable<CodeInstruction> CycleFromOriginal(IEnumerable<CodeInstruction> instructions)
+        {
+            var getter = AccessTools.PropertyGetter(typeof(Character), nameof(Character.Controlled));
+            var replacement = AccessTools.Method(typeof(AICCloneAI), nameof(ControlledCrewEntry));
+            foreach (var instruction in instructions)
+            {
+                if (instruction.Calls(getter)) instruction.operand = replacement;
+                yield return instruction;
+            }
+        }
 
         private static void SelectProxy(ref Character value)
         {

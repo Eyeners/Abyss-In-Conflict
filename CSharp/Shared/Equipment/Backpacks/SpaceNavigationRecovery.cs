@@ -41,7 +41,7 @@ namespace AIC.Components
         internal bool TryMove(Character user, AIObjectiveGoTo goal, out Vector2 result)
         {
             result = Vector2.Zero;
-            if (!SpaceBackpackAI.Applies(user) || goal == null || goal.Abandon || goal.IsCompleted
+            if ((!SpaceBackpackAI.Applies(user) && !MagneticChainPack.FreeNavigation(user)) || goal == null || goal.Abandon || goal.IsCompleted
                 || goal.Target == null || goal.Target == user || goal.IsCloseEnough
                 || user.SelectedBy != null || goal.Target.Submarine != user.Submarine)
             { Reset(); return false; }

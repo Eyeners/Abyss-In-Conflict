@@ -50,6 +50,7 @@ namespace AIC.Components
         internal bool Flying => Hovering || phase == Phase.Boost || phase == Phase.Coast || phase == Phase.Brake;
         internal bool Landing => phase == Phase.Landing;
         internal bool ControlsAirPose(HumanoidAnimController anim) => !anim.Frozen
+            && FoehnCharge.Equipped(anim.Character)?.Dashing != true
             && (Hovering || Flying && pilot == anim.Character && Usable(anim.Character) && !anim.OnGround);
         internal static FoehnJetJump Equipped(Character c) => HoverJetpack.Flying(c)
             ? HoverJetpack.Equipped(c).Item.GetComponent<FoehnJetJump>()
@@ -243,6 +244,25 @@ namespace AIC.Components
         }
 #if CLIENT
         private bool previousUp;
+        internal void DrawDashExhaust(Character c, int direction)
+        {
+            var prefab = ParticleManager.FindPrefab("aic_foehn_dash_steam");
+            if (prefab == null) return;
+            foreach (var nozzle in nozzles)
+            {
+                var limb = c.AnimController.GetLimb(nozzle.limb);
+                if (limb == null || limb.Removed || limb.IsSevered) continue;
+                Vector2 offset = nozzle.offset * (c.AnimController.RagdollParams.LimbScale / 0.5f);
+                offset.X *= c.AnimController.Dir < 0 ? -1 : 1;
+                offset = Vector2.Transform(offset, Matrix.CreateRotationZ(limb.Rotation));
+                for (int i = 0; i < 4; i++)
+                {
+                    var velocity = new Vector2(-direction * Rand.Range(220f, 420f), Rand.Range(-80f, 80f));
+                    GameMain.ParticleManager?.CreateParticle(prefab, limb.WorldPosition + offset,
+                        velocity, hullGuess: c.CurrentHull, drawOrder: ParticleDrawOrder.Foreground);
+                }
+            }
+        }
         internal void DrawRunExhaust(Character c, float dt, int runDirection) => DrawExhaust(c, dt, runDirection);
         private void DrawExhaust(Character c, float dt, int runDirection = 0)
         {
