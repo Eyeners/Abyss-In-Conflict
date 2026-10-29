@@ -132,11 +132,24 @@ namespace AIC.Components
         private static IEnumerable<CodeInstruction> Inject(IEnumerable<CodeInstruction> instructions)
         {
             var code = new List<CodeInstruction>(instructions);
-            int last = code.FindLastIndex(i => i.operand is System.Reflection.MethodInfo m
-                && m.DeclaringType == typeof(GraphicsDevice) && m.Name == "SetRenderTarget");
-            if (last < 0) throw new InvalidOperationException("Sonic refraction: scene composition hook not found.");
-            code.InsertRange(last + 1, new[] {
-                new CodeInstruction(OpCodes.Ldarg_0), new CodeInstruction(OpCodes.Ldarg_1),
+            // 1.15's last SetRenderTarget belongs to the optional positional-distortion
+            // branch. Hook its merge point so normal frames also run our composition.
+            int merge = -1;
+            for (int i = 1; i + 1 < code.Count; i++)
+                if (code[i - 1].operand is System.Reflection.FieldInfo field
+                    && field.DeclaringType == typeof(GameScreen) && field.Name == "positionalDistortions"
+                    && code[i].operand is System.Reflection.MethodInfo method && method.Name == "Clear")
+                {
+                    if (merge >= 0) throw new InvalidOperationException("Sonic refraction: ambiguous scene composition hook.");
+                    merge = i + 1;
+                }
+            if (merge < 0) throw new InvalidOperationException("Sonic refraction: scene composition hook not found.");
+            var entry = new CodeInstruction(OpCodes.Ldarg_0);
+            // The no-distortion branch jumps directly here. Keep that jump on our entry.
+            entry.labels.AddRange(code[merge].labels);
+            code[merge].labels.Clear();
+            code.InsertRange(merge, new[] {
+                entry, new CodeInstruction(OpCodes.Ldarg_1),
                 new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(SonicRefraction), nameof(Draw))) });
             return code;
         }

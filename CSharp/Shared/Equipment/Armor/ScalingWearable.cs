@@ -120,11 +120,10 @@ namespace AIC.Components
             ScaleMultiplier = MathHelper.Clamp(ScaleMultiplier, MIN_SCALE, MAX_SCALE);
         }
 
-        public override void Equip(Character character)
+        internal void ApplyEquippedScale(Character character)
         {
             if (!ValidateCharacter(character) || !IsActuallyWorn(character)) return;
-            // 先挂上穿戴精灵。后面重建肢体会使旧肢体引用失效，需要再次绑定装备。
-            base.Equip(character);
+            // Wearable.Equip has already attached sprites. Rebuild will rebind them.
 
             if (hasModified) return;
             if (!ValidateCharacter(character)) return;
@@ -253,5 +252,26 @@ namespace AIC.Components
                 return null;
             }
         }
+    }
+
+    // Item.Equip now calls this nonvirtual overload directly for wearables.
+    // The old virtual Equip(Character) override is no longer a reliable entry point.
+    public sealed class ScalingWearableEquipPlugin : Barotrauma.LuaCs.IAssemblyPlugin
+    {
+        private HarmonyLib.Harmony harmony;
+        public void Initialize()
+        {
+            harmony = new HarmonyLib.Harmony("aic.scalingwearable.equip");
+            harmony.Patch(HarmonyLib.AccessTools.Method(typeof(Wearable), nameof(Wearable.Equip),
+                new[] { typeof(Character), typeof(bool) }),
+                postfix: new HarmonyLib.HarmonyMethod(typeof(ScalingWearableEquipPlugin), nameof(Equipped)));
+        }
+        private static void Equipped(Wearable __instance, Character __0)
+        {
+            if (__instance is ScalingWearable scaling) scaling.ApplyEquippedScale(__0);
+        }
+        public void PreInitPatching() { }
+        public void OnLoadCompleted() { }
+        public void Dispose() { harmony?.UnpatchSelf(); harmony = null; }
     }
 }
