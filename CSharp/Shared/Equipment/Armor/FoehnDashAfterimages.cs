@@ -139,7 +139,11 @@ namespace AIC.Components
                 Color tint = Color.Lerp(new Color(90, 145, 175), new Color(220, 240, 250), life);
                 if (frame.Owner.Prefab.Identifier == "aic_chronon_pack".ToIdentifier())
                     tint = Color.Lerp(new Color(230, 80, 5), new Color(255, 220, 110), life);
-                tint.A = (byte)(255 * 0.3f * life * life);
+                bool chrononDash = frame.Owner.Prefab.Identifier == "aic_chronon_pack".ToIdentifier()
+                    && frame.BurstOffset == Vector2.Zero;
+                if (chrononDash)
+                    life = MathHelper.Clamp(1 - (float)(Timing.TotalTime - frame.Born) / 0.18f, 0, 1);
+                tint.A = (byte)(255 * (chrononDash ? 0.16f : 0.3f) * life * life);
                 Vector2 offset = (frame.Sub?.DrawPosition ?? Vector2.Zero) - frame.SubPosition;
                 offset += frame.BurstOffset * MathHelper.SmoothStep(0.25f, 1, 1 - life);
                 foreach (var part in frame.Parts)

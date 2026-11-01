@@ -139,8 +139,10 @@ namespace AIC.Components
                 spawned.TeamID = original.TeamID;
                 spawned.CharacterHealth.SetVitality(baseVitality);
                 spawned.LoadTalents();
-                spawned.SpawnInventoryItems(spawned.Inventory, new ContentXElement(null, data.Element("inventory")));
                 spawned.CharacterHealth.Load(data.Element("health"));
+                // Restore amputations before equipping prosthetics. Intact limbs reject
+                // prosthetic slots and SpawnInventoryItems puts rejected items in a bag.
+                spawned.SpawnInventoryItems(spawned.Inventory, new ContentXElement(null, data.Element("inventory")));
                 spawned.IsForceRagdolled = true;
                 spawned.IsRagdolled = true;
                 spawned.HealthUpdateInterval = 0;

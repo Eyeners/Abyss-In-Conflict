@@ -159,6 +159,7 @@ namespace AIC.Components
         private readonly List<(Vector2 P, double T, Submarine Sub)> trail = new();
         private bool visualActive;
         private double nextSample;
+        private double nextAfterimage;
         private double flashUntil;
         private void Sample(Character c)
         {
@@ -178,7 +179,11 @@ namespace AIC.Components
             if (trail.Count > 0 && trail[trail.Count - 1].Sub == c.Submarine)
                 SonicRefraction.Add(trail[trail.Count - 1].P + (c.Submarine?.Position ?? Vector2.Zero), p);
             trail.Add((p - (c.Submarine?.Position ?? Vector2.Zero), Timing.TotalTime, c.Submarine));
-            FoehnDashAfterimages.Capture(Item, c);
+            if (Timing.TotalTime >= nextAfterimage)
+            {
+                nextAfterimage = Timing.TotalTime + 0.065;
+                FoehnDashAfterimages.Capture(Item, c);
+            }
         }
         internal void Draw(SpriteBatch batch)
         {

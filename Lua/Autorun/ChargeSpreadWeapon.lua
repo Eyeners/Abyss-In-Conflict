@@ -18,7 +18,7 @@ local rangedWeaponDescriptor = Descriptors["Barotrauma.Items.Components.RangedWe
 local projectileDescriptor = Descriptors["Barotrauma.Items.Components.Projectile"]
 
 pcall(function()
-    LuaUserData.MakeFieldAccessible(rangedWeaponDescriptor, "currentChargeTime")
+    LuaUserData.MakePropertyAccessible(rangedWeaponDescriptor, "CurrentChargeTime")
     LuaUserData.MakeFieldAccessible(rangedWeaponDescriptor, "tryingToCharge")
     LuaUserData.MakePropertyAccessible(rangedWeaponDescriptor, "WeaponDamageModifier")
     LuaUserData.MakePropertyAccessible(rangedWeaponDescriptor, "Penetration")
@@ -67,7 +67,7 @@ end
 local function SetCurrentChargeTime(weapon, value)
     value = Single(value)
     if setterModes.currentChargeTime ~= "field" then
-        local ok = pcall(function() weapon.currentChargeTime = value end)
+        local ok = pcall(function() weapon.CurrentChargeTime = value end)
         if ok then
             setterModes.currentChargeTime = "direct"
             return true
@@ -75,7 +75,7 @@ local function SetCurrentChargeTime(weapon, value)
         setterModes.currentChargeTime = "field"
     end
 
-    local field = ResolveField(weapon, "currentChargeTime", "currentChargeTime")
+    local field = ResolveField(weapon, "currentChargeTime", "<CurrentChargeTime>k__BackingField")
     local ok = field ~= nil and pcall(function() field.SetValue(weapon, value) end)
     if not ok then ReportOnce("currentChargeTime", "cannot write currentChargeTime") end
     return ok == true
@@ -83,12 +83,12 @@ end
 
 local function GetCurrentChargeTime(weapon)
     if chargeReadMode ~= "field" then
-        local ok, value = pcall(function() return weapon.currentChargeTime end)
+        local ok, value = pcall(function() return weapon.CurrentChargeTime end)
         if ok then return tonumber(value) or 0 end
         chargeReadMode = "field"
     end
 
-    local field = ResolveField(weapon, "currentChargeTime", "currentChargeTime")
+    local field = ResolveField(weapon, "currentChargeTime", "<CurrentChargeTime>k__BackingField")
     if field == nil then return 0 end
     local ok, value = pcall(function() return field.GetValue(weapon) end)
     return ok and (tonumber(value) or 0) or 0

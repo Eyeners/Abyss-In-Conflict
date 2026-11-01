@@ -16,9 +16,8 @@ end)
 if not bindingOK then print("[AIC] Smart sniper binding: " .. tostring(bindingError)) end
 local vitalityBindingOK, vitalityBindingError = pcall(function()
     LuaUserData.MakeFieldAccessible(Descriptors["Barotrauma.CharacterHealth"], "limbHealths")
-    local descriptor = LuaUserData.RegisterType("Barotrauma.CharacterHealth+LimbHealth")
-    LuaUserData.MakeFieldAccessible(descriptor, "VitalityMultipliers")
-    LuaUserData.MakeFieldAccessible(descriptor, "VitalityTypeMultipliers")
+    LuaUserData.RegisterType("Barotrauma.CharacterHealth+LimbHealth")
+    -- These public readonly dictionaries are exposed by RegisterType.
 end)
 local vitalityWarning = false
 if not vitalityBindingOK then
